@@ -1,530 +1,400 @@
+
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
-<title>Silver Love — Joias de prata</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=DM+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"><style id="estilo">:root{--bg:#f4f5f8;--card:#fff;--ink:#2b2d33;--mute:#666b76;--line:#dfe1e7;--accent:#c9006a;--on-accent:#fff;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16171b;--card:#1f2127;--ink:#eceef2;--mute:#a0a5b0;--line:#33363e;--accent:#ff4d9a;--on-accent:#16171b}}
-:root[data-theme="dark"]{--bg:#16171b;--card:#1f2127;--ink:#eceef2;--mute:#a0a5b0;--line:#33363e;--accent:#ff4d9a;--on-accent:#16171b}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "DM Sans",system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:#fff;z-index:10}
-.app{max-width:520px;margin:0 auto;min-height:100vh;background:var(--bg)}
-.hero{background:#fff;text-align:center;padding:18px 20px 16px;border-bottom:1px solid var(--line)}
-.hero img{width:min(290px,78%);height:auto;display:block;margin:0 auto}
-.hero p{margin:6px 0 0;font:italic 500 19px/1.2 "Cormorant Garamond",Georgia,serif;color:#666b76}
-main{padding:16px 16px 104px}
-h1{font:600 24px/1.1 "Cormorant Garamond",Georgia,serif;margin:4px 0 14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:16px}
-.photo{aspect-ratio:4/5;background:var(--line);position:relative}
-.photo img{width:100%;height:100%;object-fit:cover;display:block}
-.tag{position:absolute;left:12px;top:12px;background:var(--card);color:var(--ink);padding:5px 12px;font-size:13px;font-weight:600;border-radius:99px}
-.info{padding:18px 18px 20px}
-h2{font:600 28px/1.1 "Cormorant Garamond",Georgia,serif;margin:0 0 2px}
-.code{color:var(--mute);font-size:14px;margin:0 0 12px}
-.desc{margin:0 0 16px;max-width:60ch}
-.price{font:600 32px/1 "Cormorant Garamond",Georgia,serif;margin:0 0 16px}
-button,.btn{font:600 16px/1 "DM Sans",system-ui,sans-serif;background:var(--accent);color:var(--on-accent);border:0;border-radius:12px;padding:17px 20px;width:100%;min-height:52px;cursor:pointer;display:block;text-align:center;text-decoration:none}
-button:active,.btn:active{transform:scale(.98)}
-button:disabled{background:var(--line);color:var(--mute);cursor:not-allowed;transform:none}
-button.ghost{background:transparent;color:var(--mute);margin-top:4px;font-weight:500}
-:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.vazio{color:var(--mute);text-align:center;padding:32px 12px}
-.item{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;margin-bottom:12px}
-.item img{width:64px;height:80px;object-fit:cover;border-radius:8px;flex:none}
-.item b{display:block;font:600 20px/1.1 "Cormorant Garamond",Georgia,serif}
-.item span{display:block;color:var(--mute);font-size:14px}
-nav{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px)}
-nav .in{display:flex;width:100%;max-width:520px}
-nav button{flex:1;background:transparent;color:var(--mute);border-radius:0;min-height:64px;padding:10px 6px;font-size:13px;font-weight:500;display:flex;flex-direction:column;align-items:center;gap:4px}
-nav button[aria-current="page"]{color:var(--accent);font-weight:600}
-nav svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-dialog{width:100%;max-width:520px;margin:auto auto 0;border:0;border-radius:20px 20px 0 0;background:var(--card);color:var(--ink);padding:22px 20px calc(22px + env(safe-area-inset-bottom,0px));max-height:92%;overflow:auto}
-dialog[open]{animation:sobe .25s ease-out}
-@keyframes sobe{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
-dialog::backdrop{background:rgba(0,0,0,.45)}
-dialog h3{font:600 26px/1.1 "Cormorant Garamond",Georgia,serif;margin:0 0 4px}
-dialog p{margin:0 0 16px;color:var(--mute);font-size:14px}
-label{display:block;font-weight:500;font-size:14px;margin:0 0 14px}
-input,select,textarea{display:block;width:100%;margin-top:6px;font:400 16px "DM Sans",system-ui,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:13px}
-textarea{min-height:72px;resize:vertical}
-.resumo{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:0 0 16px;font-size:14px;white-space:pre-line}
-[hidden],.hide{display:none!important}
-@media (prefers-reduced-motion:reduce){dialog[open]{animation:none}button:active{transform:none}}
-.bar{display:flex;gap:8px;margin:0 0 14px}
-button.sm{padding:10px 12px;min-height:40px;font-size:14px;width:auto;border-radius:10px}
-button.sec{background:var(--bg);color:var(--ink);border:1px solid var(--line)}
-button.perigo{color:var(--accent)}
-.acoes{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
-.prev{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:10px;background:var(--line);margin:8px 0 14px;display:block}
-input[type=file]{padding:10px}
-
-body::before{background:var(--card)}
-.topo-aviso{background:var(--ink);color:var(--bg);text-align:center;font-size:13px;padding:8px 12px}
-.hero{padding:16px 20px 14px;border-bottom:0}
-.hero img{width:min(220px,64%)}
-.hero p{font-size:17px}
-main{padding:16px 16px 24px}
-.filtros{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--card);display:flex;gap:8px;overflow-x:auto;padding:10px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);scrollbar-width:none}
-.filtros::-webkit-scrollbar{display:none}
-.chip{width:auto;flex:none;min-height:40px;padding:10px 18px;border-radius:99px;background:transparent;color:var(--ink);border:1px solid var(--line);font-size:14px;font-weight:500}
-.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.grade{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 12px}
-button.cartao{display:block;width:100%;min-height:0;padding:0;background:transparent;color:var(--ink);border-radius:0;text-align:left;font-weight:400}
-.cartao .foto{display:block;aspect-ratio:4/5;background:var(--line);position:relative;overflow:hidden;border-radius:2px}
-.cartao .foto img{width:100%;height:100%;object-fit:cover;display:block}
-.cartao.res .foto img{opacity:.55}
-.cartao .nome{display:block;margin-top:10px;font:600 20px/1.15 "Cormorant Garamond",Georgia,serif}
-.cartao .preco{display:block;margin-top:2px;font-weight:600;font-size:15px}
-.det-foto{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px;background:var(--line);display:block;margin:0 0 16px}
-.det-cod{margin:0 0 6px}
-dialog p.det-preco{font:600 30px/1 "Cormorant Garamond",Georgia,serif;color:var(--ink);margin:0 0 14px}
-dialog p.det-desc{color:var(--ink);font-size:16px;margin:0 0 16px}
-ul.garantias{list-style:none;margin:0 0 18px;padding:0;font-size:14px;color:var(--mute)}
-.garantias li{padding:9px 0;border-top:1px solid var(--line)}
-.fab{position:fixed;right:16px;bottom:calc(80px + env(safe-area-inset-bottom,0px));z-index:6;width:54px;height:54px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.25)}
-.fab svg{width:28px;height:28px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.rodape{text-align:center;color:var(--mute);font-size:14px;padding:12px 16px 120px;border-top:1px solid var(--line);margin:8px 16px 0}
-.rodape p{margin:4px 0}
-.rodape a{color:var(--accent);font-weight:600}
-
-.capa{display:none;max-width:520px;margin:0 auto;min-height:100vh;background:#fff;color:#2b2d33;padding:26px 22px calc(26px + env(safe-area-inset-bottom,0px));text-align:center}
-.na-capa .capa{display:block}
-.na-capa .app,.na-capa nav,.na-capa .fab{display:none}
-.capa-topo{margin:6px 0 16px;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:#666b76}
-.capa-logo{width:min(300px,82%);height:auto;display:block;margin:0 auto}
-.capa-sub{margin:2px 0 14px;font-size:12px;letter-spacing:.35em;text-transform:uppercase;color:#666b76}
-.capa-faixa{display:flex;justify-content:space-between;gap:8px;border-top:1px solid #dfe1e7;border-bottom:1px solid #dfe1e7;padding:10px 0;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#c9006a}
-.capa-foto{margin:16px 0;background:#f4f5f8;aspect-ratio:1/1;overflow:hidden}
-.capa-foto img{width:100%;height:100%;object-fit:cover;display:block}
-.capa-rodape{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;text-align:left}
-.capa-frase{margin:0;font:500 21px/1.2 "Cormorant Garamond",Georgia,serif;color:#666b76}
-.capa-frase em{color:#c9006a}
-button.capa-abrir{width:auto;flex:none;background:transparent;color:#c9006a;padding:0;min-height:0;text-align:right;border-radius:0;font-weight:400}
-.capa-abrir .joias{display:block;font:500 44px/1 "Cormorant Garamond",Georgia,serif}
-.capa-abrir .peq{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#666b76;margin-top:6px}
-button.logo-home{display:block;width:auto;min-height:0;padding:0;margin:0 auto;background:transparent;border-radius:0}
-</style></head><body>
-<template id="casca"><section class="capa" id="capa">
-  <p class="capa-topo">Um catálogo para se apaixonar</p>
-  <img class="capa-logo" src="logo.jpg" alt="Silver Love — Joias de prata">
-  <p class="capa-sub">Joias de prata</p>
-  <div class="capa-faixa"><span>Delicadeza</span><span>Amor em cada detalhe</span></div>
-  <div class="capa-foto"><img src="capa.jpg" alt="Colar de prata com pingente de coração sobre tecido rosa"></div>
-  <div class="capa-rodape">
-    <p class="capa-frase">Pequenos detalhes.<br><em>Grandes sentimentos.</em></p>
-    <button id="abrir" class="capa-abrir"><span class="joias">Catálogo</span><span class="peq">Ver o mostruário</span></button>
-  </div>
-</section>
-<div class="app">
-  <div class="topo-aviso">Reserve pelo WhatsApp · Pix, crédito ou débito</div>
-  <header class="hero">
-    <button class="logo-home" id="logo-home" aria-label="Voltar à capa"><img src="logo.jpg" alt="Silver Love — Joias de prata"></button>
-    <p>Pequenos detalhes. Grandes sentimentos.</p>
-  </header>
-  <div class="filtros hide" id="filtros" aria-label="Categorias"></div>
-  <main>
-    <section id="aba-catalogo"><div class="grade" id="lista"></div></section>
-    <section id="aba-reservas" hidden=""><h1>Minhas reservas</h1><div id="reservadas"></div></section>
-    <section id="aba-gestao" hidden="">
-      <h1>Minha gestão</h1>
-      <div class="bar"><button id="nova">Adicionar peça</button></div>
-      <div id="gestao-lista"></div>
-      <p id="aviso" class="vazio" role="status"></p>
-    </section>
-  </main>
-  <footer class="rodape">
-    <p>Silver Love · Joias de prata</p>
-    <p><a id="zap-rodape" target="_blank" rel="noopener">Falar no WhatsApp</a></p>
-  </footer>
-</div>
-<a id="zap-fab" class="fab" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.7 7L4 20l1.1-4.9A8 8 0 1 1 21 12z"></path></svg></a>
-<nav aria-label="Navegação principal"><div class="in">
-  <button data-aba="catalogo" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"></path><path d="M2 9h20M9 3l3 6 3-6M12 21 9 9m3 12 3-12"></path></svg>Catálogo</button>
-  <button data-aba="reservas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"></path></svg>Reservas</button>
-  <button data-aba="gestao" hidden=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"></path><path d="M13 7l4 4"></path></svg>Gestão</button>
-</div></nav>
-<dialog id="reserva" aria-labelledby="titulo-reserva">
-  <div id="passo-form">
-    <h3 id="titulo-reserva">Reservar peça</h3>
-    <p id="resumo-peca"></p>
-    <form id="form">
-      <label>Nome completo<input name="nome" autocomplete="name" required=""></label>
-      <label>Telefone com DDD<input name="telefone" type="tel" autocomplete="tel" inputmode="tel" required=""></label>
-      <label>Endereço de entrega<textarea name="endereco" autocomplete="street-address" required=""></textarea></label>
-      <label>Forma de pagamento
-        <select name="pagamento" required="">
-          <option value="">Escolha uma opção</option>
-          <option>Pix</option>
-          <option>Cartão de crédito</option>
-          <option>Cartão de débito</option>
-        </select>
-      </label>
-      <button type="submit">Reservar esta peça</button>
-      <button type="button" class="ghost" data-fechar="">Cancelar</button>
-    </form>
-  </div>
-  <div id="passo-ok" class="hide">
-    <h3>Peça reservada</h3>
-    <p>Falta um passo: envie a mensagem abaixo pelo WhatsApp para confirmar a reserva.</p>
-    <div class="resumo" id="mensagem"></div>
-    <a class="btn" id="link-zap" target="_blank" rel="noopener">Enviar pelo WhatsApp</a>
-    <button type="button" class="ghost" data-fechar="">Fechar</button>
-  </div>
-</dialog>
-<dialog id="peca" aria-labelledby="titulo-peca">
-  <h3 id="titulo-peca">Adicionar peça</h3>
-  <form id="form-peca">
-    <label>Foto da peça<input id="f-foto" type="file" accept="image/*"></label>
-    <img id="prev" class="prev" alt="Prévia da foto" hidden="">
-    <label>Código<input id="f-id" required=""></label>
-    <label>Categoria<select id="f-cat"><option>Brincos</option><option>Colares</option><option>Anéis</option><option>Pulseiras</option><option>Outros</option></select></label>
-    <label>Nome<input id="f-nome" required=""></label>
-    <label>Preço em reais<input id="f-preco" inputmode="decimal" required=""></label>
-    <label>Descrição<textarea id="f-desc"></textarea></label>
-    <p id="aviso-peca" role="alert"></p>
-    <button type="submit">Salvar peça</button>
-    <button type="button" class="ghost" data-fechar="">Cancelar</button>
-  </form>
-</dialog>
-<dialog id="detalhe" aria-labelledby="det-nome">
-  <img id="det-foto" class="det-foto" alt="">
-  <h3 id="det-nome"></h3>
-  <p class="det-cod" id="det-cod"></p>
-  <p class="det-preco" id="det-preco"></p>
-  <p class="det-desc" id="det-desc"></p>
-  <ul class="garantias"><li>Reserva confirmada pelo WhatsApp</li><li>Pagamento por Pix, crédito ou débito</li></ul>
-  <button id="det-reservar">Reservar</button>
-  <button type="button" class="ghost" data-fechar="">Voltar ao catálogo</button>
-</dialog>
-</template>
-<script id="dados" type="application/json">{
-  "produtos": [
-    {
-      "id": "108413",
-      "cat": "Brincos",
-      "nome": "Trio de brincos trevo",
-      "preco": 112,
-      "desc": "Conjunto com três pares de brincos pequenos em formato de trevo, em tons prateado e dourado.",
-      "img": "fotos/108413.jpg",
-      "reservada": false,
-      "rev": 1
-    },
-    {
-      "id": "SL2026-004",
-      "cat": "Brincos",
-      "nome": "Brinco gota com zircônias",
-      "preco": 105,
-      "desc": "Par de brincos de prata em formato de gota, cravejados com zircônias.",
-      "img": "fotos/SL2026-004.jpg",
-      "reservada": false,
-      "rev": 1
-    },
-    {
-      "id": "SL2026-003",
-      "cat": "Brincos",
-      "nome": "Brinco curvo com zircônias",
-      "preco": 137,
-      "desc": "Brinco de prata em formato curvo, com zircônias em engaste individual.",
-      "img": "fotos/SL2026-003.jpg",
-      "reservada": false,
-      "rev": 1
-    },
-    {
-      "id": "SL2026-002",
-      "cat": "Brincos",
-      "nome": "Brinco círculo com zircônias",
-      "preco": 107,
-      "desc": "Par de brincos de prata em formato de círculo vazado, cravejado com zircônias.",
-      "img": "fotos/SL2026-002.jpg",
-      "reservada": false,
-      "rev": 1
-    },
-    {
-      "id": "SL2026-001",
-      "cat": "Brincos",
-      "nome": "Brinco pedra vermelha",
-      "preco": 70,
-      "desc": "Par de brincos de prata 925 com pedra vermelha redonda e engaste liso.",
-      "img": "fotos/SL2026-001.jpg",
-      "reservada": false,
-      "rev": 1
-    },
-    {
-      "id": "143588",
-      "nome": "Argola trançada",
-      "preco": 57,
-      "desc": "Par de argolas de prata com acabamento trançado e fecho de encaixe.",
-      "img": "fotos/143588.jpg",
-      "reservada": false,
-      "cat": "Brincos",
-      "rev": 1
-    },
-    {
-      "id": "143332",
-      "cat": "Brincos",
-      "nome": "Brinco quadrado de prata",
-      "preco": 55,
-      "desc": "Par de brincos de prata em formato quadrado vazado, fio 1,30.",
-      "img": "fotos/143332.jpg",
-      "reservada": false,
-      "rev": 1
-    },
-    {
-      "id": "154458",
-      "cat": "Anéis",
-      "nome": "Anel liso de prata",
-      "preco": 90.2,
-      "desc": "Anel de prata liso, tamanho 12.",
-      "img": "fotos/154458.jpg",
-      "reservada": false,
-      "rev": 1
-    },
-    {
-      "id": "68071",
-      "cat": "Pulseiras",
-      "nome": "Pulseira veneziana com bolinhas",
-      "preco": 84,
-      "desc": "Pulseira de prata veneziana com bolinhas, 18 cm.",
-      "img": "fotos/68071.jpg",
-      "reservada": false,
-      "rev": 1
-    },
-    {
-      "id": "94781",
-      "cat": "Colares",
-      "nome": "Corrente quadrada de prata",
-      "preco": 199,
-      "desc": "Corrente de prata quadrada, 0,9 mm, 45 cm.",
-      "img": "fotos/94781.jpg",
-      "reservada": false,
-      "rev": 1
-    },
-    {
-      "id": "SL2026-005",
-      "cat": "Colares",
-      "nome": "Colar pingente redondo",
-      "preco": 182.5,
-      "desc": "Colar de prata com pingente redondo cravejado com pedras claras.",
-      "img": "fotos/SL2026-005.jpg",
-      "reservada": false,
-      "rev": 1
-    }
-  ]
-}</script>
-<script src="config.js"></script>
-<script id="codigo">const WHATSAPP = "5541984300046";
-const $ = id => document.getElementById(id);
-document.body.appendChild($("casca").content.cloneNode(true));
-let estado = JSON.parse($("dados").textContent);
-let atual = null, ehDono = false, artifact = null, editando = null, foto = null;
-
-const CHAVE = "silverlove-reservas";
-function lerReservas(){ try{ const r = JSON.parse(localStorage.getItem(CHAVE)||"{}"); return Array.isArray(r) ? Object.fromEntries(r.map(i => [i, 0])) : r; }catch(e){ return {}; } }
-function salvarReserva(p){ try{ const r=lerReservas(); r[p.id] = p.rev || 0; localStorage.setItem(CHAVE,JSON.stringify(r)); }catch(e){} }
-const dinheiro = v => Number(v).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
-const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const dizer = (t, id) => { $(id || "aviso").textContent = t; };
-
-const CATS = ["Brincos","Colares","Anéis","Pulseiras","Outros"];
-let filtro = "Todas";
-function desenhar(){
-  const loc = lerReservas();
-  const prods = estado.produtos.filter(p => p.preco != null);
-  const cats = CATS.filter(c => prods.some(p => (p.cat || "Outros") === c));
-  if (filtro !== "Todas" && !cats.includes(filtro)) filtro = "Todas";
-  $("filtros").innerHTML = ["Todas", ...cats].map(c => `<button class="chip" data-f="${esc(c)}" aria-pressed="${c === filtro}">${esc(c)}</button>`).join("");
-  $("filtros").classList.toggle("hide", cats.length < 2);
-  const vis = prods.filter(p => filtro === "Todas" || (p.cat || "Outros") === filtro);
-  $("lista").innerHTML = vis.length ? vis.map(p => {
-    const r = p.reservada || loc[p.id] === (p.rev || 0);
-    return `<button class="cartao${r ? " res" : ""}" data-ver="${esc(p.id)}"><span class="foto"><img src="${p.img}" alt="${esc(p.nome)}">${r ? '<span class="tag">Reservada</span>' : ''}</span><span class="nome">${esc(p.nome)}</span><span class="preco">${dinheiro(p.preco)}</span></button>`;
-  }).join("") : '<p class="vazio" style="grid-column:1/-1">Nenhuma peça por enquanto.</p>';
-  const minhas = prods.filter(p => loc[p.id] === (p.rev || 0));
-  $("reservadas").innerHTML = minhas.length
-    ? minhas.map(p => `<div class="item"><img src="${p.img}" alt=""><div><b>${esc(p.nome)}</b><span>Cód. ${esc(p.id)} · ${dinheiro(p.preco)}</span><span>Reservada neste aparelho</span></div></div>`).join("")
-    : '<p class="vazio">Você ainda não reservou nenhuma peça. Escolha uma no catálogo.</p>';
-  if (ehDono) desenharGestao();
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Silver Love | Joias de Prata</title>
+<style>
+:root {
+  --rosa:#c32670;
+  --claro:#fff5f9;
+  --texto:#392b35;
 }
+* {box-sizing:border-box}
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  color:var(--texto);
+  background:var(--claro);
+}
+button,input,select {font:inherit}
+button {cursor:pointer}
+.capa {
+  min-height:100vh;
+  max-width:550px;
+  margin:auto;
+  padding:18px;
+  background:white;
+  text-align:center;
+}
+.capa img {
+  width:100%;
+  max-height:72vh;
+  object-fit:contain;
+}
+.capa h1 {
+  color:var(--rosa);
+  font-family:Georgia,serif;
+}
+.btn {
+  display:block;
+  width:100%;
+  padding:16px;
+  border:0;
+  border-radius:12px;
+  background:var(--rosa);
+  color:white;
+  font-weight:bold;
+  text-align:center;
+  text-decoration:none;
+}
+header {
+  background:white;
+  text-align:center;
+  padding:16px;
+  border-bottom:1px solid #f2d6e2;
+}
+header img {
+  max-width:180px;
+  max-height:110px;
+  object-fit:contain;
+}
+header h1 {
+  font:normal 30px Georgia,serif;
+  color:var(--rosa);
+  margin:8px;
+}
+header p {margin:5px;color:#765c69}
+main {
+  max-width:1000px;
+  margin:auto;
+  padding:20px 14px;
+}
+.filtros {
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:10px 0 20px;
+}
+.filtros button {
+  flex-shrink:0;
+  padding:10px 15px;
+  border:1px solid #eac9d8;
+  border-radius:25px;
+  background:white;
+  color:var(--texto);
+}
+.filtros button.ativo {
+  background:var(--rosa);
+  color:white;
+}
+.grade {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.produto {
+  background:white;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 3px 12px #0000000d;
+}
+.produto img {
+  width:100%;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  background:#f3e8ed;
+}
+.info {padding:12px}
+.info h3 {
+  font:normal 21px Georgia,serif;
+  margin:0 0 8px;
+}
+.codigo {font-size:12px;color:#777}
+.preco {
+  color:var(--rosa);
+  font-size:21px;
+  font-weight:bold;
+  margin:12px 0;
+}
+.info .btn {
+  font-size:13px;
+  padding:13px 5px;
+}
+footer {
+  padding:30px 16px;
+  text-align:center;
+  color:#795d6b;
+}
+.voltar {
+  border:0;
+  background:transparent;
+  color:var(--rosa);
+  margin:10px;
+  padding:10px;
+}
+[hidden] {display:none!important}
+@media(min-width:650px){
+  .grade {grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
 
-function aba(nome){
-  $("filtros").hidden = nome !== "catalogo";
-  ["catalogo","reservas","gestao"].forEach(n => { $("aba-"+n).hidden = n !== nome; });
-  document.querySelectorAll("nav [data-aba]").forEach(b => {
-    if (b.dataset.aba === nome) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current");
+<section id="capa" class="capa">
+  <img
+    src="file_000000005dd0820ea2f6d578fafcb67e.png"
+    alt="Silver Love - Amor puro em sua forma mais bela"
+  >
+  <h1>Silver Love</h1>
+  <p>Joias de prata para momentos especiais.</p>
+  <button class="btn" onclick="abrirCatalogo()">
+    Conhecer nossas joias
+  </button>
+</section>
+
+<div id="loja" hidden>
+<header>
+  <button class="voltar" onclick="voltarCapa()">
+    ← Voltar à capa
+  </button>
+  <div>
+    <img
+      src="file_00000000a4e0820eaeac6b81eac7fe57.png"
+      alt="Silver Love"
+    >
+  </div>
+  <h1>Silver Love</h1>
+  <p>Joias de prata</p>
+  <p>Amor puro em sua forma mais bela</p>
+</header>
+
+<main>
+  <h2>Nossas joias</h2>
+  <div id="filtros" class="filtros"></div>
+  <div id="produtos" class="grade"></div>
+</main>
+
+<footer>
+  <p>Silver Love — Joias de Prata</p>
+  <p>Escolha sua joia e consulte pelo WhatsApp.</p>
+  <a class="btn" id="whatsappGeral"
+     target="_blank" rel="noopener">
+    Falar no WhatsApp
+  </a>
+</footer>
+</div>
+
+<script>
+const WHATSAPP = "5541984300046";
+
+const produtos = [
+  {
+    codigo:"108413",
+    categoria:"Brincos",
+    nome:"Trio de brincos trevo",
+    preco:112,
+    descricao:"Conjunto com três pares de brincos pequenos em formato de trevo, em tons prateado e dourado.",
+    imagem:"fotos/108413.jpg"
+  },
+  {
+    codigo:"SL2026-004",
+    categoria:"Brincos",
+    nome:"Brinco gota com zircônias",
+    preco:105,
+    descricao:"Par de brincos de prata em formato de gota, cravejados com zircônias.",
+    imagem:"fotos/sl2026-004.jpg"
+  },
+  {
+    codigo:"SL2026-003",
+    categoria:"Brincos",
+    nome:"Brinco curvo com zircônias",
+    preco:137,
+    descricao:"Brinco de prata em formato curvo, com zircônias em engaste individual.",
+    imagem:"fotos/sl2026-003.jpg"
+  },
+  {
+    codigo:"SL2026-002",
+    categoria:"Brincos",
+    nome:"Brinco círculo com zircônias",
+    preco:107,
+    descricao:"Par de brincos de prata em formato de círculo vazado, cravejado com zircônias.",
+    imagem:"fotos/sl2026-002.jpg"
+  },
+  {
+    codigo:"SL2026-001",
+    categoria:"Brincos",
+    nome:"Brinco pedra vermelha",
+    preco:70,
+    descricao:"Par de brincos de prata 925 com pedra vermelha redonda e engaste liso.",
+    imagem:"fotos/sl2026-001.jpg"
+  },
+  {
+    codigo:"143588",
+    categoria:"Brincos",
+    nome:"Argola trançada",
+    preco:57,
+    descricao:"Par de argolas de prata com acabamento trançado e fecho de encaixe.",
+    imagem:"fotos/143588.jpg"
+  },
+  {
+    codigo:"143332",
+    categoria:"Brincos",
+    nome:"Brinco quadrado de prata",
+    preco:55,
+    descricao:"Par de brincos de prata em formato quadrado vazado, fio 1,30.",
+    imagem:"fotos/143332.jpg"
+  },
+  {
+    codigo:"154458",
+    categoria:"Anéis",
+    nome:"Anel liso de prata",
+    preco:90.20,
+    descricao:"Anel de prata liso, tamanho 12.",
+    imagem:"fotos/154458.jpg"
+  },
+  {
+    codigo:"68071",
+    categoria:"Pulseiras",
+    nome:"Pulseira veneziana com bolinhas",
+    preco:84,
+    descricao:"Pulseira de prata veneziana com bolinhas, 18 cm.",
+    imagem:"fotos/68071.jpg"
+  },
+  {
+    codigo:"94781",
+    categoria:"Colares",
+    nome:"Corrente quadrada de prata",
+    preco:199,
+    descricao:"Corrente de prata quadrada, 0,9 mm, 45 cm.",
+    imagem:"fotos/94781.jpg"
+  },
+  {
+    codigo:"SL2026-005",
+    categoria:"Colares",
+    nome:"Colar pingente redondo",
+    preco:182.50,
+    descricao:"Colar de prata com pingente redondo cravejado com pedras claras.",
+    imagem:"fotos/sl2026-005.jpg"
+  }
+];
+
+const dinheiro = valor =>
+  Number(valor).toLocaleString("pt-BR",{
+    style:"currency",
+    currency:"BRL"
   });
+
+function abrirCatalogo(){
+  document.getElementById("capa").hidden=true;
+  document.getElementById("loja").hidden=false;
+  location.hash="catalogo";
   window.scrollTo(0,0);
 }
-document.querySelectorAll("nav [data-aba]").forEach(b => b.addEventListener("click", () => aba(b.dataset.aba)));
-document.querySelectorAll("dialog").forEach(d => d.addEventListener("click", e => {
-  if (e.target.matches("[data-fechar]") || e.target === d) d.close();
-}));
 
-// Reserva do cliente
-$("filtros").addEventListener("click", e => {
-  const b = e.target.closest("[data-f]");
-  if (!b) return;
-  filtro = b.dataset.f;
-  desenhar();
-});
-$("lista").addEventListener("click", e => {
-  const b = e.target.closest("[data-ver]");
-  if (!b) return;
-  atual = estado.produtos.find(p => p.id === b.dataset.ver);
-  const r = atual.reservada || lerReservas()[atual.id] === (atual.rev || 0);
-  $("det-foto").src = atual.img; $("det-foto").alt = atual.nome;
-  $("det-nome").textContent = atual.nome;
-  $("det-cod").textContent = "Cód. " + atual.id;
-  $("det-preco").textContent = dinheiro(atual.preco);
-  $("det-desc").textContent = atual.desc || "";
-  $("det-reservar").disabled = r;
-  $("det-reservar").textContent = r ? "Peça reservada" : "Reservar";
-  $("detalhe").showModal();
-});
-$("det-reservar").addEventListener("click", () => {
-  $("detalhe").close();
-  $("resumo-peca").textContent = `${atual.nome} · Cód. ${atual.id} · ${dinheiro(atual.preco)}`;
-  $("passo-form").classList.remove("hide");
-  $("passo-ok").classList.add("hide");
-  $("form").reset();
-  $("reserva").showModal();
-});
-$("form").addEventListener("submit", e => {
-  e.preventDefault();
-  const d = Object.fromEntries(new FormData($("form")));
-  const texto = `Olá! Quero reservar a peça ${atual.nome} (cód. ${atual.id}), ${dinheiro(atual.preco)}.\n\nNome: ${d.nome}\nTelefone: ${d.telefone}\nEndereço: ${d.endereco}\nPagamento: ${d.pagamento}`;
-  salvarReserva(atual);
-  $("mensagem").textContent = texto;
-  $("link-zap").href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`;
-  $("passo-form").classList.add("hide");
-  $("passo-ok").classList.remove("hide");
-  desenhar();
-});
+function voltarCapa(){
+  document.getElementById("loja").hidden=true;
+  document.getElementById("capa").hidden=false;
+  location.hash="capa";
+  window.scrollTo(0,0);
+}
 
-// Gestão (só aparece para a dona da página)
-function desenharGestao(){
-  $("gestao-lista").innerHTML = estado.produtos.length ? estado.produtos.map((p,i) => `<div class="item" style="align-items:flex-start"><img src="${p.img}" alt=""><div><b>${esc(p.nome)}</b><span>Cód. ${esc(p.id)} · ${p.preco == null ? "Sem preço" : dinheiro(p.preco)}</span><span>${p.preco == null ? "Rascunho: não aparece no catálogo até você colocar o preço (Editar)" : p.reservada ? "Reservada" : "Disponível"}</span><div class="acoes"><button class="sm sec" data-ac="reservar" data-i="${i}">${p.reservada?"Cancelar reserva":"Marcar reservada"}</button><button class="sm sec" data-ac="editar" data-i="${i}">Editar</button><button class="sm sec perigo" data-ac="excluir" data-i="${i}">Excluir</button></div></div></div>`).join("") : '<p class="vazio">Nenhuma peça cadastrada. Toque em Adicionar peça.</p>';
+function linkWhatsApp(texto){
+  return "https://wa.me/"+WHATSAPP+
+    "?text="+encodeURIComponent(texto);
 }
-function abrirPeca(i){
-  editando = i; foto = null;
-  const p = i === null ? {id:"",nome:"",preco:"",desc:"",img:""} : estado.produtos[i];
-  $("titulo-peca").textContent = i === null ? "Adicionar peça" : "Editar peça";
-  $("f-id").value = p.id; $("f-cat").value = p.cat || "Outros"; $("f-nome").value = p.nome; $("f-preco").value = p.preco; $("f-desc").value = p.desc || ""; $("f-foto").value = "";
-  if (p.img) $("prev").src = p.img;
-  $("prev").hidden = !p.img;
-  dizer("", "aviso-peca");
-  $("peca").showModal();
+
+function criarProduto(p){
+  const card=document.createElement("article");
+  card.className="produto";
+
+  const imagem=document.createElement("img");
+  imagem.src=p.imagem;
+  imagem.alt=p.nome;
+  imagem.loading="lazy";
+
+  const info=document.createElement("div");
+  info.className="info";
+
+  const nome=document.createElement("h3");
+  nome.textContent=p.nome;
+
+  const codigo=document.createElement("p");
+  codigo.className="codigo";
+  codigo.textContent="Cód. "+p.codigo;
+
+  const descricao=document.createElement("p");
+  descricao.textContent=p.descricao;
+
+  const preco=document.createElement("p");
+  preco.className="preco";
+  preco.textContent=dinheiro(p.preco);
+
+  const botao=document.createElement("a");
+  botao.className="btn";
+  botao.target="_blank";
+  botao.rel="noopener";
+  botao.textContent="Consultar pelo WhatsApp";
+  botao.href=linkWhatsApp(
+    "Olá! Tenho interesse na joia "+
+    p.nome+" (cód. "+p.codigo+
+    "), no valor de "+dinheiro(p.preco)+
+    ". Está disponível?"
+  );
+
+  info.append(nome,codigo,descricao,preco,botao);
+  card.append(imagem,info);
+  return card;
 }
-function reduzir(file){
-  return new Promise((ok, erro) => {
-    const r = new FileReader();
-    r.onerror = erro;
-    r.onload = () => {
-      const im = new Image();
-      im.onerror = erro;
-      im.onload = () => {
-        const k = Math.min(1, 800/im.width, 1000/im.height);
-        const c = document.createElement("canvas");
-        c.width = Math.round(im.width*k); c.height = Math.round(im.height*k);
-        c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
-        ok(c.toDataURL("image/jpeg", 0.78));
-      };
-      im.src = r.result;
-    };
-    r.readAsDataURL(file);
+
+function mostrarProdutos(categoria="Todas"){
+  const grade=document.getElementById("produtos");
+  grade.replaceChildren();
+
+  const selecionados=produtos.filter(p=>
+    categoria==="Todas" || p.categoria===categoria
+  );
+
+  selecionados.forEach(p=>
+    grade.appendChild(criarProduto(p))
+  );
+
+  document.querySelectorAll(".filtros button")
+    .forEach(botao=>{
+      botao.classList.toggle(
+        "ativo",
+        botao.textContent===categoria
+      );
+    });
+}
+
+function criarFiltros(){
+  const area=document.getElementById("filtros");
+  const categorias=[
+    "Todas",
+    ...new Set(produtos.map(p=>p.categoria))
+  ];
+
+  categorias.forEach(categoria=>{
+    const botao=document.createElement("button");
+    botao.textContent=categoria;
+    botao.onclick=()=>mostrarProdutos(categoria);
+    area.appendChild(botao);
   });
 }
-$("nova").addEventListener("click", () => abrirPeca(null));
-$("f-foto").addEventListener("change", async e => {
-  const f = e.target.files[0];
-  if (!f) return;
-  try { foto = await reduzir(f); $("prev").src = foto; $("prev").hidden = false; dizer("", "aviso-peca"); }
-  catch(err){ dizer("Não consegui abrir essa foto. Tente outra.", "aviso-peca"); }
-});
-$("gestao-lista").addEventListener("click", e => {
-  const b = e.target.closest("button[data-ac]");
-  if (!b) return;
-  const i = Number(b.dataset.i), p = estado.produtos[i];
-  if (b.dataset.ac === "reservar") { if (p.reservada) { p.reservada = false; p.rev = (p.rev || 0) + 1; publicar("Reserva cancelada. A peça voltou a ficar disponível."); } else { p.reservada = true; publicar("Peça marcada como reservada."); } }
-  else if (b.dataset.ac === "editar") abrirPeca(i);
-  else if (b.dataset.pronto) { estado.produtos.splice(i,1); publicar("Peça excluída."); }
-  else { b.dataset.pronto = "1"; b.textContent = "Confirmar exclusão"; }
-});
-$("form-peca").addEventListener("submit", e => {
-  e.preventDefault();
-  const id = $("f-id").value.trim(), preco = parseFloat($("f-preco").value.replace(",", "."));
-  if (!id || isNaN(preco)) return dizer("Informe o código e o preço.", "aviso-peca");
-  if (estado.produtos.some((p,i) => p.id === id && i !== editando)) return dizer("Já existe uma peça com esse código.", "aviso-peca");
-  const base = editando === null ? {} : estado.produtos[editando];
-  const img = foto || base.img;
-  if (!img) return dizer("Escolha uma foto da peça.", "aviso-peca");
-  const p = {id, cat: $("f-cat").value, nome: $("f-nome").value.trim(), preco, desc: $("f-desc").value.trim(), img, reservada: !!base.reservada};
-  if (editando === null) estado.produtos.unshift(p); else estado.produtos[editando] = p;
-  $("peca").close();
-  publicar("Peça salva.");
-});
 
-// Salvar = publicar uma nova versão da página com os dados atualizados
-function montarHtml(){
-  const cab = [...document.head.querySelectorAll('meta[charset],meta[name="viewport"],meta[name="theme-color"],title,link[rel="preconnect"],link[href*="fonts.googleapis.com"]')].map(n => n.outerHTML).join("\n");
-  const dados = JSON.stringify(estado).replace(/</g, "\\u003c");
-  const fim = "<" + "/script>";
-  return "<!DOCTYPE html>\n<html lang=\"pt-BR\"><head>" + cab + $("estilo").outerHTML + "</head><body>" + $("casca").outerHTML + '<script id="dados" type="application/json">' + dados + fim + $("codigo").outerHTML + "<script>
-// Integração opcional: configure em config.js para ler produtos do Supabase.
-(async () => {
-  if (!window.SILVERLOVE?.url || !window.SILVERLOVE?.key) return;
-  try {
-    const cfg=window.SILVERLOVE;
-    const res=await fetch(cfg.url.replace(/\/$/,'')+'/rest/v1/produtos?select=id,codigo,nome,descricao,preco,estoque,imagem_url,ativo&ativo=eq.true&order=criado_em.desc', {headers:{apikey:cfg.key,Authorization:'Bearer '+cfg.key}});
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    const rows=await res.json();
-    estado.produtos=rows.map(p=>({id:p.codigo,dbid:p.id,nome:p.nome,desc:p.descricao||'',preco:Number(p.preco),cat:'Outros',img:p.imagem_url||'fotos/'+p.codigo+'.jpg',reservada:p.estoque<1,rev:1}));
-    desenhar();
-  } catch(err) {console.warn('Silver Love: usando catálogo local; falha na sincronização:',err);}
-})();
-</script>
-</body></html>";
+document.getElementById("whatsappGeral").href=
+  linkWhatsApp(
+    "Olá! Gostaria de conhecer as joias da Silver Love."
+  );
+
+criarFiltros();
+mostrarProdutos();
+
+if(location.hash==="#catalogo"){
+  abrirCatalogo();
 }
-async function publicar(ok){
-  dizer("Salvando…");
-  try {
-    artifact = artifact || await claude.use("artifact");
-    if (!artifact) return dizer("Não foi possível salvar: só quem tem permissão de edição pode salvar.");
-    await artifact.publish(montarHtml());
-    dizer(ok);
-  } catch (e) {
-    dizer(e && e.code === "conflict" ? "Outra alteração foi salva antes. A página vai recarregar." : "Não foi possível salvar. Tente de novo.");
-  }
-}
-if (window.claude && claude.use) {
-  claude.use("user").then(u => {
-    if (u && (u.isOwner() || u.canEdit())) { ehDono = true; document.querySelector('[data-aba="gestao"]').hidden = false; desenharGestao(); }
-  }).catch(() => {});
-}
-const zapUrl = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent("Olá! Gostaria de saber mais sobre as joias da Silver Love.");
-$("zap-fab").href = zapUrl; $("zap-rodape").href = zapUrl;
-const rota = () => { document.body.classList.toggle("na-capa", location.hash !== "#catalogo"); window.scrollTo(0,0); };
-$("abrir").addEventListener("click", () => { document.body.classList.remove("na-capa"); aba("catalogo"); window.scrollTo(0,0); try{ location.hash = "catalogo"; }catch(e){} });
-$("logo-home").addEventListener("click", () => { document.body.classList.add("na-capa"); window.scrollTo(0,0); try{ location.hash = "capa"; }catch(e){} });
-window.addEventListener("hashchange", rota);
-document.body.classList.toggle("na-capa", location.hash !== "#catalogo");
-desenhar();
 </script>
-<script>
-// Integração opcional: configure em config.js para ler produtos do Supabase.
-(async () => {
-  if (!window.SILVERLOVE?.url || !window.SILVERLOVE?.key) return;
-  try {
-    const cfg=window.SILVERLOVE;
-    const res=await fetch(cfg.url.replace(/\/$/,'')+'/rest/v1/produtos?select=id,codigo,nome,descricao,preco,estoque,imagem_url,ativo&ativo=eq.true&order=criado_em.desc', {headers:{apikey:cfg.key,Authorization:'Bearer '+cfg.key}});
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    const rows=await res.json();
-    estado.produtos=rows.map(p=>({id:p.codigo,dbid:p.id,nome:p.nome,desc:p.descricao||'',preco:Number(p.preco),cat:'Outros',img:p.imagem_url||'fotos/'+p.codigo+'.jpg',reservada:p.estoque<1,rev:1}));
-    desenhar();
-  } catch(err) {console.warn('Silver Love: usando catálogo local; falha na sincronização:',err);}
-})();
-</script>
-</body></html>
+</body>
+</html>
