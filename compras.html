@@ -896,3 +896,365 @@ iniciar();
 </script>
 </body>
 </html>
+
+<script>
+(function(){
+
+let modoCompra="historica";
+
+const novoItemOriginal=novoItem;
+const resumoOriginal=resumo;
+
+const painel=document.createElement("div");
+painel.className="item";
+
+painel.innerHTML=`
+<h2>📦 Conferência rápida de estoque</h2>
+<label>Tipo de compra</label>
+
+<select id="modoCompra">
+<option value="historica">Compra histórica</option>
+<option value="nova">Compra nova ou reposição</option>
+</select>
+
+<p class="muted">
+Marque somente as peças que realmente possui.
+Os produtos existentes não terão o estoque
+duplicado automaticamente.
+</p>
+
+<div class="grid">
+<div class="metric">
+Unidades para entrada
+<strong id="qtdEntrada">0</strong>
+</div>
+<div class="metric">
+Produtos vinculados
+<strong id="qtdVinculados">0</strong>
+</div>
+</div>
+`;
+
+$("itens").before(painel);
+
+novoItem=function(codigo="",descricao="",qtd=1,valor=0){
+
+const i=novoItemOriginal(
+codigo,descricao,qtd,valor
+);
+
+if(modoCompra==="historica"){
+i.quantidade_entrada=0;
+}
+
+return i;
+};
+
+resumo=function(){
+
+resumoOriginal();
+
+$("qtdEntrada").textContent=itens.reduce(
+(s,i)=>s+Number(i.quantidade_entrada||0),0
+);
+
+$("qtdVinculados").textContent=itens.filter(
+i=>i.acao==="vincular"
+).length;
+
+};
+
+$("modoCompra").onchange=()=>{
+
+const novoModo=$("modoCompra").value;
+
+if(itens.length&&!confirm(
+"Alterar o modo e redefinir as quantidades de entrada?"
+)){
+$("modoCompra").value=modoCompra;
+return;
+}
+
+modoCompra=novoModo;
+
+for(const i of itens){
+
+const p=existente(i.codigo);
+
+i.acao=p?"vincular":"novo";
+
+i.quantidade_entrada=
+p||modoCompra==="historica"
+?0:i.quantidade;
+
+}
+
+renderizar();
+
+};
+
+renderizar=function(){
+
+const container=$("itens");
+container.replaceChildren();
+
+itens.forEach((i,index)=>{
+
+const p=existente(i.codigo);
+
+const box=document.createElement("div");
+box.className="item";
+
+texto(box,"strong",
+(index+1)+". "+(i.descricao||"Nova joia"));
+
+texto(box,"p","Código: "+i.codigo,"muted");
+
+const valor=texto(box,"p","","muted");
+
+function atualizarValor(){
+
+valor.textContent=
+"Custo: "+moeda(i.custo_unitario)+
+" | Venda sugerida: "+moeda(preco(i));
+
+}
+
+atualizarValor();
+
+if(p){
+
+texto(box,"p",
+"✅ Produto já cadastrado","muted");
+
+texto(box,"p",
+"Estoque atual: "+p.estoque+
+" | Preço atual: "+moeda(p.preco),
+"muted");
+
+const acao=document.createElement("select");
+
+for(const [v,n] of [
+["vincular","Vincular sem aumentar estoque"],
+["repor","Acrescentar ao estoque"]
+]){
+
+const op=document.createElement("option");
+op.value=v;
+op.textContent=n;
+acao.appendChild(op);
+
+}
+
+acao.value=i.acao;
+
+acao.onchange=()=>{
+
+i.acao=acao.value;
+
+i.quantidade_entrada=
+i.acao==="repor"?i.quantidade:0;
+
+renderizar();
+
+};
+
+box.appendChild(acao);
+
+if(i.acao==="repor"){
+
+const entrada=campo(
+box,"Quantidade para reposição",
+"number",i.quantidade_entrada,v=>{
+i.quantidade_entrada=numero(v);
+});
+
+entrada.step="1";
+entrada.max=i.quantidade;
+
+}
+
+texto(box,"p",
+"O preço atual será preservado.",
+"muted");
+
+}else{
+
+const linha=document.createElement("div");
+linha.className="check";
+
+const check=document.createElement("input");
+check.type="checkbox";
+check.id="estoqueItem"+index;
+check.checked=i.quantidade_entrada>0;
+
+const label=document.createElement("label");
+label.htmlFor=check.id;
+label.textContent="Ainda tenho esta joia";
+
+linha.append(check,label);
+box.appendChild(linha);
+
+check.onchange=()=>{
+
+i.acao="novo";
+
+i.quantidade_entrada=
+check.checked?i.quantidade:0;
+
+renderizar();
+
+};
+
+if(i.quantidade>1&&check.checked){
+
+const entrada=campo(
+box,"Quantidade que ainda possui",
+"number",i.quantidade_entrada,v=>{
+i.quantidade_entrada=numero(v);
+});
+
+entrada.step="1";
+entrada.max=i.quantidade;
+
+}
+
+texto(box,"p",
+i.quantidade_entrada>0
+?"📦 Entrada: "+i.quantidade_entrada+" unidade(s)"
+:"Sem entrada no estoque",
+"muted");
+
+}
+
+const detalhes=document.createElement("details");
+
+texto(detalhes,"summary",
+"Editar descrição, custos e preços");
+
+campo(detalhes,"Código","text",i.codigo,v=>{
+
+i.codigo=v.trim();
+
+const existenteAgora=existente(i.codigo);
+
+i.acao=existenteAgora?"vincular":"novo";
+
+i.quantidade_entrada=
+existenteAgora||modoCompra==="historica"
+?0:i.quantidade;
+
+renderizar();
+
+});
+
+campo(detalhes,"Descrição","text",i.descricao,v=>{
+i.descricao=v;
+});
+
+const quantidade=campo(
+detalhes,"Quantidade comprada",
+"number",i.quantidade,v=>{
+
+i.quantidade=numero(v);
+
+i.quantidade_entrada=Math.min(
+i.quantidade_entrada,i.quantidade
+);
+
+renderizar();
+
+});
+
+quantidade.step="1";
+quantidade.min="1";
+
+campo(
+detalhes,"Valor unitário do documento",
+"number",i.valor_unitario_documento,v=>{
+i.valor_unitario_documento=numero(v);
+});
+
+campo(
+detalhes,"Custo unitário final",
+"number",i.custo_unitario,v=>{
+i.custo_unitario=numero(v);
+atualizarValor();
+});
+
+campo(
+detalhes,"Acréscimo (%)",
+"number",i.percentual,v=>{
+
+i.percentual=numero(v);
+i.preco_manual=null;
+atualizarValor();
+precoInput.value=preco(i).toFixed(2);
+
+});
+
+const precoInput=campo(
+detalhes,"Preço de venda manual",
+"number",preco(i),v=>{
+i.preco_manual=numero(v);
+atualizarValor();
+});
+
+const recalcular=document.createElement("button");
+
+recalcular.textContent="Restaurar preço automático";
+recalcular.className="secondary";
+
+recalcular.onclick=()=>{
+
+i.preco_manual=null;
+i.percentual=padrao();
+renderizar();
+
+};
+
+detalhes.appendChild(recalcular);
+
+const remover=document.createElement("button");
+
+remover.textContent="Remover item";
+remover.className="danger";
+
+remover.onclick=()=>{
+
+if(ocupado)return;
+
+if(!confirm("Remover esta joia da compra?"))return;
+
+itens.splice(index,1);
+renderizar();
+
+};
+
+detalhes.appendChild(remover);
+box.appendChild(detalhes);
+
+container.appendChild(box);
+
+});
+
+mudou();
+
+};
+
+$("percentual").addEventListener("input",mudou);
+
+for(const i of itens){
+
+const p=existente(i.codigo);
+
+i.acao=p?"vincular":"novo";
+i.quantidade_entrada=0;
+
+}
+
+renderizar();
+
+})();
+  </script>
+  
