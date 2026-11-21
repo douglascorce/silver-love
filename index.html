@@ -4,284 +4,451 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#fff4f8">
-<title>Silver Love | Joias de Prata</title>
+<meta name="theme-color" content="#fff5f8">
+<title>Silver Love | Prata e Folheados a Ouro</title>
+<meta name="description" content="Silver Love: joias de prata e folheados a ouro. Conheça nossa coleção e consulte pelo WhatsApp.">
 
 <style>
 :root {
   --rosa:#b72c68;
-  --rosa-claro:#fff2f7;
-  --rosa-medio:#f3d6e2;
-  --prata:#a0a0a9;
-  --texto:#47343f;
+  --rosa-escuro:#8d2853;
+  --rosa-claro:#fff5f8;
+  --dourado:#b38a47;
+  --prata:#8e929c;
+  --texto:#45333e;
+  --muted:#806e78;
+  --borda:#efdce5;
   --branco:#ffffff;
 }
+
 * {box-sizing:border-box}
+
 html {scroll-behavior:smooth}
+
 body {
   margin:0;
   background:var(--rosa-claro);
   color:var(--texto);
   font-family:Arial,Helvetica,sans-serif;
 }
-button,a { -webkit-tap-highlight-color:transparent }
-button {font:inherit;cursor:pointer}
-[hidden] {display:none!important}
 
-/* CAPA INICIAL */
+button,a {
+  -webkit-tap-highlight-color:transparent;
+}
+
+button {
+  font:inherit;
+  cursor:pointer;
+}
+
+[hidden] {
+  display:none!important;
+}
+
+/* CAPA ORIGINAL */
 .capa {
   min-height:100vh;
   min-height:100dvh;
-  max-width:600px;
+  max-width:620px;
   margin:auto;
-  padding:22px 18px 36px;
+  padding:22px 20px 38px;
   display:flex;
   flex-direction:column;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   gap:22px;
   text-align:center;
   background:linear-gradient(
-    160deg,#fffafd,#ffe9f2,#fff8fb
+    155deg,
+    #fffafd,
+    #ffeaf2,
+    #fff8fb
   );
 }
+
 .capa-imagem {
   width:100%;
   max-width:520px;
-  max-height:75vh;
+  max-height:72vh;
   object-fit:contain;
   border-radius:18px;
 }
-.capa-texto {
+
+.capa-subtitulo {
   margin:0;
-  color:#8d6175;
-  font:italic 20px Georgia,serif;
+  color:#936a7e;
+  font:italic 19px Georgia,serif;
 }
+
 .botao {
   display:inline-block;
   width:100%;
   padding:16px 20px;
   border:0;
   border-radius:30px;
-  background:linear-gradient(120deg,#ad235e,#d14a84);
+  background:linear-gradient(
+    110deg,
+    #a8215b,
+    #d34b86
+  );
   color:white;
-  font-weight:bold;
+  text-align:center;
   text-decoration:none;
-  text-align:center;
-  box-shadow:0 5px 14px #b72c6829;
+  font-weight:bold;
+  box-shadow:0 5px 15px #b72c6825;
 }
-.botao:active {transform:scale(.98)}
-.botao-capa {max-width:350px}
 
-/* CATÁLOGO */
-.topo {
-  padding:20px 18px 23px;
-  text-align:center;
-  background:linear-gradient(180deg,#fff,#fff4f8);
-  border-bottom:1px solid var(--rosa-medio);
+.botao:active {
+  transform:scale(.98);
 }
+
+.botao-capa {
+  max-width:350px;
+}
+
+/* CABEÇALHO COMPACTO */
+.topo {
+  position:relative;
+  padding:16px 16px 21px;
+  background:linear-gradient(
+    180deg,
+    #ffffff,
+    #fff6f9
+  );
+  border-bottom:1px solid var(--borda);
+  text-align:center;
+}
+
 .voltar {
   display:block;
-  margin:0 0 14px;
-  padding:9px;
+  padding:8px 4px;
+  margin:0 0 10px;
   border:0;
   background:transparent;
   color:var(--rosa);
+  font-size:14px;
+  text-align:left;
+}
+
+.marca {
+  margin:0;
+  font:italic 600 38px Georgia,serif;
+  color:var(--rosa-escuro);
+  letter-spacing:-1px;
+}
+
+.marca span {
+  color:var(--dourado);
+}
+
+.tipo-loja {
+  margin:8px 0;
+  color:#8d7180;
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.divisor {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin:12px auto;
+}
+
+.divisor::before,
+.divisor::after {
+  content:"";
+  width:60px;
+  height:1px;
+  background:linear-gradient(
+    90deg,
+    #e8ced9,
+    var(--dourado)
+  );
+}
+
+.divisor span {
+  color:var(--dourado);
   font-size:15px;
 }
-.marca {
-  max-width:320px;
-  margin:0 auto;
-  padding:12px;
-  border-radius:18px;
-  background:#fff;
-  box-shadow:0 3px 20px #b72c6812;
+
+.slogan {
+  margin:0;
+  color:#986c80;
+  font:italic 15px Georgia,serif;
 }
-.marca img {
-  display:block;
-  width:100%;
-  max-height:240px;
-  object-fit:contain;
-}
-.topo-descricao {
-  margin:16px 0 0;
-  color:#946b7f;
-  font:italic 18px Georgia,serif;
-}
+
+/* CONTEÚDO */
 .conteudo {
   max-width:1050px;
   margin:auto;
-  padding:25px 14px 45px;
+  padding:25px 14px 48px;
 }
+
 .titulo {
   margin:0 0 8px;
   text-align:center;
-  font:normal 33px Georgia,serif;
-  color:var(--rosa);
+  font:normal 32px Georgia,serif;
+  color:var(--rosa-escuro);
 }
+
 .subtitulo {
-  margin:0 0 22px;
+  margin:0 0 23px;
+  color:var(--muted);
   text-align:center;
   font-size:14px;
-  color:#8e7180;
+  line-height:1.5;
 }
+
+/* FILTROS */
 .filtros {
   display:flex;
   gap:9px;
   overflow-x:auto;
-  padding:0 0 20px;
+  padding:0 0 22px;
   scrollbar-width:thin;
 }
+
 .filtros button {
   flex-shrink:0;
-  padding:11px 16px;
-  border:1px solid #edcbd9;
-  border-radius:25px;
+  padding:11px 17px;
+  border:1px solid var(--borda);
+  border-radius:24px;
   background:white;
-  color:#795365;
+  color:#785669;
+  font-size:14px;
 }
+
 .filtros button.ativo {
   background:var(--rosa);
   border-color:var(--rosa);
   color:white;
 }
+
+/* PRODUTOS */
 .grade {
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:14px;
 }
+
 .produto {
   min-width:0;
   overflow:hidden;
-  border:1px solid #f2dce5;
-  border-radius:16px;
   background:white;
-  box-shadow:0 4px 18px #9b577013;
+  border:1px solid var(--borda);
+  border-radius:16px;
+  box-shadow:0 4px 18px #9b577014;
 }
+
 .foto {
+  display:block;
   width:100%;
   aspect-ratio:4/5;
   object-fit:cover;
-  display:block;
   background:#faf1f5;
 }
-.info {padding:13px}
+
+.info {
+  padding:13px;
+}
+
 .nome {
-  min-height:47px;
   margin:0 0 8px;
-  font:normal 20px/1.15 Georgia,serif;
+  font:normal 20px/1.2 Georgia,serif;
+  min-height:48px;
 }
+
 .codigo {
-  margin:0 0 9px;
+  margin:0 0 8px;
   font-size:12px;
-  color:#8d8188;
+  color:#8b8086;
 }
+
 .descricao {
+  margin:0 0 10px;
+  color:#75646e;
   font-size:13px;
   line-height:1.5;
-  color:#74616b;
 }
+
 .preco {
   margin:13px 0;
+  color:var(--rosa);
   font-size:21px;
   font-weight:bold;
-  color:var(--rosa);
 }
+
 .botao-produto {
-  padding:13px 8px;
-  font-size:12px;
+  padding:13px 7px;
   border-radius:11px;
+  font-size:12px;
 }
+
+/* RODAPÉ */
 .rodape {
-  padding:28px 18px 38px;
-  text-align:center;
+  padding:30px 18px 40px;
   background:white;
-  border-top:1px solid var(--rosa-medio);
+  border-top:1px solid var(--borda);
+  text-align:center;
 }
-.rodape h2 {
-  margin:0 0 10px;
-  font:normal 26px Georgia,serif;
-  color:var(--rosa);
+
+.rodape-marca {
+  margin:0;
+  color:var(--rosa-escuro);
+  font:italic 28px Georgia,serif;
 }
+
+.rodape-tipo {
+  color:var(--dourado);
+  font-size:12px;
+  letter-spacing:1px;
+}
+
 .rodape p {
-  color:#856a78;
+  color:#856b79;
   font-size:14px;
 }
+
 .rodape .botao {
   max-width:330px;
   margin-top:10px;
 }
-@media(min-width:650px){
-  .grade {grid-template-columns:repeat(3,1fr)}
-  .info {padding:18px}
-  .nome {font-size:23px}
-  .botao-produto {font-size:14px}
+
+@media(min-width:650px) {
+  .grade {
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .info {
+    padding:18px;
+  }
+
+  .nome {
+    font-size:23px;
+  }
+
+  .botao-produto {
+    font-size:14px;
+  }
 }
-@media(max-width:360px){
-  .grade {gap:9px}
-  .info {padding:10px}
-  .nome {font-size:17px}
-  .preco {font-size:18px}
+
+@media(max-width:360px) {
+  .grade {
+    gap:9px;
+  }
+
+  .info {
+    padding:10px;
+  }
+
+  .nome {
+    font-size:17px;
+  }
+
+  .preco {
+    font-size:18px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- CAPA ORIGINAL DA SILVER LOVE -->
+<!-- CAPA INICIAL -->
 <section id="capa" class="capa">
+
   <img
     class="capa-imagem"
     src="file_000000005dd0820ea2f6d578fafcb67e.png"
-    alt="Silver Love - Joias de Prata"
+    alt="Silver Love - Amor puro em sua forma mais bela"
   >
-  <p class="capa-texto">
-    Uma joia especial para cada história.
+
+  <p class="capa-subtitulo">
+    Prata e Folheados a Ouro
   </p>
+
   <button
     class="botao botao-capa"
     onclick="abrirCatalogo()"
   >
     Conhecer nossas joias
   </button>
+
 </section>
 
 <!-- CATÁLOGO -->
 <div id="loja" hidden>
 
 <header class="topo">
-  <button class="voltar" onclick="voltarCapa()">
+
+  <button
+    class="voltar"
+    onclick="voltarCapa()"
+  >
     ← Voltar à capa
   </button>
 
-  <div class="marca">
-    <img
-      src="file_000000005dd0820ea2f6d578fafcb67e.png"
-      alt="Silver Love - Joias de Prata"
-    >
+  <h1 class="marca">
+    Silver <span>Love</span>
+  </h1>
+
+  <p class="tipo-loja">
+    Prata e Folheados a Ouro
+  </p>
+
+  <div class="divisor">
+    <span>✦</span>
   </div>
 
-  <p class="topo-descricao">
-    Elegância e delicadeza em cada detalhe.
+  <p class="slogan">
+    Amor puro em sua forma mais bela
   </p>
+
 </header>
 
 <main class="conteudo">
-  <h1 class="titulo">Nossa coleção</h1>
+
+  <h2 class="titulo">
+    Nossa coleção
+  </h2>
+
   <p class="subtitulo">
-    Escolha sua joia favorita e consulte pelo WhatsApp.
+    Joias para celebrar seus momentos especiais.
+    Escolha sua favorita!
   </p>
 
-  <nav id="filtros" class="filtros"
-       aria-label="Categorias de joias"></nav>
+  <nav
+    id="filtros"
+    class="filtros"
+    aria-label="Categorias de joias"
+  ></nav>
 
-  <section id="produtos" class="grade"
-           aria-label="Produtos disponíveis"></section>
+  <section
+    id="produtos"
+    class="grade"
+    aria-label="Produtos da Silver Love"
+  ></section>
+
 </main>
 
 <footer class="rodape">
-  <h2>Silver Love</h2>
-  <p>Joias de prata para momentos especiais.</p>
+
+  <h2 class="rodape-marca">
+    Silver Love
+  </h2>
+
+  <p class="rodape-tipo">
+    PRATA E FOLHEADOS A OURO
+  </p>
+
+  <p>
+    Amor puro em sua forma mais bela.
+  </p>
+
   <a
     id="whatsappGeral"
     class="botao"
@@ -290,12 +457,21 @@ button {font:inherit;cursor:pointer}
   >
     Falar pelo WhatsApp
   </a>
+
 </footer>
 
 </div>
 
 <script>
 const WHATSAPP = "5541984300046";
+
+/*
+  MATERIAL:
+  Os produtos abaixo mantêm suas informações
+  anteriores. A classificação individual
+  entre prata e folheado a ouro será adicionada
+  após confirmação.
+*/
 
 const produtos = [
   {
@@ -335,7 +511,7 @@ const produtos = [
     categoria:"Brincos",
     nome:"Brinco pedra vermelha",
     preco:70,
-    descricao:"Brinco de prata com pedra vermelha.",
+    descricao:"Brinco com pedra vermelha.",
     imagem:"fotos/SL2026-001.jpg"
   },
   {
@@ -343,7 +519,7 @@ const produtos = [
     categoria:"Brincos",
     nome:"Argola trançada",
     preco:57,
-    descricao:"Argola de prata com acabamento trançado.",
+    descricao:"Argola com acabamento trançado.",
     imagem:"fotos/143588.jpg"
   },
   {
@@ -351,7 +527,7 @@ const produtos = [
     categoria:"Brincos",
     nome:"Brinco quadrado de prata",
     preco:55,
-    descricao:"Brinco de prata em formato quadrado.",
+    descricao:"Brinco em formato quadrado.",
     imagem:"fotos/143332.jpg"
   },
   {
@@ -359,7 +535,7 @@ const produtos = [
     categoria:"Anéis",
     nome:"Anel liso de prata",
     preco:90.20,
-    descricao:"Anel de prata liso, tamanho 12.",
+    descricao:"Anel liso, tamanho 12.",
     imagem:"fotos/154458.jpg"
   },
   {
@@ -375,7 +551,7 @@ const produtos = [
     categoria:"Colares",
     nome:"Corrente quadrada de prata",
     preco:199,
-    descricao:"Corrente quadrada de prata, 45 cm.",
+    descricao:"Corrente quadrada, 45 cm.",
     imagem:"fotos/94781.jpg"
   },
   {
@@ -383,7 +559,7 @@ const produtos = [
     categoria:"Colares",
     nome:"Colar pingente redondo",
     preco:182.50,
-    descricao:"Colar de prata com pingente redondo.",
+    descricao:"Colar com pingente redondo.",
     imagem:"fotos/SL2026-005.jpg"
   }
 ];
@@ -396,66 +572,70 @@ function formatarPreco(valor) {
 }
 
 function abrirCatalogo() {
-  document.getElementById("capa").hidden = true;
-  document.getElementById("loja").hidden = false;
-  if (location.hash !== "#catalogo") {
-    history.replaceState(null, "", "#catalogo");
+  document.getElementById("capa").hidden=true;
+  document.getElementById("loja").hidden=false;
+
+  if(location.hash!=="#catalogo") {
+    history.replaceState(null,"","#catalogo");
   }
+
   window.scrollTo(0,0);
 }
 
 function voltarCapa() {
-  document.getElementById("loja").hidden = true;
-  document.getElementById("capa").hidden = false;
-  history.replaceState(null, "", "#capa");
+  document.getElementById("loja").hidden=true;
+  document.getElementById("capa").hidden=false;
+
+  history.replaceState(null,"","#capa");
   window.scrollTo(0,0);
 }
 
 function linkWhatsApp(mensagem) {
-  return "https://wa.me/" + WHATSAPP +
-    "?text=" + encodeURIComponent(mensagem);
+  return "https://wa.me/"+WHATSAPP+
+    "?text="+encodeURIComponent(mensagem);
 }
 
 function criarProduto(produto) {
-  const card = document.createElement("article");
-  card.className = "produto";
+  const card=document.createElement("article");
+  card.className="produto";
 
-  const foto = document.createElement("img");
-  foto.className = "foto";
-  foto.src = produto.imagem;
-  foto.alt = produto.nome;
-  foto.loading = "lazy";
+  const foto=document.createElement("img");
+  foto.className="foto";
+  foto.src=produto.imagem;
+  foto.alt=produto.nome;
+  foto.loading="lazy";
 
-  const info = document.createElement("div");
-  info.className = "info";
+  const info=document.createElement("div");
+  info.className="info";
 
-  const nome = document.createElement("h2");
-  nome.className = "nome";
-  nome.textContent = produto.nome;
+  const nome=document.createElement("h3");
+  nome.className="nome";
+  nome.textContent=produto.nome;
 
-  const codigo = document.createElement("p");
-  codigo.className = "codigo";
-  codigo.textContent = "Código: " + produto.codigo;
+  const codigo=document.createElement("p");
+  codigo.className="codigo";
+  codigo.textContent="Código: "+produto.codigo;
 
-  const descricao = document.createElement("p");
-  descricao.className = "descricao";
-  descricao.textContent = produto.descricao;
+  const descricao=document.createElement("p");
+  descricao.className="descricao";
+  descricao.textContent=produto.descricao;
 
-  const preco = document.createElement("p");
-  preco.className = "preco";
-  preco.textContent = formatarPreco(produto.preco);
+  const preco=document.createElement("p");
+  preco.className="preco";
+  preco.textContent=formatarPreco(produto.preco);
 
-  const botao = document.createElement("a");
-  botao.className = "botao botao-produto";
-  botao.target = "_blank";
-  botao.rel = "noopener noreferrer";
-  botao.textContent = "Consultar pelo WhatsApp";
-  botao.href = linkWhatsApp(
-    "Olá! Tenho interesse na joia " +
-    produto.nome +
-    " (código " + produto.codigo + ")" +
-    ", no valor de " +
-    formatarPreco(produto.preco) +
+  const botao=document.createElement("a");
+  botao.className="botao botao-produto";
+  botao.target="_blank";
+  botao.rel="noopener noreferrer";
+  botao.textContent="Consultar pelo WhatsApp";
+
+  botao.href=linkWhatsApp(
+    "Olá! Tenho interesse na joia "+
+    produto.nome+
+    " (código "+produto.codigo+")"+
+    ", no valor de "+
+    formatarPreco(produto.preco)+
     ". Está disponível?"
   );
 
@@ -468,16 +648,18 @@ function criarProduto(produto) {
   );
 
   card.append(foto,info);
+
   return card;
 }
 
 function mostrarProdutos(categoria="Todas") {
-  const grade = document.getElementById("produtos");
+  const grade=document.getElementById("produtos");
+
   grade.replaceChildren();
 
-  const selecionados = produtos.filter(produto =>
-    categoria === "Todas" ||
-    produto.categoria === categoria
+  const selecionados=produtos.filter(produto =>
+    categoria==="Todas" ||
+    produto.categoria===categoria
   );
 
   selecionados.forEach(produto => {
@@ -488,28 +670,32 @@ function mostrarProdutos(categoria="Todas") {
     .forEach(botao => {
       botao.classList.toggle(
         "ativo",
-        botao.textContent === categoria
+        botao.textContent===categoria
       );
     });
 }
 
 function criarFiltros() {
-  const filtros = document.getElementById("filtros");
-  const categorias = [
+  const filtros=document.getElementById("filtros");
+
+  const categorias=[
     "Todas",
-    ...new Set(produtos.map(p => p.categoria))
+    ...new Set(produtos.map(p=>p.categoria))
   ];
 
   categorias.forEach(categoria => {
-    const botao = document.createElement("button");
-    botao.type = "button";
-    botao.textContent = categoria;
-    botao.onclick = () => mostrarProdutos(categoria);
+    const botao=document.createElement("button");
+
+    botao.type="button";
+    botao.textContent=categoria;
+
+    botao.onclick=() => mostrarProdutos(categoria);
+
     filtros.appendChild(botao);
   });
 }
 
-document.getElementById("whatsappGeral").href =
+document.getElementById("whatsappGeral").href=
   linkWhatsApp(
     "Olá! Gostaria de conhecer as joias da Silver Love."
   );
@@ -517,7 +703,7 @@ document.getElementById("whatsappGeral").href =
 criarFiltros();
 mostrarProdutos();
 
-if (location.hash === "#catalogo") {
+if(location.hash==="#catalogo") {
   abrirCatalogo();
 }
 </script>
