@@ -18,7 +18,6 @@
 }
 
 *{box-sizing:border-box}
-
 body{
   margin:0;
   background:var(--fundo);
@@ -78,6 +77,8 @@ button:disabled{opacity:.5;cursor:not-allowed}
   border:1px solid var(--rosa);
   color:var(--rosa);
 }
+
+.btn-whatsapp{background:#248c51}
 
 .topo{
   padding:20px 16px;
@@ -179,6 +180,8 @@ button:disabled{opacity:.5;cursor:not-allowed}
   overflow:hidden;
   box-shadow:0 4px 18px #9b577014;
   min-width:0;
+  display:flex;
+  flex-direction:column;
 }
 
 .foto-btn{
@@ -191,13 +194,18 @@ button:disabled{opacity:.5;cursor:not-allowed}
 
 .foto{
   width:100%;
-  aspect-ratio:4/5;
+  aspect-ratio:1/1;
   display:block;
   object-fit:contain;
-  background:#fff;
+  background:white;
 }
 
-.info{padding:13px}
+.info{
+  padding:13px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
 
 .nome-btn{
   padding:0;
@@ -232,6 +240,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
   border-radius:11px;
   font-size:12px;
   padding:12px 6px;
+  margin-top:auto;
 }
 
 .status{
@@ -347,6 +356,35 @@ button:disabled{opacity:.5;cursor:not-allowed}
   line-height:1.6;
 }
 
+.mensagem{
+  margin:15px 0;
+  padding:15px;
+  border-radius:10px;
+  background:#e3f5e9;
+  color:#25613c;
+  line-height:1.6;
+}
+
+.erro{
+  background:#ffe2e8;
+  color:#96304d;
+}
+
+.total{
+  font-size:22px;
+  color:var(--rosa);
+  font-weight:bold;
+}
+
+.confirmacao{
+  text-align:center;
+  padding:30px 5px 10px;
+}
+
+.confirmacao .simbolo{
+  font-size:45px;
+}
+
 @media(min-width:650px){
   .grade{grid-template-columns:repeat(3,1fr)}
   .info{padding:18px}
@@ -363,6 +401,8 @@ button:disabled{opacity:.5;cursor:not-allowed}
 
 <body>
 
+<!-- CAPA -->
+
 <section id="capa" class="capa">
 
 <img
@@ -376,6 +416,8 @@ Conhecer nossas joias
 </button>
 
 </section>
+
+<!-- CATALOGO -->
 
 <div id="loja" hidden>
 
@@ -441,17 +483,16 @@ Tentar novamente
 
 <a
 id="whatsappGeral"
-class="btn"
+class="btn btn-whatsapp"
 target="_blank"
 rel="noopener noreferrer">
 Falar pelo WhatsApp
 </a>
 
 </footer>
-
 </div>
 
-<!-- DETALHES DO PRODUTO -->
+<!-- DETALHES -->
 
 <div
 id="modalProduto"
@@ -504,11 +545,10 @@ Consultar pelo WhatsApp
 </a>
 
 </div>
-
 </div>
 </div>
 
-<!-- FORMULÁRIO DE RESERVA -->
+<!-- RESERVAS -->
 
 <div
 id="modalReserva"
@@ -534,11 +574,19 @@ aria-label="Fechar">
 
 <p id="resumoReserva" class="detalhes"></p>
 
-<label for="clienteNome">Nome</label>
+<div
+id="erroReserva"
+class="mensagem erro"
+role="alert"
+hidden>
+</div>
+
+<label for="clienteNome">Seu nome</label>
 
 <input
 id="clienteNome"
 autocomplete="name"
+minlength="2"
 maxlength="100"
 required>
 
@@ -550,6 +598,7 @@ WhatsApp com DDD
 id="clienteTelefone"
 type="tel"
 autocomplete="tel"
+placeholder="(41) 99999-9999"
 maxlength="20"
 required>
 
@@ -577,28 +626,35 @@ Forma de pagamento pretendida
 </label>
 
 <select id="clientePagamento" required>
-
 <option value="">Selecione</option>
 <option>Pix</option>
 <option>Cartão de crédito</option>
 <option>Cartão de débito</option>
 <option>Combinar com a loja</option>
-
 </select>
 
+<p>Subtotal:</p>
+
+<p id="totalReserva" class="total"></p>
+
 <p class="aviso">
-Os dados informados serão encaminhados pelo
-WhatsApp para atendimento da loja.
+Seu nome, WhatsApp, produto e quantidade serão
+registrados para atendimento da reserva.
+As informações de entrega e pagamento pretendido
+serão encaminhadas pelo WhatsApp, caso você
+continue o atendimento por lá.
 
-A reserva depende de confirmação.
-
-Não informe dados de cartão.
+A disponibilidade depende da confirmação da loja.
+Não informe dados de cartão neste formulário.
 </p>
 
 <div class="acoes">
 
-<button class="btn" type="submit">
-Solicitar pelo WhatsApp
+<button
+id="enviarReserva"
+class="btn"
+type="submit">
+Confirmar solicitação
 </button>
 
 <button
@@ -612,6 +668,46 @@ Voltar
 
 </form>
 
+<!-- CONFIRMACAO -->
+
+<div id="reservaConfirmada" class="confirmacao" hidden>
+
+<div class="simbolo">💎</div>
+
+<h2>Solicitação recebida!</h2>
+
+<div class="mensagem">
+
+Sua solicitação foi registrada com sucesso.
+
+Aguarde a confirmação da disponibilidade
+pela Silver Love.
+
+</div>
+
+<p id="resumoConfirmacao" class="detalhes"></p>
+
+<div class="acoes">
+
+<a
+id="continuarWhatsApp"
+class="btn btn-whatsapp"
+target="_blank"
+rel="noopener noreferrer">
+Continuar pelo WhatsApp
+</a>
+
+<button
+type="button"
+class="btn btn-sec"
+onclick="fecharModais();carregarProdutos()">
+Continuar comprando
+</button>
+
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -620,7 +716,7 @@ Voltar
 <script>
 "use strict";
 
-// CONFIGURAÇÕES SILVER LOVE
+// CONFIGURACOES
 
 const SUPABASE_URL =
 "https://xyybmzfodlvwljhhfxhe.supabase.co";
@@ -640,40 +736,35 @@ let produtos = [];
 let produtoAtual = null;
 let categoriaAtual = "Todas";
 let carregando = false;
+let enviandoReserva = false;
 let ultimoFoco = null;
 
 const FOTO_PADRAO =
 "data:image/svg+xml;charset=utf-8," +
 encodeURIComponent(
-'<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500"><rect width="100%" height="100%" fill="#fff1f6"/><text x="200" y="250" text-anchor="middle" fill="#b72c68" font-size="27" font-family="Georgia">Silver Love</text></svg>'
+'<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="100%" height="100%" fill="#fff1f6"/><text x="200" y="200" text-anchor="middle" fill="#b72c68" font-size="27" font-family="Georgia">Silver Love</text></svg>'
 );
 
 function normalizar(texto){
-
 return String(texto ?? "")
 .normalize("NFD")
 .replace(/[\u0300-\u036f]/g,"")
 .toLowerCase();
-
 }
 
 function moeda(valor){
-
 return Number(valor).toLocaleString("pt-BR",{
 style:"currency",
 currency:"BRL"
 });
-
 }
 
 function whatsapp(mensagem){
-
 return "https://wa.me/" + WHATSAPP +
 "?text=" + encodeURIComponent(mensagem);
-
 }
 
-// IDENTIFICAR CATEGORIA
+// CATEGORIAS
 
 function categoria(nome){
 
@@ -704,7 +795,6 @@ return "Conjuntos";
 }
 
 return "Outras joias";
-
 }
 
 // IMAGENS
@@ -714,7 +804,6 @@ function fotoURL(caminho){
 if(!caminho)return FOTO_PADRAO;
 
 try{
-
 const url = new URL(caminho,SITE_URL);
 
 if(url.protocol === "https:"){
@@ -724,39 +813,24 @@ return url.href;
 }catch(error){}
 
 return FOTO_PADRAO;
-
 }
 
 function configurarFoto(img,produto){
 
 img.onerror = ()=>{
-
 img.onerror = null;
 img.src = FOTO_PADRAO;
-
 };
 
 img.alt = produto.nome;
 img.src = fotoURL(produto.imagem_url);
-
 }
 
-// CARREGAR PRODUTOS DO SUPABASE
+// CONEXAO COM O SUPABASE
 
-async function carregarProdutos(){
+function conectar(){
 
-if(carregando)return;
-
-carregando = true;
-
-el("status").textContent =
-"Carregando nossa coleção...";
-
-el("recarregar").hidden = true;
-
-try{
-
-if(!db){
+if(db)return db;
 
 if(!window.supabase?.createClient){
 throw new Error("Conexão indisponível.");
@@ -774,7 +848,25 @@ detectSessionInUrl:false
 }
 );
 
+return db;
 }
+
+// CARREGAR PRODUTOS
+
+async function carregarProdutos(){
+
+if(carregando)return;
+
+carregando = true;
+
+el("status").textContent =
+"Carregando nossa coleção...";
+
+el("recarregar").hidden = true;
+
+try{
+
+conectar();
 
 const {data,error} = await db
 .from("produtos")
@@ -799,7 +891,7 @@ console.error("Erro no catálogo:",error);
 el("produtos").replaceChildren();
 
 el("status").textContent =
-"Não foi possível carregar nossa coleção. Tente novamente.";
+"Não foi possível carregar nossa coleção.";
 
 el("recarregar").hidden = false;
 
@@ -808,10 +900,9 @@ el("recarregar").hidden = false;
 carregando = false;
 
 }
-
 }
 
-// CAPA E NAVEGAÇÃO
+// NAVEGACAO
 
 function abrirCatalogo(){
 
@@ -823,10 +914,11 @@ history.replaceState(null,"","#catalogo");
 window.scrollTo(0,0);
 
 carregarProdutos();
-
 }
 
 function voltarCapa(){
+
+if(enviandoReserva)return;
 
 fecharModais();
 
@@ -836,7 +928,6 @@ el("capa").hidden = false;
 history.replaceState(null,"","#capa");
 
 window.scrollTo(0,0);
-
 }
 
 el("entrarLoja").onclick = abrirCatalogo;
@@ -859,9 +950,7 @@ const categorias = [
 ];
 
 if(!categorias.includes(categoriaAtual)){
-
 categoriaAtual = "Todas";
-
 }
 
 categorias.forEach(c=>{
@@ -869,34 +958,26 @@ categorias.forEach(c=>{
 const botao = document.createElement("button");
 
 botao.type = "button";
-
 botao.textContent = c;
 
 botao.onclick = ()=>{
-
 categoriaAtual = c;
-
 mostrarProdutos();
-
 };
 
 filtros.appendChild(botao);
 
 });
-
 }
 
-// CRIAR CARTÃO DE PRODUTO
+// CARTAO DE PRODUTO
 
 function criarProduto(p){
 
 const card = document.createElement("article");
-
 card.className = "produto";
 
-const fotoBotao =
-document.createElement("button");
-
+const fotoBotao = document.createElement("button");
 fotoBotao.className = "foto-btn";
 
 fotoBotao.setAttribute(
@@ -907,9 +988,7 @@ fotoBotao.setAttribute(
 fotoBotao.onclick = ()=>abrirProduto(p.id);
 
 const img = document.createElement("img");
-
 img.className = "foto";
-
 img.loading = "lazy";
 
 configurarFoto(img,p);
@@ -917,27 +996,19 @@ configurarFoto(img,p);
 fotoBotao.appendChild(img);
 
 const info = document.createElement("div");
-
 info.className = "info";
 
 const nome = document.createElement("button");
-
 nome.className = "nome-btn";
-
 nome.textContent = p.nome;
-
 nome.onclick = ()=>abrirProduto(p.id);
 
 const codigo = document.createElement("p");
-
 codigo.className = "codigo";
-
 codigo.textContent = "Código: " + p.codigo;
 
 const preco = document.createElement("p");
-
 preco.className = "preco";
-
 preco.textContent = moeda(p.preco);
 
 const estoque = document.createElement("p");
@@ -950,13 +1021,10 @@ estoque.textContent = Number(p.estoque)>0
 ? "Disponível"
 : "Sob consulta";
 
-const detalhes =
-document.createElement("button");
+const detalhes = document.createElement("button");
 
 detalhes.className = "btn btn-card";
-
 detalhes.textContent = "Ver detalhes";
-
 detalhes.onclick = ()=>abrirProduto(p.id);
 
 info.append(
@@ -970,10 +1038,9 @@ detalhes
 card.append(fotoBotao,info);
 
 return card;
-
 }
 
-// EXIBIR E PESQUISAR PRODUTOS
+// EXIBIR PRODUTOS
 
 function mostrarProdutos(){
 
@@ -990,9 +1057,9 @@ categoriaAtual === "Todas" ||
 p.categoria === categoriaAtual;
 
 const texto = normalizar(
-p.nome + " " +
-p.codigo + " " +
-(p.descricao || "") + " " +
+p.nome+" "+
+p.codigo+" "+
+(p.descricao || "")+" "+
 p.categoria
 );
 
@@ -1001,13 +1068,11 @@ return categoriaOk && texto.includes(busca);
 });
 
 filtrados.forEach(p=>{
-
 grade.appendChild(criarProduto(p));
-
 });
 
 el("status").textContent = filtrados.length
-? filtrados.length + " joias encontradas"
+? filtrados.length+" joias encontradas"
 : "Nenhuma joia encontrada.";
 
 document
@@ -1021,17 +1086,17 @@ b.classList.toggle("ativo",ativo);
 b.setAttribute("aria-pressed",String(ativo));
 
 });
-
 }
 
 el("busca").oninput = mostrarProdutos;
 
-// DETALHES DA JOIA
+// DETALHES
 
 function abrirProduto(id){
 
-produtoAtual =
-produtos.find(p=>p.id===id);
+if(enviandoReserva)return;
+
+produtoAtual = produtos.find(p=>p.id===id);
 
 if(!produtoAtual)return;
 
@@ -1046,7 +1111,7 @@ el("tituloProduto").textContent =
 produtoAtual.nome;
 
 el("codigoProduto").textContent =
-"Código: " + produtoAtual.codigo;
+"Código: "+produtoAtual.codigo;
 
 el("precoProduto").textContent =
 moeda(produtoAtual.preco);
@@ -1055,13 +1120,10 @@ el("descricaoProduto").textContent =
 produtoAtual.descricao ||
 "Consulte a loja para mais informações.";
 
-const disponivel =
-Number(produtoAtual.estoque)>0;
+const disponivel = Number(produtoAtual.estoque)>0;
 
 el("estoqueProduto").className =
-disponivel
-? "estoque"
-: "estoque indisponivel";
+disponivel ? "estoque" : "estoque indisponivel";
 
 el("estoqueProduto").textContent =
 disponivel
@@ -1072,45 +1134,41 @@ el("btnReserva").hidden = !disponivel;
 
 el("consultarProduto").href = whatsapp(
 
-"Olá, Silver Love! Gostaria de saber mais sobre " +
-produtoAtual.nome +
-" (código " + produtoAtual.codigo + "), " +
-moeda(produtoAtual.preco) + "."
+"Olá, Silver Love! Gostaria de saber mais sobre "+
+produtoAtual.nome+
+" (código "+produtoAtual.codigo+"), "+
+moeda(produtoAtual.preco)+"."
 
 );
 
 el("modalReserva").hidden = true;
-
 el("modalProduto").hidden = false;
 
 document.body.style.overflow = "hidden";
 
 el("modalProduto")
 .querySelector(".fechar").focus();
-
 }
 
 function fecharModais(){
 
-el("modalProduto").hidden = true;
+if(enviandoReserva)return;
 
+el("modalProduto").hidden = true;
 el("modalReserva").hidden = true;
 
 document.body.style.overflow = "";
 
 if(ultimoFoco?.isConnected){
-
 ultimoFoco.focus();
-
+}
 }
 
-}
-
-// RESERVA PELO WHATSAPP
+// ABRIR RESERVA
 
 function abrirReserva(){
 
-if(!produtoAtual)return;
+if(!produtoAtual || enviandoReserva)return;
 
 const estoque = Number(produtoAtual.estoque);
 
@@ -1118,8 +1176,16 @@ if(estoque<1)return;
 
 el("formReserva").reset();
 
+el("formReserva").hidden = false;
+
+el("reservaConfirmada").hidden = true;
+
+el("erroReserva").hidden = true;
+
+el("continuarWhatsApp").removeAttribute("href");
+
 el("resumoReserva").textContent =
-produtoAtual.nome + " • " +
+produtoAtual.nome+" • "+
 moeda(produtoAtual.preco);
 
 el("quantidade").max = estoque;
@@ -1130,11 +1196,14 @@ el("modalProduto").hidden = true;
 
 el("modalReserva").hidden = false;
 
-el("clienteNome").focus();
+atualizarTotal();
 
+el("clienteNome").focus();
 }
 
 function voltarDetalhes(){
+
+if(enviandoReserva)return;
 
 el("modalReserva").hidden = true;
 
@@ -1142,20 +1211,53 @@ el("modalProduto").hidden = false;
 
 el("modalProduto")
 .querySelector(".fechar").focus();
-
 }
 
-el("formReserva").onsubmit = event=>{
+function atualizarTotal(){
+
+if(!produtoAtual)return;
+
+const quantidade =
+Number(el("quantidade").value);
+
+el("totalReserva").textContent =
+moeda(
+Number(produtoAtual.preco)*
+Math.max(0,quantidade || 0)
+);
+}
+
+el("quantidade").oninput = atualizarTotal;
+
+function erroReserva(texto){
+
+el("erroReserva").textContent = texto;
+
+el("erroReserva").hidden = false;
+
+el("erroReserva").scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+}
+
+// REGISTRAR RESERVA NO BANCO
+
+el("formReserva").onsubmit = async event=>{
 
 event.preventDefault();
 
-if(!produtoAtual)return;
+if(!produtoAtual || enviandoReserva)return;
+
+el("erroReserva").hidden = true;
+
+const produto = produtoAtual;
 
 const nome =
 el("clienteNome").value.trim();
 
 const telefone =
-el("clienteTelefone").value.trim();
+el("clienteTelefone").value.replace(/\D/g,"");
 
 const endereco =
 el("clienteEndereco").value.trim();
@@ -1163,117 +1265,4 @@ el("clienteEndereco").value.trim();
 const pagamento =
 el("clientePagamento").value;
 
-const quantidade =
-Number(el("quantidade").value);
-
-if(!nome || !telefone || !pagamento){
-
-alert("Preencha os dados necessários.");
-
-return;
-
-}
-
-if(
-
-!Number.isInteger(quantidade) ||
-quantidade<1 ||
-quantidade>Number(produtoAtual.estoque)
-
-){
-
-alert("Confira a quantidade disponível.");
-
-return;
-
-}
-
-const total =
-Number(produtoAtual.preco)*quantidade;
-
-const mensagem =
-
-"Olá, Silver Love! 💎\n\n" +
-
-"Gostaria de solicitar uma reserva.\n\n" +
-
-"Joia: " + produtoAtual.nome + "\n" +
-
-"Código: " + produtoAtual.codigo + "\n" +
-
-"Quantidade: " + quantidade + "\n" +
-
-"Valor unitário: " +
-moeda(produtoAtual.preco) + "\n" +
-
-"Subtotal: " + moeda(total) + "\n\n" +
-
-"Nome: " + nome + "\n" +
-
-"WhatsApp: " + telefone + "\n" +
-
-"Entrega/retirada: " +
-(endereco || "A combinar") + "\n" +
-
-"Pagamento pretendido: " +
-pagamento + "\n\n" +
-
-"Aguardo confirmação da disponibilidade, " +
-"do valor final e da reserva.";
-
-window.location.href = whatsapp(mensagem);
-
-};
-
-// INICIALIZAÇÃO
-
-el("whatsappGeral").href = whatsapp(
-
-"Olá! Gostaria de conhecer as joias da Silver Love."
-
-);
-
-document.querySelectorAll(".modal").forEach(modal=>{
-
-modal.addEventListener("click",event=>{
-
-if(event.target===modal){
-
-fecharModais();
-
-}
-
-});
-
-});
-
-document.addEventListener("keydown",event=>{
-
-if(event.key==="Escape"){
-
-fecharModais();
-
-}
-
-});
-
-if(location.hash==="#catalogo"){
-
-abrirCatalogo();
-
-}
-
-window.addEventListener("pageshow",event=>{
-
-if(event.persisted && !el("loja").hidden){
-
-carregarProdutos();
-
-}
-
-});
-
-</script>
-
-</body>
-</html>
+const quant
