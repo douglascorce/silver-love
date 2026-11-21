@@ -1,0 +1,898 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Silver Love | Compras</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff3f8;color:#492537;font-family:Arial,sans-serif}
+header{background:linear-gradient(120deg,#801b4c,#c13a7b);color:white;padding:25px;text-align:center}
+header h1{margin:0}
+main{max-width:1000px;margin:auto;padding:14px}
+.card{background:white;padding:20px;margin:15px 0;border-radius:16px;box-shadow:0 4px 18px #7d20451a}
+h2,h3{color:#922957}
+label{display:block;font-weight:bold;margin:12px 0 6px}
+input,textarea,select{width:100%;padding:12px;border:1px solid #dab4c6;border-radius:9px;font-size:16px;background:white;color:#492537}
+textarea{min-height:120px}
+button,.btn{display:inline-block;background:#a92c66;color:white;border:0;border-radius:10px;padding:13px;font-size:15px;font-weight:bold;cursor:pointer;text-decoration:none;text-align:center}
+button:disabled{opacity:.5}
+.secondary{background:#74606d}
+.green{background:#28854c}
+.danger{background:#b93655}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.metric{background:#fff3f8;padding:14px;border-radius:12px}
+.metric strong{display:block;color:#922957;font-size:20px;margin-top:8px}
+.muted{color:#806b77;font-size:13px;line-height:1.6}
+.item{border:1px solid #ead6df;background:#fffafd;border-radius:12px;margin:15px 0;padding:15px}
+.msg{padding:15px;background:#e1f5e8;color:#245b38;border-radius:10px;margin:10px 0}
+.erro{background:#ffe1e7;color:#902b45}
+[hidden]{display:none!important}
+.check{display:flex;align-items:center;gap:8px}
+.check input{width:auto}
+.check label{margin:0}
+progress{width:100%;accent-color:#a92c66}
+</style>
+</head>
+<body>
+
+<header>
+<h1>💎 Silver Love</h1>
+<p>Prata e Folheados a Ouro</p>
+<p>Compras e Importação</p>
+</header>
+
+<main>
+
+<a class="btn secondary" href="admin.html">← Painel administrativo</a>
+
+<div id="mensagem" class="msg" role="status" hidden></div>
+
+<section id="acesso" class="card">
+<p>Validando acesso administrativo...</p>
+</section>
+
+<div id="painel" hidden>
+
+<section class="card">
+
+<h2>📄 Importar documento</h2>
+
+<label>Nome do fornecedor</label>
+<input id="fornecedor">
+
+<label>Número do documento</label>
+<input id="documento">
+
+<label>Data da compra</label>
+<input id="data" type="date">
+
+<label>Valor final da compra (R$)</label>
+<input id="valorTotal" type="number" min="0" step="0.01">
+
+<label>Acréscimo padrão (%)</label>
+<input id="percentual" type="number" min="0" step="0.01" value="110">
+
+<label>Selecionar foto ou PDF</label>
+<input id="arquivo" type="file" accept="image/jpeg,image/png,image/webp,application/pdf">
+
+<div class="actions">
+<button id="ler">Ler documento</button>
+</div>
+
+<progress id="progresso" hidden></progress>
+<p id="leituraStatus" class="muted"></p>
+
+<label>Texto reconhecido ou digitado</label>
+<textarea id="texto" placeholder="O texto extraído aparecerá aqui."></textarea>
+
+<div class="actions">
+<button id="extrair">Identificar produtos</button>
+<button id="adicionar" class="secondary">Adicionar item manualmente</button>
+</div>
+
+<p class="muted">
+Confira todos os códigos, quantidades, descrições e custos.
+A leitura automática pode não identificar todas as linhas.
+Também é possível colar uma lista no formato:
+código;descrição;quantidade;valor unitário.
+</p>
+
+</section>
+
+<section class="card">
+
+<h2>📊 Revisão da compra</h2>
+
+<div class="grid">
+<div class="metric">
+Itens identificados
+<strong id="totalItens">0</strong>
+</div>
+<div class="metric">
+Quantidade
+<strong id="totalQtd">0</strong>
+</div>
+<div class="metric">
+Total dos custos
+<strong id="totalCusto">R$ 0,00</strong>
+</div>
+<div class="metric">
+Venda estimada
+<strong id="totalVenda">R$ 0,00</strong>
+</div>
+</div>
+
+<p id="diferenca" class="muted"></p>
+
+<div class="actions">
+<button id="recalcular" class="secondary">Aplicar percentual padrão</button>
+<button id="ratear" class="secondary">Ratear desconto do pedido</button>
+</div>
+
+<p class="muted">
+O rateio distribui proporcionalmente a diferença entre
+os valores unitários do documento e o total pago.
+Use somente após conferir todas as peças.
+</p>
+
+<div id="itens"></div>
+
+<div class="check">
+<input id="revisado" type="checkbox">
+<label for="revisado">
+Conferi os itens, preços e quantidades de entrada no estoque.
+</label>
+</div>
+
+<div class="actions">
+<button id="importar" class="green">Confirmar importação</button>
+</div>
+
+</section>
+
+<section class="card">
+<h2>📷 Joias aguardando fotos</h2>
+<p class="muted">
+Peças novas importadas ficam inativas até receberem foto
+e serem ativadas no painel administrativo.
+</p>
+<div id="semFotos"></div>
+<a href="admin.html#lista" class="btn">Editar produtos e enviar fotos</a>
+</section>
+
+<section class="card">
+<h2>📚 Histórico de compras</h2>
+<button id="atualizar" class="secondary">Atualizar histórico</button>
+<div id="historico"></div>
+</section>
+
+</div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<script>
+"use strict";
+
+const URL_DB="https://xyybmzfodlvwljhhfxhe.supabase.co";
+const KEY="sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
+
+const $=id=>document.getElementById(id);
+const moeda=n=>Number(n).toLocaleString("pt-BR",{
+style:"currency",currency:"BRL"
+});
+const numero=s=>Number(String(s).includes(",")
+?String(s).replace(/\./g,"").replace(",",".")
+:s);
+const arred=n=>Math.round((n+Number.EPSILON)*100)/100;
+const normal=s=>String(s||"").trim().toLowerCase();
+
+let db;
+let produtos=[];
+let itens=[];
+let ocupado=false;
+
+function msg(t,erro=false){
+$("mensagem").textContent=t;
+$("mensagem").className="msg"+(erro?" erro":"");
+$("mensagem").hidden=false;
+$("mensagem").scrollIntoView({behavior:"smooth"});
+}
+
+function texto(p,tag,t,cls){
+const e=document.createElement(tag);
+e.textContent=t;
+if(cls)e.className=cls;
+p.appendChild(e);
+return e;
+}
+
+function existente(codigo){
+return produtos.find(p=>normal(p.codigo)===normal(codigo));
+}
+
+function padrao(){
+const p=Number($("percentual").value);
+if(!Number.isFinite(p)||p<0)throw new Error("Percentual inválido.");
+return p;
+}
+
+function preco(i){
+return i.preco_manual!==null
+?i.preco_manual
+:arred(i.custo_unitario*(1+i.percentual/100));
+}
+
+function novoItem(codigo="",descricao="",qtd=1,valor=0){
+
+const p=existente(codigo);
+
+return {
+codigo:codigo,
+descricao:descricao,
+quantidade:qtd,
+valor_unitario_documento:valor,
+custo_unitario:valor,
+percentual:padrao(),
+preco_manual:null,
+acao:p?"vincular":"novo",
+quantidade_entrada:p?0:qtd
+};
+}
+
+function mudou(){
+$("revisado").checked=false;
+resumo();
+}
+
+// CARREGAR PRODUTOS E HISTORICO
+
+async function consultar(tabela,ordem){
+let lista=[];
+for(let inicio=0;;inicio+=500){
+const {data,error}=await db.from(tabela)
+.select("*").order(ordem)
+.range(inicio,inicio+499);
+if(error)throw error;
+lista.push(...data);
+if(data.length<500)return lista;
+}
+}
+
+async function atualizar(){
+
+produtos=await consultar("produtos","id");
+
+const lista=$("semFotos");
+lista.replaceChildren();
+
+const faltando=produtos.filter(p=>!p.imagem_url);
+
+if(!faltando.length){
+texto(lista,"p","Nenhuma joia aguardando foto.","muted");
+}
+
+for(const p of faltando){
+texto(lista,"p",p.codigo+" — "+p.nome+
+" | "+moeda(p.preco));
+}
+
+const compras=await consultar("compras","id");
+
+compras.sort((a,b)=>String(b.data_compra)
+.localeCompare(String(a.data_compra)));
+
+const hist=$("historico");
+hist.replaceChildren();
+
+if(!compras.length){
+texto(hist,"p","Nenhuma compra registrada.","muted");
+}
+
+for(const c of compras){
+const box=document.createElement("div");
+box.className="item";
+texto(box,"strong",c.fornecedor);
+texto(box,"p","Documento: "+c.numero_documento);
+texto(box,"p","Data: "+c.data_compra);
+texto(box,"p",c.valor_total===null
+?"Valor não informado":moeda(c.valor_total));
+texto(box,"p","Status: "+c.status,"muted");
+hist.appendChild(box);
+}
+}
+
+// LEITURA DE IMAGENS E PDF
+
+function carregarScript(url){
+return new Promise((resolve,reject)=>{
+const s=document.createElement("script");
+s.src=url;
+s.onload=resolve;
+s.onerror=()=>reject(new Error("Falha ao carregar biblioteca."));
+document.head.appendChild(s);
+});
+}
+
+$("ler").onclick=async()=>{
+
+if(ocupado)return;
+const f=$("arquivo").files[0];
+
+if(!f)return msg("Selecione uma foto ou PDF.",true);
+if(f.size>20*1024*1024){
+return msg("Selecione um arquivo de até 20 MB.",true);
+}
+
+ocupado=true;
+$("ler").disabled=true;
+$("importar").disabled=true;
+$("progresso").hidden=false;
+
+let worker;
+let pdf;
+
+try{
+
+if(!window.Tesseract){
+await carregarScript(
+"https://cdn.jsdelivr.net/npm/tesseract.js@6/dist/tesseract.min.js"
+);
+}
+
+worker=await Tesseract.createWorker("por",1,{
+logger:m=>{
+$("leituraStatus").textContent=
+"Lendo documento: "+Math.round((m.progress||0)*100)+"%";
+}
+});
+
+let resultado="";
+
+if(f.type==="application/pdf"||/\.pdf$/i.test(f.name)){
+
+const base="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/";
+
+const lib=await import(base+"pdf.mjs");
+
+lib.GlobalWorkerOptions.workerSrc=base+"pdf.worker.mjs";
+
+pdf=await lib.getDocument({
+data:new Uint8Array(await f.arrayBuffer()),
+isEvalSupported:false
+}).promise;
+
+if(pdf.numPages>10){
+throw new Error("Use documentos de até 10 páginas.");
+}
+
+for(let n=1;n<=pdf.numPages;n++){
+
+$("leituraStatus").textContent=
+"Lendo página "+n+" de "+pdf.numPages;
+
+const page=await pdf.getPage(n);
+const original=page.getViewport({scale:1});
+const scale=Math.min(3,2200/original.width);
+const view=page.getViewport({scale});
+
+const canvas=document.createElement("canvas");
+canvas.width=Math.ceil(view.width);
+canvas.height=Math.ceil(view.height);
+
+await page.render({
+canvasContext:canvas.getContext("2d"),
+viewport:view
+}).promise;
+
+const r=await worker.recognize(canvas);
+
+resultado+=r.data.text+"\n";
+
+canvas.width=1;
+canvas.height=1;
+}
+
+}else{
+
+const r=await worker.recognize(f);
+resultado=r.data.text;
+
+}
+
+$("texto").value=resultado;
+preencherCabecalho(resultado);
+
+$("leituraStatus").textContent=
+"Leitura concluída. Identifique e confira os produtos.";
+
+msg("Documento lido. Confira o texto reconhecido.");
+
+}catch(e){
+msg("Erro na leitura: "+e.message,true);
+}finally{
+if(worker)await worker.terminate().catch(()=>{});
+if(pdf)await pdf.destroy().catch(()=>{});
+ocupado=false;
+$("ler").disabled=false;
+$("importar").disabled=false;
+$("progresso").hidden=true;
+}
+};
+
+function preencherCabecalho(t){
+
+const doc=t.match(/PEDIDO\s+DE\s+VENDA\s*:\s*(\d+)/i);
+
+if(doc&&!$("documento").value){
+$("documento").value=doc[1];
+}
+
+const data=t.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+
+if(data&&!$("data").value){
+$("data").value=data[3]+"-"+data[2]+"-"+data[1];
+}
+
+const total=t.match(/TOTAL\s*:\s*R\$\s*([\d.]+,\d{2})/i);
+
+if(total&&!$("valorTotal").value){
+$("valorTotal").value=numero(total[1]).toFixed(2);
+}
+}
+
+// IDENTIFICAR ITENS
+
+function interpretar(t){
+
+const lista=[];
+
+for(const linhaOriginal of t.split(/\r?\n/)){
+
+const linha=linhaOriginal.trim();
+
+if(!linha)continue;
+
+// FORMATO MANUAL: CODIGO;DESCRICAO;QTD;VALOR
+
+const partes=linha.split(";");
+
+if(partes.length===4){
+
+const [c,d,q,v]=partes.map(s=>s.trim());
+const qtd=numero(q);
+const valor=numero(v);
+
+if(c&&d&&Number.isInteger(qtd)&&qtd>0&&
+Number.isFinite(valor)&&valor>=0){
+
+lista.push(novoItem(c,d,qtd,valor));
+continue;
+
+}
+}
+
+// FORMATO DO DOCUMENTO DO FORNECEDOR
+
+const m=linha.match(
+/^[^\d]{0,4}(\d{4,10})\s+([\d.]+,\d{2})\s+(\d+)[,.]00\s*(.*)$/
+);
+
+if(!m)continue;
+
+let descricao=m[4]
+.replace(/^(?:\s*\d{1,4}\s*){0,3}/,"")
+.split(/\bUN\b/i)[0]
+.trim();
+
+if(!/[A-Za-zÀ-ÿ]{3}/.test(descricao))continue;
+
+lista.push(novoItem(
+m[1],descricao,Number(m[3]),numero(m[2])
+));
+}
+
+return lista;
+}
+
+$("extrair").onclick=()=>{
+
+if(ocupado)return;
+
+try{
+
+if(itens.length&&!confirm("Substituir a lista em revisão?"))return;
+
+itens=interpretar($("texto").value);
+
+renderizar();
+
+msg(itens.length
+?itens.length+" itens identificados. Confira com o documento."
+:"Nenhum item reconhecido. Corrija o texto ou adicione manualmente.",
+!itens.length);
+
+}catch(e){
+msg(e.message,true);
+}
+};
+
+$("adicionar").onclick=()=>{
+if(ocupado)return;
+try{
+itens.push(novoItem());
+renderizar();
+}catch(e){msg(e.message,true);}
+};
+
+// CAMPOS EDITAVEIS
+
+function campo(p,label,tipo,valor,fn){
+
+texto(p,"label",label);
+
+const input=document.createElement("input");
+input.type=tipo;
+input.value=valor??"";
+
+if(tipo==="number"){
+input.min="0";
+input.step="0.01";
+}
+
+input.addEventListener("change",()=>{
+fn(input.value);
+mudou();
+});
+
+p.appendChild(input);
+return input;
+}
+
+function renderizar(){
+
+const container=$("itens");
+container.replaceChildren();
+
+itens.forEach((i,index)=>{
+
+const box=document.createElement("div");
+box.className="item";
+
+texto(box,"h3","Joia "+(index+1));
+
+campo(box,"Código","text",i.codigo,v=>{
+
+i.codigo=v.trim();
+
+const p=existente(i.codigo);
+
+i.acao=p?"vincular":"novo";
+i.quantidade_entrada=p?0:i.quantidade;
+
+renderizar();
+});
+
+campo(box,"Descrição","text",i.descricao,v=>{
+i.descricao=v;
+});
+
+campo(box,"Quantidade comprada","number",i.quantidade,v=>{
+i.quantidade=numero(v);
+});
+
+campo(box,"Valor unitário do documento","number",
+i.valor_unitario_documento,v=>{
+i.valor_unitario_documento=numero(v);
+});
+
+campo(box,"Custo unitário final","number",
+i.custo_unitario,v=>{
+i.custo_unitario=numero(v);
+renderizar();
+});
+
+campo(box,"Acréscimo (%)","number",i.percentual,v=>{
+i.percentual=numero(v);
+i.preco_manual=null;
+renderizar();
+});
+
+campo(box,"Preço de venda sugerido / manual","number",
+preco(i),v=>{
+i.preco_manual=numero(v);
+renderizar();
+});
+
+const p=existente(i.codigo);
+
+if(p){
+texto(box,"p",
+"Já cadastrado: "+p.nome+
+" | Estoque atual: "+p.estoque,
+"muted");
+}else{
+texto(box,"p","Novo produto: ficará inativo.","muted");
+}
+
+texto(box,"label","Ação de importação");
+
+const select=document.createElement("select");
+
+const opcoes=p
+?[["vincular","Vincular sem aumentar estoque"],
+["repor","Acrescentar ao estoque"]]
+:[["novo","Cadastrar nova joia"]];
+
+for(const [v,n] of opcoes){
+const op=document.createElement("option");
+op.value=v;
+op.textContent=n;
+select.appendChild(op);
+}
+
+select.value=i.acao;
+
+select.onchange=()=>{
+i.acao=select.value;
+i.quantidade_entrada=
+i.acao==="vincular"?0:i.quantidade;
+renderizar();
+};
+
+box.appendChild(select);
+
+campo(box,"Quantidade para entrada no estoque","number",
+i.quantidade_entrada,v=>{
+i.quantidade_entrada=numero(v);
+});
+
+texto(box,"p","Lucro bruto sugerido por unidade: "+
+moeda(preco(i)-i.custo_unitario),"muted");
+
+const remover=document.createElement("button");
+remover.textContent="Remover item";
+remover.className="danger";
+
+remover.onclick=()=>{
+if(ocupado)return;
+itens.splice(index,1);
+renderizar();
+};
+
+box.appendChild(remover);
+
+container.appendChild(box);
+});
+
+mudou();
+}
+
+function resumo(){
+
+const qtd=itens.reduce((s,i)=>s+i.quantidade,0);
+
+const custo=itens.reduce((s,i)=>
+s+i.custo_unitario*i.quantidade,0);
+
+const venda=itens.reduce((s,i)=>
+s+preco(i)*i.quantidade,0);
+
+$("totalItens").textContent=itens.length;
+$("totalQtd").textContent=qtd;
+$("totalCusto").textContent=moeda(custo);
+$("totalVenda").textContent=moeda(venda);
+
+$("diferenca").textContent=$("valorTotal").value
+?"Diferença para o total do documento: "+
+moeda(custo-Number($("valorTotal").value))
+:"Informe o valor final pago ao fornecedor.";
+}
+
+$("valorTotal").oninput=mudou;
+$("fornecedor").oninput=mudou;
+$("documento").oninput=mudou;
+$("data").oninput=mudou;
+
+$("recalcular").onclick=()=>{
+
+if(ocupado)return;
+
+try{
+
+if(!confirm("Recalcular todos os preços, inclusive os ajustados manualmente?"))return;
+
+for(const i of itens){
+i.percentual=padrao();
+i.preco_manual=null;
+}
+
+renderizar();
+
+}catch(e){msg(e.message,true);}
+};
+
+$("ratear").onclick=()=>{
+
+if(ocupado)return;
+
+const bruto=itens.reduce((s,i)=>
+s+i.valor_unitario_documento*i.quantidade,0);
+
+const total=Number($("valorTotal").value);
+
+if(!$("valorTotal").value||bruto<=0||total<=0){
+return msg("Confira os valores antes de ratear.",true);
+}
+
+if(!confirm("Distribuir o valor final da compra proporcionalmente entre as peças?"))return;
+
+for(const i of itens){
+i.custo_unitario=arred(
+i.valor_unitario_documento*total/bruto
+);
+}
+
+renderizar();
+};
+
+// IMPORTACAO DEFINITIVA
+
+$("importar").onclick=async()=>{
+
+if(ocupado)return;
+
+try{
+
+if(!$("revisado").checked){
+throw new Error("Confirme a revisão dos dados.");
+}
+
+const fornecedor=$("fornecedor").value.trim();
+const documento=$("documento").value.trim();
+const data=$("data").value;
+const total=Number($("valorTotal").value);
+
+if(!fornecedor||!documento||!data||
+!$("valorTotal").value||
+!Number.isFinite(total)||total<0){
+
+throw new Error("Preencha os dados da compra.");
+
+}
+
+if(!itens.length){
+throw new Error("Nenhuma joia informada.");
+}
+
+const codigos=new Set();
+
+for(const i of itens){
+
+if(!i.codigo.trim()||!i.descricao.trim()||
+!Number.isInteger(i.quantidade)||i.quantidade<1||
+!Number.isFinite(i.custo_unitario)||i.custo_unitario<0||
+!Number.isFinite(i.valor_unitario_documento)||
+i.valor_unitario_documento<0||
+!Number.isFinite(i.percentual)||i.percentual<0||
+!Number.isFinite(preco(i))||preco(i)<0||
+!Number.isInteger(i.quantidade_entrada)||
+i.quantidade_entrada<0||
+i.quantidade_entrada>i.quantidade){
+
+throw new Error("Confira o item "+i.codigo);
+
+}
+
+if(codigos.has(normal(i.codigo))){
+throw new Error("Código repetido: "+i.codigo);
+}
+
+codigos.add(normal(i.codigo));
+}
+
+const soma=itens.reduce((s,i)=>
+s+i.custo_unitario*i.quantidade,0);
+
+if(Math.abs(soma-total)>0.05){
+throw new Error(
+"Os custos não conferem com o total pago. Revise ou rateie o desconto."
+);
+}
+
+if(!confirm("Registrar esta compra e aplicar as quantidades de entrada revisadas?"))return;
+
+ocupado=true;
+$("importar").disabled=true;
+
+const {data:id,error}=await db.rpc("importar_compra",{
+
+p_fornecedor:fornecedor,
+p_numero_documento:documento,
+p_data_compra:data,
+p_valor_total:total,
+p_percentual:padrao(),
+p_itens:itens
+
+});
+
+if(error)throw error;
+
+itens=[];
+renderizar();
+
+$("texto").value="";
+$("documento").value="";
+$("valorTotal").value="";
+$("arquivo").value="";
+
+msg("💎 Compra registrada com sucesso!");
+
+try{await atualizar();}
+catch(e){msg("Compra registrada. Atualize o histórico.",true);}
+
+}catch(e){
+msg("Importação: "+e.message,true);
+}finally{
+ocupado=false;
+$("importar").disabled=false;
+}
+};
+
+$("atualizar").onclick=async()=>{
+if(ocupado)return;
+try{await atualizar();}
+catch(e){msg(e.message,true);}
+};
+
+// AUTENTICACAO
+
+async function iniciar(){
+
+try{
+
+db=window.supabase.createClient(URL_DB,KEY);
+
+const {data,error}=await db.auth.getUser();
+
+if(error||!data?.user){
+throw new Error("Entre primeiro no painel administrativo.");
+}
+
+const r=await db.from("administradores")
+.select("usuario_id")
+.eq("usuario_id",data.user.id)
+.maybeSingle();
+
+if(r.error)throw r.error;
+
+if(!r.data){
+throw new Error("Acesso não autorizado.");
+}
+
+await atualizar();
+
+$("acesso").hidden=true;
+$("painel").hidden=false;
+
+db.auth.onAuthStateChange(event=>{
+
+if(event==="SIGNED_OUT"){
+$("painel").hidden=true;
+location.href="admin.html";
+}
+
+});
+
+}catch(e){
+$("acesso").textContent=e.message;
+}
+}
+
+iniciar();
+</script>
+</body>
+</html>
