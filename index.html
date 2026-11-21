@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#fff5f8">
 <title>Silver Love | Prata e Folheados a Ouro</title>
-<meta name="description" content="Conheça as joias da Silver Love. Prata e Folheados a Ouro.">
+
 <style>
 :root{
   --rosa:#b72c68;
@@ -16,17 +16,21 @@
   --texto:#45333e;
   --borda:#efdce5;
 }
+
 *{box-sizing:border-box}
+
 body{
   margin:0;
   background:var(--fundo);
   color:var(--texto);
   font-family:Arial,sans-serif;
 }
+
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 button:disabled{opacity:.5;cursor:not-allowed}
 [hidden]{display:none!important}
+
 .capa{
   min-height:100dvh;
   max-width:620px;
@@ -40,6 +44,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
   text-align:center;
   background:linear-gradient(155deg,#fffafd,#ffeaf2,#fff8fb);
 }
+
 .capa img{
   width:100%;
   max-width:520px;
@@ -47,10 +52,12 @@ button:disabled{opacity:.5;cursor:not-allowed}
   object-fit:contain;
   border-radius:18px;
 }
+
 .capa p{
   color:#936a7e;
   font:italic 19px Georgia,serif;
 }
+
 .btn{
   display:block;
   width:100%;
@@ -63,18 +70,22 @@ button:disabled{opacity:.5;cursor:not-allowed}
   font-weight:bold;
   text-align:center;
 }
+
 .btn-capa{max-width:350px}
+
 .btn-sec{
   background:white;
   border:1px solid var(--rosa);
   color:var(--rosa);
 }
+
 .topo{
   padding:20px 16px;
   text-align:center;
   background:linear-gradient(white,#fff6f9);
   border-bottom:1px solid var(--borda);
 }
+
 .voltar{
   display:block;
   border:0;
@@ -82,12 +93,15 @@ button:disabled{opacity:.5;cursor:not-allowed}
   background:none;
   color:var(--rosa);
 }
+
 .marca{
   margin:0;
   font:italic 600 38px Georgia,serif;
   color:var(--escuro);
 }
+
 .marca span{color:var(--ouro)}
+
 .tipo{
   color:#8d7180;
   font-size:11px;
@@ -95,27 +109,32 @@ button:disabled{opacity:.5;cursor:not-allowed}
   letter-spacing:2px;
   text-transform:uppercase;
 }
+
 .slogan{
   color:#986c80;
   font:italic 15px Georgia,serif;
 }
+
 .conteudo{
   max-width:1050px;
   margin:auto;
   padding:25px 14px 48px;
 }
+
 .titulo{
   margin:0;
   text-align:center;
   font:32px Georgia,serif;
   color:var(--escuro);
 }
+
 .subtitulo{
   text-align:center;
   color:#806e78;
   line-height:1.6;
   font-size:14px;
 }
+
 .busca{
   width:100%;
   padding:14px;
@@ -125,12 +144,14 @@ button:disabled{opacity:.5;cursor:not-allowed}
   color:var(--texto);
   margin:12px 0;
 }
+
 .filtros{
   display:flex;
   gap:9px;
   overflow-x:auto;
   padding:12px 0 20px;
 }
+
 .filtros button{
   flex-shrink:0;
   padding:10px 16px;
@@ -139,15 +160,18 @@ button:disabled{opacity:.5;cursor:not-allowed}
   color:#785669;
   background:white;
 }
+
 .filtros button.ativo{
   background:var(--rosa);
   color:white;
 }
+
 .grade{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:14px;
 }
+
 .produto{
   background:white;
   border:1px solid var(--borda);
@@ -156,6 +180,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
   box-shadow:0 4px 18px #9b577014;
   min-width:0;
 }
+
 .foto-btn{
   display:block;
   width:100%;
@@ -163,6 +188,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
   border:0;
   background:#faf1f5;
 }
+
 .foto{
   width:100%;
   aspect-ratio:4/5;
@@ -170,7 +196,9 @@ button:disabled{opacity:.5;cursor:not-allowed}
   object-fit:contain;
   background:#fff;
 }
+
 .info{padding:13px}
+
 .nome-btn{
   padding:0;
   border:0;
@@ -179,50 +207,59 @@ button:disabled{opacity:.5;cursor:not-allowed}
   color:var(--texto);
   font:20px/1.2 Georgia,serif;
 }
+
 .codigo{
   color:#8b8086;
   font-size:12px;
 }
+
 .preco{
   font-size:21px;
   font-weight:bold;
   color:var(--rosa);
   margin:12px 0;
 }
+
 .estoque{
   font-size:12px;
   color:#42764a;
   margin:8px 0;
 }
-.indisponivel{
-  color:#9b647a;
-}
+
+.indisponivel{color:#9b647a}
+
 .btn-card{
   border-radius:11px;
   font-size:12px;
   padding:12px 6px;
 }
+
 .status{
   color:#806e78;
   text-align:center;
   padding:15px;
   font-size:14px;
 }
+
 .rodape{
   padding:30px 18px 40px;
   background:white;
   text-align:center;
   border-top:1px solid var(--borda);
 }
+
 .rodape h2{
   font:italic 28px Georgia,serif;
   color:var(--escuro);
 }
+
 .rodape p{color:#856b79}
+
 .rodape .btn{
   max-width:330px;
   margin:auto;
 }
+
 .modal{
   position:fixed;
   inset:0;
@@ -233,6 +270,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
   align-items:center;
   justify-content:center;
 }
+
 .janela{
   position:relative;
   width:min(100%,550px);
@@ -243,6 +281,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
   border-radius:19px;
   box-shadow:0 20px 70px #0005;
 }
+
 .fechar{
   position:absolute;
   right:10px;
@@ -255,6 +294,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
   color:var(--escuro);
   font-size:25px;
 }
+
 .foto-detalhe{
   width:100%;
   max-height:42dvh;
@@ -263,26 +303,31 @@ button:disabled{opacity:.5;cursor:not-allowed}
   border-radius:12px;
   background:white;
 }
+
 .janela h2{
   font:29px Georgia,serif;
   color:var(--escuro);
 }
+
 .detalhes{
   color:#6c5963;
   line-height:1.6;
   white-space:pre-wrap;
 }
+
 .acoes{
   display:grid;
   gap:10px;
   margin-top:18px;
 }
+
 .formulario label{
   display:block;
   font-weight:bold;
   margin:14px 0 6px;
   font-size:14px;
 }
+
 .formulario input,
 .formulario textarea,
 .formulario select{
@@ -293,16 +338,20 @@ button:disabled{opacity:.5;cursor:not-allowed}
   background:white;
   color:var(--texto);
 }
+
 .formulario textarea{min-height:80px}
+
 .aviso{
   color:#75616e;
   font-size:12px;
   line-height:1.6;
 }
+
 @media(min-width:650px){
   .grade{grid-template-columns:repeat(3,1fr)}
   .info{padding:18px}
 }
+
 @media(max-width:360px){
   .grade{gap:9px}
   .info{padding:10px}
@@ -315,196 +364,255 @@ button:disabled{opacity:.5;cursor:not-allowed}
 <body>
 
 <section id="capa" class="capa">
-  <img
-    src="file_000000005dd0820ea2f6d578fafcb67e.png"
-    alt="Silver Love"
-  >
-  <p>Prata e Folheados a Ouro</p>
-  <button id="entrarLoja" class="btn btn-capa">
-    Conhecer nossas joias
-  </button>
+
+<img
+src="file_000000005dd0820ea2f6d578fafcb67e.png"
+alt="Silver Love">
+
+<p>Prata e Folheados a Ouro</p>
+
+<button id="entrarLoja" class="btn btn-capa">
+Conhecer nossas joias
+</button>
+
 </section>
 
 <div id="loja" hidden>
 
 <header class="topo">
-  <button id="voltar" class="voltar">
-    ← Voltar à capa
-  </button>
 
-  <h1 class="marca">Silver <span>Love</span></h1>
-  <p class="tipo">Prata e Folheados a Ouro</p>
-  <p class="slogan">Amor puro em sua forma mais bela</p>
+<button id="voltar" class="voltar">
+← Voltar à capa
+</button>
+
+<h1 class="marca">Silver <span>Love</span></h1>
+
+<p class="tipo">Prata e Folheados a Ouro</p>
+
+<p class="slogan">
+Amor puro em sua forma mais bela
+</p>
+
 </header>
 
 <main class="conteudo">
 
-  <h2 class="titulo">Nossa coleção</h2>
+<h2 class="titulo">Nossa coleção</h2>
 
-  <p class="subtitulo">
-    Conheça nossas joias e escolha sua peça favorita.
-  </p>
+<p class="subtitulo">
+Conheça nossas joias e escolha sua peça favorita.
+</p>
 
-  <input
-    id="busca"
-    class="busca"
-    type="search"
-    placeholder="🔍 Buscar uma joia..."
-    aria-label="Buscar joia"
-  >
+<input
+id="busca"
+class="busca"
+type="search"
+placeholder="🔍 Buscar uma joia..."
+aria-label="Buscar joia">
 
-  <nav id="filtros" class="filtros"
-       aria-label="Categorias"></nav>
+<nav
+id="filtros"
+class="filtros"
+aria-label="Categorias">
+</nav>
 
-  <div id="status" class="status" role="status">
-    Carregando nossa coleção...
-  </div>
+<div id="status" class="status" role="status">
+Carregando nossa coleção...
+</div>
 
-  <button id="recarregar" class="btn btn-sec" hidden>
-    Tentar novamente
-  </button>
+<button
+id="recarregar"
+class="btn btn-sec"
+hidden>
+Tentar novamente
+</button>
 
-  <section id="produtos" class="grade"></section>
+<section id="produtos" class="grade"></section>
 
 </main>
 
 <footer class="rodape">
-  <h2>Silver Love</h2>
-  <p>Prata e Folheados a Ouro</p>
-  <p>Amor puro em sua forma mais bela.</p>
 
-  <a id="whatsappGeral"
-     class="btn"
-     target="_blank"
-     rel="noopener noreferrer">
-    Falar pelo WhatsApp
-  </a>
+<h2>Silver Love</h2>
+
+<p>Prata e Folheados a Ouro</p>
+
+<p>Amor puro em sua forma mais bela.</p>
+
+<a
+id="whatsappGeral"
+class="btn"
+target="_blank"
+rel="noopener noreferrer">
+Falar pelo WhatsApp
+</a>
+
 </footer>
 
 </div>
 
 <!-- DETALHES DO PRODUTO -->
 
-<div id="modalProduto" class="modal" hidden
-     role="dialog" aria-modal="true"
-     aria-labelledby="tituloProduto">
+<div
+id="modalProduto"
+class="modal"
+hidden
+role="dialog"
+aria-modal="true"
+aria-labelledby="tituloProduto">
 
-  <div class="janela">
+<div class="janela">
 
-    <button class="fechar" type="button"
-      onclick="fecharModais()"
-      aria-label="Fechar">×</button>
+<button
+class="fechar"
+type="button"
+onclick="fecharModais()"
+aria-label="Fechar">
+×
+</button>
 
-    <img id="fotoDetalhe"
-         class="foto-detalhe"
-         alt="Foto da joia">
+<img
+id="fotoDetalhe"
+class="foto-detalhe"
+alt="Foto da joia">
 
-    <h2 id="tituloProduto"></h2>
-    <p id="codigoProduto" class="codigo"></p>
-    <p id="precoProduto" class="preco"></p>
-    <p id="estoqueProduto"></p>
-    <p id="descricaoProduto" class="detalhes"></p>
+<h2 id="tituloProduto"></h2>
 
-    <div class="acoes">
+<p id="codigoProduto" class="codigo"></p>
 
-      <button id="btnReserva"
-        class="btn"
-        onclick="abrirReserva()">
-        Reservar esta peça
-      </button>
+<p id="precoProduto" class="preco"></p>
 
-      <a id="consultarProduto"
-         class="btn btn-sec"
-         target="_blank"
-         rel="noopener noreferrer">
-        Consultar pelo WhatsApp
-      </a>
+<p id="estoqueProduto"></p>
 
-    </div>
-  </div>
+<p id="descricaoProduto" class="detalhes"></p>
+
+<div class="acoes">
+
+<button
+id="btnReserva"
+class="btn"
+onclick="abrirReserva()">
+Reservar esta peça
+</button>
+
+<a
+id="consultarProduto"
+class="btn btn-sec"
+target="_blank"
+rel="noopener noreferrer">
+Consultar pelo WhatsApp
+</a>
+
+</div>
+
+</div>
 </div>
 
 <!-- FORMULÁRIO DE RESERVA -->
 
-<div id="modalReserva" class="modal" hidden
-     role="dialog" aria-modal="true"
-     aria-labelledby="tituloReserva">
+<div
+id="modalReserva"
+class="modal"
+hidden
+role="dialog"
+aria-modal="true"
+aria-labelledby="tituloReserva">
 
-  <div class="janela">
+<div class="janela">
 
-    <button class="fechar" type="button"
-      onclick="fecharModais()"
-      aria-label="Fechar">×</button>
+<button
+class="fechar"
+type="button"
+onclick="fecharModais()"
+aria-label="Fechar">
+×
+</button>
 
-    <form id="formReserva" class="formulario">
+<form id="formReserva" class="formulario">
 
-      <h2 id="tituloReserva">Solicitar reserva</h2>
+<h2 id="tituloReserva">Solicitar reserva</h2>
 
-      <p id="resumoReserva" class="detalhes"></p>
+<p id="resumoReserva" class="detalhes"></p>
 
-      <label for="clienteNome">Nome</label>
-      <input id="clienteNome"
-             autocomplete="name"
-             maxlength="100"
-             required>
+<label for="clienteNome">Nome</label>
 
-      <label for="clienteTelefone">WhatsApp com DDD</label>
-      <input id="clienteTelefone"
-             type="tel"
-             autocomplete="tel"
-             maxlength="20"
-             required>
+<input
+id="clienteNome"
+autocomplete="name"
+maxlength="100"
+required>
 
-      <label for="quantidade">Quantidade</label>
-      <input id="quantidade"
-             type="number"
-             min="1"
-             step="1"
-             value="1"
-             required>
+<label for="clienteTelefone">
+WhatsApp com DDD
+</label>
 
-      <label for="clienteEndereco">
-        Bairro/cidade ou retirada (opcional)
-      </label>
+<input
+id="clienteTelefone"
+type="tel"
+autocomplete="tel"
+maxlength="20"
+required>
 
-      <textarea id="clienteEndereco"
-        maxlength="400"></textarea>
+<label for="quantidade">Quantidade</label>
 
-      <label for="clientePagamento">
-        Forma de pagamento pretendida
-      </label>
+<input
+id="quantidade"
+type="number"
+min="1"
+step="1"
+value="1"
+required>
 
-      <select id="clientePagamento" required>
-        <option value="">Selecione</option>
-        <option>Pix</option>
-        <option>Cartão de crédito</option>
-        <option>Cartão de débito</option>
-        <option>Combinar com a loja</option>
-      </select>
+<label for="clienteEndereco">
+Bairro/cidade ou retirada (opcional)
+</label>
 
-      <p class="aviso">
-        Os dados informados serão encaminhados
-        pelo WhatsApp para atendimento da loja.
-        A reserva depende de confirmação.
-        Não informe dados de cartão.
-      </p>
+<textarea
+id="clienteEndereco"
+maxlength="400">
+</textarea>
 
-      <div class="acoes">
+<label for="clientePagamento">
+Forma de pagamento pretendida
+</label>
 
-        <button class="btn" type="submit">
-          Solicitar pelo WhatsApp
-        </button>
+<select id="clientePagamento" required>
 
-        <button class="btn btn-sec"
-                type="button"
-                onclick="voltarDetalhes()">
-          Voltar
-        </button>
+<option value="">Selecione</option>
+<option>Pix</option>
+<option>Cartão de crédito</option>
+<option>Cartão de débito</option>
+<option>Combinar com a loja</option>
 
-      </div>
+</select>
 
-    </form>
-  </div>
+<p class="aviso">
+Os dados informados serão encaminhados pelo
+WhatsApp para atendimento da loja.
+
+A reserva depende de confirmação.
+
+Não informe dados de cartão.
+</p>
+
+<div class="acoes">
+
+<button class="btn" type="submit">
+Solicitar pelo WhatsApp
+</button>
+
+<button
+class="btn btn-sec"
+type="button"
+onclick="voltarDetalhes()">
+Voltar
+</button>
+
+</div>
+
+</form>
+
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -515,13 +623,13 @@ button:disabled{opacity:.5;cursor:not-allowed}
 // CONFIGURAÇÕES SILVER LOVE
 
 const SUPABASE_URL =
-  "https://xyybmzfodlvwljhhfxhe.supabase.co";
+"https://xyybmzfodlvwljhhfxhe.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
+"sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
 
 const SITE_URL =
-  "https://douglascorce.github.io/silver-love/";
+"https://douglascorce.github.io/silver-love/";
 
 const WHATSAPP = "5541984300046";
 
@@ -535,172 +643,200 @@ let carregando = false;
 let ultimoFoco = null;
 
 const FOTO_PADRAO =
-  "data:image/svg+xml;charset=utf-8," +
-  encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500"><rect width="100%" height="100%" fill="#fff1f6"/><text x="200" y="250" text-anchor="middle" fill="#b72c68" font-size="27" font-family="Georgia">Silver Love</text></svg>'
-  );
+"data:image/svg+xml;charset=utf-8," +
+encodeURIComponent(
+'<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500"><rect width="100%" height="100%" fill="#fff1f6"/><text x="200" y="250" text-anchor="middle" fill="#b72c68" font-size="27" font-family="Georgia">Silver Love</text></svg>'
+);
 
 function normalizar(texto){
-  return String(texto ?? "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .toLowerCase();
+
+return String(texto ?? "")
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+.toLowerCase();
+
 }
 
 function moeda(valor){
-  return Number(valor).toLocaleString("pt-BR",{
-    style:"currency",
-    currency:"BRL"
-  });
+
+return Number(valor).toLocaleString("pt-BR",{
+style:"currency",
+currency:"BRL"
+});
+
 }
 
 function whatsapp(mensagem){
-  return "https://wa.me/" + WHATSAPP +
-    "?text=" + encodeURIComponent(mensagem);
+
+return "https://wa.me/" + WHATSAPP +
+"?text=" + encodeURIComponent(mensagem);
+
 }
+
+// IDENTIFICAR CATEGORIA
 
 function categoria(nome){
-  const n = normalizar(nome);
 
-  if(/\b(brinco|brincos|argola|argolas)\b/.test(n)){
-    return "Brincos";
-  }
+const n = normalizar(nome);
 
-  if(/\b(anel|aneis|alianca|aliancas)\b/.test(n)){
-    return "Anéis";
-  }
-
-  if(/\b(pulseira|pulseiras|bracelete|braceletes)\b/.test(n)){
-    return "Pulseiras";
-  }
-
-  if(/\b(colar|colares|corrente|correntes|gargantilha|pingente)\b/.test(n)){
-    return "Colares";
-  }
-
-  if(/\b(tornozeleira|tornozeleiras)\b/.test(n)){
-    return "Tornozeleiras";
-  }
-
-  if(/\b(conjunto|conjuntos)\b/.test(n)){
-    return "Conjuntos";
-  }
-
-  return "Outras joias";
+if(/\b(brinco|brincos|argola|argolas)\b/.test(n)){
+return "Brincos";
 }
 
+if(/\b(anel|aneis|alianca|aliancas)\b/.test(n)){
+return "Anéis";
+}
+
+if(/\b(pulseira|pulseiras|bracelete|braceletes)\b/.test(n)){
+return "Pulseiras";
+}
+
+if(/\b(colar|colares|corrente|correntes|gargantilha|pingente)\b/.test(n)){
+return "Colares";
+}
+
+if(/\b(tornozeleira|tornozeleiras)\b/.test(n)){
+return "Tornozeleiras";
+}
+
+if(/\b(conjunto|conjuntos)\b/.test(n)){
+return "Conjuntos";
+}
+
+return "Outras joias";
+
+}
+
+// IMAGENS
+
 function fotoURL(caminho){
-  if(!caminho)return FOTO_PADRAO;
 
-  try{
-    const url = new URL(caminho,SITE_URL);
+if(!caminho)return FOTO_PADRAO;
 
-    if(url.protocol === "https:"){
-      return url.href;
-    }
-  }catch(error){}
+try{
 
-  return FOTO_PADRAO;
+const url = new URL(caminho,SITE_URL);
+
+if(url.protocol === "https:"){
+return url.href;
+}
+
+}catch(error){}
+
+return FOTO_PADRAO;
+
 }
 
 function configurarFoto(img,produto){
-  img.onerror = ()=>{
-    img.onerror = null;
-    img.src = FOTO_PADRAO;
-  };
 
-  img.alt = produto.nome;
-  img.src = fotoURL(produto.imagem_url);
+img.onerror = ()=>{
+
+img.onerror = null;
+img.src = FOTO_PADRAO;
+
+};
+
+img.alt = produto.nome;
+img.src = fotoURL(produto.imagem_url);
+
 }
 
-// BUSCAR PRODUTOS NO SUPABASE
+// CARREGAR PRODUTOS DO SUPABASE
 
 async function carregarProdutos(){
 
-  if(carregando)return;
-  carregando = true;
+if(carregando)return;
 
-  el("status").textContent =
-    "Carregando nossa coleção...";
+carregando = true;
 
-  el("recarregar").hidden = true;
+el("status").textContent =
+"Carregando nossa coleção...";
 
-  try{
+el("recarregar").hidden = true;
 
-    if(!db){
-      if(!window.supabase?.createClient){
-        throw new Error("Conexão indisponível.");
-      }
+try{
 
-      db = window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY,
-        {
-          auth:{
-            persistSession:false,
-            autoRefreshToken:false,
-            detectSessionInUrl:false
-          }
-        }
-      );
-    }
+if(!db){
 
-    const {data,error} = await db
-      .from("produtos")
-      .select("id,codigo,nome,descricao,preco,estoque,imagem_url,ativo")
-      .eq("ativo",true)
-      .order("criado_em",{ascending:false});
+if(!window.supabase?.createClient){
+throw new Error("Conexão indisponível.");
+}
 
-    if(error)throw error;
+db = window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY,
+{
+auth:{
+persistSession:false,
+autoRefreshToken:false,
+detectSessionInUrl:false
+}
+}
+);
 
-    produtos = (data || []).map(p=>({
-      ...p,
-      categoria:categoria(p.nome)
-    }));
+}
 
-    criarFiltros();
-    mostrarProdutos();
+const {data,error} = await db
+.from("produtos")
+.select("id,codigo,nome,descricao,preco,estoque,imagem_url,ativo")
+.eq("ativo",true)
+.order("criado_em",{ascending:false});
 
-  }catch(error){
+if(error)throw error;
 
-    console.error("Erro no catálogo:",error);
+produtos = (data || []).map(p=>({
+...p,
+categoria:categoria(p.nome)
+}));
 
-    el("produtos").replaceChildren();
+criarFiltros();
+mostrarProdutos();
 
-    el("status").textContent =
-      "Não foi possível carregar nossa coleção. Tente novamente.";
+}catch(error){
 
-    el("recarregar").hidden = false;
+console.error("Erro no catálogo:",error);
 
-  }finally{
-    carregando = false;
-  }
+el("produtos").replaceChildren();
+
+el("status").textContent =
+"Não foi possível carregar nossa coleção. Tente novamente.";
+
+el("recarregar").hidden = false;
+
+}finally{
+
+carregando = false;
+
+}
+
 }
 
 // CAPA E NAVEGAÇÃO
 
 function abrirCatalogo(){
 
-  el("capa").hidden = true;
-  el("loja").hidden = false;
+el("capa").hidden = true;
+el("loja").hidden = false;
 
-  history.replaceState(null,"","#catalogo");
+history.replaceState(null,"","#catalogo");
 
-  window.scrollTo(0,0);
+window.scrollTo(0,0);
 
-  carregarProdutos();
+carregarProdutos();
+
 }
 
 function voltarCapa(){
 
-  fecharModais();
+fecharModais();
 
-  el("loja").hidden = true;
-  el("capa").hidden = false;
+el("loja").hidden = true;
+el("capa").hidden = false;
 
-  history.replaceState(null,"","#capa");
+history.replaceState(null,"","#capa");
 
-  window.scrollTo(0,0);
+window.scrollTo(0,0);
+
 }
 
 el("entrarLoja").onclick = abrirCatalogo;
@@ -709,164 +845,183 @@ el("voltar").onclick = voltarCapa;
 
 el("recarregar").onclick = carregarProdutos;
 
-// CATEGORIAS
+// FILTROS
 
 function criarFiltros(){
 
-  const filtros = el("filtros");
+const filtros = el("filtros");
 
-  filtros.replaceChildren();
+filtros.replaceChildren();
 
-  const categorias = [
-    "Todas",
-    ...new Set(produtos.map(p=>p.categoria))
-  ];
+const categorias = [
+"Todas",
+...new Set(produtos.map(p=>p.categoria))
+];
 
-  if(!categorias.includes(categoriaAtual)){
-    categoriaAtual = "Todas";
-  }
+if(!categorias.includes(categoriaAtual)){
 
-  categorias.forEach(c=>{
+categoriaAtual = "Todas";
 
-    const botao = document.createElement("button");
+}
 
-    botao.type = "button";
+categorias.forEach(c=>{
 
-    botao.textContent = c;
+const botao = document.createElement("button");
 
-    botao.onclick = ()=>{
+botao.type = "button";
 
-      categoriaAtual = c;
+botao.textContent = c;
 
-      mostrarProdutos();
-    };
+botao.onclick = ()=>{
 
-    filtros.appendChild(botao);
-  });
+categoriaAtual = c;
+
+mostrarProdutos();
+
+};
+
+filtros.appendChild(botao);
+
+});
+
 }
 
 // CRIAR CARTÃO DE PRODUTO
 
 function criarProduto(p){
 
-  const card = document.createElement("article");
-  card.className = "produto";
+const card = document.createElement("article");
 
-  const fotoBotao =
-    document.createElement("button");
+card.className = "produto";
 
-  fotoBotao.className = "foto-btn";
+const fotoBotao =
+document.createElement("button");
 
-  fotoBotao.setAttribute(
-    "aria-label",
-    "Ver detalhes de " + p.nome
-  );
+fotoBotao.className = "foto-btn";
 
-  fotoBotao.onclick = ()=>abrirProduto(p.id);
+fotoBotao.setAttribute(
+"aria-label",
+"Ver detalhes de " + p.nome
+);
 
-  const img = document.createElement("img");
+fotoBotao.onclick = ()=>abrirProduto(p.id);
 
-  img.className = "foto";
-  img.loading = "lazy";
+const img = document.createElement("img");
 
-  configurarFoto(img,p);
+img.className = "foto";
 
-  fotoBotao.appendChild(img);
+img.loading = "lazy";
 
-  const info = document.createElement("div");
-  info.className = "info";
+configurarFoto(img,p);
 
-  const nome = document.createElement("button");
+fotoBotao.appendChild(img);
 
-  nome.className = "nome-btn";
-  nome.textContent = p.nome;
+const info = document.createElement("div");
 
-  nome.onclick = ()=>abrirProduto(p.id);
+info.className = "info";
 
-  const codigo = document.createElement("p");
-  codigo.className = "codigo";
-  codigo.textContent = "Código: " + p.codigo;
+const nome = document.createElement("button");
 
-  const preco = document.createElement("p");
-  preco.className = "preco";
-  preco.textContent = moeda(p.preco);
+nome.className = "nome-btn";
 
-  const estoque = document.createElement("p");
+nome.textContent = p.nome;
 
-  estoque.className = Number(p.estoque)>0
-    ? "estoque"
-    : "estoque indisponivel";
+nome.onclick = ()=>abrirProduto(p.id);
 
-  estoque.textContent = Number(p.estoque)>0
-    ? "Disponível"
-    : "Sob consulta";
+const codigo = document.createElement("p");
 
-  const detalhes =
-    document.createElement("button");
+codigo.className = "codigo";
 
-  detalhes.className = "btn btn-card";
+codigo.textContent = "Código: " + p.codigo;
 
-  detalhes.textContent = "Ver detalhes";
+const preco = document.createElement("p");
 
-  detalhes.onclick = ()=>abrirProduto(p.id);
+preco.className = "preco";
 
-  info.append(
-    nome,
-    codigo,
-    preco,
-    estoque,
-    detalhes
-  );
+preco.textContent = moeda(p.preco);
 
-  card.append(fotoBotao,info);
+const estoque = document.createElement("p");
 
-  return card;
+estoque.className = Number(p.estoque)>0
+? "estoque"
+: "estoque indisponivel";
+
+estoque.textContent = Number(p.estoque)>0
+? "Disponível"
+: "Sob consulta";
+
+const detalhes =
+document.createElement("button");
+
+detalhes.className = "btn btn-card";
+
+detalhes.textContent = "Ver detalhes";
+
+detalhes.onclick = ()=>abrirProduto(p.id);
+
+info.append(
+nome,
+codigo,
+preco,
+estoque,
+detalhes
+);
+
+card.append(fotoBotao,info);
+
+return card;
+
 }
 
-// EXIBIR E PESQUISAR
+// EXIBIR E PESQUISAR PRODUTOS
 
 function mostrarProdutos(){
 
-  const grade = el("produtos");
+const grade = el("produtos");
 
-  grade.replaceChildren();
+grade.replaceChildren();
 
-  const busca = normalizar(el("busca").value);
+const busca = normalizar(el("busca").value);
 
-  const filtrados = produtos.filter(p=>{
+const filtrados = produtos.filter(p=>{
 
-    const categoriaOk =
-      categoriaAtual === "Todas" ||
-      p.categoria === categoriaAtual;
+const categoriaOk =
+categoriaAtual === "Todas" ||
+p.categoria === categoriaAtual;
 
-    const texto = normalizar(
-      p.nome + " " +
-      p.codigo + " " +
-      (p.descricao || "") + " " +
-      p.categoria
-    );
+const texto = normalizar(
+p.nome + " " +
+p.codigo + " " +
+(p.descricao || "") + " " +
+p.categoria
+);
 
-    return categoriaOk && texto.includes(busca);
-  });
+return categoriaOk && texto.includes(busca);
 
-  filtrados.forEach(p=>{
-    grade.appendChild(criarProduto(p));
-  });
+});
 
-  el("status").textContent = filtrados.length
-    ? filtrados.length + " joias encontradas"
-    : "Nenhuma joia encontrada.";
+filtrados.forEach(p=>{
 
-  document
-    .querySelectorAll("#filtros button")
-    .forEach(b=>{
+grade.appendChild(criarProduto(p));
 
-      const ativo = b.textContent === categoriaAtual;
+});
 
-      b.classList.toggle("ativo",ativo);
+el("status").textContent = filtrados.length
+? filtrados.length + " joias encontradas"
+: "Nenhuma joia encontrada.";
 
-      b.setAttribute("aria-pressed",String(ativo));
-    });
+document
+.querySelectorAll("#filtros button")
+.forEach(b=>{
+
+const ativo = b.textContent === categoriaAtual;
+
+b.classList.toggle("ativo",ativo);
+
+b.setAttribute("aria-pressed",String(ativo));
+
+});
+
 }
 
 el("busca").oninput = mostrarProdutos;
@@ -875,153 +1030,250 @@ el("busca").oninput = mostrarProdutos;
 
 function abrirProduto(id){
 
-  produtoAtual =
-    produtos.find(p=>p.id===id);
+produtoAtual =
+produtos.find(p=>p.id===id);
 
-  if(!produtoAtual)return;
+if(!produtoAtual)return;
 
-  ultimoFoco = document.activeElement;
+ultimoFoco = document.activeElement;
 
-  configurarFoto(
-    el("fotoDetalhe"),
-    produtoAtual
-  );
+configurarFoto(
+el("fotoDetalhe"),
+produtoAtual
+);
 
-  el("tituloProduto").textContent =
-    produtoAtual.nome;
+el("tituloProduto").textContent =
+produtoAtual.nome;
 
-  el("codigoProduto").textContent =
-    "Código: " + produtoAtual.codigo;
+el("codigoProduto").textContent =
+"Código: " + produtoAtual.codigo;
 
-  el("precoProduto").textContent =
-    moeda(produtoAtual.preco);
+el("precoProduto").textContent =
+moeda(produtoAtual.preco);
 
-  el("descricaoProduto").textContent =
-    produtoAtual.descricao ||
-    "Consulte a loja para mais informações.";
+el("descricaoProduto").textContent =
+produtoAtual.descricao ||
+"Consulte a loja para mais informações.";
 
-  const disponivel =
-    Number(produtoAtual.estoque)>0;
+const disponivel =
+Number(produtoAtual.estoque)>0;
 
-  el("estoqueProduto").className =
-    disponivel
-      ? "estoque"
-      : "estoque indisponivel";
+el("estoqueProduto").className =
+disponivel
+? "estoque"
+: "estoque indisponivel";
 
-  el("estoqueProduto").textContent =
-    disponivel
-      ? "Disponível em estoque"
-      : "Consulte a disponibilidade com a loja";
+el("estoqueProduto").textContent =
+disponivel
+? "Disponível em estoque"
+: "Consulte a disponibilidade com a loja";
 
-  el("btnReserva").hidden = !disponivel;
+el("btnReserva").hidden = !disponivel;
 
-  el("consultarProduto").href = whatsapp(
-    "Olá, Silver Love! Gostaria de saber mais sobre " +
-    produtoAtual.nome +
-    " (código " + produtoAtual.codigo + "), " +
-    moeda(produtoAtual.preco) + "."
-  );
+el("consultarProduto").href = whatsapp(
 
-  el("modalReserva").hidden = true;
-  el("modalProduto").hidden = false;
+"Olá, Silver Love! Gostaria de saber mais sobre " +
+produtoAtual.nome +
+" (código " + produtoAtual.codigo + "), " +
+moeda(produtoAtual.preco) + "."
 
-  document.body.style.overflow = "hidden";
+);
 
-  el("modalProduto")
-    .querySelector(".fechar").focus();
+el("modalReserva").hidden = true;
+
+el("modalProduto").hidden = false;
+
+document.body.style.overflow = "hidden";
+
+el("modalProduto")
+.querySelector(".fechar").focus();
+
 }
 
 function fecharModais(){
 
-  el("modalProduto").hidden = true;
-  el("modalReserva").hidden = true;
+el("modalProduto").hidden = true;
 
-  document.body.style.overflow = "";
+el("modalReserva").hidden = true;
 
-  if(ultimoFoco?.isConnected){
-    ultimoFoco.focus();
-  }
+document.body.style.overflow = "";
+
+if(ultimoFoco?.isConnected){
+
+ultimoFoco.focus();
+
+}
+
 }
 
 // RESERVA PELO WHATSAPP
 
 function abrirReserva(){
 
-  if(!produtoAtual)return;
+if(!produtoAtual)return;
 
-  const estoque = Number(produtoAtual.estoque);
+const estoque = Number(produtoAtual.estoque);
 
-  if(estoque<1)return;
+if(estoque<1)return;
 
-  el("formReserva").reset();
+el("formReserva").reset();
 
-  el("resumoReserva").textContent =
-    produtoAtual.nome + " • " +
-    moeda(produtoAtual.preco);
+el("resumoReserva").textContent =
+produtoAtual.nome + " • " +
+moeda(produtoAtual.preco);
 
-  el("quantidade").max = estoque;
+el("quantidade").max = estoque;
 
-  el("quantidade").value = 1;
+el("quantidade").value = 1;
 
-  el("modalProduto").hidden = true;
-  el("modalReserva").hidden = false;
+el("modalProduto").hidden = true;
 
-  el("clienteNome").focus();
+el("modalReserva").hidden = false;
+
+el("clienteNome").focus();
+
 }
 
 function voltarDetalhes(){
 
-  el("modalReserva").hidden = true;
-  el("modalProduto").hidden = false;
+el("modalReserva").hidden = true;
 
-  el("modalProduto")
-    .querySelector(".fechar").focus();
+el("modalProduto").hidden = false;
+
+el("modalProduto")
+.querySelector(".fechar").focus();
+
 }
 
 el("formReserva").onsubmit = event=>{
 
-  event.preventDefault();
+event.preventDefault();
 
-  if(!produtoAtual)return;
+if(!produtoAtual)return;
 
-  const nome =
-    el("clienteNome").value.trim();
+const nome =
+el("clienteNome").value.trim();
 
-  const telefone =
-    el("clienteTelefone").value.trim();
+const telefone =
+el("clienteTelefone").value.trim();
 
-  const endereco =
-    el("clienteEndereco").value.trim();
+const endereco =
+el("clienteEndereco").value.trim();
 
-  const pagamento =
-    el("clientePagamento").value;
+const pagamento =
+el("clientePagamento").value;
 
-  const quantidade =
-    Number(el("quantidade").value);
+const quantidade =
+Number(el("quantidade").value);
 
-  if(!nome || !telefone || !pagamento){
-    alert("Preencha os dados necessários.");
-    return;
-  }
+if(!nome || !telefone || !pagamento){
 
-  if(
-    !Number.isInteger(quantidade) ||
-    quantidade<1 ||
-    quantidade>Number(produtoAtual.estoque)
-  ){
-    alert("Confira a quantidade disponível.");
-    return;
-  }
+alert("Preencha os dados necessários.");
 
-  const total =
-    Number(produtoAtual.preco)*quantidade;
+return;
 
-  const mensagem =
-    "Olá, Silver Love! 💎\n\n" +
-    "Gostaria de solicitar uma reserva.\n\n" +
-    "Joia: " + produtoAtual.nome + "\n" +
-    "Código: " + produtoAtual.codigo + "\n" +
-    "Quantidade: " + quantidade + "\n" +
-    "Valor unitário: " +
-    moeda(produtoAtual.preco) + "\n" +
-    "Subtotal: " + moeda(total) + "\n\n" +
+}
+
+if(
+
+!Number.isInteger(quantidade) ||
+quantidade<1 ||
+quantidade>Number(produtoAtual.estoque)
+
+){
+
+alert("Confira a quantidade disponível.");
+
+return;
+
+}
+
+const total =
+Number(produtoAtual.preco)*quantidade;
+
+const mensagem =
+
+"Olá, Silver Love! 💎\n\n" +
+
+"Gostaria de solicitar uma reserva.\n\n" +
+
+"Joia: " + produtoAtual.nome + "\n" +
+
+"Código: " + produtoAtual.codigo + "\n" +
+
+"Quantidade: " + quantidade + "\n" +
+
+"Valor unitário: " +
+moeda(produtoAtual.preco) + "\n" +
+
+"Subtotal: " + moeda(total) + "\n\n" +
+
+"Nome: " + nome + "\n" +
+
+"WhatsApp: " + telefone + "\n" +
+
+"Entrega/retirada: " +
+(endereco || "A combinar") + "\n" +
+
+"Pagamento pretendido: " +
+pagamento + "\n\n" +
+
+"Aguardo confirmação da disponibilidade, " +
+"do valor final e da reserva.";
+
+window.location.href = whatsapp(mensagem);
+
+};
+
+// INICIALIZAÇÃO
+
+el("whatsappGeral").href = whatsapp(
+
+"Olá! Gostaria de conhecer as joias da Silver Love."
+
+);
+
+document.querySelectorAll(".modal").forEach(modal=>{
+
+modal.addEventListener("click",event=>{
+
+if(event.target===modal){
+
+fecharModais();
+
+}
+
+});
+
+});
+
+document.addEventListener("keydown",event=>{
+
+if(event.key==="Escape"){
+
+fecharModais();
+
+}
+
+});
+
+if(location.hash==="#catalogo"){
+
+abrirCatalogo();
+
+}
+
+window.addEventListener("pageshow",event=>{
+
+if(event.persisted && !el("loja").hidden){
+
+carregarProdutos();
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
