@@ -1258,3 +1258,408 @@ renderizar();
 })();
   </script>
   
+
+<script>
+(function(){
+
+if(document.getElementById("rascunhoBox"))return;
+
+let chave=null;
+let restaurando=false;
+let importando=false;
+
+const campos=[
+"fornecedor",
+"documento",
+"data",
+"valorTotal",
+"percentual",
+"texto"
+];
+
+const box=document.createElement("section");
+box.className="card";
+box.id="rascunhoBox";
+
+box.innerHTML=`
+<h2>💾 Rascunho da compra</h2>
+
+<p id="rascunhoStatus" class="muted">
+Verificando rascunho...
+</p>
+
+<div class="actions">
+
+<button id="salvarRascunho" class="green">
+Salvar rascunho
+</button>
+
+<button id="restaurarRascunho" class="secondary">
+Restaurar rascunho
+</button>
+
+<button id="descartarRascunho" class="danger">
+Descartar rascunho
+</button>
+
+</div>
+
+<p class="muted">
+Os dados são salvos neste navegador.
+A foto ou PDF original não será guardado.
+</p>
+`;
+
+$("painel").prepend(box);
+
+function status(t){
+$("rascunhoStatus").textContent=t;
+}
+
+function guardar(){
+
+if(!chave||restaurando||importando||
+$("painel").hidden)return;
+
+try{
+
+const dados={};
+
+for(const id of campos){
+dados[id]=$(id).value;
+}
+
+const temDados=itens.length>0||
+campos.some(id=>
+id!=="percentual"&&dados[id].trim()!==""
+);
+
+if(!temDados){
+localStorage.removeItem(chave);
+status("Nenhum rascunho pendente.");
+return;
+}
+
+const rascunho={
+dados:dados,
+itens:itens,
+modo:$("modoCompra")?.value||"historica",
+salvoEm:new Date().toISOString()
+};
+
+localStorage.setItem(
+chave,
+JSON.stringify(rascunho)
+);
+
+status(
+"✅ Rascunho salvo automaticamente às "+
+new Date().toLocaleTimeString("pt-BR")+
+" | "+itens.length+" item(ns)."
+);
+
+}catch(e){
+
+status(
+"Não foi possível salvar o rascunho. "+
+"Verifique o armazenamento do navegador."
+);
+
+}
+
+}
+
+function restaurar(){
+
+if(!chave||ocupado)return;
+
+restaurando=true;
+
+try{
+
+const salvo=localStorage.getItem(chave);
+
+if(!salvo){
+status("Nenhum rascunho anterior encontrado.");
+return;
+}
+
+const r=JSON.parse(salvo);
+
+itens=[];
+
+for(const id of campos){
+
+if(r.dados?.[id]!==undefined){
+$(id).value=r.dados[id];
+}
+
+}
+
+const modo=$("modoCompra");
+
+if(modo){
+
+modo.value=r.modo==="nova"
+?"nova":"historica";
+
+modo.onchange();
+
+}
+
+itens=Array.isArray(r.itens)?r.itens:[];
+
+let revisao=false;
+
+for(const i of itens){
+
+const p=existente(i.codigo);
+
+if(p&&i.acao==="novo"){
+i.acao="vincular";
+i.quantidade_entrada=0;
+revisao=true;
+}
+
+if(!p&&i.acao!=="novo"){
+i.acao="novo";
+i.quantidade_entrada=0;
+revisao=true;
+}
+
+}
+
+renderizar();
+
+$("revisado").checked=false;
+
+status(
+"✅ Rascunho recuperado: "+
+itens.length+" item(ns). "+
+(revisao
+?"Existem mudanças nos produtos. Confira o estoque."
+:"Confira os dados antes de importar.")
+);
+
+}catch(e){
+
+status("Não foi possível recuperar o rascunho.");
+
+}finally{
+
+restaurando=false;
+
+}
+
+}
+
+$("salvarRascunho").onclick=guardar;
+
+$("restaurarRascunho").onclick=()=>{
+
+if(ocupado)return;
+
+if(confirm("Restaurar o último rascunho salvo?")){
+restaurar();
+}
+
+};
+
+$("descartarRascunho").onclick=()=>{
+
+if(!chave||ocupado)return;
+
+if(!confirm(
+"Descartar o rascunho desta compra? "+
+"Os produtos já salvos não serão excluídos."
+))return;
+
+restaurando=true;
+
+try{
+
+localStorage.removeItem(chave);
+
+itens=[];
+
+for(const id of campos){
+$(id).value="";
+}
+
+$("percentual").value="110";
+$("arquivo").value="";
+$("leituraStatus").textContent="";
+$("revisado").checked=false;
+
+if($("modoCompra")){
+$("modoCompra").value="historica";
+$("modoCompra").onchange();
+}
+
+renderizar();
+
+status("Rascunho descartado.");
+
+}catch(e){
+
+status("Não foi possível descartar o rascunho.");
+
+}finally{
+
+restaurando=false;
+
+}
+
+};
+
+// SALVAR ALTERACOES NOS PRODUTOS
+
+const resumoAnterior=resumo;
+
+resumo=function(){
+
+resumoAnterior();
+
+guardar();
+
+};
+
+$("painel").addEventListener(
+"input",guardar
+);
+
+$("painel").addEventListener(
+"change",guardar
+);
+
+// SALVAR APOS LEITURA DO DOCUMENTO
+
+const lerAnterior=$("ler").onclick;
+
+$("ler").onclick=async function(e){
+
+try{
+await lerAnterior.call(this,e);
+}finally{
+guardar();
+}
+
+};
+
+// LIMPAR RASCUNHO APOS IMPORTACAO
+
+const importarAnterior=$("importar").onclick;
+
+$("importar").onclick=async function(e){
+
+if(ocupado||importando)return;
+
+const quantidadeAnterior=itens.length;
+
+guardar();
+
+importando=true;
+
+try{
+
+await importarAnterior.call(this,e);
+
+if(quantidadeAnterior>0&&
+itens.length===0&&
+$("documento").value===""){
+
+localStorage.removeItem(chave);
+
+$("fornecedor").value="";
+$("data").value="";
+$("texto").value="";
+$("valorTotal").value="";
+$("percentual").value="110";
+
+status(
+"✅ Compra importada. Rascunho finalizado."
+);
+
+}
+
+}catch(e){
+
+status("Confira o histórico da compra.");
+
+}finally{
+
+importando=false;
+
+if(itens.length>0){
+guardar();
+}
+
+}
+
+};
+
+// PROTEGER CONTRA ATUALIZACAO DA PAGINA
+
+window.addEventListener(
+"pagehide",guardar
+);
+
+document.addEventListener(
+"visibilitychange",()=>{
+
+if(document.visibilityState==="hidden"){
+guardar();
+}
+
+});
+
+// RECUPERAR SOMENTE APOS LOGIN
+
+async function iniciarRascunho(){
+
+try{
+
+const {data,error}=await db.auth.getUser();
+
+if(error||!data?.user)return;
+
+chave="silverlove_compra_rascunho_v1_"+
+data.user.id;
+
+restaurar();
+
+}catch(e){
+
+status("Armazenamento de rascunho indisponível.");
+
+}
+
+}
+
+const observador=new MutationObserver(()=>{
+
+if(!$("painel").hidden){
+
+observador.disconnect();
+
+iniciarRascunho();
+
+}
+
+});
+
+observador.observe($("painel"),{
+attributes:true,
+attributeFilter:["hidden"]
+});
+
+if(!$("painel").hidden){
+
+observador.disconnect();
+
+iniciarRascunho();
+
+}
+
+})();
+</script>
