@@ -3,51 +3,36 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#fff5f8">
 <title>Silver Love | Prata e Folheados a Ouro</title>
-<meta name="description" content="Silver Love: joias de prata e folheados a ouro. Conheça nossa coleção e consulte pelo WhatsApp.">
-
+<meta name="description" content="Silver Love — prata e folheados a ouro. Conheça nossas joias e solicite sua reserva pelo WhatsApp.">
 <style>
 :root {
   --rosa:#b72c68;
-  --rosa-escuro:#8d2853;
-  --rosa-claro:#fff5f8;
-  --dourado:#b38a47;
-  --prata:#8e929c;
+  --escuro:#8d2853;
+  --fundo:#fff5f8;
+  --ouro:#b38a47;
   --texto:#45333e;
-  --muted:#806e78;
   --borda:#efdce5;
-  --branco:#ffffff;
 }
-
 * {box-sizing:border-box}
-
-html {scroll-behavior:smooth}
-
 body {
   margin:0;
-  background:var(--rosa-claro);
+  background:var(--fundo);
   color:var(--texto);
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:Arial,sans-serif;
 }
-
-button,a {
-  -webkit-tap-highlight-color:transparent;
+button,input,textarea,select {font:inherit}
+button {cursor:pointer}
+button:focus-visible,a:focus-visible,
+input:focus-visible,select:focus-visible,
+textarea:focus-visible {
+  outline:3px solid #ee79aa;
+  outline-offset:2px;
 }
-
-button {
-  font:inherit;
-  cursor:pointer;
-}
-
-[hidden] {
-  display:none!important;
-}
-
-/* CAPA ORIGINAL */
+[hidden] {display:none!important}
 .capa {
-  min-height:100vh;
   min-height:100dvh;
   max-width:620px;
   margin:auto;
@@ -58,90 +43,55 @@ button {
   align-items:center;
   gap:22px;
   text-align:center;
-  background:linear-gradient(
-    155deg,
-    #fffafd,
-    #ffeaf2,
-    #fff8fb
-  );
+  background:linear-gradient(155deg,#fffafd,#ffeaf2,#fff8fb);
 }
-
-.capa-imagem {
+.capa img {
   width:100%;
   max-width:520px;
   max-height:72vh;
   object-fit:contain;
   border-radius:18px;
 }
-
-.capa-subtitulo {
+.capa p {
   margin:0;
   color:#936a7e;
   font:italic 19px Georgia,serif;
 }
-
-.botao {
+.btn {
   display:inline-block;
   width:100%;
-  padding:16px 20px;
+  padding:15px 18px;
   border:0;
-  border-radius:30px;
-  background:linear-gradient(
-    110deg,
-    #a8215b,
-    #d34b86
-  );
+  border-radius:25px;
+  background:linear-gradient(110deg,#a8215b,#d34b86);
   color:white;
+  font-weight:bold;
   text-align:center;
   text-decoration:none;
-  font-weight:bold;
-  box-shadow:0 5px 15px #b72c6825;
 }
-
-.botao:active {
-  transform:scale(.98);
-}
-
-.botao-capa {
-  max-width:350px;
-}
-
-/* CABEÇALHO COMPACTO */
+.btn-capa {max-width:350px}
 .topo {
-  position:relative;
-  padding:16px 16px 21px;
-  background:linear-gradient(
-    180deg,
-    #ffffff,
-    #fff6f9
-  );
-  border-bottom:1px solid var(--borda);
+  padding:16px;
   text-align:center;
+  background:linear-gradient(#fff,#fff6f9);
+  border-bottom:1px solid var(--borda);
 }
-
 .voltar {
   display:block;
-  padding:8px 4px;
-  margin:0 0 10px;
+  padding:8px 0;
+  margin:0 0 9px;
   border:0;
-  background:transparent;
+  background:none;
   color:var(--rosa);
   font-size:14px;
-  text-align:left;
 }
-
 .marca {
   margin:0;
+  color:var(--escuro);
   font:italic 600 38px Georgia,serif;
-  color:var(--rosa-escuro);
-  letter-spacing:-1px;
 }
-
-.marca span {
-  color:var(--dourado);
-}
-
-.tipo-loja {
+.marca span {color:var(--ouro)}
+.tipo {
   margin:8px 0;
   color:#8d7180;
   font-size:11px;
@@ -149,69 +99,34 @@ button {
   letter-spacing:2px;
   text-transform:uppercase;
 }
-
-.divisor {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  margin:12px auto;
-}
-
-.divisor::before,
-.divisor::after {
-  content:"";
-  width:60px;
-  height:1px;
-  background:linear-gradient(
-    90deg,
-    #e8ced9,
-    var(--dourado)
-  );
-}
-
-.divisor span {
-  color:var(--dourado);
-  font-size:15px;
-}
-
 .slogan {
-  margin:0;
+  margin:10px 0 0;
   color:#986c80;
   font:italic 15px Georgia,serif;
 }
-
-/* CONTEÚDO */
 .conteudo {
   max-width:1050px;
   margin:auto;
   padding:25px 14px 48px;
 }
-
 .titulo {
   margin:0 0 8px;
   text-align:center;
   font:normal 32px Georgia,serif;
-  color:var(--rosa-escuro);
+  color:var(--escuro);
 }
-
 .subtitulo {
-  margin:0 0 23px;
-  color:var(--muted);
   text-align:center;
+  color:#806e78;
   font-size:14px;
   line-height:1.5;
 }
-
-/* FILTROS */
 .filtros {
   display:flex;
   gap:9px;
   overflow-x:auto;
-  padding:0 0 22px;
-  scrollbar-width:thin;
+  padding:16px 0 22px;
 }
-
 .filtros button {
   flex-shrink:0;
   padding:11px 17px;
@@ -219,261 +134,352 @@ button {
   border-radius:24px;
   background:white;
   color:#785669;
-  font-size:14px;
 }
-
 .filtros button.ativo {
   background:var(--rosa);
-  border-color:var(--rosa);
   color:white;
 }
-
-/* PRODUTOS */
 .grade {
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:14px;
 }
-
 .produto {
   min-width:0;
   overflow:hidden;
-  background:white;
   border:1px solid var(--borda);
   border-radius:16px;
+  background:white;
   box-shadow:0 4px 18px #9b577014;
 }
-
+.foto-btn {
+  width:100%;
+  padding:0;
+  border:0;
+  background:#faf1f5;
+  display:block;
+}
 .foto {
   display:block;
   width:100%;
   aspect-ratio:4/5;
   object-fit:cover;
-  background:#faf1f5;
 }
-
-.info {
-  padding:13px;
-}
-
-.nome {
-  margin:0 0 8px;
+.info {padding:13px}
+.nome-btn {
+  display:block;
+  width:100%;
+  padding:0;
+  border:0;
+  background:none;
+  color:var(--texto);
+  text-align:left;
   font:normal 20px/1.2 Georgia,serif;
-  min-height:48px;
 }
-
 .codigo {
-  margin:0 0 8px;
   font-size:12px;
   color:#8b8086;
 }
-
-.descricao {
-  margin:0 0 10px;
-  color:#75646e;
-  font-size:13px;
-  line-height:1.5;
-}
-
 .preco {
   margin:13px 0;
   color:var(--rosa);
   font-size:21px;
   font-weight:bold;
 }
-
-.botao-produto {
-  padding:13px 7px;
-  border-radius:11px;
+.btn-card {
+  padding:12px 6px;
   font-size:12px;
+  border-radius:11px;
 }
-
-/* RODAPÉ */
 .rodape {
+  text-align:center;
   padding:30px 18px 40px;
   background:white;
   border-top:1px solid var(--borda);
-  text-align:center;
 }
-
-.rodape-marca {
+.rodape h2 {
   margin:0;
-  color:var(--rosa-escuro);
+  color:var(--escuro);
   font:italic 28px Georgia,serif;
 }
+.rodape p {color:#856b79}
+.rodape .btn {max-width:330px}
 
-.rodape-tipo {
-  color:var(--dourado);
-  font-size:12px;
-  letter-spacing:1px;
+/* POP-UPS */
+.modal {
+  position:fixed;
+  inset:0;
+  z-index:30;
+  background:#21141bc9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px;
 }
-
-.rodape p {
+.janela {
+  position:relative;
+  width:min(100%,550px);
+  max-height:94dvh;
+  overflow:auto;
+  background:#fff9fb;
+  border-radius:19px;
+  padding:19px;
+  box-shadow:0 20px 70px #0005;
+}
+.fechar {
+  position:absolute;
+  right:10px;
+  top:8px;
+  background:#f6e3ec;
+  border:0;
+  border-radius:50%;
+  width:38px;
+  height:38px;
+  font-size:24px;
+  color:var(--escuro);
+}
+.galeria {
+  position:relative;
+  margin:30px 0 12px;
+  background:white;
+  border-radius:12px;
+  overflow:hidden;
+}
+.galeria img {
+  display:block;
+  width:100%;
+  max-height:42dvh;
+  aspect-ratio:4/3;
+  object-fit:contain;
+}
+.seta {
+  position:absolute;
+  top:45%;
+  transform:translateY(-50%);
+  border:0;
+  border-radius:50%;
+  width:39px;
+  height:39px;
+  background:#fffdf2e8;
+  color:var(--escuro);
+  font-size:27px;
+}
+.seta.anterior {left:6px}
+.seta.proxima {right:6px}
+.contador {
+  text-align:center;
+  font-size:12px;
   color:#856b79;
+}
+.janela h2 {
+  margin:8px 0;
+  font:normal 29px Georgia,serif;
+  color:var(--escuro);
+}
+.janela .preco {font-size:25px}
+.detalhes {
+  color:#6c5963;
+  line-height:1.55;
+}
+.acoes {
+  display:grid;
+  gap:9px;
+  margin-top:16px;
+}
+.btn-sec {
+  background:white;
+  border:1px solid var(--rosa);
+  color:var(--rosa);
+  box-shadow:none;
+}
+.formulario label {
+  display:block;
+  margin:14px 0 5px;
+  font-weight:bold;
   font-size:14px;
 }
-
-.rodape .botao {
-  max-width:330px;
-  margin-top:10px;
+.formulario input,
+.formulario textarea,
+.formulario select {
+  width:100%;
+  padding:13px;
+  border:1px solid #dcc7d0;
+  border-radius:10px;
+  background:white;
+  color:var(--texto);
 }
+.formulario textarea {
+  min-height:85px;
+  resize:vertical;
+}
+.aviso {
+  font-size:12px;
+  line-height:1.5;
+  color:#75616e;
+}
+.resumo {
+  color:#806e78;
+  font-size:14px;
+}
+.formulario .btn {margin-top:16px}
+.formulario h2 {padding-right:40px}
 
 @media(min-width:650px) {
-  .grade {
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .info {
-    padding:18px;
-  }
-
-  .nome {
-    font-size:23px;
-  }
-
-  .botao-produto {
-    font-size:14px;
-  }
+  .grade {grid-template-columns:repeat(3,1fr)}
+  .info {padding:18px}
+  .nome-btn {font-size:23px}
 }
-
 @media(max-width:360px) {
-  .grade {
-    gap:9px;
-  }
-
-  .info {
-    padding:10px;
-  }
-
-  .nome {
-    font-size:17px;
-  }
-
-  .preco {
-    font-size:18px;
-  }
+  .grade {gap:9px}
+  .info {padding:10px}
+  .nome-btn {font-size:17px}
+  .preco {font-size:18px}
 }
 </style>
 </head>
-
 <body>
 
-<!-- CAPA INICIAL -->
+<!-- CAPA -->
 <section id="capa" class="capa">
-
   <img
-    class="capa-imagem"
     src="file_000000005dd0820ea2f6d578fafcb67e.png"
-    alt="Silver Love - Amor puro em sua forma mais bela"
+    alt="Silver Love — Amor puro em sua forma mais bela"
   >
-
-  <p class="capa-subtitulo">
-    Prata e Folheados a Ouro
-  </p>
-
-  <button
-    class="botao botao-capa"
-    onclick="abrirCatalogo()"
-  >
+  <p>Prata e Folheados a Ouro</p>
+  <button class="btn btn-capa" onclick="abrirCatalogo()">
     Conhecer nossas joias
   </button>
-
 </section>
 
 <!-- CATÁLOGO -->
 <div id="loja" hidden>
+  <header class="topo">
+    <button class="voltar" onclick="voltarCapa()">
+      ← Voltar à capa
+    </button>
+    <h1 class="marca">Silver <span>Love</span></h1>
+    <p class="tipo">Prata e Folheados a Ouro</p>
+    <p class="slogan">Amor puro em sua forma mais bela</p>
+  </header>
 
-<header class="topo">
+  <main class="conteudo">
+    <h2 class="titulo">Nossa coleção</h2>
+    <p class="subtitulo">
+      Toque em uma joia para ver fotos, detalhes e solicitar sua reserva.
+    </p>
+    <nav id="filtros" class="filtros" aria-label="Categorias"></nav>
+    <section id="produtos" class="grade" aria-label="Produtos"></section>
+  </main>
 
-  <button
-    class="voltar"
-    onclick="voltarCapa()"
-  >
-    ← Voltar à capa
-  </button>
+  <footer class="rodape">
+    <h2>Silver Love</h2>
+    <p>Prata e Folheados a Ouro</p>
+    <a class="btn" id="whatsappGeral"
+       target="_blank" rel="noopener noreferrer">
+      Falar pelo WhatsApp
+    </a>
+  </footer>
+</div>
 
-  <h1 class="marca">
-    Silver <span>Love</span>
-  </h1>
+<!-- POP-UP DE DETALHES -->
+<div id="modalProduto" class="modal" hidden
+     role="dialog" aria-modal="true"
+     aria-labelledby="tituloProduto">
+  <div class="janela" id="janelaProduto">
+    <button class="fechar" onclick="fecharModais()"
+            aria-label="Fechar detalhes">×</button>
 
-  <p class="tipo-loja">
-    Prata e Folheados a Ouro
-  </p>
+    <div class="galeria">
+      <img id="fotoDetalhe" alt="Foto da joia">
+      <button class="seta anterior" id="fotoAnterior"
+              onclick="mudarFoto(-1)"
+              aria-label="Foto anterior">‹</button>
+      <button class="seta proxima" id="fotoProxima"
+              onclick="mudarFoto(1)"
+              aria-label="Próxima foto">›</button>
+    </div>
 
-  <div class="divisor">
-    <span>✦</span>
+    <div class="contador" id="contadorFotos"></div>
+    <h2 id="tituloProduto"></h2>
+    <p class="codigo" id="codigoProduto"></p>
+    <p class="preco" id="precoProduto"></p>
+    <p class="detalhes" id="descricaoProduto"></p>
+    <p class="detalhes" id="materialProduto"></p>
+
+    <div class="acoes">
+      <button class="btn" onclick="abrirReserva()">
+        Reservar esta peça
+      </button>
+      <a id="consultarProduto" class="btn btn-sec"
+         target="_blank" rel="noopener noreferrer">
+        Consultar pelo WhatsApp
+      </a>
+    </div>
   </div>
+</div>
 
-  <p class="slogan">
-    Amor puro em sua forma mais bela
-  </p>
+<!-- POP-UP DE RESERVA -->
+<div id="modalReserva" class="modal" hidden
+     role="dialog" aria-modal="true"
+     aria-labelledby="tituloReserva">
+  <div class="janela">
+    <button class="fechar" onclick="fecharModais()"
+            aria-label="Fechar reserva">×</button>
 
-</header>
+    <form id="formReserva" class="formulario">
+      <h2 id="tituloReserva">Solicitar reserva</h2>
+      <p class="resumo" id="resumoReserva"></p>
 
-<main class="conteudo">
+      <label for="clienteNome">Nome completo</label>
+      <input id="clienteNome" name="nome" required
+             autocomplete="name" maxlength="100">
 
-  <h2 class="titulo">
-    Nossa coleção
-  </h2>
+      <label for="clienteTelefone">Telefone com DDD</label>
+      <input id="clienteTelefone" name="telefone"
+             type="tel" inputmode="tel"
+             autocomplete="tel" required maxlength="20"
+             placeholder="(41) 99999-9999">
 
-  <p class="subtitulo">
-    Joias para celebrar seus momentos especiais.
-    Escolha sua favorita!
-  </p>
+      <label for="clienteEndereco">
+        Endereço de entrega ou bairro/cidade
+      </label>
+      <textarea id="clienteEndereco" name="endereco"
+                required maxlength="400"
+                placeholder="Informe o endereço de entrega ou os dados para combinar a retirada"></textarea>
 
-  <nav
-    id="filtros"
-    class="filtros"
-    aria-label="Categorias de joias"
-  ></nav>
+      <label for="clientePagamento">Forma de pagamento</label>
+      <select id="clientePagamento" name="pagamento" required>
+        <option value="">Escolha uma opção</option>
+        <option>Pix</option>
+        <option>Cartão de crédito</option>
+        <option>Cartão de débito</option>
+      </select>
 
-  <section
-    id="produtos"
-    class="grade"
-    aria-label="Produtos da Silver Love"
-  ></section>
+      <p class="aviso">
+        Ao continuar, o WhatsApp será aberto com os dados
+        informados para enviar a solicitação à loja.
+        A reserva só estará confirmada após resposta
+        da Silver Love. Não informe dados de cartão
+        neste formulário.
+      </p>
 
-</main>
+      <button class="btn" type="submit">
+        Enviar solicitação pelo WhatsApp
+      </button>
 
-<footer class="rodape">
-
-  <h2 class="rodape-marca">
-    Silver Love
-  </h2>
-
-  <p class="rodape-tipo">
-    PRATA E FOLHEADOS A OURO
-  </p>
-
-  <p>
-    Amor puro em sua forma mais bela.
-  </p>
-
-  <a
-    id="whatsappGeral"
-    class="botao"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    Falar pelo WhatsApp
-  </a>
-
-</footer>
-
+      <button class="btn btn-sec" type="button"
+              style="margin-top:9px"
+              onclick="voltarDetalhes()">
+        Voltar aos detalhes
+      </button>
+    </form>
+  </div>
 </div>
 
 <script>
-const WHATSAPP = "5541984300046";
+const WHATSAPP="5541984300046";
 
-/*
-  MATERIAL:
-  Os produtos abaixo mantêm suas informações
-  anteriores. A classificação individual
-  entre prata e folheado a ouro será adicionada
-  após confirmação.
-*/
-
-const produtos = [
+const produtos=[
   {
     codigo:"108413",
     categoria:"Brincos",
@@ -564,149 +570,250 @@ const produtos = [
   }
 ];
 
-function formatarPreco(valor) {
-  return Number(valor).toLocaleString("pt-BR", {
-    style:"currency",
-    currency:"BRL"
-  });
-}
+let produtoAtual=null;
+let indiceFoto=0;
+let ultimoFoco=null;
 
-function abrirCatalogo() {
-  document.getElementById("capa").hidden=true;
-  document.getElementById("loja").hidden=false;
+const el=id=>document.getElementById(id);
 
-  if(location.hash!=="#catalogo") {
-    history.replaceState(null,"","#catalogo");
-  }
+const preco=v=>Number(v).toLocaleString("pt-BR",{
+  style:"currency",
+  currency:"BRL"
+});
 
+const whatsapp=msg=>
+  "https://wa.me/"+WHATSAPP+
+  "?text="+encodeURIComponent(msg);
+
+function abrirCatalogo(){
+  el("capa").hidden=true;
+  el("loja").hidden=false;
+  history.replaceState(null,"","#catalogo");
   window.scrollTo(0,0);
 }
 
-function voltarCapa() {
-  document.getElementById("loja").hidden=true;
-  document.getElementById("capa").hidden=false;
-
+function voltarCapa(){
+  fecharModais();
+  el("loja").hidden=true;
+  el("capa").hidden=false;
   history.replaceState(null,"","#capa");
   window.scrollTo(0,0);
 }
 
-function linkWhatsApp(mensagem) {
-  return "https://wa.me/"+WHATSAPP+
-    "?text="+encodeURIComponent(mensagem);
+function fotosDaPeca(p){
+  return Array.isArray(p.fotos)&&p.fotos.length
+    ?p.fotos:[p.imagem];
 }
 
-function criarProduto(produto) {
+function atualizarFoto(){
+  const fotos=fotosDaPeca(produtoAtual);
+  el("fotoDetalhe").src=fotos[indiceFoto];
+  el("fotoDetalhe").alt=produtoAtual.nome+
+    " — foto "+(indiceFoto+1);
+
+  const varias=fotos.length>1;
+  el("fotoAnterior").hidden=!varias;
+  el("fotoProxima").hidden=!varias;
+  el("contadorFotos").textContent=varias
+    ?(indiceFoto+1)+" de "+fotos.length+" fotos":"";
+}
+
+function mudarFoto(direcao){
+  const fotos=fotosDaPeca(produtoAtual);
+  indiceFoto=(indiceFoto+direcao+fotos.length)%fotos.length;
+  atualizarFoto();
+}
+
+function abrirProduto(codigo){
+  produtoAtual=produtos.find(p=>p.codigo===codigo);
+  if(!produtoAtual)return;
+
+  ultimoFoco=document.activeElement;
+  indiceFoto=0;
+
+  el("tituloProduto").textContent=produtoAtual.nome;
+  el("codigoProduto").textContent=
+    "Código: "+produtoAtual.codigo;
+  el("precoProduto").textContent=
+    preco(produtoAtual.preco);
+  el("descricaoProduto").textContent=
+    produtoAtual.descricao;
+
+  el("materialProduto").textContent=
+    produtoAtual.material
+      ?"Material: "+produtoAtual.material
+      :"Material: consulte a loja para confirmar";
+
+  el("consultarProduto").href=whatsapp(
+    "Olá! Gostaria de saber mais sobre "+
+    produtoAtual.nome+
+    " (código "+produtoAtual.codigo+"), "+
+    preco(produtoAtual.preco)+"."
+  );
+
+  atualizarFoto();
+
+  el("modalReserva").hidden=true;
+  el("modalProduto").hidden=false;
+  document.body.style.overflow="hidden";
+  el("modalProduto").querySelector(".fechar").focus();
+}
+
+function fecharModais(){
+  el("modalProduto").hidden=true;
+  el("modalReserva").hidden=true;
+  document.body.style.overflow="";
+
+  if(ultimoFoco&&ultimoFoco.isConnected){
+    ultimoFoco.focus();
+  }
+}
+
+function abrirReserva(){
+  if(!produtoAtual)return;
+
+  el("resumoReserva").textContent=
+    produtoAtual.nome+" · Cód. "+
+    produtoAtual.codigo+" · "+
+    preco(produtoAtual.preco);
+
+  el("formReserva").reset();
+  el("modalProduto").hidden=true;
+  el("modalReserva").hidden=false;
+  el("clienteNome").focus();
+}
+
+function voltarDetalhes(){
+  el("modalReserva").hidden=true;
+  el("modalProduto").hidden=false;
+  el("modalProduto").querySelector(".fechar").focus();
+}
+
+function criarProduto(p){
   const card=document.createElement("article");
   card.className="produto";
 
-  const foto=document.createElement("img");
-  foto.className="foto";
-  foto.src=produto.imagem;
-  foto.alt=produto.nome;
-  foto.loading="lazy";
+  const fotoBotao=document.createElement("button");
+  fotoBotao.className="foto-btn";
+  fotoBotao.setAttribute("aria-label","Ver detalhes de "+p.nome);
+  fotoBotao.onclick=()=>abrirProduto(p.codigo);
+
+  const img=document.createElement("img");
+  img.className="foto";
+  img.src=p.imagem;
+  img.alt=p.nome;
+  img.loading="lazy";
+  fotoBotao.append(img);
 
   const info=document.createElement("div");
   info.className="info";
 
-  const nome=document.createElement("h3");
-  nome.className="nome";
-  nome.textContent=produto.nome;
+  const nome=document.createElement("button");
+  nome.className="nome-btn";
+  nome.textContent=p.nome;
+  nome.onclick=()=>abrirProduto(p.codigo);
 
   const codigo=document.createElement("p");
   codigo.className="codigo";
-  codigo.textContent="Código: "+produto.codigo;
+  codigo.textContent="Código: "+p.codigo;
 
-  const descricao=document.createElement("p");
-  descricao.className="descricao";
-  descricao.textContent=produto.descricao;
+  const valor=document.createElement("p");
+  valor.className="preco";
+  valor.textContent=preco(p.preco);
 
-  const preco=document.createElement("p");
-  preco.className="preco";
-  preco.textContent=formatarPreco(produto.preco);
+  const detalhes=document.createElement("button");
+  detalhes.className="btn btn-card";
+  detalhes.textContent="Ver detalhes e reservar";
+  detalhes.onclick=()=>abrirProduto(p.codigo);
 
-  const botao=document.createElement("a");
-  botao.className="botao botao-produto";
-  botao.target="_blank";
-  botao.rel="noopener noreferrer";
-  botao.textContent="Consultar pelo WhatsApp";
-
-  botao.href=linkWhatsApp(
-    "Olá! Tenho interesse na joia "+
-    produto.nome+
-    " (código "+produto.codigo+")"+
-    ", no valor de "+
-    formatarPreco(produto.preco)+
-    ". Está disponível?"
-  );
-
-  info.append(
-    nome,
-    codigo,
-    descricao,
-    preco,
-    botao
-  );
-
-  card.append(foto,info);
-
+  info.append(nome,codigo,valor,detalhes);
+  card.append(fotoBotao,info);
   return card;
 }
 
-function mostrarProdutos(categoria="Todas") {
-  const grade=document.getElementById("produtos");
-
+function mostrarProdutos(categoria="Todas"){
+  const grade=el("produtos");
   grade.replaceChildren();
 
-  const selecionados=produtos.filter(produto =>
-    categoria==="Todas" ||
-    produto.categoria===categoria
-  );
-
-  selecionados.forEach(produto => {
-    grade.appendChild(criarProduto(produto));
-  });
+  produtos
+    .filter(p=>categoria==="Todas"||p.categoria===categoria)
+    .forEach(p=>grade.append(criarProduto(p)));
 
   document.querySelectorAll(".filtros button")
-    .forEach(botao => {
-      botao.classList.toggle(
-        "ativo",
-        botao.textContent===categoria
-      );
+    .forEach(b=>b.classList.toggle(
+      "ativo",b.textContent===categoria
+    ));
+}
+
+function criarFiltros(){
+  ["Todas",...new Set(produtos.map(p=>p.categoria))]
+    .forEach(c=>{
+      const b=document.createElement("button");
+      b.textContent=c;
+      b.onclick=()=>mostrarProdutos(c);
+      el("filtros").append(b);
     });
 }
 
-function criarFiltros() {
-  const filtros=document.getElementById("filtros");
+el("formReserva").addEventListener("submit",e=>{
+  e.preventDefault();
 
-  const categorias=[
-    "Todas",
-    ...new Set(produtos.map(p=>p.categoria))
-  ];
+  if(!produtoAtual||!e.currentTarget.reportValidity())return;
 
-  categorias.forEach(categoria => {
-    const botao=document.createElement("button");
+  const nome=el("clienteNome").value.trim();
+  const telefone=el("clienteTelefone").value.trim();
+  const endereco=el("clienteEndereco").value.trim();
+  const pagamento=el("clientePagamento").value;
 
-    botao.type="button";
-    botao.textContent=categoria;
+  if(!nome||!telefone||!endereco||!pagamento)return;
 
-    botao.onclick=() => mostrarProdutos(categoria);
+  const mensagem=
+    "Olá, Silver Love! Gostaria de solicitar uma reserva.\n\n"+
+    "Joia: "+produtoAtual.nome+"\n"+
+    "Código: "+produtoAtual.codigo+"\n"+
+    "Preço: "+preco(produtoAtual.preco)+"\n\n"+
+    "Nome: "+nome+"\n"+
+    "Telefone: "+telefone+"\n"+
+    "Endereço/retirada: "+endereco+"\n"+
+    "Pagamento pretendido: "+pagamento+"\n\n"+
+    "Aguardo confirmação de disponibilidade e condições da reserva.";
 
-    filtros.appendChild(botao);
+  const link=whatsapp(mensagem);
+  const nova=window.open(link,"_blank","noopener,noreferrer");
+
+  if(!nova){
+    window.location.href=link;
+  }
+});
+
+document.querySelectorAll(".modal").forEach(m=>{
+  m.addEventListener("click",e=>{
+    if(e.target===m)fecharModais();
   });
-}
+});
 
-document.getElementById("whatsappGeral").href=
-  linkWhatsApp(
-    "Olá! Gostaria de conhecer as joias da Silver Love."
-  );
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape")fecharModais();
+
+  if(!el("modalProduto").hidden&&e.key==="ArrowRight"){
+    mudarFoto(1);
+  }
+
+  if(!el("modalProduto").hidden&&e.key==="ArrowLeft"){
+    mudarFoto(-1);
+  }
+});
+
+el("whatsappGeral").href=whatsapp(
+  "Olá! Gostaria de conhecer as joias da Silver Love."
+);
 
 criarFiltros();
 mostrarProdutos();
 
-if(location.hash==="#catalogo") {
+if(location.hash==="#catalogo"){
   abrirCatalogo();
 }
 </script>
-
 </body>
 </html>
