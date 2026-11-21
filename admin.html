@@ -3,363 +3,174 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Silver Love | Administração</title>
-
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #fff4f8;
-  color: #432735;
-}
-
-header {
-  background: linear-gradient(135deg, #771b47, #c03977);
-  color: white;
-  padding: 24px 16px;
-  text-align: center;
-}
-
-header h1 {
-  margin: 0 0 8px;
-  font-size: 25px;
-}
-
-header p {
-  margin: 0;
-}
-
-main {
-  max-width: 950px;
-  margin: auto;
-  padding: 16px;
-}
-
-.card {
-  background: white;
-  padding: 20px;
-  margin: 16px 0;
-  border-radius: 14px;
-  box-shadow: 0 3px 14px #771b4717;
-}
-
-h2 {
-  color: #8c2455;
-  margin-top: 0;
-}
-
-label {
-  display: block;
-  margin: 12px 0 5px;
-  font-weight: bold;
-}
-
-input,
-textarea,
-select {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #dfbdcd;
-  border-radius: 8px;
-  font-size: 16px;
-}
-
-textarea {
-  min-height: 85px;
-}
-
-button {
-  background: #a82d65;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 16px;
-  font-size: 15px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-button:disabled {
-  opacity: 0.5;
-}
-
-.secondary {
-  background: #72616c;
-}
-
-.danger {
-  background: #b92e49;
-}
-
-.hidden {
-  display: none !important;
-}
-
-.actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 14px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(210px, 1fr)
-  );
-  gap: 12px;
-}
-
-.notice {
-  padding: 14px;
-  border-radius: 8px;
-  margin-bottom: 14px;
-  white-space: pre-wrap;
-}
-
-.product {
-  padding: 15px 0;
-  border-bottom: 1px solid #f0dce4;
-}
-
-.product:last-child {
-  border-bottom: none;
-}
-
-.product-line {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.product-line img {
-  width: 65px;
-  height: 65px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.muted {
-  color: #76636e;
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-#logout {
-  margin-top: 14px;
-  background: white;
-  color: #8c2455;
-}
-
-.checkline {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.checkline input {
-  width: auto;
-}
-
-.checkline label {
-  margin: 0;
-}
+*{box-sizing:border-box}
+body{margin:0;background:#fff3f8;color:#4c2939;font-family:Arial,sans-serif}
+header{background:linear-gradient(120deg,#811c4c,#c13a7a);color:white;text-align:center;padding:25px 15px}
+header h1{margin:0 0 8px;font-size:28px}
+header p{margin:0}
+main{max-width:950px;margin:auto;padding:16px}
+.card{background:white;border-radius:16px;padding:22px;margin:16px 0;box-shadow:0 4px 18px #7d20451a}
+h2{color:#922957;margin-top:0}
+label{display:block;font-weight:bold;margin:13px 0 6px}
+input,textarea,select{width:100%;padding:13px;border:1px solid #dab4c6;border-radius:9px;font-size:16px;background:white}
+textarea{min-height:90px}
+button{border:0;border-radius:9px;padding:12px 17px;background:#a92c66;color:white;font-size:15px;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.55}
+button.secondary{background:#74606d}
+button.danger{background:#ba3654}
+button.light{background:#f9e4ed;color:#922957}
+.hidden{display:none!important}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.password-wrap{display:flex;align-items:stretch;gap:6px}
+.password-wrap input{flex:1;min-width:0}
+.password-wrap button{flex:none;background:#f5dce7;color:#872650;padding:0 14px}
+.message{border-radius:9px;padding:14px;margin:14px 0;white-space:pre-wrap}
+.success{background:#e5f5eb;color:#245c39}
+.error{background:#ffe1e7;color:#902b45}
+.muted{color:#806b77;font-size:13px;line-height:1.6}
+.item{border-bottom:1px solid #f1dce5;padding:15px 0}
+.item:last-child{border-bottom:0}
+.item-head{display:flex;gap:12px;align-items:center}
+.item img{width:65px;height:65px;object-fit:cover;border-radius:8px}
+.item strong{display:block;margin-bottom:5px}
+.check{display:flex;align-items:center;gap:10px;margin-top:15px}
+.check input{width:auto}
+.check label{margin:0}
+#logout{background:white;color:#8b2857;margin-top:15px}
+a{color:#a92c66}
 </style>
 </head>
-
 <body>
 
 <header>
-  <h1>💎 Silver Love</h1>
-  <p>Painel Administrativo</p>
-
-  <button id="logout" class="hidden">
-    Sair
-  </button>
+<h1>💎 Silver Love</h1>
+<p>Prata e Folheados a Ouro</p>
+<p style="margin-top:7px">Painel Administrativo</p>
+<button id="logout" class="hidden" type="button">Sair</button>
 </header>
 
 <main>
-
-<div id="message"
-     class="notice hidden"
-     role="status">
-</div>
+<div id="message" class="message hidden" role="status"></div>
 
 <section id="loginPanel" class="card">
+<h2>🔐 Acesso administrativo</h2>
+<form id="loginForm">
+<label for="email">E-mail</label>
+<input id="email" type="email" autocomplete="username" required>
 
-  <h2>🔐 Acesso administrativo</h2>
+<label for="password">Senha</label>
+<div class="password-wrap">
+<input id="password" type="password" autocomplete="current-password" required>
+<button type="button" class="toggle-password" data-target="password" aria-label="Mostrar senha" aria-pressed="false">👁️</button>
+</div>
 
-  <form id="loginForm">
+<div class="actions">
+<button id="loginButton" type="submit">Entrar</button>
+<button id="forgotButton" type="button" class="light">Esqueci minha senha</button>
+</div>
+</form>
+<p class="muted">Use o e-mail cadastrado no Supabase.</p>
+</section>
 
-    <label for="email">E-mail</label>
-    <input
-      id="email"
-      type="email"
-      autocomplete="username"
-      required
-    >
+<section id="resetPanel" class="card hidden">
+<h2>🔑 Definir nova senha</h2>
+<p>Crie uma nova senha para acessar o painel administrativo.</p>
 
-    <label for="password">Senha</label>
-    <input
-      id="password"
-      type="password"
-      autocomplete="current-password"
-      required
-    >
+<form id="resetForm">
+<label for="newPassword">Nova senha</label>
+<div class="password-wrap">
+<input id="newPassword" type="password" autocomplete="new-password" minlength="8" required>
+<button type="button" class="toggle-password" data-target="newPassword" aria-label="Mostrar senha" aria-pressed="false">👁️</button>
+</div>
 
-    <div class="actions">
-      <button id="loginButton" type="submit">
-        Entrar
-      </button>
-    </div>
+<label for="confirmPassword">Confirmar nova senha</label>
+<div class="password-wrap">
+<input id="confirmPassword" type="password" autocomplete="new-password" minlength="8" required>
+<button type="button" class="toggle-password" data-target="confirmPassword" aria-label="Mostrar senha" aria-pressed="false">👁️</button>
+</div>
 
-  </form>
+<p class="muted">Use pelo menos 8 caracteres. Prefira uma senha exclusiva e difícil de adivinhar.</p>
 
+<div class="actions">
+<button id="resetButton" type="submit">Salvar nova senha</button>
+</div>
+</form>
 </section>
 
 <div id="dashboard" class="hidden">
 
-  <section class="card">
+<section class="card">
+<h2 id="formTitle">➕ Cadastrar joia</h2>
 
-    <h2 id="formTitle">➕ Cadastrar joia</h2>
+<form id="productForm">
+<input id="productId" type="hidden">
 
-    <form id="productForm">
-
-      <input id="productId" type="hidden">
-
-      <div class="grid">
-
-        <div>
-          <label for="codigo">Código</label>
-          <input id="codigo" required>
-        </div>
-
-        <div>
-          <label for="nome">Nome da joia</label>
-          <input id="nome" required>
-        </div>
-
-        <div>
-          <label for="preco">Preço (R$)</label>
-          <input
-            id="preco"
-            type="number"
-            min="0"
-            step="0.01"
-            required
-          >
-        </div>
-
-        <div>
-          <label for="estoque">Estoque</label>
-          <input
-            id="estoque"
-            type="number"
-            min="0"
-            step="1"
-            value="0"
-            required
-          >
-        </div>
-
-      </div>
-
-      <label for="descricao">Descrição</label>
-      <textarea id="descricao"></textarea>
-
-      <label for="imagem_url">
-        Caminho ou URL da foto
-      </label>
-
-      <input
-        id="imagem_url"
-        placeholder="fotos/108413.jpg"
-      >
-
-      <div class="checkline">
-        <input
-          id="ativo"
-          type="checkbox"
-          checked
-        >
-        <label for="ativo">
-          Produto ativo
-        </label>
-      </div>
-
-      <div class="actions">
-
-        <button id="saveButton" type="submit">
-          Salvar joia
-        </button>
-
-        <button
-          id="cancelEdit"
-          class="secondary"
-          type="button">
-          Limpar
-        </button>
-
-      </div>
-
-    </form>
-
-    <p class="muted">
-      Por enquanto, utilize fotos já publicadas
-      na pasta fotos do GitHub. O envio direto
-      de imagens será adicionado depois.
-    </p>
-
-  </section>
-
-  <section class="card">
-
-    <h2>💍 Produtos cadastrados</h2>
-
-    <button
-      id="refreshProducts"
-      class="secondary">
-      Atualizar produtos
-    </button>
-
-    <div id="productsList">
-      Carregando produtos...
-    </div>
-
-  </section>
-
-  <section class="card">
-
-    <h2>📋 Reservas</h2>
-
-    <button
-      id="refreshReservations"
-      class="secondary">
-      Atualizar reservas
-    </button>
-
-    <p class="muted">
-      Aqui aparecem as reservas registradas
-      no Supabase. Pedidos enviados somente
-      pelo WhatsApp não aparecem automaticamente.
-    </p>
-
-    <div id="reservationsList">
-      Carregando reservas...
-    </div>
-
-  </section>
-
+<div class="grid">
+<div>
+<label for="codigo">Código</label>
+<input id="codigo" required>
 </div>
 
+<div>
+<label for="nome">Nome da joia</label>
+<input id="nome" required>
+</div>
+
+<div>
+<label for="preco">Preço (R$)</label>
+<input id="preco" type="number" min="0" step="0.01" required>
+</div>
+
+<div>
+<label for="estoque">Quantidade em estoque</label>
+<input id="estoque" type="number" min="0" step="1" value="0" required>
+</div>
+</div>
+
+<label for="descricao">Descrição</label>
+<textarea id="descricao"></textarea>
+
+<label for="imagem_url">Caminho ou URL da foto</label>
+<input id="imagem_url" placeholder="fotos/108413.jpg">
+
+<div class="check">
+<input id="ativo" type="checkbox" checked>
+<label for="ativo">Produto ativo</label>
+</div>
+
+<div class="actions">
+<button id="saveButton" type="submit">Salvar joia</button>
+<button id="cancelEdit" class="secondary" type="button">Limpar formulário</button>
+</div>
+</form>
+
+<p class="muted">
+Nesta versão, as fotos devem estar previamente publicadas na pasta
+fotos do GitHub ou ter uma URL pública.
+</p>
+</section>
+
+<section class="card">
+<h2>💍 Produtos cadastrados</h2>
+<button id="refreshProducts" type="button" class="secondary">Atualizar produtos</button>
+<div id="productsList">Carregando...</div>
+</section>
+
+<section class="card">
+<h2>📋 Reservas</h2>
+<button id="refreshReservations" type="button" class="secondary">Atualizar reservas</button>
+<p class="muted">
+Aparecem aqui apenas reservas registradas no Supabase.
+Pedidos enviados somente pelo WhatsApp não aparecem automaticamente.
+</p>
+<div id="reservationsList">Carregando...</div>
+</section>
+
+</div>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -367,116 +178,118 @@ button:disabled {
 <script>
 "use strict";
 
-// CONEXÃO COM SUPABASE
-
 const SUPABASE_URL =
-  "https://xyybmzfodlvwljhhfxhe.supabase.co";
+"https://xyybmzfodlvwljhhfxhe.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
+"sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
 
 const SITE_URL =
-  "https://douglascorce.github.io/silver-love/";
+"https://douglascorce.github.io/silver-love/";
 
-const db = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+const ADMIN_URL =
+SITE_URL + "admin.html";
 
 const $ = id => document.getElementById(id);
 
-// MENSAGENS
+let db;
+let recoveryMode = false;
 
-function showMessage(text, error = false) {
+function message(text, isError = false) {
   const el = $("message");
-
   el.textContent = text;
-  el.style.background = error
-    ? "#ffe1e7"
-    : "#e5f6e9";
-
-  el.classList.remove("hidden");
+  el.className =
+    "message " + (isError ? "error" : "success");
+  el.scrollIntoView({block:"nearest"});
 }
 
 function clearMessage() {
   $("message").classList.add("hidden");
 }
 
-function showDashboard(enabled) {
-  $("dashboard").classList.toggle(
-    "hidden",
-    !enabled
-  );
-
+function showPanel(panel) {
   $("loginPanel").classList.toggle(
-    "hidden",
-    enabled
+    "hidden", panel !== "login"
   );
-
+  $("resetPanel").classList.toggle(
+    "hidden", panel !== "reset"
+  );
+  $("dashboard").classList.toggle(
+    "hidden", panel !== "dashboard"
+  );
   $("logout").classList.toggle(
-    "hidden",
-    !enabled
+    "hidden", panel !== "dashboard"
   );
+}
+
+function errText(error) {
+  return error?.message || String(error);
 }
 
 function money(value) {
   return Number(value || 0).toLocaleString(
-    "pt-BR",
-    {
-      style: "currency",
-      currency: "BRL"
+    "pt-BR", {
+      style:"currency",
+      currency:"BRL"
     }
   );
 }
 
-function formatDate(value) {
-  if (!value) return "—";
-
-  return new Date(value).toLocaleString(
-    "pt-BR"
-  );
+function dateText(value) {
+  return value
+    ? new Date(value).toLocaleString("pt-BR")
+    : "—";
 }
 
-function errorText(error) {
-  return error?.message || String(error);
+function textNode(parent, tag, value, className) {
+  const el = document.createElement(tag);
+  el.textContent = String(value ?? "");
+  if (className) el.className = className;
+  parent.appendChild(el);
+  return el;
 }
 
-function addText(parent, tag, value, className) {
-  const element = document.createElement(tag);
-
-  element.textContent = String(value ?? "");
-
-  if (className) {
-    element.className = className;
-  }
-
-  parent.appendChild(element);
-
-  return element;
-}
-
-function imageAddress(path) {
+function imageURL(path) {
   if (!path) return "";
 
   try {
     const url = new URL(path, SITE_URL);
-
     if (
       url.protocol === "https:" ||
       url.protocol === "http:"
     ) {
       return url.href;
     }
-  } catch (error) {
-    return "";
-  }
+  } catch (_) {}
 
   return "";
 }
 
-// VERIFICAR ADMINISTRADOR
+// OLHINHO PARA MOSTRAR OU OCULTAR SENHAS
 
-async function isAdmin(user) {
+document.querySelectorAll(
+  ".toggle-password"
+).forEach(button => {
+  button.addEventListener("click", () => {
+    const field = $(button.dataset.target);
+    const showing = field.type === "password";
+
+    field.type = showing ? "text" : "password";
+    button.textContent = showing ? "🙈" : "👁️";
+    button.setAttribute(
+      "aria-pressed",
+      String(showing)
+    );
+    button.setAttribute(
+      "aria-label",
+      showing ? "Ocultar senha" : "Mostrar senha"
+    );
+  });
+});
+
+// AUTORIZAÇÃO
+
+async function checkAdmin(user) {
   if (!user) return false;
 
   const { data, error } = await db
@@ -490,35 +303,31 @@ async function isAdmin(user) {
   return Boolean(data);
 }
 
-// VERIFICAR LOGIN
-
 async function refreshAuth() {
+  if (recoveryMode) {
+    showPanel("reset");
+    return;
+  }
+
   try {
     const { data, error } =
       await db.auth.getUser();
 
-    const user = data?.user;
-
-    if (error || !user) {
-      showDashboard(false);
+    if (error || !data?.user) {
+      showPanel("login");
       return;
     }
 
-    const allowed = await isAdmin(user);
-
-    if (!allowed) {
-      showDashboard(false);
-
-      showMessage(
-        "Usuário sem acesso administrativo. " +
-        "Verifique as permissões RLS.",
+    if (!await checkAdmin(data.user)) {
+      showPanel("login");
+      message(
+        "Este usuário não tem autorização administrativa. Confira a tabela administradores e as políticas RLS.",
         true
       );
-
       return;
     }
 
-    showDashboard(true);
+    showPanel("dashboard");
 
     await Promise.all([
       loadProducts(),
@@ -526,33 +335,27 @@ async function refreshAuth() {
     ]);
 
   } catch (error) {
-    showDashboard(false);
-
-    showMessage(
-      "Erro ao validar acesso: " +
-      errorText(error),
+    showPanel("login");
+    message(
+      "Erro ao verificar acesso: " + errText(error),
       true
     );
   }
 }
 
-// ENTRAR
+// LOGIN
 
 $("loginForm").addEventListener(
   "submit",
-  async function(event) {
+  async event => {
     event.preventDefault();
-
     clearMessage();
 
     $("loginButton").disabled = true;
 
     try {
-      const email =
-        $("email").value.trim();
-
-      const password =
-        $("password").value;
+      const email = $("email").value.trim();
+      const password = $("password").value;
 
       const { error } =
         await db.auth.signInWithPassword({
@@ -567,9 +370,8 @@ $("loginForm").addEventListener(
       await refreshAuth();
 
     } catch (error) {
-      showMessage(
-        "Erro no login: " +
-        errorText(error),
+      message(
+        "Erro no login: " + errText(error),
         true
       );
     } finally {
@@ -578,61 +380,175 @@ $("loginForm").addEventListener(
   }
 );
 
+// SOLICITAR RECUPERAÇÃO
+
+$("forgotButton").addEventListener(
+  "click",
+  async () => {
+    const email = $("email").value.trim();
+
+    if (!email) {
+      message(
+        "Digite seu e-mail antes de solicitar a recuperação.",
+        true
+      );
+      $("email").focus();
+      return;
+    }
+
+    $("forgotButton").disabled = true;
+
+    try {
+      const { error } =
+        await db.auth.resetPasswordForEmail(
+          email,
+          {
+            redirectTo: ADMIN_URL
+          }
+        );
+
+      if (error) throw error;
+
+      message(
+        "Se o e-mail estiver cadastrado, você receberá um link para definir uma nova senha. Verifique também a pasta de spam."
+      );
+
+    } catch (error) {
+      message(
+        "Erro ao solicitar recuperação: " +
+        errText(error),
+        true
+      );
+    } finally {
+      $("forgotButton").disabled = false;
+    }
+  }
+);
+
+// REDEFINIR SENHA
+
+$("resetForm").addEventListener(
+  "submit",
+  async event => {
+    event.preventDefault();
+
+    const password = $("newPassword").value;
+    const confirm = $("confirmPassword").value;
+
+    if (password.length < 8) {
+      message(
+        "A senha deve ter pelo menos 8 caracteres.",
+        true
+      );
+      return;
+    }
+
+    if (password !== confirm) {
+      message(
+        "As duas senhas não são iguais.",
+        true
+      );
+      return;
+    }
+
+    $("resetButton").disabled = true;
+
+    try {
+      const { data: sessionData } =
+        await db.auth.getSession();
+
+      if (!sessionData.session) {
+        throw new Error(
+          "O link de recuperação expirou ou é inválido. Solicite um novo e-mail."
+        );
+      }
+
+      const { error } =
+        await db.auth.updateUser({
+          password
+        });
+
+      if (error) throw error;
+
+      $("resetForm").reset();
+
+      recoveryMode = false;
+
+      // Encerrar sessão após redefinição.
+      await db.auth.signOut();
+
+      // Remover parâmetros do link de recuperação.
+      history.replaceState(
+        null,
+        "",
+        ADMIN_URL
+      );
+
+      showPanel("login");
+
+      message(
+        "Senha atualizada com sucesso! Agora entre com sua nova senha."
+      );
+
+    } catch (error) {
+      message(
+        "Erro ao definir senha: " +
+        errText(error),
+        true
+      );
+    } finally {
+      $("resetButton").disabled = false;
+    }
+  }
+);
+
 // SAIR
 
 $("logout").addEventListener(
   "click",
-  async function() {
+  async () => {
     await db.auth.signOut();
-
-    showDashboard(false);
+    recoveryMode = false;
     clearMessage();
+    showPanel("login");
   }
 );
 
-// LIMPAR FORMULÁRIO
+// PRODUTOS
 
-function resetForm() {
+function resetProductForm() {
   $("productForm").reset();
-
   $("productId").value = "";
   $("estoque").value = "0";
   $("ativo").checked = true;
-
   $("formTitle").textContent =
     "➕ Cadastrar joia";
-
   $("saveButton").textContent =
     "Salvar joia";
 }
 
 $("cancelEdit").addEventListener(
   "click",
-  resetForm
+  resetProductForm
 );
-
-// SALVAR PRODUTO
 
 $("productForm").addEventListener(
   "submit",
-  async function(event) {
+  async event => {
     event.preventDefault();
-
     clearMessage();
 
     $("saveButton").disabled = true;
 
     try {
       const item = {
-        codigo: $("codigo").value.trim(),
-        nome: $("nome").value.trim(),
-        descricao:
-          $("descricao").value.trim(),
-        preco: Number($("preco").value),
-        estoque: Number($("estoque").value),
-        imagem_url:
-          $("imagem_url").value.trim(),
-        ativo: $("ativo").checked
+        codigo:$("codigo").value.trim(),
+        nome:$("nome").value.trim(),
+        descricao:$("descricao").value.trim(),
+        preco:Number($("preco").value),
+        estoque:Number($("estoque").value),
+        imagem_url:$("imagem_url").value.trim(),
+        ativo:$("ativo").checked
       };
 
       if (
@@ -644,50 +560,36 @@ $("productForm").addEventListener(
         item.estoque < 0
       ) {
         throw new Error(
-          "Confira os dados da joia."
+          "Confira o código, nome, preço e estoque."
         );
       }
 
       const id = $("productId").value;
 
-      let result;
+      const result = id
+        ? await db.from("produtos")
+            .update(item)
+            .eq("id",id)
+            .select("id")
+        : await db.from("produtos")
+            .insert(item)
+            .select("id");
 
-      if (id) {
-        result = await db
-          .from("produtos")
-          .update(item)
-          .eq("id", id)
-          .select("id");
-      } else {
-        result = await db
-          .from("produtos")
-          .insert(item)
-          .select("id");
-      }
-
-      if (result.error) {
-        throw result.error;
-      }
+      if (result.error) throw result.error;
 
       if (!result.data?.length) {
         throw new Error(
-          "Nenhum registro alterado. " +
-          "Confira as permissões RLS."
+          "Operação não autorizada. Confira as políticas RLS."
         );
       }
 
-      resetForm();
-
-      showMessage(
-        "Joia salva com sucesso!"
-      );
-
+      resetProductForm();
+      message("Joia salva com sucesso!");
       await loadProducts();
 
     } catch (error) {
-      showMessage(
-        "Erro ao salvar: " +
-        errorText(error),
+      message(
+        "Erro ao salvar: " + errText(error),
         true
       );
     } finally {
@@ -696,188 +598,130 @@ $("productForm").addEventListener(
   }
 );
 
-// CARREGAR PRODUTOS
-
 async function loadProducts() {
   const list = $("productsList");
-
-  list.textContent = "Carregando...";
+  list.textContent = "Carregando produtos...";
 
   const { data, error } = await db
     .from("produtos")
     .select("*")
-    .order("nome", {
-      ascending: true
-    });
+    .order("nome",{ascending:true});
 
   if (error) {
     list.textContent =
-      "Erro: " + errorText(error);
-
+      "Erro: " + errText(error);
     return;
   }
 
   list.replaceChildren();
 
-  if (!data.length) {
+  if (!data?.length) {
     list.textContent =
-      "Nenhum produto cadastrado.";
-
+      "Nenhum produto encontrado.";
     return;
   }
 
-  addText(
+  textNode(
     list,
     "p",
-    data.length + " produtos cadastrados.",
+    data.length + " produtos encontrados.",
     "muted"
   );
 
   for (const item of data) {
-    const card =
-      document.createElement("div");
+    const card = document.createElement("div");
+    card.className = "item";
 
-    card.className = "product";
+    const head = document.createElement("div");
+    head.className = "item-head";
 
-    const line =
-      document.createElement("div");
-
-    line.className = "product-line";
-
-    const src =
-      imageAddress(item.imagem_url);
+    const src = imageURL(item.imagem_url);
 
     if (src) {
-      const img =
-        document.createElement("img");
-
+      const img = document.createElement("img");
       img.src = src;
       img.alt = item.nome || "";
       img.loading = "lazy";
-
-      line.appendChild(img);
+      head.appendChild(img);
     }
 
-    const info =
-      document.createElement("div");
+    const info = document.createElement("div");
 
-    addText(
-      info,
-      "strong",
-      item.nome
-    );
+    textNode(info,"strong",item.nome);
 
-    addText(
+    textNode(
       info,
       "div",
       item.codigo +
-      " | " +
-      money(item.preco) +
-      " | Estoque: " +
-      item.estoque +
-      " | " +
-      (item.ativo ? "Ativo" : "Inativo"),
+      " | " + money(item.preco) +
+      " | Estoque: " + item.estoque +
+      " | " + (item.ativo ? "Ativo" : "Inativo"),
       "muted"
     );
 
-    line.appendChild(info);
-    card.appendChild(line);
+    head.appendChild(info);
+    card.appendChild(head);
 
-    const actions =
-      document.createElement("div");
-
+    const actions = document.createElement("div");
     actions.className = "actions";
 
-    // EDITAR
-
-    const edit =
-      document.createElement("button");
-
+    const edit = document.createElement("button");
     edit.type = "button";
     edit.textContent = "Editar";
 
-    edit.onclick = function() {
-      const fields = [
-        "codigo",
-        "nome",
-        "descricao",
-        "preco",
-        "estoque",
-        "imagem_url"
-      ];
-
-      for (const field of fields) {
-        $(field).value =
-          item[field] ?? "";
+    edit.onclick = () => {
+      for (const field of [
+        "codigo","nome","descricao",
+        "preco","estoque","imagem_url"
+      ]) {
+        $(field).value = item[field] ?? "";
       }
 
-      $("ativo").checked =
-        Boolean(item.ativo);
-
-      $("productId").value =
-        item.id;
-
+      $("ativo").checked = Boolean(item.ativo);
+      $("productId").value = item.id;
       $("formTitle").textContent =
         "✏️ Editar joia";
-
       $("saveButton").textContent =
         "Salvar alterações";
 
       $("productForm").scrollIntoView({
-        behavior: "smooth"
+        behavior:"smooth"
       });
     };
 
     actions.appendChild(edit);
 
-    // EXCLUIR
-
-    const remove =
-      document.createElement("button");
-
+    const remove = document.createElement("button");
     remove.type = "button";
     remove.className = "danger";
     remove.textContent = "Excluir";
 
-    remove.onclick = async function() {
-      const confirmed = confirm(
-        'Excluir a joia "' +
-        item.nome +
-        '" permanentemente?'
-      );
+    remove.onclick = async () => {
+      if (!confirm(
+        'Excluir "' + item.nome + '" permanentemente?'
+      )) return;
 
-      if (!confirmed) return;
-
-      const { data: deleted, error } =
-        await db
-          .from("produtos")
+      const { data:deleted, error } =
+        await db.from("produtos")
           .delete()
-          .eq("id", item.id)
+          .eq("id",item.id)
           .select("id");
 
       if (error || !deleted?.length) {
-        showMessage(
+        message(
           "Não foi possível excluir: " +
-          errorText(
-            error || "Permissão negada"
-          ),
+          errText(error || "Permissão negada"),
           true
         );
-
         return;
       }
 
-      showMessage(
-        "Produto excluído com sucesso."
-      );
-
+      message("Produto excluído.");
       await loadProducts();
     };
 
     actions.appendChild(remove);
-
     card.appendChild(actions);
-
     list.appendChild(card);
   }
 }
@@ -887,51 +731,43 @@ $("refreshProducts").addEventListener(
   loadProducts
 );
 
-// CARREGAR RESERVAS
+// RESERVAS
 
 async function loadReservations() {
   const list = $("reservationsList");
-
-  list.textContent = "Carregando...";
+  list.textContent = "Carregando reservas...";
 
   const { data, error } = await db
     .from("reservas")
     .select("*")
-    .order("criado_em", {
-      ascending: false
-    })
+    .order("criado_em",{ascending:false})
     .limit(100);
 
   if (error) {
     list.textContent =
-      "Erro ao carregar reservas: " +
-      errorText(error);
-
+      "Erro: " + errText(error);
     return;
   }
 
   list.replaceChildren();
 
-  if (!data.length) {
+  if (!data?.length) {
     list.textContent =
       "Nenhuma reserva registrada no Supabase.";
-
     return;
   }
 
   for (const item of data) {
-    const card =
-      document.createElement("div");
+    const card = document.createElement("div");
+    card.className = "item";
 
-    card.className = "product";
-
-    addText(
+    textNode(
       card,
       "strong",
       item.cliente_nome || "Cliente"
     );
 
-    addText(
+    textNode(
       card,
       "div",
       "WhatsApp: " +
@@ -943,13 +779,12 @@ async function loadReservations() {
       "muted"
     );
 
-    addText(
+    textNode(
       card,
       "div",
       "Produto ID: " +
       (item.produto_id || "—") +
-      " | " +
-      formatDate(item.criado_em),
+      " | " + dateText(item.criado_em),
       "muted"
     );
 
@@ -962,11 +797,83 @@ $("refreshReservations").addEventListener(
   loadReservations
 );
 
-// INICIAR
+// INICIALIZAÇÃO
 
-refreshAuth();
+async function start() {
+  if (!window.supabase?.createClient) {
+    showPanel("login");
+    message(
+      "Não foi possível carregar a biblioteca do Supabase. Confira sua conexão com a internet.",
+      true
+    );
+    return;
+  }
 
+  db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  // O Supabase emite PASSWORD_RECOVERY quando
+  // um link válido de recuperação é processado.
+  db.auth.onAuthStateChange((event) => {
+    if (event === "PASSWORD_RECOVERY") {
+      recoveryMode = true;
+      showPanel("reset");
+      clearMessage();
+    }
+  });
+
+  // Se o link indicar recuperação, aguardar
+  // a validação da sessão antes de mostrar o painel.
+  const params = new URLSearchParams(
+    window.location.search
+  );
+
+  const hashParams = new URLSearchParams(
+    window.location.hash.replace(/^#/,"")
+  );
+
+  const hasRecoveryLink =
+    params.get("type") === "recovery" ||
+    hashParams.get("type") === "recovery" ||
+    (
+      params.has("token_hash") &&
+      params.get("type") === "recovery"
+    );
+
+  if (hasRecoveryLink) {
+    showPanel("login");
+
+    const { data, error } =
+      await db.auth.getSession();
+
+    if (error) {
+      message(
+        "Erro no link de recuperação: " +
+        errText(error),
+        true
+      );
+      return;
+    }
+
+    if (data.session) {
+      recoveryMode = true;
+      showPanel("reset");
+      return;
+    }
+
+    message(
+      "O link de recuperação não pôde ser validado. Solicite um novo e-mail.",
+      true
+    );
+    return;
+  }
+
+  await refreshAuth();
+}
+
+start();
 </script>
-
 </body>
 </html>
