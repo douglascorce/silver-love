@@ -3,45 +3,44 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Silver Love | Administração</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Silver Love | Painel Administrativo</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#fff3f8;color:#4c2939;font-family:Arial,sans-serif}
-header{background:linear-gradient(120deg,#811c4c,#c13a7a);color:white;text-align:center;padding:25px 15px}
-header h1{margin:0 0 8px;font-size:28px}
-header p{margin:0}
+body{margin:0;background:#fff3f8;color:#4b2939;font-family:Arial,sans-serif}
+header{background:linear-gradient(120deg,#801b4c,#c13a7b);color:white;text-align:center;padding:25px 15px}
+header h1{font-size:28px;margin:0 0 8px}
+header p{margin:5px 0}
 main{max-width:950px;margin:auto;padding:16px}
-.card{background:white;border-radius:16px;padding:22px;margin:16px 0;box-shadow:0 4px 18px #7d20451a}
+.card{background:#fff;padding:22px;border-radius:16px;margin:16px 0;box-shadow:0 4px 18px #7d20451a}
 h2{color:#922957;margin-top:0}
 label{display:block;font-weight:bold;margin:13px 0 6px}
-input,textarea,select{width:100%;padding:13px;border:1px solid #dab4c6;border-radius:9px;font-size:16px;background:white}
+input,textarea,select{width:100%;padding:13px;border:1px solid #dab4c6;border-radius:9px;font-size:16px;background:white;color:#38232d}
 textarea{min-height:90px}
-button{border:0;border-radius:9px;padding:12px 17px;background:#a92c66;color:white;font-size:15px;font-weight:bold;cursor:pointer}
+button{border:0;border-radius:9px;padding:12px 16px;background:#a92c66;color:white;font-size:15px;font-weight:bold;cursor:pointer}
 button:disabled{opacity:.55}
-button.secondary{background:#74606d}
-button.danger{background:#ba3654}
-button.light{background:#f9e4ed;color:#922957}
+.secondary{background:#74606d}
+.danger{background:#b93655}
+.light{background:#f8e2ed;color:#922957}
 .hidden{display:none!important}
 .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
-.password-wrap{display:flex;align-items:stretch;gap:6px}
+.password-wrap{display:flex;gap:7px}
 .password-wrap input{flex:1;min-width:0}
-.password-wrap button{flex:none;background:#f5dce7;color:#872650;padding:0 14px}
+.password-wrap button{background:#f5dce7;color:#872650;padding:0 15px}
 .message{border-radius:9px;padding:14px;margin:14px 0;white-space:pre-wrap}
-.success{background:#e5f5eb;color:#245c39}
+.success{background:#e4f5eb;color:#245b38}
 .error{background:#ffe1e7;color:#902b45}
-.muted{color:#806b77;font-size:13px;line-height:1.6}
-.item{border-bottom:1px solid #f1dce5;padding:15px 0}
+.muted{font-size:13px;color:#806b77;line-height:1.6}
+.item{border-bottom:1px solid #f0dce5;padding:15px 0}
 .item:last-child{border-bottom:0}
-.item-head{display:flex;gap:12px;align-items:center}
+.item-head{display:flex;align-items:center;gap:12px}
 .item img{width:65px;height:65px;object-fit:cover;border-radius:8px}
 .item strong{display:block;margin-bottom:5px}
 .check{display:flex;align-items:center;gap:10px;margin-top:15px}
 .check input{width:auto}
 .check label{margin:0}
 #logout{background:white;color:#8b2857;margin-top:15px}
-a{color:#a92c66}
 </style>
 </head>
 <body>
@@ -49,7 +48,7 @@ a{color:#a92c66}
 <header>
 <h1>💎 Silver Love</h1>
 <p>Prata e Folheados a Ouro</p>
-<p style="margin-top:7px">Painel Administrativo</p>
+<p>Painel Administrativo</p>
 <button id="logout" class="hidden" type="button">Sair</button>
 </header>
 
@@ -58,6 +57,7 @@ a{color:#a92c66}
 
 <section id="loginPanel" class="card">
 <h2>🔐 Acesso administrativo</h2>
+
 <form id="loginForm">
 <label for="email">E-mail</label>
 <input id="email" type="email" autocomplete="username" required>
@@ -65,35 +65,34 @@ a{color:#a92c66}
 <label for="password">Senha</label>
 <div class="password-wrap">
 <input id="password" type="password" autocomplete="current-password" required>
-<button type="button" class="toggle-password" data-target="password" aria-label="Mostrar senha" aria-pressed="false">👁️</button>
+<button type="button" class="toggle-password" data-target="password" aria-label="Mostrar senha">👁️</button>
 </div>
 
 <div class="actions">
 <button id="loginButton" type="submit">Entrar</button>
-<button id="forgotButton" type="button" class="light">Esqueci minha senha</button>
+<button id="forgotButton" class="light" type="button">Esqueci minha senha</button>
 </div>
 </form>
-<p class="muted">Use o e-mail cadastrado no Supabase.</p>
 </section>
 
 <section id="resetPanel" class="card hidden">
 <h2>🔑 Definir nova senha</h2>
-<p>Crie uma nova senha para acessar o painel administrativo.</p>
+<p>Crie uma nova senha para acessar o painel.</p>
 
 <form id="resetForm">
 <label for="newPassword">Nova senha</label>
 <div class="password-wrap">
 <input id="newPassword" type="password" autocomplete="new-password" minlength="8" required>
-<button type="button" class="toggle-password" data-target="newPassword" aria-label="Mostrar senha" aria-pressed="false">👁️</button>
+<button type="button" class="toggle-password" data-target="newPassword" aria-label="Mostrar senha">👁️</button>
 </div>
 
 <label for="confirmPassword">Confirmar nova senha</label>
 <div class="password-wrap">
 <input id="confirmPassword" type="password" autocomplete="new-password" minlength="8" required>
-<button type="button" class="toggle-password" data-target="confirmPassword" aria-label="Mostrar senha" aria-pressed="false">👁️</button>
+<button type="button" class="toggle-password" data-target="confirmPassword" aria-label="Mostrar senha">👁️</button>
 </div>
 
-<p class="muted">Use pelo menos 8 caracteres. Prefira uma senha exclusiva e difícil de adivinhar.</p>
+<p class="muted">Use pelo menos 8 caracteres e uma senha exclusiva.</p>
 
 <div class="actions">
 <button id="resetButton" type="submit">Salvar nova senha</button>
@@ -126,7 +125,7 @@ a{color:#a92c66}
 </div>
 
 <div>
-<label for="estoque">Quantidade em estoque</label>
+<label for="estoque">Estoque</label>
 <input id="estoque" type="number" min="0" step="1" value="0" required>
 </div>
 </div>
@@ -134,7 +133,7 @@ a{color:#a92c66}
 <label for="descricao">Descrição</label>
 <textarea id="descricao"></textarea>
 
-<label for="imagem_url">Caminho ou URL da foto</label>
+<label for="imagem_url">Foto — caminho ou URL</label>
 <input id="imagem_url" placeholder="fotos/108413.jpg">
 
 <div class="check">
@@ -144,29 +143,25 @@ a{color:#a92c66}
 
 <div class="actions">
 <button id="saveButton" type="submit">Salvar joia</button>
-<button id="cancelEdit" class="secondary" type="button">Limpar formulário</button>
+<button id="cancelEdit" class="secondary" type="button">Limpar</button>
 </div>
 </form>
 
 <p class="muted">
-Nesta versão, as fotos devem estar previamente publicadas na pasta
-fotos do GitHub ou ter uma URL pública.
+As fotos devem estar publicadas na pasta fotos do GitHub ou em uma URL pública.
 </p>
 </section>
 
 <section class="card">
 <h2>💍 Produtos cadastrados</h2>
-<button id="refreshProducts" type="button" class="secondary">Atualizar produtos</button>
+<button id="refreshProducts" class="secondary" type="button">Atualizar produtos</button>
 <div id="productsList">Carregando...</div>
 </section>
 
 <section class="card">
 <h2>📋 Reservas</h2>
-<button id="refreshReservations" type="button" class="secondary">Atualizar reservas</button>
-<p class="muted">
-Aparecem aqui apenas reservas registradas no Supabase.
-Pedidos enviados somente pelo WhatsApp não aparecem automaticamente.
-</p>
+<button id="refreshReservations" class="secondary" type="button">Atualizar reservas</button>
+<p class="muted">Aparecem aqui as reservas registradas no Supabase. Pedidos enviados apenas pelo WhatsApp não aparecem automaticamente.</p>
 <div id="reservationsList">Carregando...</div>
 </section>
 
@@ -179,28 +174,25 @@ Pedidos enviados somente pelo WhatsApp não aparecem automaticamente.
 "use strict";
 
 const SUPABASE_URL =
-"https://xyybmzfodlvwljhhfxhe.supabase.co";
+  "https://xyybmzfodlvwljhhfxhe.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
+  "sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
 
 const SITE_URL =
-"https://douglascorce.github.io/silver-love/";
+  "https://douglascorce.github.io/silver-love/";
 
-const ADMIN_URL =
-SITE_URL + "admin.html";
+const ADMIN_URL = SITE_URL + "admin.html";
 
 const $ = id => document.getElementById(id);
 
 let db;
 let recoveryMode = false;
 
-function message(text, isError = false) {
+function showMessage(text, isError = false) {
   const el = $("message");
   el.textContent = text;
-  el.className =
-    "message " + (isError ? "error" : "success");
-  el.scrollIntoView({block:"nearest"});
+  el.className = "message " + (isError ? "error" : "success");
 }
 
 function clearMessage() {
@@ -208,31 +200,21 @@ function clearMessage() {
 }
 
 function showPanel(panel) {
-  $("loginPanel").classList.toggle(
-    "hidden", panel !== "login"
-  );
-  $("resetPanel").classList.toggle(
-    "hidden", panel !== "reset"
-  );
-  $("dashboard").classList.toggle(
-    "hidden", panel !== "dashboard"
-  );
-  $("logout").classList.toggle(
-    "hidden", panel !== "dashboard"
-  );
+  $("loginPanel").classList.toggle("hidden", panel !== "login");
+  $("resetPanel").classList.toggle("hidden", panel !== "reset");
+  $("dashboard").classList.toggle("hidden", panel !== "dashboard");
+  $("logout").classList.toggle("hidden", panel !== "dashboard");
 }
 
-function errText(error) {
+function errorText(error) {
   return error?.message || String(error);
 }
 
 function money(value) {
-  return Number(value || 0).toLocaleString(
-    "pt-BR", {
-      style:"currency",
-      currency:"BRL"
-    }
-  );
+  return Number(value || 0).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  });
 }
 
 function dateText(value) {
@@ -241,7 +223,7 @@ function dateText(value) {
     : "—";
 }
 
-function textNode(parent, tag, value, className) {
+function addText(parent, tag, value, className) {
   const el = document.createElement(tag);
   el.textContent = String(value ?? "");
   if (className) el.className = className;
@@ -251,35 +233,24 @@ function textNode(parent, tag, value, className) {
 
 function imageURL(path) {
   if (!path) return "";
-
   try {
     const url = new URL(path, SITE_URL);
-    if (
-      url.protocol === "https:" ||
-      url.protocol === "http:"
-    ) {
+    if (url.protocol === "https:" || url.protocol === "http:") {
       return url.href;
     }
   } catch (_) {}
-
   return "";
 }
 
-// OLHINHO PARA MOSTRAR OU OCULTAR SENHAS
+// MOSTRAR E OCULTAR SENHAS
 
-document.querySelectorAll(
-  ".toggle-password"
-).forEach(button => {
+document.querySelectorAll(".toggle-password").forEach(button => {
   button.addEventListener("click", () => {
-    const field = $(button.dataset.target);
-    const showing = field.type === "password";
+    const input = $(button.dataset.target);
+    const showing = input.type === "password";
 
-    field.type = showing ? "text" : "password";
+    input.type = showing ? "text" : "password";
     button.textContent = showing ? "🙈" : "👁️";
-    button.setAttribute(
-      "aria-pressed",
-      String(showing)
-    );
     button.setAttribute(
       "aria-label",
       showing ? "Ocultar senha" : "Mostrar senha"
@@ -287,15 +258,16 @@ document.querySelectorAll(
   });
 });
 
-// AUTORIZAÇÃO
+// VERIFICAR ADMINISTRADOR
+// CORREÇÃO: A COLUNA CORRETA É usuario_id
 
 async function checkAdmin(user) {
   if (!user) return false;
 
   const { data, error } = await db
     .from("administradores")
-    .select("id")
-    .eq("id", user.id)
+    .select("usuario_id")
+    .eq("usuario_id", user.id)
     .maybeSingle();
 
   if (error) throw error;
@@ -310,18 +282,19 @@ async function refreshAuth() {
   }
 
   try {
-    const { data, error } =
-      await db.auth.getUser();
+    const { data, error } = await db.auth.getUser();
 
     if (error || !data?.user) {
       showPanel("login");
       return;
     }
 
-    if (!await checkAdmin(data.user)) {
+    const allowed = await checkAdmin(data.user);
+
+    if (!allowed) {
       showPanel("login");
-      message(
-        "Este usuário não tem autorização administrativa. Confira a tabela administradores e as políticas RLS.",
+      showMessage(
+        "Usuário sem acesso administrativo. Verifique as políticas RLS da tabela administradores.",
         true
       );
       return;
@@ -336,267 +309,229 @@ async function refreshAuth() {
 
   } catch (error) {
     showPanel("login");
-    message(
-      "Erro ao verificar acesso: " + errText(error),
+    showMessage(
+      "Erro ao validar acesso: " + errorText(error),
       true
     );
   }
 }
 
-// LOGIN
+// ENTRAR
 
-$("loginForm").addEventListener(
-  "submit",
-  async event => {
-    event.preventDefault();
-    clearMessage();
+$("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  clearMessage();
+  $("loginButton").disabled = true;
 
-    $("loginButton").disabled = true;
+  try {
+    const { error } = await db.auth.signInWithPassword({
+      email: $("email").value.trim(),
+      password: $("password").value
+    });
 
-    try {
-      const email = $("email").value.trim();
-      const password = $("password").value;
+    if (error) throw error;
 
-      const { error } =
-        await db.auth.signInWithPassword({
-          email,
-          password
-        });
+    $("password").value = "";
+    await refreshAuth();
 
-      if (error) throw error;
-
-      $("password").value = "";
-
-      await refreshAuth();
-
-    } catch (error) {
-      message(
-        "Erro no login: " + errText(error),
-        true
-      );
-    } finally {
-      $("loginButton").disabled = false;
-    }
+  } catch (error) {
+    showMessage(
+      "Erro no login: " + errorText(error),
+      true
+    );
+  } finally {
+    $("loginButton").disabled = false;
   }
-);
+});
 
-// SOLICITAR RECUPERAÇÃO
+// ESQUECI MINHA SENHA
 
-$("forgotButton").addEventListener(
-  "click",
-  async () => {
-    const email = $("email").value.trim();
+$("forgotButton").addEventListener("click", async () => {
+  const email = $("email").value.trim();
 
-    if (!email) {
-      message(
-        "Digite seu e-mail antes de solicitar a recuperação.",
-        true
-      );
-      $("email").focus();
-      return;
-    }
-
-    $("forgotButton").disabled = true;
-
-    try {
-      const { error } =
-        await db.auth.resetPasswordForEmail(
-          email,
-          {
-            redirectTo: ADMIN_URL
-          }
-        );
-
-      if (error) throw error;
-
-      message(
-        "Se o e-mail estiver cadastrado, você receberá um link para definir uma nova senha. Verifique também a pasta de spam."
-      );
-
-    } catch (error) {
-      message(
-        "Erro ao solicitar recuperação: " +
-        errText(error),
-        true
-      );
-    } finally {
-      $("forgotButton").disabled = false;
-    }
+  if (!email) {
+    showMessage(
+      "Digite seu e-mail antes de solicitar a recuperação.",
+      true
+    );
+    $("email").focus();
+    return;
   }
-);
 
-// REDEFINIR SENHA
+  $("forgotButton").disabled = true;
 
-$("resetForm").addEventListener(
-  "submit",
-  async event => {
-    event.preventDefault();
+  try {
+    const { error } = await db.auth.resetPasswordForEmail(
+      email,
+      { redirectTo: ADMIN_URL }
+    );
 
-    const password = $("newPassword").value;
-    const confirm = $("confirmPassword").value;
+    if (error) throw error;
 
-    if (password.length < 8) {
-      message(
-        "A senha deve ter pelo menos 8 caracteres.",
-        true
-      );
-      return;
-    }
+    showMessage(
+      "Se o e-mail estiver cadastrado, você receberá um link para criar uma nova senha."
+    );
 
-    if (password !== confirm) {
-      message(
-        "As duas senhas não são iguais.",
-        true
-      );
-      return;
-    }
-
-    $("resetButton").disabled = true;
-
-    try {
-      const { data: sessionData } =
-        await db.auth.getSession();
-
-      if (!sessionData.session) {
-        throw new Error(
-          "O link de recuperação expirou ou é inválido. Solicite um novo e-mail."
-        );
-      }
-
-      const { error } =
-        await db.auth.updateUser({
-          password
-        });
-
-      if (error) throw error;
-
-      $("resetForm").reset();
-
-      recoveryMode = false;
-
-      // Encerrar sessão após redefinição.
-      await db.auth.signOut();
-
-      // Remover parâmetros do link de recuperação.
-      history.replaceState(
-        null,
-        "",
-        ADMIN_URL
-      );
-
-      showPanel("login");
-
-      message(
-        "Senha atualizada com sucesso! Agora entre com sua nova senha."
-      );
-
-    } catch (error) {
-      message(
-        "Erro ao definir senha: " +
-        errText(error),
-        true
-      );
-    } finally {
-      $("resetButton").disabled = false;
-    }
+  } catch (error) {
+    showMessage(
+      "Erro ao solicitar recuperação: " + errorText(error),
+      true
+    );
+  } finally {
+    $("forgotButton").disabled = false;
   }
-);
+});
+
+// DEFINIR NOVA SENHA
+
+$("resetForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const password = $("newPassword").value;
+  const confirm = $("confirmPassword").value;
+
+  if (password.length < 8) {
+    showMessage(
+      "A senha deve ter pelo menos 8 caracteres.",
+      true
+    );
+    return;
+  }
+
+  if (password !== confirm) {
+    showMessage(
+      "As senhas não são iguais.",
+      true
+    );
+    return;
+  }
+
+  $("resetButton").disabled = true;
+
+  try {
+    const { data } = await db.auth.getSession();
+
+    if (!data.session) {
+      throw new Error(
+        "Link expirado ou inválido. Solicite um novo e-mail."
+      );
+    }
+
+    const { error } = await db.auth.updateUser({
+      password
+    });
+
+    if (error) throw error;
+
+    $("resetForm").reset();
+    recoveryMode = false;
+
+    await db.auth.signOut();
+
+    history.replaceState(null, "", ADMIN_URL);
+
+    showPanel("login");
+    showMessage(
+      "Senha atualizada com sucesso! Entre com sua nova senha."
+    );
+
+  } catch (error) {
+    showMessage(
+      "Erro ao definir senha: " + errorText(error),
+      true
+    );
+  } finally {
+    $("resetButton").disabled = false;
+  }
+});
 
 // SAIR
 
-$("logout").addEventListener(
-  "click",
-  async () => {
-    await db.auth.signOut();
-    recoveryMode = false;
-    clearMessage();
-    showPanel("login");
-  }
-);
+$("logout").addEventListener("click", async () => {
+  await db.auth.signOut();
+  recoveryMode = false;
+  clearMessage();
+  showPanel("login");
+});
 
-// PRODUTOS
+// LIMPAR FORMULÁRIO
 
 function resetProductForm() {
   $("productForm").reset();
   $("productId").value = "";
   $("estoque").value = "0";
   $("ativo").checked = true;
-  $("formTitle").textContent =
-    "➕ Cadastrar joia";
-  $("saveButton").textContent =
-    "Salvar joia";
+  $("formTitle").textContent = "➕ Cadastrar joia";
+  $("saveButton").textContent = "Salvar joia";
 }
 
-$("cancelEdit").addEventListener(
-  "click",
-  resetProductForm
-);
+$("cancelEdit").addEventListener("click", resetProductForm);
 
-$("productForm").addEventListener(
-  "submit",
-  async event => {
-    event.preventDefault();
-    clearMessage();
+// SALVAR PRODUTO
 
-    $("saveButton").disabled = true;
+$("productForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  clearMessage();
+  $("saveButton").disabled = true;
 
-    try {
-      const item = {
-        codigo:$("codigo").value.trim(),
-        nome:$("nome").value.trim(),
-        descricao:$("descricao").value.trim(),
-        preco:Number($("preco").value),
-        estoque:Number($("estoque").value),
-        imagem_url:$("imagem_url").value.trim(),
-        ativo:$("ativo").checked
-      };
+  try {
+    const item = {
+      codigo: $("codigo").value.trim(),
+      nome: $("nome").value.trim(),
+      descricao: $("descricao").value.trim(),
+      preco: Number($("preco").value),
+      estoque: Number($("estoque").value),
+      imagem_url: $("imagem_url").value.trim(),
+      ativo: $("ativo").checked
+    };
 
-      if (
-        !item.codigo ||
-        !item.nome ||
-        !Number.isFinite(item.preco) ||
-        item.preco < 0 ||
-        !Number.isInteger(item.estoque) ||
-        item.estoque < 0
-      ) {
-        throw new Error(
-          "Confira o código, nome, preço e estoque."
-        );
-      }
-
-      const id = $("productId").value;
-
-      const result = id
-        ? await db.from("produtos")
-            .update(item)
-            .eq("id",id)
-            .select("id")
-        : await db.from("produtos")
-            .insert(item)
-            .select("id");
-
-      if (result.error) throw result.error;
-
-      if (!result.data?.length) {
-        throw new Error(
-          "Operação não autorizada. Confira as políticas RLS."
-        );
-      }
-
-      resetProductForm();
-      message("Joia salva com sucesso!");
-      await loadProducts();
-
-    } catch (error) {
-      message(
-        "Erro ao salvar: " + errText(error),
-        true
+    if (
+      !item.codigo ||
+      !item.nome ||
+      !Number.isFinite(item.preco) ||
+      item.preco < 0 ||
+      !Number.isInteger(item.estoque) ||
+      item.estoque < 0
+    ) {
+      throw new Error(
+        "Confira o código, nome, preço e estoque."
       );
-    } finally {
-      $("saveButton").disabled = false;
     }
+
+    const id = $("productId").value;
+
+    const result = id
+      ? await db.from("produtos")
+          .update(item)
+          .eq("id", id)
+          .select("id")
+      : await db.from("produtos")
+          .insert(item)
+          .select("id");
+
+    if (result.error) throw result.error;
+
+    if (!result.data?.length) {
+      throw new Error(
+        "Nenhum produto alterado. Confira as permissões RLS."
+      );
+    }
+
+    resetProductForm();
+    showMessage("Joia salva com sucesso!");
+    await loadProducts();
+
+  } catch (error) {
+    showMessage(
+      "Erro ao salvar: " + errorText(error),
+      true
+    );
+  } finally {
+    $("saveButton").disabled = false;
   }
-);
+});
+
+// LISTAR PRODUTOS
 
 async function loadProducts() {
   const list = $("productsList");
@@ -605,23 +540,21 @@ async function loadProducts() {
   const { data, error } = await db
     .from("produtos")
     .select("*")
-    .order("nome",{ascending:true});
+    .order("nome", { ascending: true });
 
   if (error) {
-    list.textContent =
-      "Erro: " + errText(error);
+    list.textContent = "Erro: " + errorText(error);
     return;
   }
 
   list.replaceChildren();
 
   if (!data?.length) {
-    list.textContent =
-      "Nenhum produto encontrado.";
+    list.textContent = "Nenhum produto encontrado.";
     return;
   }
 
-  textNode(
+  addText(
     list,
     "p",
     data.length + " produtos encontrados.",
@@ -647,9 +580,9 @@ async function loadProducts() {
 
     const info = document.createElement("div");
 
-    textNode(info,"strong",item.nome);
+    addText(info, "strong", item.nome);
 
-    textNode(
+    addText(
       info,
       "div",
       item.codigo +
@@ -671,21 +604,24 @@ async function loadProducts() {
 
     edit.onclick = () => {
       for (const field of [
-        "codigo","nome","descricao",
-        "preco","estoque","imagem_url"
+        "codigo",
+        "nome",
+        "descricao",
+        "preco",
+        "estoque",
+        "imagem_url"
       ]) {
         $(field).value = item[field] ?? "";
       }
 
       $("ativo").checked = Boolean(item.ativo);
       $("productId").value = item.id;
-      $("formTitle").textContent =
-        "✏️ Editar joia";
-      $("saveButton").textContent =
-        "Salvar alterações";
+
+      $("formTitle").textContent = "✏️ Editar joia";
+      $("saveButton").textContent = "Salvar alterações";
 
       $("productForm").scrollIntoView({
-        behavior:"smooth"
+        behavior: "smooth"
       });
     };
 
@@ -701,22 +637,22 @@ async function loadProducts() {
         'Excluir "' + item.nome + '" permanentemente?'
       )) return;
 
-      const { data:deleted, error } =
-        await db.from("produtos")
-          .delete()
-          .eq("id",item.id)
-          .select("id");
+      const { data: deleted, error } = await db
+        .from("produtos")
+        .delete()
+        .eq("id", item.id)
+        .select("id");
 
       if (error || !deleted?.length) {
-        message(
+        showMessage(
           "Não foi possível excluir: " +
-          errText(error || "Permissão negada"),
+          errorText(error || "Permissão negada"),
           true
         );
         return;
       }
 
-      message("Produto excluído.");
+      showMessage("Produto excluído.");
       await loadProducts();
     };
 
@@ -726,12 +662,9 @@ async function loadProducts() {
   }
 }
 
-$("refreshProducts").addEventListener(
-  "click",
-  loadProducts
-);
+$("refreshProducts").addEventListener("click", loadProducts);
 
-// RESERVAS
+// LISTAR RESERVAS
 
 async function loadReservations() {
   const list = $("reservationsList");
@@ -740,12 +673,11 @@ async function loadReservations() {
   const { data, error } = await db
     .from("reservas")
     .select("*")
-    .order("criado_em",{ascending:false})
+    .order("criado_em", { ascending: false })
     .limit(100);
 
   if (error) {
-    list.textContent =
-      "Erro: " + errText(error);
+    list.textContent = "Erro: " + errorText(error);
     return;
   }
 
@@ -761,13 +693,13 @@ async function loadReservations() {
     const card = document.createElement("div");
     card.className = "item";
 
-    textNode(
+    addText(
       card,
       "strong",
       item.cliente_nome || "Cliente"
     );
 
-    textNode(
+    addText(
       card,
       "div",
       "WhatsApp: " +
@@ -779,7 +711,7 @@ async function loadReservations() {
       "muted"
     );
 
-    textNode(
+    addText(
       card,
       "div",
       "Produto ID: " +
@@ -797,13 +729,13 @@ $("refreshReservations").addEventListener(
   loadReservations
 );
 
-// INICIALIZAÇÃO
+// INICIAR PAINEL
 
 async function start() {
   if (!window.supabase?.createClient) {
     showPanel("login");
-    message(
-      "Não foi possível carregar a biblioteca do Supabase. Confira sua conexão com a internet.",
+    showMessage(
+      "Não foi possível carregar o Supabase. Verifique sua internet.",
       true
     );
     return;
@@ -814,9 +746,7 @@ async function start() {
     SUPABASE_KEY
   );
 
-  // O Supabase emite PASSWORD_RECOVERY quando
-  // um link válido de recuperação é processado.
-  db.auth.onAuthStateChange((event) => {
+  db.auth.onAuthStateChange(event => {
     if (event === "PASSWORD_RECOVERY") {
       recoveryMode = true;
       showPanel("reset");
@@ -824,49 +754,29 @@ async function start() {
     }
   });
 
-  // Se o link indicar recuperação, aguardar
-  // a validação da sessão antes de mostrar o painel.
-  const params = new URLSearchParams(
-    window.location.search
+  const query = new URLSearchParams(location.search);
+  const hash = new URLSearchParams(
+    location.hash.replace(/^#/, "")
   );
 
-  const hashParams = new URLSearchParams(
-    window.location.hash.replace(/^#/,"")
-  );
+  const isRecovery =
+    query.get("type") === "recovery" ||
+    hash.get("type") === "recovery";
 
-  const hasRecoveryLink =
-    params.get("type") === "recovery" ||
-    hashParams.get("type") === "recovery" ||
-    (
-      params.has("token_hash") &&
-      params.get("type") === "recovery"
-    );
+  if (isRecovery) {
+    const { data, error } = await db.auth.getSession();
 
-  if (hasRecoveryLink) {
-    showPanel("login");
-
-    const { data, error } =
-      await db.auth.getSession();
-
-    if (error) {
-      message(
-        "Erro no link de recuperação: " +
-        errText(error),
+    if (error || !data.session) {
+      showPanel("login");
+      showMessage(
+        "O link de recuperação expirou ou é inválido. Solicite outro e-mail.",
         true
       );
       return;
     }
 
-    if (data.session) {
-      recoveryMode = true;
-      showPanel("reset");
-      return;
-    }
-
-    message(
-      "O link de recuperação não pôde ser validado. Solicite um novo e-mail.",
-      true
-    );
+    recoveryMode = true;
+    showPanel("reset");
     return;
   }
 
