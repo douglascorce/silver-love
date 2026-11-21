@@ -4,89 +4,145 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fff4f8">
 <title>Silver Love | Joias de Prata</title>
+
 <style>
 :root {
-  --rosa:#c32670;
-  --claro:#fff5f9;
-  --texto:#392b35;
+  --rosa:#b72c68;
+  --rosa-claro:#fff2f7;
+  --rosa-medio:#f3d6e2;
+  --prata:#a0a0a9;
+  --texto:#47343f;
+  --branco:#ffffff;
 }
 * {box-sizing:border-box}
+html {scroll-behavior:smooth}
 body {
   margin:0;
-  font-family:Arial,sans-serif;
+  background:var(--rosa-claro);
   color:var(--texto);
-  background:var(--claro);
+  font-family:Arial,Helvetica,sans-serif;
 }
-button,input,select {font:inherit}
-button {cursor:pointer}
+button,a { -webkit-tap-highlight-color:transparent }
+button {font:inherit;cursor:pointer}
+[hidden] {display:none!important}
+
+/* CAPA INICIAL */
 .capa {
   min-height:100vh;
-  max-width:550px;
+  min-height:100dvh;
+  max-width:600px;
   margin:auto;
-  padding:18px;
-  background:white;
+  padding:22px 18px 36px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
   text-align:center;
+  background:linear-gradient(
+    160deg,#fffafd,#ffe9f2,#fff8fb
+  );
 }
-.capa img {
+.capa-imagem {
   width:100%;
-  max-height:72vh;
+  max-width:520px;
+  max-height:75vh;
   object-fit:contain;
+  border-radius:18px;
 }
-.capa h1 {
-  color:var(--rosa);
-  font-family:Georgia,serif;
+.capa-texto {
+  margin:0;
+  color:#8d6175;
+  font:italic 20px Georgia,serif;
 }
-.btn {
-  display:block;
+.botao {
+  display:inline-block;
   width:100%;
-  padding:16px;
+  padding:16px 20px;
   border:0;
-  border-radius:12px;
-  background:var(--rosa);
+  border-radius:30px;
+  background:linear-gradient(120deg,#ad235e,#d14a84);
   color:white;
   font-weight:bold;
-  text-align:center;
   text-decoration:none;
-}
-header {
-  background:white;
   text-align:center;
-  padding:16px;
-  border-bottom:1px solid #f2d6e2;
+  box-shadow:0 5px 14px #b72c6829;
 }
-header img {
-  max-width:180px;
-  max-height:110px;
+.botao:active {transform:scale(.98)}
+.botao-capa {max-width:350px}
+
+/* CATÁLOGO */
+.topo {
+  padding:20px 18px 23px;
+  text-align:center;
+  background:linear-gradient(180deg,#fff,#fff4f8);
+  border-bottom:1px solid var(--rosa-medio);
+}
+.voltar {
+  display:block;
+  margin:0 0 14px;
+  padding:9px;
+  border:0;
+  background:transparent;
+  color:var(--rosa);
+  font-size:15px;
+}
+.marca {
+  max-width:320px;
+  margin:0 auto;
+  padding:12px;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 3px 20px #b72c6812;
+}
+.marca img {
+  display:block;
+  width:100%;
+  max-height:240px;
   object-fit:contain;
 }
-header h1 {
-  font:normal 30px Georgia,serif;
-  color:var(--rosa);
-  margin:8px;
+.topo-descricao {
+  margin:16px 0 0;
+  color:#946b7f;
+  font:italic 18px Georgia,serif;
 }
-header p {margin:5px;color:#765c69}
-main {
-  max-width:1000px;
+.conteudo {
+  max-width:1050px;
   margin:auto;
-  padding:20px 14px;
+  padding:25px 14px 45px;
+}
+.titulo {
+  margin:0 0 8px;
+  text-align:center;
+  font:normal 33px Georgia,serif;
+  color:var(--rosa);
+}
+.subtitulo {
+  margin:0 0 22px;
+  text-align:center;
+  font-size:14px;
+  color:#8e7180;
 }
 .filtros {
   display:flex;
-  gap:8px;
+  gap:9px;
   overflow-x:auto;
-  padding:10px 0 20px;
+  padding:0 0 20px;
+  scrollbar-width:thin;
 }
 .filtros button {
   flex-shrink:0;
-  padding:10px 15px;
-  border:1px solid #eac9d8;
+  padding:11px 16px;
+  border:1px solid #edcbd9;
   border-radius:25px;
   background:white;
-  color:var(--texto);
+  color:#795365;
 }
 .filtros button.ativo {
   background:var(--rosa);
+  border-color:var(--rosa);
   color:white;
 }
 .grade {
@@ -95,95 +151,147 @@ main {
   gap:14px;
 }
 .produto {
-  background:white;
-  border-radius:14px;
+  min-width:0;
   overflow:hidden;
-  box-shadow:0 3px 12px #0000000d;
+  border:1px solid #f2dce5;
+  border-radius:16px;
+  background:white;
+  box-shadow:0 4px 18px #9b577013;
 }
-.produto img {
+.foto {
   width:100%;
   aspect-ratio:4/5;
   object-fit:cover;
-  background:#f3e8ed;
+  display:block;
+  background:#faf1f5;
 }
-.info {padding:12px}
-.info h3 {
-  font:normal 21px Georgia,serif;
+.info {padding:13px}
+.nome {
+  min-height:47px;
   margin:0 0 8px;
+  font:normal 20px/1.15 Georgia,serif;
 }
-.codigo {font-size:12px;color:#777}
+.codigo {
+  margin:0 0 9px;
+  font-size:12px;
+  color:#8d8188;
+}
+.descricao {
+  font-size:13px;
+  line-height:1.5;
+  color:#74616b;
+}
 .preco {
-  color:var(--rosa);
+  margin:13px 0;
   font-size:21px;
   font-weight:bold;
-  margin:12px 0;
-}
-.info .btn {
-  font-size:13px;
-  padding:13px 5px;
-}
-footer {
-  padding:30px 16px;
-  text-align:center;
-  color:#795d6b;
-}
-.voltar {
-  border:0;
-  background:transparent;
   color:var(--rosa);
-  margin:10px;
-  padding:10px;
 }
-[hidden] {display:none!important}
+.botao-produto {
+  padding:13px 8px;
+  font-size:12px;
+  border-radius:11px;
+}
+.rodape {
+  padding:28px 18px 38px;
+  text-align:center;
+  background:white;
+  border-top:1px solid var(--rosa-medio);
+}
+.rodape h2 {
+  margin:0 0 10px;
+  font:normal 26px Georgia,serif;
+  color:var(--rosa);
+}
+.rodape p {
+  color:#856a78;
+  font-size:14px;
+}
+.rodape .botao {
+  max-width:330px;
+  margin-top:10px;
+}
 @media(min-width:650px){
   .grade {grid-template-columns:repeat(3,1fr)}
+  .info {padding:18px}
+  .nome {font-size:23px}
+  .botao-produto {font-size:14px}
+}
+@media(max-width:360px){
+  .grade {gap:9px}
+  .info {padding:10px}
+  .nome {font-size:17px}
+  .preco {font-size:18px}
 }
 </style>
 </head>
+
 <body>
 
+<!-- CAPA ORIGINAL DA SILVER LOVE -->
 <section id="capa" class="capa">
   <img
+    class="capa-imagem"
     src="file_000000005dd0820ea2f6d578fafcb67e.png"
-    alt="Silver Love - Amor puro em sua forma mais bela"
+    alt="Silver Love - Joias de Prata"
   >
-  <h1>Silver Love</h1>
-  <p>Joias de prata para momentos especiais.</p>
-  <button class="btn" onclick="abrirCatalogo()">
+  <p class="capa-texto">
+    Uma joia especial para cada história.
+  </p>
+  <button
+    class="botao botao-capa"
+    onclick="abrirCatalogo()"
+  >
     Conhecer nossas joias
   </button>
 </section>
 
+<!-- CATÁLOGO -->
 <div id="loja" hidden>
-<header>
+
+<header class="topo">
   <button class="voltar" onclick="voltarCapa()">
     ← Voltar à capa
   </button>
-  <div>
+
+  <div class="marca">
     <img
-      src="file_00000000a4e0820eaeac6b81eac7fe57.png"
-      alt="Silver Love"
+      src="file_000000005dd0820ea2f6d578fafcb67e.png"
+      alt="Silver Love - Joias de Prata"
     >
   </div>
-  <h1>Silver Love</h1>
-  <p>Joias de prata</p>
-  <p>Amor puro em sua forma mais bela</p>
+
+  <p class="topo-descricao">
+    Elegância e delicadeza em cada detalhe.
+  </p>
 </header>
 
-<main>
-  <h2>Nossas joias</h2>
-  <div id="filtros" class="filtros"></div>
-  <div id="produtos" class="grade"></div>
+<main class="conteudo">
+  <h1 class="titulo">Nossa coleção</h1>
+  <p class="subtitulo">
+    Escolha sua joia favorita e consulte pelo WhatsApp.
+  </p>
+
+  <nav id="filtros" class="filtros"
+       aria-label="Categorias de joias"></nav>
+
+  <section id="produtos" class="grade"
+           aria-label="Produtos disponíveis"></section>
 </main>
 
-<footer>
-  <p>Silver Love — Joias de Prata</p>
-  <p>Escolha sua joia e consulte pelo WhatsApp.</p>
-  <a class="btn" id="whatsappGeral"
-     target="_blank" rel="noopener">
-    Falar no WhatsApp
+<footer class="rodape">
+  <h2>Silver Love</h2>
+  <p>Joias de prata para momentos especiais.</p>
+  <a
+    id="whatsappGeral"
+    class="botao"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Falar pelo WhatsApp
   </a>
 </footer>
+
 </div>
 
 <script>
@@ -195,7 +303,7 @@ const produtos = [
     categoria:"Brincos",
     nome:"Trio de brincos trevo",
     preco:112,
-    descricao:"Conjunto com três pares de brincos pequenos em formato de trevo, em tons prateado e dourado.",
+    descricao:"Conjunto com três pares de brincos em formato de trevo.",
     imagem:"fotos/108413.jpg"
   },
   {
@@ -203,7 +311,7 @@ const produtos = [
     categoria:"Brincos",
     nome:"Brinco gota com zircônias",
     preco:105,
-    descricao:"Par de brincos de prata em formato de gota, cravejados com zircônias.",
+    descricao:"Brinco em formato de gota, com zircônias.",
     imagem:"fotos/SL2026-004.jpg"
   },
   {
@@ -211,7 +319,7 @@ const produtos = [
     categoria:"Brincos",
     nome:"Brinco curvo com zircônias",
     preco:137,
-    descricao:"Brinco de prata em formato curvo, com zircônias em engaste individual.",
+    descricao:"Brinco curvo com detalhes em zircônias.",
     imagem:"fotos/SL2026-003.jpg"
   },
   {
@@ -219,7 +327,7 @@ const produtos = [
     categoria:"Brincos",
     nome:"Brinco círculo com zircônias",
     preco:107,
-    descricao:"Par de brincos de prata em formato de círculo vazado, cravejado com zircônias.",
+    descricao:"Brinco circular com acabamento delicado.",
     imagem:"fotos/SL2026-002.jpg"
   },
   {
@@ -227,7 +335,7 @@ const produtos = [
     categoria:"Brincos",
     nome:"Brinco pedra vermelha",
     preco:70,
-    descricao:"Par de brincos de prata 925 com pedra vermelha redonda e engaste liso.",
+    descricao:"Brinco de prata com pedra vermelha.",
     imagem:"fotos/SL2026-001.jpg"
   },
   {
@@ -235,7 +343,7 @@ const produtos = [
     categoria:"Brincos",
     nome:"Argola trançada",
     preco:57,
-    descricao:"Par de argolas de prata com acabamento trançado e fecho de encaixe.",
+    descricao:"Argola de prata com acabamento trançado.",
     imagem:"fotos/143588.jpg"
   },
   {
@@ -243,7 +351,7 @@ const produtos = [
     categoria:"Brincos",
     nome:"Brinco quadrado de prata",
     preco:55,
-    descricao:"Par de brincos de prata em formato quadrado vazado, fio 1,30.",
+    descricao:"Brinco de prata em formato quadrado.",
     imagem:"fotos/143332.jpg"
   },
   {
@@ -259,7 +367,7 @@ const produtos = [
     categoria:"Pulseiras",
     nome:"Pulseira veneziana com bolinhas",
     preco:84,
-    descricao:"Pulseira de prata veneziana com bolinhas, 18 cm.",
+    descricao:"Pulseira veneziana com bolinhas, 18 cm.",
     imagem:"fotos/68071.jpg"
   },
   {
@@ -267,7 +375,7 @@ const produtos = [
     categoria:"Colares",
     nome:"Corrente quadrada de prata",
     preco:199,
-    descricao:"Corrente de prata quadrada, 0,9 mm, 45 cm.",
+    descricao:"Corrente quadrada de prata, 45 cm.",
     imagem:"fotos/94781.jpg"
   },
   {
@@ -275,116 +383,133 @@ const produtos = [
     categoria:"Colares",
     nome:"Colar pingente redondo",
     preco:182.50,
-    descricao:"Colar de prata com pingente redondo cravejado com pedras claras.",
+    descricao:"Colar de prata com pingente redondo.",
     imagem:"fotos/SL2026-005.jpg"
   }
 ];
 
-const dinheiro = valor =>
-  Number(valor).toLocaleString("pt-BR",{
+function formatarPreco(valor) {
+  return Number(valor).toLocaleString("pt-BR", {
     style:"currency",
     currency:"BRL"
   });
+}
 
-function abrirCatalogo(){
-  document.getElementById("capa").hidden=true;
-  document.getElementById("loja").hidden=false;
-  location.hash="catalogo";
+function abrirCatalogo() {
+  document.getElementById("capa").hidden = true;
+  document.getElementById("loja").hidden = false;
+  if (location.hash !== "#catalogo") {
+    history.replaceState(null, "", "#catalogo");
+  }
   window.scrollTo(0,0);
 }
 
-function voltarCapa(){
-  document.getElementById("loja").hidden=true;
-  document.getElementById("capa").hidden=false;
-  location.hash="capa";
+function voltarCapa() {
+  document.getElementById("loja").hidden = true;
+  document.getElementById("capa").hidden = false;
+  history.replaceState(null, "", "#capa");
   window.scrollTo(0,0);
 }
 
-function linkWhatsApp(texto){
-  return "https://wa.me/"+WHATSAPP+
-    "?text="+encodeURIComponent(texto);
+function linkWhatsApp(mensagem) {
+  return "https://wa.me/" + WHATSAPP +
+    "?text=" + encodeURIComponent(mensagem);
 }
 
-function criarProduto(p){
-  const card=document.createElement("article");
-  card.className="produto";
+function criarProduto(produto) {
+  const card = document.createElement("article");
+  card.className = "produto";
 
-  const imagem=document.createElement("img");
-  imagem.src=p.imagem;
-  imagem.alt=p.nome;
-  imagem.loading="lazy";
+  const foto = document.createElement("img");
+  foto.className = "foto";
+  foto.src = produto.imagem;
+  foto.alt = produto.nome;
+  foto.loading = "lazy";
 
-  const info=document.createElement("div");
-  info.className="info";
+  const info = document.createElement("div");
+  info.className = "info";
 
-  const nome=document.createElement("h3");
-  nome.textContent=p.nome;
+  const nome = document.createElement("h2");
+  nome.className = "nome";
+  nome.textContent = produto.nome;
 
-  const codigo=document.createElement("p");
-  codigo.className="codigo";
-  codigo.textContent="Cód. "+p.codigo;
+  const codigo = document.createElement("p");
+  codigo.className = "codigo";
+  codigo.textContent = "Código: " + produto.codigo;
 
-  const descricao=document.createElement("p");
-  descricao.textContent=p.descricao;
+  const descricao = document.createElement("p");
+  descricao.className = "descricao";
+  descricao.textContent = produto.descricao;
 
-  const preco=document.createElement("p");
-  preco.className="preco";
-  preco.textContent=dinheiro(p.preco);
+  const preco = document.createElement("p");
+  preco.className = "preco";
+  preco.textContent = formatarPreco(produto.preco);
 
-  const botao=document.createElement("a");
-  botao.className="btn";
-  botao.target="_blank";
-  botao.rel="noopener";
-  botao.textContent="Consultar pelo WhatsApp";
-  botao.href=linkWhatsApp(
-    "Olá! Tenho interesse na joia "+
-    p.nome+" (cód. "+p.codigo+
-    "), no valor de "+dinheiro(p.preco)+
+  const botao = document.createElement("a");
+  botao.className = "botao botao-produto";
+  botao.target = "_blank";
+  botao.rel = "noopener noreferrer";
+  botao.textContent = "Consultar pelo WhatsApp";
+  botao.href = linkWhatsApp(
+    "Olá! Tenho interesse na joia " +
+    produto.nome +
+    " (código " + produto.codigo + ")" +
+    ", no valor de " +
+    formatarPreco(produto.preco) +
     ". Está disponível?"
   );
 
-  info.append(nome,codigo,descricao,preco,botao);
-  card.append(imagem,info);
+  info.append(
+    nome,
+    codigo,
+    descricao,
+    preco,
+    botao
+  );
+
+  card.append(foto,info);
   return card;
 }
 
-function mostrarProdutos(categoria="Todas"){
-  const grade=document.getElementById("produtos");
+function mostrarProdutos(categoria="Todas") {
+  const grade = document.getElementById("produtos");
   grade.replaceChildren();
 
-  const selecionados=produtos.filter(p=>
-    categoria==="Todas" || p.categoria===categoria
+  const selecionados = produtos.filter(produto =>
+    categoria === "Todas" ||
+    produto.categoria === categoria
   );
 
-  selecionados.forEach(p=>
-    grade.appendChild(criarProduto(p))
-  );
+  selecionados.forEach(produto => {
+    grade.appendChild(criarProduto(produto));
+  });
 
   document.querySelectorAll(".filtros button")
-    .forEach(botao=>{
+    .forEach(botao => {
       botao.classList.toggle(
         "ativo",
-        botao.textContent===categoria
+        botao.textContent === categoria
       );
     });
 }
 
-function criarFiltros(){
-  const area=document.getElementById("filtros");
-  const categorias=[
+function criarFiltros() {
+  const filtros = document.getElementById("filtros");
+  const categorias = [
     "Todas",
-    ...new Set(produtos.map(p=>p.categoria))
+    ...new Set(produtos.map(p => p.categoria))
   ];
 
-  categorias.forEach(categoria=>{
-    const botao=document.createElement("button");
-    botao.textContent=categoria;
-    botao.onclick=()=>mostrarProdutos(categoria);
-    area.appendChild(botao);
+  categorias.forEach(categoria => {
+    const botao = document.createElement("button");
+    botao.type = "button";
+    botao.textContent = categoria;
+    botao.onclick = () => mostrarProdutos(categoria);
+    filtros.appendChild(botao);
   });
 }
 
-document.getElementById("whatsappGeral").href=
+document.getElementById("whatsappGeral").href =
   linkWhatsApp(
     "Olá! Gostaria de conhecer as joias da Silver Love."
   );
@@ -392,9 +517,10 @@ document.getElementById("whatsappGeral").href=
 criarFiltros();
 mostrarProdutos();
 
-if(location.hash==="#catalogo"){
+if (location.hash === "#catalogo") {
   abrirCatalogo();
 }
 </script>
+
 </body>
 </html>
