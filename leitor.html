@@ -4,40 +4,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Silver Love | Leitor Inteligente</title>
-
+<title>Silver Love | Leitor 2.0</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#fff3f8;color:#492537;font-family:Arial,sans-serif}
-header{background:linear-gradient(120deg,#801b4c,#c13a7b);color:white;padding:25px;text-align:center}
+header{background:linear-gradient(120deg,#801b4c,#c13a7b);color:white;text-align:center;padding:22px}
 header h1{margin:0}
-main{max-width:850px;margin:auto;padding:15px}
-.card{background:white;border-radius:16px;padding:20px;margin:15px 0;box-shadow:0 4px 18px #7d20451a}
+main{max-width:900px;margin:auto;padding:14px}
+.card{background:white;border-radius:16px;padding:18px;margin:15px 0}
 h2{color:#922957;margin-top:0}
-label{display:block;font-weight:bold;margin:15px 0 8px}
-input,select,textarea{width:100%;padding:12px;border:1px solid #dab4c6;border-radius:9px;font-size:16px}
-textarea{min-height:240px}
-button,.btn{display:inline-block;border:0;border-radius:10px;background:#a92c66;color:white;padding:14px;font-weight:bold;font-size:15px;text-decoration:none;cursor:pointer}
+label{display:block;font-weight:bold;margin:12px 0 6px}
+input,textarea,select{width:100%;padding:12px;border:1px solid #dab4c6;border-radius:9px;font-size:16px}
+textarea{min-height:180px}
+button,.btn{display:inline-block;padding:13px;border:0;border-radius:10px;background:#a92c66;color:white;font-weight:bold;font-size:15px;text-decoration:none}
 button:disabled{opacity:.5}
 .green{background:#28854c}
 .gray{background:#74606d}
-.actions{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .metric{background:#fff3f8;padding:14px;border-radius:12px}
-.metric strong{display:block;color:#922957;font-size:24px;margin-top:8px}
-.muted{color:#806b77;font-size:13px;line-height:1.6}
-canvas{width:100%;height:auto;border-radius:10px;margin-top:15px}
+.metric strong{display:block;color:#922957;font-size:23px;margin-top:8px}
+.muted{font-size:13px;color:#806b77;line-height:1.6}
+canvas{width:100%;height:auto;margin-top:14px}
 progress{width:100%;accent-color:#a92c66}
+.item{border-bottom:1px solid #ead6df;padding:15px 0}
+.item input{margin-top:5px}
+.pendente{background:#fff2d5;padding:10px;border-radius:10px}
+.check{display:flex;align-items:center;gap:10px}
+.check input{width:auto}
 [hidden]{display:none!important}
 </style>
 </head>
 
 <body>
-
 <header>
 <h1>💎 Silver Love</h1>
 <p>Prata e Folheados a Ouro</p>
-<p>Leitor inteligente de documentos</p>
+<p>Leitor Inteligente 2.0</p>
 </header>
 
 <main>
@@ -49,121 +52,184 @@ progress{width:100%;accent-color:#a92c66}
 
 <section class="card">
 
-<h2>📄 Digitalizar documento</h2>
+<h2>📄 Selecionar documento</h2>
 
-<label>Selecionar fotografia</label>
 <input id="arquivo" type="file" accept="image/*">
 
-<label>Tratamento da imagem</label>
-
+<label>Tratamento</label>
 <select id="tratamento">
-<option value="contraste">Contraste e nitidez</option>
-<option value="preto">Preto e branco</option>
-<option value="original">Imagem original</option>
+<option value="azul">Reduzir caneta azul</option>
+<option value="cinza">Contraste em cinza</option>
+<option value="normal">Original</option>
 </select>
 
-<label>Modo de leitura</label>
+<label>Quantidade de linhas de produtos</label>
+<input id="linhas" type="number" min="1" max="150" value="37">
 
-<select id="modo">
-<option value="6">Tabela e linhas</option>
-<option value="4">Colunas de texto</option>
-<option value="11">Texto disperso</option>
-</select>
+<label>Linhas extras de descrição</label>
+<input id="extras" value="3">
 
-<div class="actions">
+<p class="muted">
+No documento 1058, o terceiro produto ocupa duas linhas.
+Para outros documentos, informe os números das linhas
+que possuem continuação, separados por vírgula.
+Deixe vazio quando não houver.
+</p>
 
-<button id="girar" class="gray">
-🔄 Girar imagem
-</button>
+<details>
 
-<button id="ler" class="green">
-Ler documento
-</button>
+<summary>Ajustar posição das colunas</summary>
+
+<div class="grid">
+
+<div>
+<label>Início da tabela (%)</label>
+<input id="topo" type="number" step="0.1" value="13.1">
+</div>
+
+<div>
+<label>Final da tabela (%)</label>
+<input id="fim" type="number" step="0.1" value="66.7">
+</div>
+
+<div>
+<label>Código: início (%)</label>
+<input id="c1" type="number" step="0.1" value="5.4">
+</div>
+
+<div>
+<label>Código: final (%)</label>
+<input id="c2" type="number" step="0.1" value="12.6">
+</div>
+
+<div>
+<label>Valor: início (%)</label>
+<input id="v1" type="number" step="0.1" value="14.1">
+</div>
+
+<div>
+<label>Valor: final (%)</label>
+<input id="v2" type="number" step="0.1" value="19.4">
+</div>
+
+<div>
+<label>Qtd.: início (%)</label>
+<input id="q1" type="number" step="0.1" value="21.8">
+</div>
+
+<div>
+<label>Qtd.: final (%)</label>
+<input id="q2" type="number" step="0.1" value="25.8">
+</div>
+
+<div>
+<label>Descrição: início (%)</label>
+<input id="d1" type="number" step="0.1" value="35.6">
+</div>
+
+<div>
+<label>Descrição: final (%)</label>
+<input id="d2" type="number" step="0.1" value="75.5">
+</div>
 
 </div>
 
-<canvas id="canvas" hidden></canvas>
+</details>
+
+<div class="actions">
+<button id="girar" class="gray">Girar imagem</button>
+<button id="visualizar">Conferir regiões</button>
+<button id="ler" class="green">Ler por colunas</button>
+</div>
+
+<canvas id="preview" hidden></canvas>
 
 <progress id="progresso" max="100" value="0" hidden></progress>
 
 <p id="status" class="muted">
-Selecione uma foto legível do documento.
+Selecione a fotografia original.
 </p>
 
 </section>
 
 <section class="card">
 
-<h2>📝 Texto reconhecido</h2>
+<h2>📊 Conferência do documento</h2>
 
-<textarea id="texto" placeholder="O texto extraído aparecerá aqui."></textarea>
+<label>Quantidade total esperada</label>
+<input id="esperadoQtd" type="number" min="1" value="37">
 
-<button id="identificar">
-Identificar produtos
-</button>
+<label>Valor bruto esperado (R$)</label>
+<input id="esperadoTotal" inputmode="decimal" value="1015,60">
 
-<p class="muted">
-Confira os dados com o documento original.
-A leitura automática pode cometer erros.
-</p>
-
-</section>
-
-<section class="card">
-
-<h2>📊 Resultado da leitura</h2>
-
-<div class="grid">
+<div class="grid" style="margin-top:15px">
 
 <div class="metric">
-Itens encontrados
+Itens válidos
 <strong id="totalItens">0</strong>
 </div>
 
 <div class="metric">
-Quantidade
-<strong id="quantidade">0</strong>
+Unidades
+<strong id="totalQtd">0</strong>
 </div>
 
 <div class="metric">
-Valor bruto reconhecido
-<strong id="total">R$ 0,00</strong>
+Valor bruto
+<strong id="totalValor">R$ 0,00</strong>
 </div>
 
 <div class="metric">
-Venda estimada (+110%)
-<strong id="venda">R$ 0,00</strong>
+Itens pendentes
+<strong id="pendentes">0</strong>
 </div>
 
 </div>
-
-<p class="muted">
-A estimativa utiliza os valores brutos,
-antes de eventuais descontos do fornecedor.
-</p>
-
-<label>Produtos identificados</label>
-
-<textarea id="resultado"
-placeholder="Código;descrição;quantidade;valor"></textarea>
 
 <p id="aviso" class="muted"></p>
 
-<div class="actions">
+</section>
 
-<button id="copiar" class="green">
+<section class="card">
+
+<h2>💍 Produtos reconhecidos</h2>
+
+<p class="muted">
+Revise os códigos, quantidades e valores
+comparando com o documento original.
+Nenhum produto será importado automaticamente.
+</p>
+
+<div id="itens"></div>
+
+</section>
+
+<section class="card">
+
+<h2>📋 Resultado para importação</h2>
+
+<textarea id="resultado" readonly
+placeholder="Código;descrição;quantidade;valor"></textarea>
+
+<div class="check">
+<input id="revisado" type="checkbox">
+<label for="revisado">
+Conferi todos os produtos com o documento original.
+</label>
+</div>
+
+<div class="actions">
+<button id="copiar" class="green" disabled>
 Copiar produtos
 </button>
-
-<a class="btn" href="compras.html">
-Ir para Compras
+<a href="compras.html" class="btn">
+Abrir Compras
 </a>
-
 </div>
 
 <p class="muted">
-Esta página não salva compras nem altera
-o estoque. A leitura é realizada no navegador.
+Esta página não acessa nem modifica o estoque.
+O documento é processado no navegador.
 </p>
 
 </section>
@@ -177,18 +243,226 @@ o estoque. A leitura é realizada no navegador.
 
 const $=id=>document.getElementById(id);
 
-const moeda=v=>Number(v).toLocaleString(
-"pt-BR",{
-style:"currency",
-currency:"BRL"
+const moeda=v=>Number(v).toLocaleString("pt-BR",{
+style:"currency",currency:"BRL"
 });
 
 let imagem=null;
 let angulo=0;
 let ocupado=false;
+let itens=[];
+let base=null;
+let pronto=false;
 
 function status(t){
 $("status").textContent=t;
+}
+
+function numero(v){
+
+const s=String(v??"").trim();
+
+if(!/^\d+(?:[,.]\d+)?$/.test(s)){
+return NaN;
+}
+
+return Number(s.replace(",","."));
+
+}
+
+function positivo(id){
+
+const v=Number($(id).value);
+
+if(!Number.isFinite(v)){
+throw new Error("Configuração inválida.");
+}
+
+return v;
+
+}
+
+function configuracao(){
+
+const n=positivo("linhas");
+
+if(!Number.isInteger(n)||n<1||n>150){
+throw new Error("Informe entre 1 e 150 linhas.");
+}
+
+const extras=$("extras").value.trim()?
+$("extras").value.split(",").map(x=>Number(x.trim())):[];
+
+if(extras.some(x=>
+!Number.isInteger(x)||x<1||x>n
+)){
+throw new Error("Confira as linhas extras.");
+}
+
+const topo=positivo("topo");
+const fim=positivo("fim");
+
+const colunas=[
+
+{nome:"Código",a:positivo("c1"),b:positivo("c2")},
+{nome:"Valor",a:positivo("v1"),b:positivo("v2")},
+{nome:"Quantidade",a:positivo("q1"),b:positivo("q2")},
+{nome:"Descrição",a:positivo("d1"),b:positivo("d2")}
+
+];
+
+if(topo<0||fim>100||topo>=fim||
+colunas.some(c=>c.a<0||c.b>100||c.a>=c.b)){
+throw new Error("Ajuste as posições da tabela.");
+}
+
+const mapa=[];
+
+for(let i=1;i<=n;i++){
+
+mapa.push({item:i-1,extra:false});
+
+for(const e of extras.filter(x=>x===i)){
+mapa.push({item:i-1,extra:true});
+}
+
+}
+
+return {n,topo,fim,colunas,mapa};
+
+}
+
+function preparar(){
+
+if(!imagem){
+throw new Error("Selecione a fotografia.");
+}
+
+const escala=Math.min(
+3,
+3400/Math.max(imagem.naturalWidth,imagem.naturalHeight)
+);
+
+const w=Math.round(imagem.naturalWidth*escala);
+const h=Math.round(imagem.naturalHeight*escala);
+
+base=document.createElement("canvas");
+
+base.width=angulo%180?h:w;
+base.height=angulo%180?w:h;
+
+const ctx=base.getContext("2d",{
+willReadFrequently:true
+});
+
+ctx.fillStyle="white";
+ctx.fillRect(0,0,base.width,base.height);
+
+ctx.save();
+ctx.translate(base.width/2,base.height/2);
+ctx.rotate(angulo*Math.PI/180);
+ctx.imageSmoothingQuality="high";
+ctx.drawImage(imagem,-w/2,-h/2,w,h);
+ctx.restore();
+
+const tipo=$("tratamento").value;
+
+if(tipo!=="normal"){
+
+const dados=ctx.getImageData(
+0,0,base.width,base.height
+);
+
+const a=dados.data;
+
+for(let i=0;i<a.length;i+=4){
+
+let r=a[i],g=a[i+1],b=a[i+2];
+
+let v=.299*r+.587*g+.114*b;
+
+if(tipo==="azul"){
+
+if(b-r>14&&b>g+5){
+v=255;
+}else{
+v=Math.max(r,g,b);
+}
+
+}
+
+v=Math.max(
+0,Math.min(255,(v-120)*1.45+150)
+);
+
+a[i]=a[i+1]=a[i+2]=v;
+
+}
+
+ctx.putImageData(dados,0,0);
+
+}
+
+}
+
+function visualizar(){
+
+preparar();
+
+const cfg=configuracao();
+const c=$("preview");
+
+c.width=base.width;
+c.height=base.height;
+
+const ctx=c.getContext("2d");
+
+ctx.drawImage(base,0,0);
+
+const y=cfg.topo*c.height/100;
+const h=(cfg.fim-cfg.topo)*c.height/100;
+
+const cores=[
+"#287acb","#28854c","#db8c00","#a92c66"
+];
+
+cfg.colunas.forEach((col,i)=>{
+
+const x=col.a*c.width/100;
+const w=(col.b-col.a)*c.width/100;
+
+ctx.strokeStyle=cores[i];
+ctx.lineWidth=3;
+ctx.strokeRect(x,y,w,h);
+
+});
+
+ctx.strokeStyle="rgba(170,30,100,.55)";
+ctx.lineWidth=1;
+
+for(let i=0;i<=cfg.mapa.length;i++){
+
+const pos=y+h*i/cfg.mapa.length;
+
+ctx.beginPath();
+ctx.moveTo(c.width*.05,pos);
+ctx.lineTo(c.width*.77,pos);
+ctx.stroke();
+
+}
+
+c.hidden=false;
+
+}
+
+function invalidar(){
+
+pronto=false;
+itens=[];
+$("revisado").checked=false;
+$("itens").replaceChildren();
+resumir();
+
 }
 
 $("arquivo").onchange=async()=>{
@@ -204,29 +478,23 @@ const url=URL.createObjectURL(f);
 try{
 
 const img=new Image();
-
 img.src=url;
-
 await img.decode();
 
 imagem=img;
 angulo=0;
 
-$("texto").value="";
-$("resultado").value="";
+invalidar();
+visualizar();
 
-resumir();
-
-preparar();
-
-status("Imagem preparada para leitura.");
+status("Imagem preparada. Confira as regiões coloridas.");
 
 }catch(e){
 
 imagem=null;
-$("canvas").hidden=true;
-
-status("Não foi possível abrir esta imagem.");
+$("preview").hidden=true;
+invalidar();
+status(e.message);
 
 }finally{
 
@@ -236,300 +504,350 @@ URL.revokeObjectURL(url);
 
 };
 
-function preparar(){
-
-if(!imagem)return;
-
-const c=$("canvas");
-
-const escala=Math.min(
-2,
-3200/Math.max(
-imagem.naturalWidth,
-imagem.naturalHeight
-)
-);
-
-const w=Math.round(
-imagem.naturalWidth*escala
-);
-
-const h=Math.round(
-imagem.naturalHeight*escala
-);
-
-const invertido=angulo%180!==0;
-
-c.width=invertido?h:w;
-c.height=invertido?w:h;
-
-const ctx=c.getContext("2d",{
-willReadFrequently:true
-});
-
-ctx.fillStyle="white";
-
-ctx.fillRect(0,0,c.width,c.height);
-
-ctx.save();
-
-ctx.translate(c.width/2,c.height/2);
-
-ctx.rotate(angulo*Math.PI/180);
-
-ctx.imageSmoothingEnabled=true;
-
-ctx.imageSmoothingQuality="high";
-
-ctx.drawImage(imagem,-w/2,-h/2,w,h);
-
-ctx.restore();
-
-const tipo=$("tratamento").value;
-
-if(tipo!=="original"){
-
-const dados=ctx.getImageData(
-0,0,c.width,c.height
-);
-
-const a=dados.data;
-
-for(let i=0;i<a.length;i+=4){
-
-let cinza=
-a[i]*0.299+
-a[i+1]*0.587+
-a[i+2]*0.114;
-
-cinza=Math.max(
-0,
-Math.min(255,(cinza-128)*1.6+145)
-);
-
-if(tipo==="preto"){
-
-cinza=cinza>150?255:0;
-
-}
-
-a[i]=a[i+1]=a[i+2]=cinza;
-
-}
-
-ctx.putImageData(dados,0,0);
-
-// Reforço leve da nitidez
-
-if(tipo==="contraste"){
-
-const base=dados.data.slice();
-
-for(let y=1;y<c.height-1;y++){
-
-for(let x=1;x<c.width-1;x++){
-
-const i=(y*c.width+x)*4;
-
-const v=2*base[i]-
-0.25*(
-base[i-4]+base[i+4]+
-base[i-c.width*4]+
-base[i+c.width*4]
-);
-
-a[i]=a[i+1]=a[i+2]=
-Math.max(0,Math.min(255,v));
-
-}
-
-}
-
-ctx.putImageData(dados,0,0);
-
-}
-
-}
-
-c.hidden=false;
-
-}
-
-$("tratamento").onchange=()=>{
-
-if(!ocupado)preparar();
-
-};
-
 $("girar").onclick=()=>{
 
-if(ocupado||!imagem)return;
+if(!imagem||ocupado)return;
 
 angulo=(angulo+90)%360;
 
-preparar();
+invalidar();
+
+try{visualizar();}
+catch(e){status(e.message);}
 
 };
 
-function numero(v){
+$("visualizar").onclick=()=>{
 
-const s=String(v).trim();
+if(ocupado)return;
 
-return Number(s.includes(",")?
-s.replace(/\./g,"").replace(",","."):s);
+try{visualizar();}
+catch(e){status(e.message);}
 
+};
+
+$("tratamento").onchange=()=>{
+
+if(imagem&&!ocupado){
+try{visualizar();}
+catch(e){status(e.message);}
 }
 
-function identificar(){
+};
 
-const linhas=$("texto").value.split(/\r?\n/);
+function recortar(col,cfg){
 
-const itens=[];
+const x=Math.round(col.a*base.width/100);
+const y=Math.round(cfg.topo*base.height/100);
 
-let ignoradas=0;
-
-for(const original of linhas){
-
-const linha=original.trim();
-
-if(!linha)continue;
-
-let codigo,descricao,qtd,valor;
-
-const partes=linha.split(";");
-
-if(partes.length===4){
-
-[codigo,descricao,qtd,valor]=
-partes.map(x=>x.trim());
-
-}else{
-
-// Formato: código, preço, quantidade, descrição
-
-const m=linha.match(
-/^[^\d]{0,4}(\d{4,10})\s+(?:R\$\s*)?([\d.]+,\d{2}|\d+\.\d{2})\s+(\d+(?:[,.]00)?)\s+(.+)$/i
+const w=Math.round(
+(col.b-col.a)*base.width/100
 );
 
-if(m){
+const h=Math.round(
+(cfg.fim-cfg.topo)*base.height/100
+);
 
-codigo=m[1];
-valor=m[2];
-qtd=m[3];
+const c=document.createElement("canvas");
 
-descricao=m[4]
-.replace(/^(?:\d{1,4}\s+){0,3}/,"")
-.split(/\bUN\b/i)[0]
-.trim();
+c.width=w;
+c.height=h;
 
-}else{
+c.getContext("2d").drawImage(
+base,x,y,w,h,0,0,w,h
+);
 
-ignoradas++;
+return c;
+
+}
+
+function lerTSV(tsv,altura,cfg){
+
+const grupos=Array.from(
+{length:cfg.n},
+()=>[]
+);
+
+for(const linha of String(tsv??"").split(/\r?\n/)){
+
+const p=linha.split("\t");
+
+if(p[0]!=="5"||p.length<12)continue;
+
+const t=p.slice(11).join(" ").trim();
+
+if(!t)continue;
+
+const y=Number(p[7])+Number(p[9])/2;
+
+const pos=Math.floor(
+y/altura*cfg.mapa.length
+);
+
+if(pos<0||pos>=cfg.mapa.length)continue;
+
+const m=cfg.mapa[pos];
+
+grupos[m.item].push({
+
+texto:t,
+x:Number(p[6]),
+pos,
+extra:m.extra,
+confianca:Number(p[10])
+
+});
+
+}
+
+return grupos;
+
+}
+
+async function reconhecer(worker,col,cfg,indice){
+
+const c=recortar(col,cfg);
+
+await worker.setParameters({
+
+tessedit_pageseg_mode:"6",
+
+tessedit_char_whitelist:
+indice===0?"0123456789":
+indice===1||indice===2?"0123456789,.":
+"",
+
+user_defined_dpi:"300",
+
+preserve_interword_spaces:"1"
+
+});
+
+const r=await worker.recognize(
+c,{},{
+text:true,
+tsv:true
+});
+
+if(typeof r.data.tsv!=="string"){
+throw new Error("Resultado OCR não disponível.");
+}
+
+return lerTSV(r.data.tsv,c.height,cfg);
+
+}
+
+function juntar(g,descricao=false){
+
+return g.filter(x=>descricao||!x.extra)
+.sort((a,b)=>a.pos-b.pos||a.x-b.x)
+.map(x=>x.texto)
+.join(descricao?" ":"");
+
+}
+
+function dinheiroOCR(s){
+
+if(/^\d+[,.]\d{2}$/.test(s)){
+return s.replace(".",",");
+}
+
+// Sem separador decimal, o valor
+// permanece pendente de conferência.
+
+return "";
+
+}
+
+function campo(parent,rotulo,v,fn){
+
+const label=document.createElement("label");
+label.textContent=rotulo;
+
+const input=document.createElement("input");
+input.value=v;
+
+input.oninput=()=>{
+
+fn(input.value);
+
+$("revisado").checked=false;
+
+resumir();
+
+};
+
+label.appendChild(input);
+parent.appendChild(label);
+
+}
+
+function render(){
+
+const h=$("itens");
+
+h.replaceChildren();
+
+itens.forEach((item,i)=>{
+
+const c=document.createElement("div");
+c.className="item";
+
+const titulo=document.createElement("strong");
+titulo.textContent="Produto "+(i+1);
+
+c.appendChild(titulo);
+
+if(item.alerta){
+
+const p=document.createElement("p");
+p.className="pendente";
+
+p.textContent=
+"Reconhecimento duvidoso. Confira os campos.";
+
+c.appendChild(p);
+
+}
+
+campo(c,"Código",item.codigo,v=>item.codigo=v);
+campo(c,"Descrição",item.descricao,v=>item.descricao=v);
+campo(c,"Quantidade",item.qtd,v=>item.qtd=v);
+campo(c,"Valor unitário",item.valor,v=>item.valor=v);
+
+h.appendChild(c);
+
+});
+
+resumir();
+
+}
+
+function resumir(){
+
+let qtd=0,total=0,validos=0;
+
+const saida=[];
+const codigos=new Set();
+
+let duplicado=false;
+
+for(const i of itens){
+
+const codigo=i.codigo.trim();
+
+const desc=i.descricao.trim();
+
+const q=numero(i.qtd);
+const v=numero(i.valor);
+
+if(!/^\d{4,10}$/.test(codigo)||
+!/[A-Za-zÀ-ÿ]{3}/.test(desc)||
+!Number.isInteger(q)||q<1||
+!Number.isFinite(v)||v<=0){
+
 continue;
 
 }
 
+if(codigos.has(codigo)){
+duplicado=true;
 }
 
-const q=numero(qtd);
-const v=numero(valor);
+codigos.add(codigo);
 
-if(!codigo||
-!/[A-Za-zÀ-ÿ]{3}/.test(descricao)||
-!Number.isInteger(q)||
-q<=0||
-!Number.isFinite(v)||
-v<0){
+validos++;
+qtd+=q;
+total+=Math.round(v*100)*q;
 
-ignoradas++;
-continue;
-
-}
-
-itens.push([
+saida.push([
 codigo,
-descricao,
+desc.replace(/[;\r\n]/g," "),
 q,
 v.toFixed(2).replace(".",",")
 ].join(";"));
 
 }
 
-$("resultado").value=itens.join("\n");
+$("totalItens").textContent=validos;
+$("totalQtd").textContent=qtd;
+$("totalValor").textContent=moeda(total/100);
+$("pendentes").textContent=itens.length-validos;
 
+$("resultado").value=saida.join("\n");
+
+const avisos=[];
+
+if(validos!==itens.length){
+avisos.push("Existem produtos incompletos.");
+}
+
+if(duplicado){
+avisos.push("Existem códigos repetidos.");
+}
+
+const eq=$("esperadoQtd").value.trim();
+const ev=$("esperadoTotal").value.trim();
+
+if(eq&&Number(eq)!==qtd){
+avisos.push("Quantidade diferente da esperada.");
+}
+
+if(ev&&Math.round(numero(ev)*100)!==total){
+avisos.push("Valor bruto diferente do documento.");
+}
+
+$("aviso").textContent=avisos.length?
+avisos.join(" "):
+"Totais compatíveis com os valores informados. Confira os itens.";
+
+$("copiar").disabled=
+!pronto||ocupado||!validos||
+avisos.length>0||
+!$("revisado").checked;
+
+}
+
+$("esperadoQtd").oninput=()=>{
+$("revisado").checked=false;
 resumir();
+};
 
-$("aviso").textContent=
+$("esperadoTotal").oninput=()=>{
+$("revisado").checked=false;
+resumir();
+};
 
-itens.length+
-" linha(s) identificada(s). "+
-
-ignoradas+
-" linha(s) não convertida(s), incluindo possíveis cabeçalhos e totais. "+
-
-"Confira todas as peças antes de importar.";
-
-}
-
-function resumir(){
-
-let qtd=0,total=0,itens=0,venda=0;
-
-for(const l of $("resultado").value.split(/\r?\n/)){
-
-const p=l.split(";");
-
-if(p.length!==4)continue;
-
-const q=numero(p[2]);
-const v=numero(p[3]);
-
-if(!p[0].trim()||
-!p[1].trim()||
-!Number.isInteger(q)||
-q<1||
-!p[3].trim()||
-!Number.isFinite(v)||v<0)continue;
-
-itens++;
-qtd+=q;
-total+=q*v;
-venda+=q*Math.round(v*2.1*100)/100;
-
-}
-
-$("totalItens").textContent=itens;
-
-$("quantidade").textContent=qtd;
-
-$("total").textContent=moeda(total);
-
-$("venda").textContent=moeda(venda);
-
-}
-
-$("identificar").onclick=identificar;
-
-$("resultado").oninput=resumir;
+$("revisado").onchange=resumir;
 
 $("ler").onclick=async()=>{
 
 if(ocupado)return;
 
-if(!imagem){
+let cfg;
 
-return status("Selecione uma fotografia.");
+try{
+
+visualizar();
+
+cfg=configuracao();
+
+}catch(e){
+
+return status(e.message);
 
 }
 
 ocupado=true;
+invalidar();
 
 const controles=[
-"arquivo","tratamento","modo",
-"girar","ler","identificar","copiar"
+...document.querySelectorAll(
+"#arquivo,#tratamento,#linhas,#extras,details input,#girar,#visualizar,#ler"
+)
 ];
 
-controles.forEach(id=>$(id).disabled=true);
+controles.forEach(e=>e.disabled=true);
 
 $("progresso").hidden=false;
 $("progresso").value=0;
@@ -539,56 +857,73 @@ let worker;
 try{
 
 if(!window.Tesseract){
-
-throw new Error(
-"Não foi possível carregar o leitor."
-);
-
+throw new Error("Leitor OCR indisponível.");
 }
 
-status("Iniciando reconhecimento em português...");
+status("Preparando reconhecimento em português...");
 
-worker=await Tesseract.createWorker(
-"por",1,{
+worker=await Tesseract.createWorker("por",1);
 
-logger:m=>{
+const resultados=[];
 
-const p=Math.round((m.progress||0)*100);
-
-$("progresso").value=p;
-
-status(m.status==="recognizing text"?
-"Reconhecendo texto: "+p+"%":
-"Preparando leitor... "+p+"%");
-
-}
-
-});
-
-await worker.setParameters({
-
-tessedit_pageseg_mode:$("modo").value,
-
-preserve_interword_spaces:"1",
-
-user_defined_dpi:"300"
-
-});
-
-const r=await worker.recognize(
-$("canvas")
-);
-
-$("texto").value=r.data.text;
-
-identificar();
-
-$("progresso").value=100;
+for(let i=0;i<4;i++){
 
 status(
-"Leitura concluída. Confiança média do OCR: "+
-Math.round(r.data.confidence)+"%"
+"Lendo coluna "+(i+1)+
+" de 4: "+cfg.colunas[i].nome
 );
+
+resultados.push(
+await reconhecer(
+worker,cfg.colunas[i],cfg,i
+)
+);
+
+$("progresso").value=(i+1)*25;
+
+}
+
+for(let i=0;i<cfg.n;i++){
+
+const codigo=juntar(resultados[0][i]);
+
+const valor=dinheiroOCR(
+juntar(resultados[1][i])
+);
+
+const qtdBruta=juntar(resultados[2][i]);
+
+const q=numero(qtdBruta);
+
+const qtd=Number.isInteger(q)&&q>0?
+String(q):"";
+
+const descricao=juntar(
+resultados[3][i],true
+);
+
+const alerta=resultados.some(
+g=>!g[i].length||
+g[i].some(x=>x.confianca<65)
+)||!valor||!qtd;
+
+itens.push({
+
+codigo,
+descricao,
+qtd,
+valor,
+alerta
+
+});
+
+}
+
+pronto=true;
+
+render();
+
+status("Leitura concluída. Revise os produtos.");
 
 }catch(e){
 
@@ -597,16 +932,14 @@ status("Erro na leitura: "+e.message);
 }finally{
 
 if(worker){
-
 await worker.terminate().catch(()=>{});
-
 }
 
 ocupado=false;
 
-controles.forEach(
-id=>$(id).disabled=false
-);
+controles.forEach(e=>e.disabled=false);
+
+resumir();
 
 }
 
@@ -614,33 +947,24 @@ id=>$(id).disabled=false
 
 $("copiar").onclick=async()=>{
 
-const t=$("resultado").value;
-
-if(!t.trim()){
-
-$("aviso").textContent=
-"Nenhum produto para copiar.";
-
-return;
-
-}
+if($("copiar").disabled)return;
 
 try{
 
-await navigator.clipboard.writeText(t);
+await navigator.clipboard.writeText(
+$("resultado").value
+);
 
 $("aviso").textContent=
-
-"Produtos copiados! Confira e cole no módulo Compras.";
+"Produtos copiados com sucesso!";
 
 }catch(e){
 
 $("resultado").focus();
-
 $("resultado").select();
 
 $("aviso").textContent=
-"Selecione e copie o texto manualmente.";
+"Copie manualmente o texto selecionado.";
 
 }
 
