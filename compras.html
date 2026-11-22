@@ -1918,5 +1918,179 @@ iniciar();
   }, 1000);
 })();
 </script>
+  <style>
+.sl-menu {
+  background: #151313;
+  border: 1px solid #493941;
+  border-radius: 15px;
+  margin: 12px 0;
+  overflow: hidden;
+}
+
+.sl-menu > summary {
+  padding: 18px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #ef98bf;
+  cursor: pointer;
+}
+
+.sl-conteudo {
+  padding: 12px;
+}
+
+.sl-conteudo button {
+  font-size: 14px !important;
+  padding: 12px 15px !important;
+  margin: 4px 2px !important;
+  border-radius: 10px !important;
+}
+
+.sl-conteudo h2 {
+  font-size: 19px !important;
+}
+
+.sl-conteudo h3 {
+  font-size: 16px !important;
+}
+
+.sl-conteudo p {
+  font-size: 14px !important;
+  line-height: 1.5;
+}
+
+.sl-conteudo input,
+.sl-conteudo select,
+.sl-conteudo textarea {
+  font-size: 16px !important;
+}
+
+#rascunhoNuvem,
+#rascunhoBox {
+  margin: 8px 0 !important;
+  padding: 15px !important;
+}
+
+#excluirNuvem {
+  background: #a63854 !important;
+}
+
+#salvarNuvem {
+  background: #287c46 !important;
+}
+</style>
+
+<script>
+(() => {
+
+  function criarMenu(titulo, aberto) {
+    const menu = document.createElement("details");
+    menu.className = "sl-menu";
+    menu.open = aberto;
+
+    const cabecalho = document.createElement("summary");
+    cabecalho.textContent = titulo;
+
+    const conteudo = document.createElement("div");
+    conteudo.className = "sl-conteudo";
+
+    menu.append(cabecalho, conteudo);
+
+    return { menu, conteudo };
+  }
+
+  function organizar() {
+    const painel = document.getElementById("painel");
+
+    if (!painel || painel.hidden) return;
+
+    const nuvem = document.getElementById("rascunhoNuvem");
+    const local = document.getElementById("rascunhoBox");
+
+    if (!nuvem || !local) return;
+
+    if (!document.getElementById("menuRascunhos")) {
+      const r = criarMenu("☁️ Rascunhos", false);
+
+      r.menu.id = "menuRascunhos";
+
+      nuvem.before(r.menu);
+      r.conteudo.append(nuvem, local);
+    }
+
+    const titulos = Array.from(
+      painel.querySelectorAll("h2")
+    );
+
+    titulos.forEach(titulo => {
+      if (titulo.closest(".sl-menu")) return;
+
+      const nome = titulo.textContent.toLowerCase();
+
+      let legenda = "";
+      let aberto = false;
+
+      if (
+        nome.includes("importação inteligente") ||
+        nome.includes("importar documento")
+      ) {
+        legenda = "📦 Nova compra";
+        aberto = true;
+
+      } else if (nome.includes("revisão")) {
+        legenda = "📋 Revisar produtos";
+        aberto = true;
+
+      } else if (nome.includes("histórico")) {
+        legenda = "🕒 Histórico de compras";
+
+      } else if (nome.includes("foto")) {
+        legenda = "📷 Fotos pendentes";
+      }
+
+      if (!legenda) return;
+
+      const bloco = titulo.closest(
+        "section, .card, .bloco"
+      ) || titulo.parentElement;
+
+      if (
+        !bloco ||
+        bloco === painel ||
+        bloco.closest(".sl-menu")
+      ) return;
+
+      const r = criarMenu(legenda, aberto);
+
+      bloco.before(r.menu);
+      r.conteudo.append(bloco);
+    });
+
+    painel.querySelectorAll("details").forEach(d => {
+      const s = d.querySelector("summary");
+
+      if (
+        s &&
+        s.textContent.toLowerCase().includes("prompt")
+      ) {
+        d.open = false;
+      }
+    });
+  }
+
+  let tentativas = 0;
+
+  const timer = setInterval(() => {
+    organizar();
+
+    tentativas++;
+
+    if (tentativas >= 30) {
+      clearInterval(timer);
+    }
+  }, 1000);
+
+})();
+                                               </script>
 </body>
 </html>
