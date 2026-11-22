@@ -1,0 +1,1138 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Silver Love | Despesas</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff3f8;color:#492537;font-family:Arial,sans-serif}
+header{background:linear-gradient(120deg,#801b4c,#c13a7b);color:white;text-align:center;padding:24px}
+header h1{margin:0}
+main{max-width:900px;margin:auto;padding:15px}
+.card{background:white;border-radius:16px;padding:20px;margin:15px 0;box-shadow:0 4px 18px #7d20451a}
+h2,h3{color:#922957}
+h2{margin-top:0}
+label{display:block;font-weight:bold;margin:15px 0 7px}
+input,select,textarea{width:100%;padding:13px;border:1px solid #dab4c6;border-radius:9px;background:white;color:#492537;font-size:16px}
+textarea{min-height:80px}
+button,.btn{display:inline-block;padding:13px 16px;border:0;border-radius:10px;background:#a92c66;color:white;font-size:15px;font-weight:bold;text-decoration:none;cursor:pointer}
+button:disabled{opacity:.5}
+.green{background:#28854c}
+.secondary{background:#74606d}
+.danger{background:#b93655}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.metric{background:#fff3f8;border-radius:12px;padding:14px;overflow-wrap:anywhere}
+.metric strong{display:block;color:#922957;font-size:22px;margin-top:8px}
+.muted{font-size:13px;color:#806b77;line-height:1.6}
+.msg{padding:15px;background:#e1f5e8;color:#245b38;border-radius:10px;margin:15px 0}
+.erro{background:#ffe1e7;color:#902b45}
+.item{border-bottom:1px solid #ead6df;padding:16px 0;overflow-wrap:anywhere}
+.valor{color:#b93655;font-size:20px;font-weight:bold}
+.barra{height:9px;border-radius:8px;background:#ead6df;overflow:hidden;margin-bottom:18px}
+.barra div{height:100%;background:#a92c66;border-radius:8px}
+[hidden]{display:none!important}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>💎 Silver Love</h1>
+<p>Prata e Folheados a Ouro</p>
+<p>Controle de despesas</p>
+</header>
+
+<main>
+
+<nav class="actions">
+
+<a class="btn secondary" href="admin.html">
+← Painel
+</a>
+
+<a class="btn" href="vendas.html">
+Vendas
+</a>
+
+<a class="btn green" href="admin.html#financeiro">
+Financeiro
+</a>
+
+</nav>
+
+<div id="mensagem" class="msg" role="status" hidden></div>
+
+<section id="acesso" class="card">
+Validando acesso administrativo...
+</section>
+
+<div id="painel" hidden>
+
+<section class="card">
+
+<h2>📊 Resultado mensal</h2>
+
+<label>Mês de referência</label>
+
+<input id="mes" type="month">
+
+<div class="actions">
+
+<button id="atualizar" class="secondary">
+Atualizar financeiro
+</button>
+
+</div>
+
+<div class="grid">
+
+<div class="metric">
+<span class="muted">Faturamento</span>
+<strong id="receita">—</strong>
+</div>
+
+<div class="metric">
+<span class="muted">Custo das joias vendidas</span>
+<strong id="custo">—</strong>
+</div>
+
+<div class="metric">
+<span class="muted">Lucro bruto</span>
+<strong id="bruto">—</strong>
+</div>
+
+<div class="metric">
+<span class="muted">Despesas</span>
+<strong id="totalDespesas">—</strong>
+</div>
+
+<div class="metric">
+<span class="muted">Lucro líquido estimado</span>
+<strong id="liquido">—</strong>
+</div>
+
+<div class="metric">
+<span class="muted">Margem líquida estimada</span>
+<strong id="margem">—</strong>
+</div>
+
+</div>
+
+<p id="aviso" class="muted"></p>
+
+<h3>Despesas por categoria</h3>
+
+<div id="categorias"></div>
+
+</section>
+
+<section class="card" id="cadastro">
+
+<h2 id="titulo">💰 Registrar despesa</h2>
+
+<form id="formDespesa">
+
+<input id="despesaId" type="hidden">
+
+<label>Categoria</label>
+
+<select id="categoria" required>
+
+<option value="">Selecione</option>
+<option>Embalagens</option>
+<option>Fretes</option>
+<option>Publicidade</option>
+<option>Taxas financeiras</option>
+<option>Transporte</option>
+<option>Tecnologia</option>
+<option>Manutenção</option>
+<option>Impostos</option>
+<option>Outras despesas</option>
+
+</select>
+
+<label>Descrição</label>
+
+<input id="descricao" maxlength="250"
+placeholder="Ex.: Caixinhas para joias" required>
+
+<label>Valor da despesa (R$)</label>
+
+<input id="valor" type="number"
+min="0.01" step="0.01" required>
+
+<label>Data da despesa</label>
+
+<input id="data" type="date" required>
+
+<label>Forma de pagamento</label>
+
+<select id="pagamento" required>
+
+<option value="">Selecione</option>
+<option>Pix</option>
+<option>Dinheiro</option>
+<option>Cartão de crédito</option>
+<option>Cartão de débito</option>
+<option>Boleto</option>
+<option>Transferência</option>
+<option>Outros</option>
+<option>Não informado</option>
+
+</select>
+
+<label>Observações</label>
+
+<textarea id="observacao" maxlength="1000"
+placeholder="Informações adicionais (opcional)">
+</textarea>
+
+<p class="muted">
+Não registre compras de joias aqui.
+O custo das mercadorias vendidas já é considerado
+no cálculo do lucro bruto.
+</p>
+
+<div class="actions">
+
+<button id="salvar" class="green" type="submit">
+Registrar despesa
+</button>
+
+<button id="limpar" class="secondary" type="button">
+Limpar
+</button>
+
+</div>
+
+</form>
+
+</section>
+
+<section class="card">
+
+<h2>📋 Histórico de despesas</h2>
+
+<label>Filtrar categoria</label>
+
+<select id="filtro">
+
+<option value="">Todas as categorias</option>
+<option>Embalagens</option>
+<option>Fretes</option>
+<option>Publicidade</option>
+<option>Taxas financeiras</option>
+<option>Transporte</option>
+<option>Tecnologia</option>
+<option>Manutenção</option>
+<option>Impostos</option>
+<option>Outras despesas</option>
+
+</select>
+
+<p id="quantidade" class="muted"></p>
+
+<div id="historico"></div>
+
+</section>
+
+</div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<script>
+
+"use strict";
+
+const URL_DB="https://xyybmzfodlvwljhhfxhe.supabase.co";
+
+const KEY="sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
+
+const $=id=>document.getElementById(id);
+
+const moeda=v=>Number(v).toLocaleString("pt-BR",{
+style:"currency",
+currency:"BRL"
+});
+
+let db;
+let despesas=[];
+let vendas=[];
+let autorizado=false;
+let ocupado=false;
+let vendasOK=false;
+let despesasOK=false;
+let tentativa=null;
+
+function set(id,v){
+
+$(id).textContent=v;
+
+}
+
+function hoje(){
+
+const p=new Intl.DateTimeFormat("pt-BR",{
+year:"numeric",
+month:"2-digit",
+day:"2-digit",
+timeZone:"America/Sao_Paulo"
+}).formatToParts(new Date());
+
+return p.find(x=>x.type==="year").value+"-"+
+p.find(x=>x.type==="month").value+"-"+
+p.find(x=>x.type==="day").value;
+
+}
+
+function mesVenda(data){
+
+const p=new Intl.DateTimeFormat("pt-BR",{
+year:"numeric",
+month:"2-digit",
+timeZone:"America/Sao_Paulo"
+}).formatToParts(new Date(data));
+
+return p.find(x=>x.type==="year").value+"-"+
+p.find(x=>x.type==="month").value;
+
+}
+
+function dataBR(data){
+
+return String(data).split("-").reverse().join("/");
+
+}
+
+function msg(t,erro=false){
+
+set("mensagem",t);
+
+$("mensagem").className=
+"msg"+(erro?" erro":"");
+
+$("mensagem").hidden=false;
+
+$("mensagem").scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+function texto(parent,tag,t,cls){
+
+const e=document.createElement(tag);
+
+e.textContent=String(t??"");
+
+if(cls)e.className=cls;
+
+parent.appendChild(e);
+
+return e;
+
+}
+
+function botao(t,cls,fn){
+
+const b=document.createElement("button");
+
+b.type="button";
+b.textContent=t;
+b.className=cls;
+b.onclick=fn;
+b.disabled=ocupado;
+
+return b;
+
+}
+
+function bloquear(v){
+
+ocupado=v;
+
+for(const e of $("formDespesa").elements){
+
+e.disabled=v;
+
+}
+
+$("atualizar").disabled=v;
+$("mes").disabled=v;
+$("filtro").disabled=v;
+
+renderHistorico();
+
+}
+
+async function consultar(tabela,colunas){
+
+let lista=[];
+
+for(let inicio=0;;inicio+=500){
+
+const {data,error}=await db
+.from(tabela)
+.select(colunas)
+.order("id")
+.range(inicio,inicio+499);
+
+if(error)throw error;
+
+lista.push(...(data||[]));
+
+if(!data||data.length<500)return lista;
+
+}
+
+}
+
+async function carregar(){
+
+despesasOK=false;
+vendasOK=false;
+
+const resultado=await Promise.allSettled([
+
+consultar("financeiro_despesas","*"),
+
+consultar(
+"financeiro_vendas",
+"id,quantidade,preco_unitario,custo_unitario,desconto,vendido_em"
+)
+
+]);
+
+if(!autorizado)return;
+
+despesasOK=resultado[0].status==="fulfilled";
+
+vendasOK=resultado[1].status==="fulfilled";
+
+despesas=despesasOK?resultado[0].value:[];
+
+vendas=vendasOK?resultado[1].value:[];
+
+renderFinanceiro();
+
+renderHistorico();
+
+}
+
+function despesasMes(){
+
+return despesas.filter(d=>
+
+String(d.data_despesa).slice(0,7)===$("mes").value
+
+);
+
+}
+
+function renderFinanceiro(){
+
+const periodo=$("mes").value;
+
+const gastos=despesasMes();
+
+const lista=vendas.filter(v=>
+
+mesVenda(v.vendido_em)===periodo
+
+);
+
+let receita=0;
+let custo=0;
+let semCusto=0;
+
+for(const v of lista){
+
+receita+=
+
+Number(v.preco_unitario)*Number(v.quantidade)-
+Number(v.desconto||0);
+
+if(v.custo_unitario===null){
+
+semCusto++;
+
+}else{
+
+custo+=
+Number(v.custo_unitario)*Number(v.quantidade);
+
+}
+
+}
+
+const total=gastos.reduce(
+
+(s,d)=>s+Number(d.valor),0
+
+);
+
+const bruto=receita-custo;
+
+const liquido=bruto-total;
+
+const lucroOK=vendasOK&&semCusto===0;
+
+const liquidoOK=lucroOK&&despesasOK;
+
+set("receita",vendasOK?moeda(receita):"—");
+
+set("custo",lucroOK?moeda(custo):"—");
+
+set("bruto",lucroOK?moeda(bruto):"—");
+
+set("totalDespesas",despesasOK?moeda(total):"—");
+
+set("liquido",liquidoOK?moeda(liquido):"—");
+
+$("liquido").style.color=
+
+liquidoOK&&liquido<0?"#b93655":"#28854c";
+
+set("margem",
+
+liquidoOK&&receita>0?
+
+(liquido/receita*100)
+.toFixed(1).replace(".",",")+"%"
+
+:"—"
+
+);
+
+const avisos=[];
+
+if(!vendasOK){
+
+avisos.push("Não foi possível carregar as vendas.");
+
+}
+
+if(!despesasOK){
+
+avisos.push("Não foi possível carregar as despesas.");
+
+}
+
+if(semCusto){
+
+avisos.push(
+semCusto+" venda(s) sem custo de aquisição. "+
+"O lucro total está indisponível."
+);
+
+}
+
+set("aviso",
+
+avisos.join(" ")||
+
+"Resultado estimado com base nas vendas e despesas registradas. "+
+"Não representa necessariamente o saldo em caixa."
+
+);
+
+const grupos=new Map();
+
+for(const d of gastos){
+
+grupos.set(
+
+d.categoria,
+
+(grupos.get(d.categoria)||0)+Number(d.valor)
+
+);
+
+}
+
+const area=$("categorias");
+
+area.replaceChildren();
+
+if(!despesasOK){
+
+area.textContent="Despesas indisponíveis.";
+
+return;
+
+}
+
+if(!grupos.size){
+
+area.textContent="Nenhuma despesa neste mês.";
+
+return;
+
+}
+
+for(const [categoria,valor] of
+
+[...grupos.entries()].sort((a,b)=>b[1]-a[1])){
+
+texto(area,"p",categoria+" — "+moeda(valor));
+
+const barra=texto(area,"div","","barra");
+
+const preenchimento=texto(barra,"div","");
+
+preenchimento.style.width=
+
+(total>0?valor/total*100:0)+"%";
+
+}
+
+}
+
+function limparForm(){
+
+$("formDespesa").reset();
+
+$("despesaId").value="";
+
+$("data").value=hoje();
+
+$("data").max=hoje();
+
+$("observacao").value="";
+
+tentativa=null;
+
+set("titulo","💰 Registrar despesa");
+
+set("salvar","Registrar despesa");
+
+}
+
+$("limpar").onclick=()=>{
+
+if(!ocupado)limparForm();
+
+};
+
+function editar(d){
+
+if(ocupado||!autorizado)return;
+
+limparForm();
+
+$("despesaId").value=d.id;
+
+$("categoria").value=d.categoria;
+
+$("descricao").value=d.descricao;
+
+$("valor").value=Number(d.valor).toFixed(2);
+
+$("data").value=d.data_despesa;
+
+$("pagamento").value=d.forma_pagamento||"Não informado";
+
+$("observacao").value=d.observacao||"";
+
+set("titulo","✏️ Editar despesa");
+
+set("salvar","Salvar alterações");
+
+$("cadastro").scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+async function excluir(d){
+
+if(ocupado||!autorizado)return;
+
+if(!confirm(
+
+"Excluir a despesa "+d.descricao+
+"\nValor: "+moeda(d.valor)+
+"\nO registro será removido do financeiro."
+
+))return;
+
+bloquear(true);
+
+try{
+
+const {data,error}=await db
+
+.from("financeiro_despesas")
+
+.delete()
+
+.eq("id",d.id)
+
+.select("id")
+
+.maybeSingle();
+
+if(error)throw error;
+
+if(!data){
+
+throw new Error("Despesa não encontrada.");
+
+}
+
+if($("despesaId").value===d.id){
+
+limparForm();
+
+}
+
+await carregar();
+
+msg("Despesa excluída com sucesso.");
+
+}catch(e){
+
+msg(
+"Não foi possível confirmar a exclusão: "+
+e.message,true
+);
+
+await carregar();
+
+}finally{
+
+bloquear(false);
+
+}
+
+}
+
+function renderHistorico(){
+
+const h=$("historico");
+
+h.replaceChildren();
+
+if(!despesasOK){
+
+set("quantidade","");
+
+h.textContent="Histórico indisponível.";
+
+return;
+
+}
+
+const filtro=$("filtro").value;
+
+const lista=despesasMes()
+
+.filter(d=>!filtro||d.categoria===filtro)
+
+.sort((a,b)=>
+
+String(b.data_despesa).localeCompare(
+String(a.data_despesa)
+)
+
+);
+
+set("quantidade",lista.length+" despesa(s) encontrada(s)");
+
+if(!lista.length){
+
+h.textContent="Nenhuma despesa registrada neste período.";
+
+return;
+
+}
+
+for(const d of lista){
+
+const card=texto(h,"div","","item");
+
+texto(card,"strong",d.descricao);
+
+texto(card,"p",d.categoria,"muted");
+
+texto(card,"p",moeda(d.valor),"valor");
+
+texto(card,"p",
+
+dataBR(d.data_despesa)+" | "+
+(d.forma_pagamento||"Não informado"),
+
+"muted"
+
+);
+
+if(d.observacao){
+
+texto(card,"p",d.observacao,"muted");
+
+}
+
+const a=texto(card,"div","","actions");
+
+a.append(
+
+botao("Editar","secondary",()=>editar(d)),
+
+botao("Excluir","danger",()=>excluir(d))
+
+);
+
+}
+
+}
+
+$("filtro").onchange=renderHistorico;
+
+$("mes").onchange=()=>{
+
+renderFinanceiro();
+
+renderHistorico();
+
+};
+
+$("atualizar").onclick=async()=>{
+
+if(ocupado||!autorizado)return;
+
+bloquear(true);
+
+try{
+
+await carregar();
+
+}catch(e){
+
+msg(e.message,true);
+
+}finally{
+
+bloquear(false);
+
+}
+
+};
+
+// SALVAR DESPESA
+
+$("formDespesa").onsubmit=async e=>{
+
+e.preventDefault();
+
+if(ocupado||!autorizado)return;
+
+const id=$("despesaId").value;
+
+const item={
+
+categoria:$("categoria").value,
+
+descricao:$("descricao").value.trim(),
+
+valor:Number($("valor").value),
+
+data_despesa:$("data").value,
+
+forma_pagamento:$("pagamento").value,
+
+observacao:$("observacao").value.trim()
+
+};
+
+if(!item.categoria||
+
+!item.descricao||
+
+!Number.isFinite(item.valor)||
+
+item.valor<=0||
+
+item.valor>9999999999.99||
+
+!item.data_despesa||
+
+item.data_despesa>hoje()||
+
+!item.forma_pagamento){
+
+return msg("Confira os dados da despesa.",true);
+
+}
+
+item.valor=Math.round(item.valor*100)/100;
+
+const assinatura=JSON.stringify(item);
+
+if(!id&&tentativa&&tentativa.assinatura!==assinatura){
+
+return msg(
+"Existe uma tentativa anterior não confirmada. "+
+"Confira o histórico antes de limpar e fazer outro lançamento.",
+true
+);
+
+}
+
+if(!confirm(
+
+(id?"Salvar alterações?":"Registrar despesa?")+
+
+"\n"+item.descricao+
+
+"\n"+moeda(item.valor)
+
+))return;
+
+if(!id&&!tentativa){
+
+tentativa={
+
+id:crypto.randomUUID(),
+
+assinatura
+
+};
+
+}
+
+bloquear(true);
+
+set("salvar","Salvando...");
+
+try{
+
+let r;
+
+if(id){
+
+r=await db
+
+.from("financeiro_despesas")
+
+.update(item)
+
+.eq("id",id)
+
+.select("id")
+
+.maybeSingle();
+
+}else{
+
+r=await db
+
+.from("financeiro_despesas")
+
+.insert({
+
+id:tentativa.id,
+
+...item
+
+})
+
+.select("id")
+
+.single();
+
+}
+
+if(r.error||!r.data){
+
+if(id){
+
+throw new Error(
+r.error?.message||"Despesa não encontrada."
+);
+
+}
+
+const conferir=await db
+
+.from("financeiro_despesas")
+
+.select("*")
+
+.eq("id",tentativa.id)
+
+.maybeSingle();
+
+const d=conferir.data;
+
+if(conferir.error||!d||
+
+d.categoria!==item.categoria||
+
+d.descricao!==item.descricao||
+
+Number(d.valor)!==item.valor||
+
+d.data_despesa!==item.data_despesa||
+
+d.forma_pagamento!==item.forma_pagamento||
+
+(d.observacao||"")!==item.observacao){
+
+throw new Error(
+r.error?.message||"Registro não confirmado."
+);
+
+}
+
+}
+
+$("mes").value=item.data_despesa.slice(0,7);
+
+$("filtro").value="";
+
+limparForm();
+
+await carregar();
+
+msg(
+
+id?
+
+"✅ Despesa atualizada com sucesso!"
+
+:
+
+"💎 Despesa registrada com sucesso!"
+
+);
+
+}catch(e){
+
+msg(
+
+"Não foi possível confirmar o registro: "+
+
+e.message+
+
+". Confira o histórico antes de repetir.",
+
+true
+
+);
+
+await carregar();
+
+}finally{
+
+bloquear(false);
+
+set("salvar",
+
+$("despesaId").value?
+
+"Salvar alterações":"Registrar despesa"
+
+);
+
+}
+
+};
+
+// ACESSO ADMINISTRATIVO
+
+async function iniciar(){
+
+try{
+
+if(!window.supabase?.createClient){
+
+throw new Error("Falha na conexão com Supabase.");
+
+}
+
+db=window.supabase.createClient(
+
+URL_DB,KEY
+
+);
+
+const {data,error}=await db.auth.getUser();
+
+if(error||!data?.user){
+
+throw new Error(
+
+"Entre primeiro pelo painel administrativo."
+
+);
+
+}
+
+const r=await db
+
+.from("administradores")
+
+.select("usuario_id")
+
+.eq("usuario_id",data.user.id)
+
+.maybeSingle();
+
+if(r.error)throw r.error;
+
+if(!r.data){
+
+throw new Error("Acesso não autorizado.");
+
+}
+
+autorizado=true;
+
+$("mes").value=hoje().slice(0,7);
+
+limparForm();
+
+await carregar();
+
+$("acesso").hidden=true;
+
+$("painel").hidden=false;
+
+db.auth.onAuthStateChange(event=>{
+
+if(event==="SIGNED_OUT"){
+
+autorizado=false;
+
+despesas=[];
+vendas=[];
+
+$("painel").hidden=true;
+
+location.href="admin.html";
+
+}
+
+});
+
+}catch(e){
+
+autorizado=false;
+
+$("acesso").textContent=e.message;
+
+}
+
+}
+
+iniciar();
+
+</script>
+</body>
+</html>
