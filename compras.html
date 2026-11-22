@@ -5,60 +5,127 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Silver Love | Compras</title>
+
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#fff3f8;color:#492537;font-family:Arial,sans-serif}
-header{background:linear-gradient(120deg,#801b4c,#c13a7b);color:white;padding:25px;text-align:center}
+header{background:linear-gradient(120deg,#801b4c,#c13a7b);color:white;text-align:center;padding:24px}
 header h1{margin:0}
 main{max-width:1000px;margin:auto;padding:14px}
-.card{background:white;padding:20px;margin:15px 0;border-radius:16px;box-shadow:0 4px 18px #7d20451a}
+.card{background:white;padding:18px;margin:15px 0;border-radius:16px;box-shadow:0 4px 18px #7d20451a}
 h2,h3{color:#922957}
-label{display:block;font-weight:bold;margin:12px 0 6px}
-input,textarea,select{width:100%;padding:12px;border:1px solid #dab4c6;border-radius:9px;font-size:16px;background:white;color:#492537}
-textarea{min-height:120px}
-button,.btn{display:inline-block;background:#a92c66;color:white;border:0;border-radius:10px;padding:13px;font-size:15px;font-weight:bold;cursor:pointer;text-decoration:none;text-align:center}
+h2{margin-top:0}
+label{display:block;font-weight:bold;margin:12px 0 7px}
+input,textarea,select{width:100%;padding:12px;border:1px solid #dab4c6;border-radius:9px;background:white;color:#492537;font-size:16px}
+textarea{min-height:150px}
+button,.btn{display:inline-block;padding:13px;border:0;border-radius:10px;background:#a92c66;color:white;font-size:15px;font-weight:bold;text-decoration:none;cursor:pointer}
 button:disabled{opacity:.5}
-.secondary{background:#74606d}
 .green{background:#28854c}
-.danger{background:#b93655}
+.gray{background:#74606d}
+.red{background:#b93655}
 .actions{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.metric{background:#fff3f8;padding:14px;border-radius:12px}
-.metric strong{display:block;color:#922957;font-size:20px;margin-top:8px}
-.muted{color:#806b77;font-size:13px;line-height:1.6}
-.item{border:1px solid #ead6df;background:#fffafd;border-radius:12px;margin:15px 0;padding:15px}
-.msg{padding:15px;background:#e1f5e8;color:#245b38;border-radius:10px;margin:10px 0}
+.metric{background:#fff3f8;padding:14px;border-radius:12px;overflow-wrap:anywhere}
+.metric strong{display:block;color:#922957;font-size:22px;margin-top:8px}
+.item{background:#fffafd;border:1px solid #ead6df;border-radius:12px;padding:15px;margin:12px 0}
+.muted{font-size:13px;color:#806b77;line-height:1.6}
+.msg{padding:15px;background:#e1f5e8;color:#245b38;border-radius:10px;margin:15px 0}
 .erro{background:#ffe1e7;color:#902b45}
-[hidden]{display:none!important}
-.check{display:flex;align-items:center;gap:8px}
+.check{display:flex;align-items:center;gap:9px;margin:15px 0}
 .check input{width:auto}
 .check label{margin:0}
+.ai{background:#fff0f6;border:1px solid #e8c1d4;border-radius:14px;padding:16px;margin:15px 0}
+summary{cursor:pointer;font-weight:bold;color:#922957;padding:10px 0}
+fieldset{border:0;margin:0;padding:0;min-width:0}
 progress{width:100%;accent-color:#a92c66}
+[hidden]{display:none!important}
 </style>
 </head>
+
 <body>
 
 <header>
 <h1>💎 Silver Love</h1>
 <p>Prata e Folheados a Ouro</p>
-<p>Compras e Importação</p>
+<p>Compras e Importação Inteligente</p>
 </header>
 
 <main>
 
-<a class="btn secondary" href="admin.html">← Painel administrativo</a>
+<nav class="actions">
+<a href="admin.html" class="btn gray">← Painel</a>
+<a href="fotos.html" class="btn">Fotos</a>
+<a href="vendas.html" class="btn green">Vendas</a>
+</nav>
 
 <div id="mensagem" class="msg" role="status" hidden></div>
 
 <section id="acesso" class="card">
-<p>Validando acesso administrativo...</p>
+Validando acesso administrativo...
 </section>
 
 <div id="painel" hidden>
 
+<fieldset id="controles">
+
 <section class="card">
 
-<h2>📄 Importar documento</h2>
+<h2>💾 Rascunho da compra</h2>
+
+<p id="rascunhoStatus" class="muted">
+Verificando rascunho...
+</p>
+
+<div class="actions">
+<button id="salvarRascunho" class="green">Salvar</button>
+<button id="restaurarRascunho" class="gray">Restaurar</button>
+<button id="descartarRascunho" class="red">Descartar</button>
+</div>
+
+<p class="muted">
+Rascunho salvo neste navegador.
+A fotografia original não será armazenada.
+</p>
+
+</section>
+
+<section class="card">
+
+<h2>🤖 Importação inteligente</h2>
+
+<div class="ai">
+
+<p><strong>Importar documento com IA</strong></p>
+
+<p>1. Copie o prompt Silver Love.</p>
+<p>2. Abra o ChatGPT e envie a fotografia ou PDF.</p>
+<p>3. Cole o prompt na conversa com a imagem.</p>
+<p>4. Copie a lista de produtos gerada.</p>
+
+<div class="actions">
+
+<button id="copiarPrompt" class="green">
+📋 Copiar prompt de IA
+</button>
+
+<a href="https://chatgpt.com/"
+target="_blank" rel="noopener noreferrer"
+class="btn">
+Abrir ChatGPT
+</a>
+
+</div>
+
+<p id="statusPrompt" class="muted"></p>
+
+<details id="detalhePrompt">
+<summary>Visualizar prompt completo</summary>
+<textarea id="promptIA" readonly></textarea>
+</details>
+
+</div>
+
+<h3>Dados da compra</h3>
 
 <label>Nome do fornecedor</label>
 <input id="fornecedor">
@@ -69,36 +136,75 @@ progress{width:100%;accent-color:#a92c66}
 <label>Data da compra</label>
 <input id="data" type="date">
 
-<label>Valor final da compra (R$)</label>
+<label>Valor final pago ao fornecedor (R$)</label>
 <input id="valorTotal" type="number" min="0" step="0.01">
 
-<label>Acréscimo padrão (%)</label>
+<label>Acréscimo padrão sobre o custo (%)</label>
 <input id="percentual" type="number" min="0" step="0.01" value="110">
 
-<label>Selecionar foto ou PDF</label>
-<input id="arquivo" type="file" accept="image/jpeg,image/png,image/webp,application/pdf">
+<label>Tipo de compra</label>
+
+<select id="modoCompra">
+<option value="historica">Compra histórica</option>
+<option value="nova">Compra nova ou reposição</option>
+</select>
+
+<p class="muted">
+Na compra histórica, marque somente as peças
+que ainda possui. Os produtos existentes não
+recebem saldo adicional automaticamente.
+</p>
+
+<label>Colar produtos reconhecidos pela IA</label>
+
+<textarea id="texto"
+placeholder="148504;PULSEIRA PRATA;1;49,40"></textarea>
 
 <div class="actions">
-<button id="ler">Ler documento</button>
-</div>
 
-<progress id="progresso" hidden></progress>
-<p id="leituraStatus" class="muted"></p>
+<button id="colar" class="gray">
+📋 Colar texto
+</button>
 
-<label>Texto reconhecido ou digitado</label>
-<textarea id="texto" placeholder="O texto extraído aparecerá aqui."></textarea>
+<button id="extrair" class="green">
+Identificar produtos
+</button>
 
-<div class="actions">
-<button id="extrair">Identificar produtos</button>
-<button id="adicionar" class="secondary">Adicionar item manualmente</button>
+<button id="adicionar">
+Adicionar manualmente
+</button>
+
 </div>
 
 <p class="muted">
-Confira todos os códigos, quantidades, descrições e custos.
-A leitura automática pode não identificar todas as linhas.
-Também é possível colar uma lista no formato:
-código;descrição;quantidade;valor unitário.
+Formato: código;descrição;quantidade;valor unitário.
+Uma linha por produto.
 </p>
+
+<details>
+
+<summary>Leitura tradicional de foto ou PDF</summary>
+
+<label>Selecionar documento</label>
+
+<input id="arquivo" type="file"
+accept="image/jpeg,image/png,image/webp,application/pdf">
+
+<div class="actions">
+<button id="ler">Ler documento com OCR</button>
+</div>
+
+<progress id="progresso" max="100" hidden></progress>
+
+<p id="leituraStatus" class="muted">
+O OCR pode apresentar erros. Confira com o original.
+</p>
+
+<a href="leitor.html" class="btn gray">
+Abrir leitor por colunas
+</a>
+
+</details>
 
 </section>
 
@@ -107,68 +213,118 @@ código;descrição;quantidade;valor unitário.
 <h2>📊 Revisão da compra</h2>
 
 <div class="grid">
+
 <div class="metric">
 Itens identificados
 <strong id="totalItens">0</strong>
 </div>
+
 <div class="metric">
-Quantidade
+Quantidade comprada
 <strong id="totalQtd">0</strong>
 </div>
+
 <div class="metric">
-Total dos custos
+Valor bruto do documento
+<strong id="totalBruto">R$ 0,00</strong>
+</div>
+
+<div class="metric">
+Custo final das peças
 <strong id="totalCusto">R$ 0,00</strong>
 </div>
+
 <div class="metric">
-Venda estimada
+Venda estimada do lote
 <strong id="totalVenda">R$ 0,00</strong>
 </div>
+
+<div class="metric">
+Lucro bruto estimado do lote
+<strong id="totalLucro">R$ 0,00</strong>
+</div>
+
+<div class="metric">
+Unidades para entrada
+<strong id="qtdEntrada">0</strong>
+</div>
+
+<div class="metric">
+Produtos vinculados
+<strong id="qtdVinculados">0</strong>
+</div>
+
 </div>
 
 <p id="diferenca" class="muted"></p>
 
+<p class="muted">
+As estimativas do lote não representam vendas realizadas
+nem necessariamente o estoque disponível.
+</p>
+
 <div class="actions">
-<button id="recalcular" class="secondary">Aplicar percentual padrão</button>
-<button id="ratear" class="secondary">Ratear desconto do pedido</button>
+
+<button id="recalcular" class="gray">
+Aplicar acréscimo padrão
+</button>
+
+<button id="ratear">
+Ratear desconto do pedido
+</button>
+
 </div>
 
 <p class="muted">
-O rateio distribui proporcionalmente a diferença entre
-os valores unitários do documento e o total pago.
-Use somente após conferir todas as peças.
+Confira o valor bruto com o documento original
+antes de distribuir o desconto do fornecedor.
 </p>
 
 <div id="itens"></div>
 
 <div class="check">
+
 <input id="revisado" type="checkbox">
+
 <label for="revisado">
-Conferi os itens, preços e quantidades de entrada no estoque.
+Conferi os produtos, custos, preços e
+quantidades que entrarão no estoque.
 </label>
+
 </div>
 
-<div class="actions">
-<button id="importar" class="green">Confirmar importação</button>
-</div>
+<button id="importar" class="green"
+style="width:100%">
+✓ Confirmar importação
+</button>
 
 </section>
 
 <section class="card">
+
 <h2>📷 Joias aguardando fotos</h2>
-<p class="muted">
-Peças novas importadas ficam inativas até receberem foto
-e serem ativadas no painel administrativo.
-</p>
+
 <div id="semFotos"></div>
-<a href="admin.html#lista" class="btn">Editar produtos e enviar fotos</a>
+
+<a href="fotos.html" class="btn">
+Adicionar fotos e publicar
+</a>
+
 </section>
 
 <section class="card">
+
 <h2>📚 Histórico de compras</h2>
-<button id="atualizar" class="secondary">Atualizar histórico</button>
+
+<button id="atualizar" class="gray">
+Atualizar histórico
+</button>
+
 <div id="historico"></div>
+
 </section>
 
+</fieldset>
 </div>
 </main>
 
@@ -181,173 +337,1083 @@ const URL_DB="https://xyybmzfodlvwljhhfxhe.supabase.co";
 const KEY="sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
 
 const $=id=>document.getElementById(id);
-const moeda=n=>Number(n).toLocaleString("pt-BR",{
-style:"currency",currency:"BRL"
-});
-const numero=s=>Number(String(s).includes(",")
-?String(s).replace(/\./g,"").replace(",",".")
-:s);
-const arred=n=>Math.round((n+Number.EPSILON)*100)/100;
-const normal=s=>String(s||"").trim().toLowerCase();
+
+const moeda=v=>Number(v).toLocaleString(
+"pt-BR",{style:"currency",currency:"BRL"}
+);
+
+const normal=v=>String(v??"").trim().toLowerCase();
+
+const arred=v=>Math.round((v+Number.EPSILON)*100)/100;
+
+function numero(v){
+
+const s=String(v??"").trim();
+
+if(!s)return NaN;
+
+if(s.includes(",")){
+
+if(!/^(?:\d+|\d{1,3}(?:\.\d{3})+),\d+$/.test(s))
+return NaN;
+
+return Number(s.replace(/\./g,"").replace(",","."));
+
+}
+
+return /^\d+(?:\.\d+)?$/.test(s)?Number(s):NaN;
+
+}
 
 let db;
 let produtos=[];
 let itens=[];
 let ocupado=false;
+let autorizado=false;
+let chave=null;
+let restaurando=false;
+
+const campos=[
+"fornecedor","documento","data",
+"valorTotal","percentual","texto"
+];
+
+// PROMPT OFICIAL SILVER LOVE
+
+const PROMPT=`Analise cuidadosamente a imagem ou PDF do documento de compra enviado.
+
+Extraia somente os produtos que possuem descrição, código, quantidade e valor unitário de aquisição identificáveis.
+
+REGRAS:
+
+1. Preserve o código original do fornecedor, inclusive zeros à esquerda.
+2. Preserve a descrição completa e una as descrições que ocupam mais de uma linha.
+3. Use a quantidade comprada e o valor unitário impresso, não o valor total da linha.
+4. Ignore cabeçalhos, dados pessoais, endereços, nomes de clientes, endereços de armazenamento e percentuais.
+5. Ignore anotações manuscritas e preços de revenda escritos à caneta.
+6. Não invente informações ilegíveis.
+7. Não aplique margem de lucro, acréscimo ou desconto.
+8. Use vírgula decimal com duas casas nos valores.
+9. Confira a quantidade total e a soma dos valores com o total bruto do documento.
+10. Sinalize separadamente os itens incompletos, códigos repetidos e possíveis divergências.
+
+Entregue os produtos em UM ÚNICO BLOCO DE CÓDIGO copiável, sem cabeçalho e sem numeração, neste formato:
+
+CODIGO;DESCRICAO;QUANTIDADE;VALOR_UNITARIO
+
+Exemplo de formato:
+
+148504;PULSEIRA PRATA ELO PORTUGUES;1;49,40
+
+Uma linha por produto, sem comentários dentro do bloco.
+
+Fora do bloco, informe:
+
+Número do documento.
+Data da compra.
+Quantidade total de peças.
+Valor bruto do documento.
+Valor final pago.
+Divergências ou informações ilegíveis.
+
+Quando um dado não estiver disponível, informe que não foi identificado.
+
+O resultado será conferido e importado no sistema Silver Love.`;
+
+$("promptIA").value=PROMPT;
+
+$("copiarPrompt").onclick=async()=>{
+
+try{
+
+await navigator.clipboard.writeText(PROMPT);
+
+$("statusPrompt").textContent=
+"✅ Prompt copiado! Abra a IA e envie o documento.";
+
+}catch(e){
+
+$("detalhePrompt").open=true;
+
+$("promptIA").focus();
+$("promptIA").select();
+
+$("statusPrompt").textContent=
+"Copie manualmente o texto selecionado.";
+
+}
+
+};
+
+$("colar").onclick=async()=>{
+
+try{
+
+const t=await navigator.clipboard.readText();
+
+if(!t.trim())return msg("Nenhum texto copiado.",true);
+
+if($("texto").value.trim()&&!confirm(
+"Substituir o texto atual?"
+))return;
+
+$("texto").value=t;
+
+mudou();
+
+msg("Texto colado. Clique em Identificar produtos.");
+
+}catch(e){
+
+$("texto").focus();
+
+msg("Toque e segure no campo de texto e escolha Colar.");
+
+}
+
+};
 
 function msg(t,erro=false){
+
 $("mensagem").textContent=t;
 $("mensagem").className="msg"+(erro?" erro":"");
 $("mensagem").hidden=false;
+
 $("mensagem").scrollIntoView({behavior:"smooth"});
+
 }
 
 function texto(p,tag,t,cls){
+
 const e=document.createElement(tag);
-e.textContent=t;
+e.textContent=String(t??"");
 if(cls)e.className=cls;
 p.appendChild(e);
+
 return e;
+
 }
 
-function existente(codigo){
-return produtos.find(p=>normal(p.codigo)===normal(codigo));
+function botao(t,cls,fn){
+
+const b=document.createElement("button");
+b.type="button";
+b.textContent=t;
+b.className=cls;
+b.onclick=fn;
+
+return b;
+
 }
 
-function padrao(){
-const p=Number($("percentual").value);
-if(!Number.isFinite(p)||p<0)throw new Error("Percentual inválido.");
-return p;
+function bloquear(v){
+
+ocupado=v;
+$("controles").disabled=v;
+
 }
 
-function preco(i){
-return i.preco_manual!==null
-?i.preco_manual
-:arred(i.custo_unitario*(1+i.percentual/100));
+// RASCUNHOS
+
+function guardar(){
+
+if(!chave||!autorizado||restaurando||ocupado)return;
+
+try{
+
+const dados={};
+
+campos.forEach(id=>dados[id]=$(id).value);
+
+const temDados=itens.length||
+campos.some(id=>id!=="percentual"&&dados[id].trim());
+
+if(!temDados){
+
+localStorage.removeItem(chave);
+
+$("rascunhoStatus").textContent=
+"Nenhum rascunho pendente.";
+
+return;
+
 }
 
-function novoItem(codigo="",descricao="",qtd=1,valor=0){
+localStorage.setItem(chave,JSON.stringify({
 
-const p=existente(codigo);
+dados,
+itens,
+modo:$("modoCompra").value,
+salvoEm:new Date().toISOString()
 
-return {
-codigo:codigo,
-descricao:descricao,
-quantidade:qtd,
-valor_unitario_documento:valor,
-custo_unitario:valor,
-percentual:padrao(),
-preco_manual:null,
-acao:p?"vincular":"novo",
-quantidade_entrada:p?0:qtd
+}));
+
+$("rascunhoStatus").textContent=
+"✅ Rascunho salvo | "+itens.length+" item(ns) | "+
+new Date().toLocaleTimeString("pt-BR");
+
+}catch(e){
+
+$("rascunhoStatus").textContent=
+"Não foi possível salvar o rascunho.";
+
+}
+
+}
+
+function restaurar(){
+
+if(!chave||ocupado)return;
+
+restaurando=true;
+
+try{
+
+const salvo=localStorage.getItem(chave);
+
+if(!salvo){
+
+$("rascunhoStatus").textContent=
+"Nenhum rascunho encontrado.";
+
+return;
+
+}
+
+const r=JSON.parse(salvo);
+
+campos.forEach(id=>{
+
+if(r.dados?.[id]!==undefined)
+$(id).value=r.dados[id];
+
+});
+
+$("modoCompra").value=
+r.modo==="nova"?"nova":"historica";
+
+itens=Array.isArray(r.itens)?r.itens:[];
+
+for(const i of itens){
+
+const p=existente(i.codigo);
+
+if(p&&i.acao==="novo"){
+
+i.acao="vincular";
+i.quantidade_entrada=0;
+
+}
+
+if(!p&&i.acao!=="novo"){
+
+i.acao="novo";
+i.quantidade_entrada=0;
+
+}
+
+}
+
+renderizar();
+
+$("rascunhoStatus").textContent=
+"✅ Rascunho recuperado. Confira "+itens.length+" item(ns).";
+
+}catch(e){
+
+$("rascunhoStatus").textContent=
+"Não foi possível recuperar o rascunho.";
+
+}finally{
+
+restaurando=false;
+
+}
+
+}
+
+function limparCompra(){
+
+restaurando=true;
+
+try{
+
+itens=[];
+
+campos.forEach(id=>$(id).value="");
+
+$("percentual").value="110";
+$("modoCompra").value="historica";
+$("arquivo").value="";
+$("leituraStatus").textContent="";
+
+renderizar();
+
+}catch(e){
+
+msg(e.message,true);
+
+}finally{
+
+restaurando=false;
+
+}
+
+if(chave){
+
+try{localStorage.removeItem(chave);}
+catch(e){}
+
+}
+
+}
+
+$("salvarRascunho").onclick=guardar;
+
+$("restaurarRascunho").onclick=()=>{
+
+if(confirm("Restaurar o rascunho salvo?"))restaurar();
+
 };
-}
 
-function mudou(){
-$("revisado").checked=false;
-resumo();
-}
+$("descartarRascunho").onclick=()=>{
 
-// CARREGAR PRODUTOS E HISTORICO
+if(!confirm("Descartar a compra em revisão?"))return;
 
-async function consultar(tabela,ordem){
-let lista=[];
+limparCompra();
+
+$("rascunhoStatus").textContent="Rascunho descartado.";
+
+};
+
+window.addEventListener("pagehide",guardar);
+
+document.addEventListener("visibilitychange",()=>{
+
+if(document.hidden)guardar();
+
+});
+
+// CONSULTAR PRODUTOS
+
+async function consultar(tabela,ordem="id"){
+
+const lista=[];
+
 for(let inicio=0;;inicio+=500){
+
 const {data,error}=await db.from(tabela)
 .select("*").order(ordem)
 .range(inicio,inicio+499);
+
 if(error)throw error;
-lista.push(...data);
-if(data.length<500)return lista;
+
+lista.push(...(data||[]));
+
+if(!data||data.length<500)return lista;
+
 }
+
 }
 
 async function atualizar(){
 
-produtos=await consultar("produtos","id");
+produtos=await consultar("produtos");
 
-const lista=$("semFotos");
-lista.replaceChildren();
+const f=$("semFotos");
 
-const faltando=produtos.filter(p=>!p.imagem_url);
+f.replaceChildren();
 
-if(!faltando.length){
-texto(lista,"p","Nenhuma joia aguardando foto.","muted");
+const faltam=produtos.filter(p=>
+p.estoque>0&&!String(p.imagem_url??"").trim()
+);
+
+texto(f,"p",faltam.length+" produtos disponíveis sem foto.");
+
+for(const p of faltam){
+
+texto(f,"p",
+p.codigo+" — "+p.nome+" | "+moeda(p.preco));
+
 }
 
-for(const p of faltando){
-texto(lista,"p",p.codigo+" — "+p.nome+
-" | "+moeda(p.preco));
-}
+const compras=await consultar("compras");
 
-const compras=await consultar("compras","id");
+const h=$("historico");
 
-compras.sort((a,b)=>String(b.data_compra)
-.localeCompare(String(a.data_compra)));
-
-const hist=$("historico");
-hist.replaceChildren();
+h.replaceChildren();
 
 if(!compras.length){
-texto(hist,"p","Nenhuma compra registrada.","muted");
+
+h.textContent="Nenhuma compra registrada.";
+
 }
 
-for(const c of compras){
-const box=document.createElement("div");
-box.className="item";
-texto(box,"strong",c.fornecedor);
-texto(box,"p","Documento: "+c.numero_documento);
-texto(box,"p","Data: "+c.data_compra);
-texto(box,"p",c.valor_total===null
-?"Valor não informado":moeda(c.valor_total));
-texto(box,"p","Status: "+c.status,"muted");
-hist.appendChild(box);
-}
+for(const c of compras.sort((a,b)=>
+String(b.data_compra).localeCompare(String(a.data_compra))
+)){
+
+const p=texto(h,"div","","item");
+
+texto(p,"strong",c.fornecedor);
+
+texto(p,"p","Documento: "+c.numero_documento);
+
+texto(p,"p","Data: "+c.data_compra);
+
+texto(p,"p",c.valor_total==null?
+"Valor não informado":moeda(c.valor_total));
+
+texto(p,"p","Status: "+c.status,"muted");
+
 }
 
-// LEITURA DE IMAGENS E PDF
+}
+
+// IDENTIFICACAO DOS PRODUTOS
+
+function existente(codigo){
+
+return produtos.find(p=>
+normal(p.codigo)===normal(codigo));
+
+}
+
+function padrao(){
+
+const p=numero($("percentual").value);
+
+if(!Number.isFinite(p)||p<0)
+throw new Error("Acréscimo inválido.");
+
+return p;
+
+}
+
+function preco(i){
+
+return i.preco_manual!=null?
+Number(i.preco_manual):
+arred(i.custo_unitario*(1+i.percentual/100));
+
+}
+
+function novoItem(c="",d="",q=1,v=0){
+
+const p=existente(c);
+
+return {
+
+codigo:c,
+descricao:d,
+quantidade:q,
+valor_unitario_documento:v,
+custo_unitario:v,
+percentual:padrao(),
+preco_manual:null,
+acao:p?"vincular":"novo",
+quantidade_entrada:
+p||$("modoCompra").value==="historica"?0:q
+
+};
+
+}
+
+function interpretar(t){
+
+const lista=[];
+const erros=[];
+const codigos=new Set();
+
+const linhas=t.split(/\r?\n/);
+
+linhas.forEach((original,index)=>{
+
+const l=original.trim();
+
+if(!l||l.startsWith("```"))return;
+
+if(/^(codigo|código);/i.test(l))return;
+
+let p=l.split(";").map(s=>s.trim());
+
+if(p.length!==4){
+
+const m=l.match(
+/^(\d{4,10})\s+([\d.]+,\d{2})\s+(\d+)[,.]00\s*(.*)$/
+);
+
+if(m){
+
+p=[m[1],m[4].split(/\bUN\b/i)[0].trim(),m[3],m[2]];
+
+}
+
+}
+
+if(p.length!==4){
+
+erros.push(index+1);
+return;
+
+}
+
+const [c,d,q,v]=p;
+
+const qtd=numero(q);
+const valor=numero(v);
+
+if(!c||!d||!Number.isInteger(qtd)||qtd<1||
+!Number.isFinite(valor)||valor<0||
+codigos.has(normal(c))){
+
+erros.push(index+1);
+return;
+
+}
+
+codigos.add(normal(c));
+
+lista.push(novoItem(c,d,qtd,valor));
+
+});
+
+return {lista,erros};
+
+}
+
+$("extrair").onclick=()=>{
+
+if(ocupado)return;
+
+try{
+
+const r=interpretar($("texto").value);
+
+if(r.erros.length){
+
+throw new Error(
+"Confira as linhas "+r.erros.slice(0,20).join(", ")+
+". Existem dados inválidos, incompletos ou códigos repetidos. "+
+"Nenhuma lista foi substituída."
+);
+
+}
+
+if(!r.lista.length)
+throw new Error("Nenhum produto identificado.");
+
+if(itens.length&&!confirm(
+"Substituir os produtos em revisão?"
+))return;
+
+itens=r.lista;
+
+renderizar();
+
+msg("✅ "+itens.length+" produtos identificados. Confira o documento original.");
+
+}catch(e){msg(e.message,true);}
+
+};
+
+$("adicionar").onclick=()=>{
+
+try{
+
+itens.push(novoItem());
+
+renderizar();
+
+}catch(e){msg(e.message,true);}
+
+};
+
+$("modoCompra").onchange=()=>{
+
+if(itens.length&&!confirm(
+"Redefinir as quantidades de entrada para este modo?"
+)){
+
+$("modoCompra").value=modoAnterior;
+return;
+
+}
+
+modoAnterior=$("modoCompra").value;
+
+for(const i of itens){
+
+const p=existente(i.codigo);
+
+i.acao=p?"vincular":"novo";
+
+i.quantidade_entrada=
+p||modoAnterior==="historica"?0:i.quantidade;
+
+}
+
+renderizar();
+
+};
+
+let modoAnterior=$("modoCompra").value;
+
+// REVISAO DOS ITENS
+
+function campo(p,t,v,fn,tipo="text"){
+
+texto(p,"label",t);
+
+const e=document.createElement("input");
+
+e.type=tipo;
+e.value=v??"";
+
+if(tipo==="number"){
+
+e.min="0";
+e.step="0.01";
+
+}
+
+e.onchange=()=>{
+
+fn(e.value);
+
+mudou();
+
+};
+
+p.appendChild(e);
+
+return e;
+
+}
+
+function renderizar(){
+
+const h=$("itens");
+
+h.replaceChildren();
+
+modoAnterior=$("modoCompra").value;
+
+itens.forEach((i,index)=>{
+
+const p=existente(i.codigo);
+
+const c=texto(h,"div","","item");
+
+texto(c,"strong",(index+1)+". "+
+(i.descricao||"Nova joia"));
+
+texto(c,"p","Código: "+i.codigo,"muted");
+
+texto(c,"p",
+"Custo: "+moeda(i.custo_unitario)+
+" | Venda: "+moeda(preco(i)));
+
+texto(c,"p",
+"Quantidade comprada: "+i.quantidade,"muted");
+
+if(p){
+
+texto(c,"p",
+"✅ Já cadastrado | Estoque: "+p.estoque+
+" | Preço atual: "+moeda(p.preco),"muted");
+
+const sel=document.createElement("select");
+
+for(const [v,n] of [
+
+["vincular","Vincular sem aumentar estoque"],
+["repor","Acrescentar ao estoque"]
+
+]){
+
+const op=texto(sel,"option",n);
+op.value=v;
+
+}
+
+sel.value=i.acao;
+
+sel.onchange=()=>{
+
+i.acao=sel.value;
+
+i.quantidade_entrada=
+i.acao==="repor"?i.quantidade:0;
+
+renderizar();
+
+};
+
+c.appendChild(sel);
+
+}else{
+
+const l=texto(c,"label","","check");
+
+const check=document.createElement("input");
+
+check.type="checkbox";
+check.checked=i.quantidade_entrada>0;
+
+l.appendChild(check);
+
+texto(l,"span","Ainda tenho esta joia");
+
+check.onchange=()=>{
+
+i.acao="novo";
+
+i.quantidade_entrada=
+check.checked?i.quantidade:0;
+
+renderizar();
+
+};
+
+}
+
+if(i.acao==="repor"||
+(i.acao==="novo"&&i.quantidade_entrada>0)){
+
+const e=campo(c,"Quantidade para entrada",
+i.quantidade_entrada,v=>{
+
+i.quantidade_entrada=numero(v);
+
+},"number");
+
+e.step="1";
+e.max=i.quantidade;
+
+}
+
+const d=document.createElement("details");
+
+texto(d,"summary","Editar descrição, custos e preços");
+
+campo(d,"Código",i.codigo,v=>{
+
+i.codigo=v.trim();
+
+i.acao=existente(i.codigo)?"vincular":"novo";
+
+i.quantidade_entrada=0;
+
+renderizar();
+
+});
+
+campo(d,"Descrição",i.descricao,v=>{
+
+i.descricao=v;
+
+});
+
+const q=campo(d,"Quantidade comprada",
+i.quantidade,v=>{
+
+i.quantidade=numero(v);
+
+i.quantidade_entrada=Math.min(
+i.quantidade_entrada,i.quantidade
+);
+
+renderizar();
+
+},"number");
+
+q.min="1";
+q.step="1";
+
+campo(d,"Valor unitário do documento",
+i.valor_unitario_documento,v=>{
+
+i.valor_unitario_documento=numero(v);
+
+},"number");
+
+campo(d,"Custo unitário final",
+i.custo_unitario,v=>{
+
+i.custo_unitario=numero(v);
+
+renderizar();
+
+},"number");
+
+campo(d,"Acréscimo (%)",i.percentual,v=>{
+
+i.percentual=numero(v);
+i.preco_manual=null;
+
+renderizar();
+
+},"number");
+
+campo(d,"Preço de venda manual",preco(i),v=>{
+
+i.preco_manual=numero(v);
+
+renderizar();
+
+},"number");
+
+const a=texto(d,"div","","actions");
+
+a.append(
+
+botao("Restaurar preço automático","gray",()=>{
+
+try{
+
+i.preco_manual=null;
+i.percentual=padrao();
+
+renderizar();
+
+}catch(e){msg(e.message,true);}
+
+}),
+
+botao("Remover","red",()=>{
+
+if(confirm("Remover esta joia da revisão?")){
+
+itens.splice(index,1);
+
+renderizar();
+
+}
+
+})
+
+);
+
+c.appendChild(d);
+
+h.appendChild(c);
+
+});
+
+mudou();
+
+}
+
+function resumo(){
+
+const qtd=itens.reduce((s,i)=>s+Number(i.quantidade),0);
+
+const bruto=itens.reduce((s,i)=>
+s+i.valor_unitario_documento*i.quantidade,0);
+
+const custo=itens.reduce((s,i)=>
+s+i.custo_unitario*i.quantidade,0);
+
+const venda=itens.reduce((s,i)=>
+s+preco(i)*i.quantidade,0);
+
+$("totalItens").textContent=itens.length;
+$("totalQtd").textContent=qtd;
+$("totalBruto").textContent=moeda(bruto);
+$("totalCusto").textContent=moeda(custo);
+$("totalVenda").textContent=moeda(venda);
+$("totalLucro").textContent=moeda(venda-custo);
+
+$("qtdEntrada").textContent=itens.reduce(
+(s,i)=>s+Number(i.quantidade_entrada),0
+);
+
+$("qtdVinculados").textContent=itens.filter(
+i=>i.acao==="vincular"
+).length;
+
+$("diferenca").textContent=
+$("valorTotal").value!==""?
+"Diferença entre os custos e o total pago: "+
+moeda(custo-numero($("valorTotal").value)):
+"Informe o valor final pago ao fornecedor.";
+
+}
+
+function mudou(){
+
+$("revisado").checked=false;
+
+resumo();
+
+guardar();
+
+}
+
+campos.forEach(id=>$(id).addEventListener("input",mudou));
+
+$("recalcular").onclick=()=>{
+
+try{
+
+const p=padrao();
+
+if(!confirm(
+"Aplicar o acréscimo a todos os itens e substituir preços manuais?"
+))return;
+
+for(const i of itens){
+
+i.percentual=p;
+
+i.preco_manual=null;
+
+}
+
+renderizar();
+
+}catch(e){msg(e.message,true);}
+
+};
+
+// RATEAR DESCONTO
+
+$("ratear").onclick=()=>{
+
+try{
+
+const bruto=itens.reduce((s,i)=>
+s+i.valor_unitario_documento*i.quantidade,0);
+
+const total=numero($("valorTotal").value);
+
+if(!Number.isFinite(bruto)||bruto<=0||
+!Number.isFinite(total)||total<=0||
+itens.some(i=>!Number.isInteger(i.quantidade)||
+i.quantidade<1||!Number.isFinite(i.valor_unitario_documento)||
+i.valor_unitario_documento<0)){
+
+throw new Error("Confira os valores antes de ratear.");
+
+}
+
+if(!confirm(
+"Valor bruto: "+moeda(bruto)+
+"\nValor final: "+moeda(total)+
+"\nDistribuir a diferença entre os produtos?"
+))return;
+
+for(const i of itens){
+
+i.custo_unitario=arred(
+i.valor_unitario_documento*total/bruto
+);
+
+}
+
+// Ajuste de centavos para itens unitários
+
+if(itens.every(i=>i.quantidade===1)){
+
+let diferenca=Math.round(total*100)-
+itens.reduce((s,i)=>s+Math.round(i.custo_unitario*100),0);
+
+const ordem=[...itens].sort((a,b)=>{
+
+const ra=a.valor_unitario_documento*total/bruto-a.custo_unitario;
+const rb=b.valor_unitario_documento*total/bruto-b.custo_unitario;
+
+return diferenca>0?rb-ra:ra-rb;
+
+});
+
+for(const i of ordem){
+
+if(!diferenca)break;
+
+const passo=Math.sign(diferenca);
+
+if(i.custo_unitario*100+passo<0)continue;
+
+i.custo_unitario=arred(i.custo_unitario+passo/100);
+
+diferenca-=passo;
+
+}
+
+}
+
+renderizar();
+
+msg("Custos rateados. Confira a diferença e os preços sugeridos.");
+
+}catch(e){msg(e.message,true);}
+
+};
+
+// OCR TRADICIONAL OPCIONAL
 
 function carregarScript(url){
+
 return new Promise((resolve,reject)=>{
+
 const s=document.createElement("script");
+
 s.src=url;
 s.onload=resolve;
-s.onerror=()=>reject(new Error("Falha ao carregar biblioteca."));
+s.onerror=()=>reject(new Error("Falha ao carregar OCR."));
+
 document.head.appendChild(s);
+
 });
+
 }
 
 $("ler").onclick=async()=>{
 
 if(ocupado)return;
+
 const f=$("arquivo").files[0];
 
-if(!f)return msg("Selecione uma foto ou PDF.",true);
-if(f.size>20*1024*1024){
-return msg("Selecione um arquivo de até 20 MB.",true);
-}
+if(!f)return msg("Selecione um documento.",true);
 
-ocupado=true;
-$("ler").disabled=true;
-$("importar").disabled=true;
+if(f.size>20*1024*1024)
+return msg("Arquivo acima de 20 MB.",true);
+
+if($("texto").value.trim()&&!confirm(
+"Substituir o texto reconhecido atual?"
+))return;
+
+guardar();
+
+bloquear(true);
+
+let worker,pdf;
+
 $("progresso").hidden=false;
-
-let worker;
-let pdf;
 
 try{
 
 if(!window.Tesseract){
+
 await carregarScript(
 "https://cdn.jsdelivr.net/npm/tesseract.js@6/dist/tesseract.min.js"
 );
+
 }
 
 worker=await Tesseract.createWorker("por",1,{
+
 logger:m=>{
+
+$("progresso").value=Math.round((m.progress||0)*100);
+
 $("leituraStatus").textContent=
-"Lendo documento: "+Math.round((m.progress||0)*100)+"%";
+"Processando documento: "+$("progresso").value+"%";
+
 }
+
 });
 
 let resultado="";
@@ -365,414 +1431,104 @@ data:new Uint8Array(await f.arrayBuffer()),
 isEvalSupported:false
 }).promise;
 
-if(pdf.numPages>10){
-throw new Error("Use documentos de até 10 páginas.");
-}
+if(pdf.numPages>10)
+throw new Error("Use PDFs de até 10 páginas.");
 
 for(let n=1;n<=pdf.numPages;n++){
 
-$("leituraStatus").textContent=
-"Lendo página "+n+" de "+pdf.numPages;
-
 const page=await pdf.getPage(n);
-const original=page.getViewport({scale:1});
-const scale=Math.min(3,2200/original.width);
-const view=page.getViewport({scale});
 
-const canvas=document.createElement("canvas");
-canvas.width=Math.ceil(view.width);
-canvas.height=Math.ceil(view.height);
+const v=page.getViewport({
+scale:Math.min(3,2200/page.getViewport({scale:1}).width)
+});
+
+const c=document.createElement("canvas");
+
+c.width=Math.ceil(v.width);
+c.height=Math.ceil(v.height);
 
 await page.render({
-canvasContext:canvas.getContext("2d"),
-viewport:view
+canvasContext:c.getContext("2d"),
+viewport:v
 }).promise;
 
-const r=await worker.recognize(canvas);
+const r=await worker.recognize(c);
 
 resultado+=r.data.text+"\n";
 
-canvas.width=1;
-canvas.height=1;
+c.width=c.height=1;
+
 }
 
 }else{
 
 const r=await worker.recognize(f);
+
 resultado=r.data.text;
 
 }
 
 $("texto").value=resultado;
-preencherCabecalho(resultado);
 
 $("leituraStatus").textContent=
-"Leitura concluída. Identifique e confira os produtos.";
+"Leitura concluída. Revise e organize o texto no formato de importação.";
 
-msg("Documento lido. Confira o texto reconhecido.");
+mudou();
 
 }catch(e){
+
 msg("Erro na leitura: "+e.message,true);
+
 }finally{
+
 if(worker)await worker.terminate().catch(()=>{});
 if(pdf)await pdf.destroy().catch(()=>{});
-ocupado=false;
-$("ler").disabled=false;
-$("importar").disabled=false;
+
 $("progresso").hidden=true;
-}
-};
 
-function preencherCabecalho(t){
+bloquear(false);
 
-const doc=t.match(/PEDIDO\s+DE\s+VENDA\s*:\s*(\d+)/i);
-
-if(doc&&!$("documento").value){
-$("documento").value=doc[1];
-}
-
-const data=t.match(/(\d{2})\/(\d{2})\/(\d{4})/);
-
-if(data&&!$("data").value){
-$("data").value=data[3]+"-"+data[2]+"-"+data[1];
-}
-
-const total=t.match(/TOTAL\s*:\s*R\$\s*([\d.]+,\d{2})/i);
-
-if(total&&!$("valorTotal").value){
-$("valorTotal").value=numero(total[1]).toFixed(2);
-}
-}
-
-// IDENTIFICAR ITENS
-
-function interpretar(t){
-
-const lista=[];
-
-for(const linhaOriginal of t.split(/\r?\n/)){
-
-const linha=linhaOriginal.trim();
-
-if(!linha)continue;
-
-// FORMATO MANUAL: CODIGO;DESCRICAO;QTD;VALOR
-
-const partes=linha.split(";");
-
-if(partes.length===4){
-
-const [c,d,q,v]=partes.map(s=>s.trim());
-const qtd=numero(q);
-const valor=numero(v);
-
-if(c&&d&&Number.isInteger(qtd)&&qtd>0&&
-Number.isFinite(valor)&&valor>=0){
-
-lista.push(novoItem(c,d,qtd,valor));
-continue;
+guardar();
 
 }
-}
 
-// FORMATO DO DOCUMENTO DO FORNECEDOR
-
-const m=linha.match(
-/^[^\d]{0,4}(\d{4,10})\s+([\d.]+,\d{2})\s+(\d+)[,.]00\s*(.*)$/
-);
-
-if(!m)continue;
-
-let descricao=m[4]
-.replace(/^(?:\s*\d{1,4}\s*){0,3}/,"")
-.split(/\bUN\b/i)[0]
-.trim();
-
-if(!/[A-Za-zÀ-ÿ]{3}/.test(descricao))continue;
-
-lista.push(novoItem(
-m[1],descricao,Number(m[3]),numero(m[2])
-));
-}
-
-return lista;
-}
-
-$("extrair").onclick=()=>{
-
-if(ocupado)return;
-
-try{
-
-if(itens.length&&!confirm("Substituir a lista em revisão?"))return;
-
-itens=interpretar($("texto").value);
-
-renderizar();
-
-msg(itens.length
-?itens.length+" itens identificados. Confira com o documento."
-:"Nenhum item reconhecido. Corrija o texto ou adicione manualmente.",
-!itens.length);
-
-}catch(e){
-msg(e.message,true);
-}
-};
-
-$("adicionar").onclick=()=>{
-if(ocupado)return;
-try{
-itens.push(novoItem());
-renderizar();
-}catch(e){msg(e.message,true);}
-};
-
-// CAMPOS EDITAVEIS
-
-function campo(p,label,tipo,valor,fn){
-
-texto(p,"label",label);
-
-const input=document.createElement("input");
-input.type=tipo;
-input.value=valor??"";
-
-if(tipo==="number"){
-input.min="0";
-input.step="0.01";
-}
-
-input.addEventListener("change",()=>{
-fn(input.value);
-mudou();
-});
-
-p.appendChild(input);
-return input;
-}
-
-function renderizar(){
-
-const container=$("itens");
-container.replaceChildren();
-
-itens.forEach((i,index)=>{
-
-const box=document.createElement("div");
-box.className="item";
-
-texto(box,"h3","Joia "+(index+1));
-
-campo(box,"Código","text",i.codigo,v=>{
-
-i.codigo=v.trim();
-
-const p=existente(i.codigo);
-
-i.acao=p?"vincular":"novo";
-i.quantidade_entrada=p?0:i.quantidade;
-
-renderizar();
-});
-
-campo(box,"Descrição","text",i.descricao,v=>{
-i.descricao=v;
-});
-
-campo(box,"Quantidade comprada","number",i.quantidade,v=>{
-i.quantidade=numero(v);
-});
-
-campo(box,"Valor unitário do documento","number",
-i.valor_unitario_documento,v=>{
-i.valor_unitario_documento=numero(v);
-});
-
-campo(box,"Custo unitário final","number",
-i.custo_unitario,v=>{
-i.custo_unitario=numero(v);
-renderizar();
-});
-
-campo(box,"Acréscimo (%)","number",i.percentual,v=>{
-i.percentual=numero(v);
-i.preco_manual=null;
-renderizar();
-});
-
-campo(box,"Preço de venda sugerido / manual","number",
-preco(i),v=>{
-i.preco_manual=numero(v);
-renderizar();
-});
-
-const p=existente(i.codigo);
-
-if(p){
-texto(box,"p",
-"Já cadastrado: "+p.nome+
-" | Estoque atual: "+p.estoque,
-"muted");
-}else{
-texto(box,"p","Novo produto: ficará inativo.","muted");
-}
-
-texto(box,"label","Ação de importação");
-
-const select=document.createElement("select");
-
-const opcoes=p
-?[["vincular","Vincular sem aumentar estoque"],
-["repor","Acrescentar ao estoque"]]
-:[["novo","Cadastrar nova joia"]];
-
-for(const [v,n] of opcoes){
-const op=document.createElement("option");
-op.value=v;
-op.textContent=n;
-select.appendChild(op);
-}
-
-select.value=i.acao;
-
-select.onchange=()=>{
-i.acao=select.value;
-i.quantidade_entrada=
-i.acao==="vincular"?0:i.quantidade;
-renderizar();
-};
-
-box.appendChild(select);
-
-campo(box,"Quantidade para entrada no estoque","number",
-i.quantidade_entrada,v=>{
-i.quantidade_entrada=numero(v);
-});
-
-texto(box,"p","Lucro bruto sugerido por unidade: "+
-moeda(preco(i)-i.custo_unitario),"muted");
-
-const remover=document.createElement("button");
-remover.textContent="Remover item";
-remover.className="danger";
-
-remover.onclick=()=>{
-if(ocupado)return;
-itens.splice(index,1);
-renderizar();
-};
-
-box.appendChild(remover);
-
-container.appendChild(box);
-});
-
-mudou();
-}
-
-function resumo(){
-
-const qtd=itens.reduce((s,i)=>s+i.quantidade,0);
-
-const custo=itens.reduce((s,i)=>
-s+i.custo_unitario*i.quantidade,0);
-
-const venda=itens.reduce((s,i)=>
-s+preco(i)*i.quantidade,0);
-
-$("totalItens").textContent=itens.length;
-$("totalQtd").textContent=qtd;
-$("totalCusto").textContent=moeda(custo);
-$("totalVenda").textContent=moeda(venda);
-
-$("diferenca").textContent=$("valorTotal").value
-?"Diferença para o total do documento: "+
-moeda(custo-Number($("valorTotal").value))
-:"Informe o valor final pago ao fornecedor.";
-}
-
-$("valorTotal").oninput=mudou;
-$("fornecedor").oninput=mudou;
-$("documento").oninput=mudou;
-$("data").oninput=mudou;
-
-$("recalcular").onclick=()=>{
-
-if(ocupado)return;
-
-try{
-
-if(!confirm("Recalcular todos os preços, inclusive os ajustados manualmente?"))return;
-
-for(const i of itens){
-i.percentual=padrao();
-i.preco_manual=null;
-}
-
-renderizar();
-
-}catch(e){msg(e.message,true);}
-};
-
-$("ratear").onclick=()=>{
-
-if(ocupado)return;
-
-const bruto=itens.reduce((s,i)=>
-s+i.valor_unitario_documento*i.quantidade,0);
-
-const total=Number($("valorTotal").value);
-
-if(!$("valorTotal").value||bruto<=0||total<=0){
-return msg("Confira os valores antes de ratear.",true);
-}
-
-if(!confirm("Distribuir o valor final da compra proporcionalmente entre as peças?"))return;
-
-for(const i of itens){
-i.custo_unitario=arred(
-i.valor_unitario_documento*total/bruto
-);
-}
-
-renderizar();
 };
 
 // IMPORTACAO DEFINITIVA
 
 $("importar").onclick=async()=>{
 
-if(ocupado)return;
+if(ocupado||!autorizado)return;
+
+let importado=false;
 
 try{
 
-if(!$("revisado").checked){
-throw new Error("Confirme a revisão dos dados.");
-}
+if(!$("revisado").checked)
+throw new Error("Confirme a revisão dos produtos.");
 
 const fornecedor=$("fornecedor").value.trim();
 const documento=$("documento").value.trim();
 const data=$("data").value;
-const total=Number($("valorTotal").value);
+const total=numero($("valorTotal").value);
+const percentual=padrao();
 
 if(!fornecedor||!documento||!data||
-!$("valorTotal").value||
 !Number.isFinite(total)||total<0){
 
 throw new Error("Preencha os dados da compra.");
 
 }
 
-if(!itens.length){
-throw new Error("Nenhuma joia informada.");
-}
+if(!itens.length)
+throw new Error("Nenhum produto informado.");
 
 const codigos=new Set();
 
 for(const i of itens){
 
-if(!i.codigo.trim()||!i.descricao.trim()||
+if(!String(i.codigo??"").trim()||
+!String(i.descricao??"").trim()||
 !Number.isInteger(i.quantidade)||i.quantidade<1||
 !Number.isFinite(i.custo_unitario)||i.custo_unitario<0||
 !Number.isFinite(i.valor_unitario_documento)||
@@ -781,71 +1537,130 @@ i.valor_unitario_documento<0||
 !Number.isFinite(preco(i))||preco(i)<0||
 !Number.isInteger(i.quantidade_entrada)||
 i.quantidade_entrada<0||
-i.quantidade_entrada>i.quantidade){
+i.quantidade_entrada>i.quantidade||
+!["novo","vincular","repor"].includes(i.acao)||
+(i.acao==="vincular"&&i.quantidade_entrada!==0)){
 
-throw new Error("Confira o item "+i.codigo);
+throw new Error("Confira o produto "+i.codigo);
 
 }
 
-if(codigos.has(normal(i.codigo))){
+if(codigos.has(normal(i.codigo)))
 throw new Error("Código repetido: "+i.codigo);
-}
 
 codigos.add(normal(i.codigo));
+
 }
 
 const soma=itens.reduce((s,i)=>
-s+i.custo_unitario*i.quantidade,0);
+s+Math.round(i.custo_unitario*100)*i.quantidade,0);
 
-if(Math.abs(soma-total)>0.05){
+if(Math.abs(soma-Math.round(total*100))>5){
+
 throw new Error(
 "Os custos não conferem com o total pago. Revise ou rateie o desconto."
 );
+
 }
 
-if(!confirm("Registrar esta compra e aplicar as quantidades de entrada revisadas?"))return;
+if(!confirm(
+"Registrar compra "+documento+
+"\nTotal: "+moeda(total)+
+"\nEntrada: "+$("qtdEntrada").textContent+" unidade(s)"+
+"\nConfirma os valores e o estoque?"
+))return;
 
-ocupado=true;
-$("importar").disabled=true;
+guardar();
 
-const {data:id,error}=await db.rpc("importar_compra",{
+bloquear(true);
+
+const {error}=await db.rpc("importar_compra",{
 
 p_fornecedor:fornecedor,
 p_numero_documento:documento,
 p_data_compra:data,
 p_valor_total:total,
-p_percentual:padrao(),
+p_percentual:percentual,
 p_itens:itens
 
 });
 
 if(error)throw error;
 
-itens=[];
-renderizar();
+importado=true;
 
-$("texto").value="";
-$("documento").value="";
-$("valorTotal").value="";
-$("arquivo").value="";
+limparCompra();
+
+$("rascunhoStatus").textContent=
+"✅ Compra importada. Rascunho finalizado.";
 
 msg("💎 Compra registrada com sucesso!");
 
-try{await atualizar();}
-catch(e){msg("Compra registrada. Atualize o histórico.",true);}
+await atualizar();
 
 }catch(e){
-msg("Importação: "+e.message,true);
+
+msg(
+
+importado?
+"Compra registrada. Atualize o histórico para conferir.":
+"Importação: "+e.message+
+". Confira o histórico antes de repetir.",
+
+!importado
+
+);
+
 }finally{
-ocupado=false;
-$("importar").disabled=false;
+
+bloquear(false);
+
+if(!importado)guardar();
+
 }
+
 };
 
 $("atualizar").onclick=async()=>{
-if(ocupado)return;
-try{await atualizar();}
-catch(e){msg(e.message,true);}
+
+if(ocupado||!autorizado)return;
+
+try{
+
+bloquear(true);
+
+await atualizar();
+
+for(const i of itens){
+
+const p=existente(i.codigo);
+
+if(p&&i.acao==="novo"){
+
+i.acao="vincular";
+i.quantidade_entrada=0;
+
+}else if(!p&&i.acao!=="novo"){
+
+i.acao="novo";
+i.quantidade_entrada=0;
+
+}
+
+}
+
+renderizar();
+
+}catch(e){msg(e.message,true);}
+
+finally{
+
+bloquear(false);
+
+guardar();
+
+}
+
 };
 
 // AUTENTICACAO
@@ -854,812 +1669,73 @@ async function iniciar(){
 
 try{
 
+if(!window.supabase?.createClient){
+
+throw new Error("Falha na conexão com o Supabase.");
+
+}
+
 db=window.supabase.createClient(URL_DB,KEY);
 
 const {data,error}=await db.auth.getUser();
 
 if(error||!data?.user){
-throw new Error("Entre primeiro no painel administrativo.");
+
+throw new Error("Entre primeiro pelo painel administrativo.");
+
 }
 
 const r=await db.from("administradores")
+
 .select("usuario_id")
+
 .eq("usuario_id",data.user.id)
+
 .maybeSingle();
 
 if(r.error)throw r.error;
 
-if(!r.data){
-throw new Error("Acesso não autorizado.");
-}
+if(!r.data)throw new Error("Acesso não autorizado.");
 
-await atualizar();
+chave="silverlove_compra_rascunho_v1_"+data.user.id;
 
-$("acesso").hidden=true;
-$("painel").hidden=false;
+autorizado=true;
 
 db.auth.onAuthStateChange(event=>{
 
 if(event==="SIGNED_OUT"){
+
+autorizado=false;
+
 $("painel").hidden=true;
+
 location.href="admin.html";
+
 }
 
 });
 
+await atualizar();
+
+if(!autorizado)return;
+
+restaurar();
+
+$("acesso").hidden=true;
+
+$("painel").hidden=false;
+
 }catch(e){
+
+autorizado=false;
+
 $("acesso").textContent=e.message;
+
 }
+
 }
 
 iniciar();
 </script>
 </body>
 </html>
-
-<script>
-(function(){
-
-let modoCompra="historica";
-
-const novoItemOriginal=novoItem;
-const resumoOriginal=resumo;
-
-const painel=document.createElement("div");
-painel.className="item";
-
-painel.innerHTML=`
-<h2>📦 Conferência rápida de estoque</h2>
-<label>Tipo de compra</label>
-
-<select id="modoCompra">
-<option value="historica">Compra histórica</option>
-<option value="nova">Compra nova ou reposição</option>
-</select>
-
-<p class="muted">
-Marque somente as peças que realmente possui.
-Os produtos existentes não terão o estoque
-duplicado automaticamente.
-</p>
-
-<div class="grid">
-<div class="metric">
-Unidades para entrada
-<strong id="qtdEntrada">0</strong>
-</div>
-<div class="metric">
-Produtos vinculados
-<strong id="qtdVinculados">0</strong>
-</div>
-</div>
-`;
-
-$("itens").before(painel);
-
-novoItem=function(codigo="",descricao="",qtd=1,valor=0){
-
-const i=novoItemOriginal(
-codigo,descricao,qtd,valor
-);
-
-if(modoCompra==="historica"){
-i.quantidade_entrada=0;
-}
-
-return i;
-};
-
-resumo=function(){
-
-resumoOriginal();
-
-$("qtdEntrada").textContent=itens.reduce(
-(s,i)=>s+Number(i.quantidade_entrada||0),0
-);
-
-$("qtdVinculados").textContent=itens.filter(
-i=>i.acao==="vincular"
-).length;
-
-};
-
-$("modoCompra").onchange=()=>{
-
-const novoModo=$("modoCompra").value;
-
-if(itens.length&&!confirm(
-"Alterar o modo e redefinir as quantidades de entrada?"
-)){
-$("modoCompra").value=modoCompra;
-return;
-}
-
-modoCompra=novoModo;
-
-for(const i of itens){
-
-const p=existente(i.codigo);
-
-i.acao=p?"vincular":"novo";
-
-i.quantidade_entrada=
-p||modoCompra==="historica"
-?0:i.quantidade;
-
-}
-
-renderizar();
-
-};
-
-renderizar=function(){
-
-const container=$("itens");
-container.replaceChildren();
-
-itens.forEach((i,index)=>{
-
-const p=existente(i.codigo);
-
-const box=document.createElement("div");
-box.className="item";
-
-texto(box,"strong",
-(index+1)+". "+(i.descricao||"Nova joia"));
-
-texto(box,"p","Código: "+i.codigo,"muted");
-
-const valor=texto(box,"p","","muted");
-
-function atualizarValor(){
-
-valor.textContent=
-"Custo: "+moeda(i.custo_unitario)+
-" | Venda sugerida: "+moeda(preco(i));
-
-}
-
-atualizarValor();
-
-if(p){
-
-texto(box,"p",
-"✅ Produto já cadastrado","muted");
-
-texto(box,"p",
-"Estoque atual: "+p.estoque+
-" | Preço atual: "+moeda(p.preco),
-"muted");
-
-const acao=document.createElement("select");
-
-for(const [v,n] of [
-["vincular","Vincular sem aumentar estoque"],
-["repor","Acrescentar ao estoque"]
-]){
-
-const op=document.createElement("option");
-op.value=v;
-op.textContent=n;
-acao.appendChild(op);
-
-}
-
-acao.value=i.acao;
-
-acao.onchange=()=>{
-
-i.acao=acao.value;
-
-i.quantidade_entrada=
-i.acao==="repor"?i.quantidade:0;
-
-renderizar();
-
-};
-
-box.appendChild(acao);
-
-if(i.acao==="repor"){
-
-const entrada=campo(
-box,"Quantidade para reposição",
-"number",i.quantidade_entrada,v=>{
-i.quantidade_entrada=numero(v);
-});
-
-entrada.step="1";
-entrada.max=i.quantidade;
-
-}
-
-texto(box,"p",
-"O preço atual será preservado.",
-"muted");
-
-}else{
-
-const linha=document.createElement("div");
-linha.className="check";
-
-const check=document.createElement("input");
-check.type="checkbox";
-check.id="estoqueItem"+index;
-check.checked=i.quantidade_entrada>0;
-
-const label=document.createElement("label");
-label.htmlFor=check.id;
-label.textContent="Ainda tenho esta joia";
-
-linha.append(check,label);
-box.appendChild(linha);
-
-check.onchange=()=>{
-
-i.acao="novo";
-
-i.quantidade_entrada=
-check.checked?i.quantidade:0;
-
-renderizar();
-
-};
-
-if(i.quantidade>1&&check.checked){
-
-const entrada=campo(
-box,"Quantidade que ainda possui",
-"number",i.quantidade_entrada,v=>{
-i.quantidade_entrada=numero(v);
-});
-
-entrada.step="1";
-entrada.max=i.quantidade;
-
-}
-
-texto(box,"p",
-i.quantidade_entrada>0
-?"📦 Entrada: "+i.quantidade_entrada+" unidade(s)"
-:"Sem entrada no estoque",
-"muted");
-
-}
-
-const detalhes=document.createElement("details");
-
-texto(detalhes,"summary",
-"Editar descrição, custos e preços");
-
-campo(detalhes,"Código","text",i.codigo,v=>{
-
-i.codigo=v.trim();
-
-const existenteAgora=existente(i.codigo);
-
-i.acao=existenteAgora?"vincular":"novo";
-
-i.quantidade_entrada=
-existenteAgora||modoCompra==="historica"
-?0:i.quantidade;
-
-renderizar();
-
-});
-
-campo(detalhes,"Descrição","text",i.descricao,v=>{
-i.descricao=v;
-});
-
-const quantidade=campo(
-detalhes,"Quantidade comprada",
-"number",i.quantidade,v=>{
-
-i.quantidade=numero(v);
-
-i.quantidade_entrada=Math.min(
-i.quantidade_entrada,i.quantidade
-);
-
-renderizar();
-
-});
-
-quantidade.step="1";
-quantidade.min="1";
-
-campo(
-detalhes,"Valor unitário do documento",
-"number",i.valor_unitario_documento,v=>{
-i.valor_unitario_documento=numero(v);
-});
-
-campo(
-detalhes,"Custo unitário final",
-"number",i.custo_unitario,v=>{
-i.custo_unitario=numero(v);
-atualizarValor();
-});
-
-campo(
-detalhes,"Acréscimo (%)",
-"number",i.percentual,v=>{
-
-i.percentual=numero(v);
-i.preco_manual=null;
-atualizarValor();
-precoInput.value=preco(i).toFixed(2);
-
-});
-
-const precoInput=campo(
-detalhes,"Preço de venda manual",
-"number",preco(i),v=>{
-i.preco_manual=numero(v);
-atualizarValor();
-});
-
-const recalcular=document.createElement("button");
-
-recalcular.textContent="Restaurar preço automático";
-recalcular.className="secondary";
-
-recalcular.onclick=()=>{
-
-i.preco_manual=null;
-i.percentual=padrao();
-renderizar();
-
-};
-
-detalhes.appendChild(recalcular);
-
-const remover=document.createElement("button");
-
-remover.textContent="Remover item";
-remover.className="danger";
-
-remover.onclick=()=>{
-
-if(ocupado)return;
-
-if(!confirm("Remover esta joia da compra?"))return;
-
-itens.splice(index,1);
-renderizar();
-
-};
-
-detalhes.appendChild(remover);
-box.appendChild(detalhes);
-
-container.appendChild(box);
-
-});
-
-mudou();
-
-};
-
-$("percentual").addEventListener("input",mudou);
-
-for(const i of itens){
-
-const p=existente(i.codigo);
-
-i.acao=p?"vincular":"novo";
-i.quantidade_entrada=0;
-
-}
-
-renderizar();
-
-})();
-  </script>
-  
-
-<script>
-(function(){
-
-if(document.getElementById("rascunhoBox"))return;
-
-let chave=null;
-let restaurando=false;
-let importando=false;
-
-const campos=[
-"fornecedor",
-"documento",
-"data",
-"valorTotal",
-"percentual",
-"texto"
-];
-
-const box=document.createElement("section");
-box.className="card";
-box.id="rascunhoBox";
-
-box.innerHTML=`
-<h2>💾 Rascunho da compra</h2>
-
-<p id="rascunhoStatus" class="muted">
-Verificando rascunho...
-</p>
-
-<div class="actions">
-
-<button id="salvarRascunho" class="green">
-Salvar rascunho
-</button>
-
-<button id="restaurarRascunho" class="secondary">
-Restaurar rascunho
-</button>
-
-<button id="descartarRascunho" class="danger">
-Descartar rascunho
-</button>
-
-</div>
-
-<p class="muted">
-Os dados são salvos neste navegador.
-A foto ou PDF original não será guardado.
-</p>
-`;
-
-$("painel").prepend(box);
-
-function status(t){
-$("rascunhoStatus").textContent=t;
-}
-
-function guardar(){
-
-if(!chave||restaurando||importando||
-$("painel").hidden)return;
-
-try{
-
-const dados={};
-
-for(const id of campos){
-dados[id]=$(id).value;
-}
-
-const temDados=itens.length>0||
-campos.some(id=>
-id!=="percentual"&&dados[id].trim()!==""
-);
-
-if(!temDados){
-localStorage.removeItem(chave);
-status("Nenhum rascunho pendente.");
-return;
-}
-
-const rascunho={
-dados:dados,
-itens:itens,
-modo:$("modoCompra")?.value||"historica",
-salvoEm:new Date().toISOString()
-};
-
-localStorage.setItem(
-chave,
-JSON.stringify(rascunho)
-);
-
-status(
-"✅ Rascunho salvo automaticamente às "+
-new Date().toLocaleTimeString("pt-BR")+
-" | "+itens.length+" item(ns)."
-);
-
-}catch(e){
-
-status(
-"Não foi possível salvar o rascunho. "+
-"Verifique o armazenamento do navegador."
-);
-
-}
-
-}
-
-function restaurar(){
-
-if(!chave||ocupado)return;
-
-restaurando=true;
-
-try{
-
-const salvo=localStorage.getItem(chave);
-
-if(!salvo){
-status("Nenhum rascunho anterior encontrado.");
-return;
-}
-
-const r=JSON.parse(salvo);
-
-itens=[];
-
-for(const id of campos){
-
-if(r.dados?.[id]!==undefined){
-$(id).value=r.dados[id];
-}
-
-}
-
-const modo=$("modoCompra");
-
-if(modo){
-
-modo.value=r.modo==="nova"
-?"nova":"historica";
-
-modo.onchange();
-
-}
-
-itens=Array.isArray(r.itens)?r.itens:[];
-
-let revisao=false;
-
-for(const i of itens){
-
-const p=existente(i.codigo);
-
-if(p&&i.acao==="novo"){
-i.acao="vincular";
-i.quantidade_entrada=0;
-revisao=true;
-}
-
-if(!p&&i.acao!=="novo"){
-i.acao="novo";
-i.quantidade_entrada=0;
-revisao=true;
-}
-
-}
-
-renderizar();
-
-$("revisado").checked=false;
-
-status(
-"✅ Rascunho recuperado: "+
-itens.length+" item(ns). "+
-(revisao
-?"Existem mudanças nos produtos. Confira o estoque."
-:"Confira os dados antes de importar.")
-);
-
-}catch(e){
-
-status("Não foi possível recuperar o rascunho.");
-
-}finally{
-
-restaurando=false;
-
-}
-
-}
-
-$("salvarRascunho").onclick=guardar;
-
-$("restaurarRascunho").onclick=()=>{
-
-if(ocupado)return;
-
-if(confirm("Restaurar o último rascunho salvo?")){
-restaurar();
-}
-
-};
-
-$("descartarRascunho").onclick=()=>{
-
-if(!chave||ocupado)return;
-
-if(!confirm(
-"Descartar o rascunho desta compra? "+
-"Os produtos já salvos não serão excluídos."
-))return;
-
-restaurando=true;
-
-try{
-
-localStorage.removeItem(chave);
-
-itens=[];
-
-for(const id of campos){
-$(id).value="";
-}
-
-$("percentual").value="110";
-$("arquivo").value="";
-$("leituraStatus").textContent="";
-$("revisado").checked=false;
-
-if($("modoCompra")){
-$("modoCompra").value="historica";
-$("modoCompra").onchange();
-}
-
-renderizar();
-
-status("Rascunho descartado.");
-
-}catch(e){
-
-status("Não foi possível descartar o rascunho.");
-
-}finally{
-
-restaurando=false;
-
-}
-
-};
-
-// SALVAR ALTERACOES NOS PRODUTOS
-
-const resumoAnterior=resumo;
-
-resumo=function(){
-
-resumoAnterior();
-
-guardar();
-
-};
-
-$("painel").addEventListener(
-"input",guardar
-);
-
-$("painel").addEventListener(
-"change",guardar
-);
-
-// SALVAR APOS LEITURA DO DOCUMENTO
-
-const lerAnterior=$("ler").onclick;
-
-$("ler").onclick=async function(e){
-
-try{
-await lerAnterior.call(this,e);
-}finally{
-guardar();
-}
-
-};
-
-// LIMPAR RASCUNHO APOS IMPORTACAO
-
-const importarAnterior=$("importar").onclick;
-
-$("importar").onclick=async function(e){
-
-if(ocupado||importando)return;
-
-const quantidadeAnterior=itens.length;
-
-guardar();
-
-importando=true;
-
-try{
-
-await importarAnterior.call(this,e);
-
-if(quantidadeAnterior>0&&
-itens.length===0&&
-$("documento").value===""){
-
-localStorage.removeItem(chave);
-
-$("fornecedor").value="";
-$("data").value="";
-$("texto").value="";
-$("valorTotal").value="";
-$("percentual").value="110";
-
-status(
-"✅ Compra importada. Rascunho finalizado."
-);
-
-}
-
-}catch(e){
-
-status("Confira o histórico da compra.");
-
-}finally{
-
-importando=false;
-
-if(itens.length>0){
-guardar();
-}
-
-}
-
-};
-
-// PROTEGER CONTRA ATUALIZACAO DA PAGINA
-
-window.addEventListener(
-"pagehide",guardar
-);
-
-document.addEventListener(
-"visibilitychange",()=>{
-
-if(document.visibilityState==="hidden"){
-guardar();
-}
-
-});
-
-// RECUPERAR SOMENTE APOS LOGIN
-
-async function iniciarRascunho(){
-
-try{
-
-const {data,error}=await db.auth.getUser();
-
-if(error||!data?.user)return;
-
-chave="silverlove_compra_rascunho_v1_"+
-data.user.id;
-
-restaurar();
-
-}catch(e){
-
-status("Armazenamento de rascunho indisponível.");
-
-}
-
-}
-
-const observador=new MutationObserver(()=>{
-
-if(!$("painel").hidden){
-
-observador.disconnect();
-
-iniciarRascunho();
-
-}
-
-});
-
-observador.observe($("painel"),{
-attributes:true,
-attributeFilter:["hidden"]
-});
-
-if(!$("painel").hidden){
-
-observador.disconnect();
-
-iniciarRascunho();
-
-}
-
-})();
-</script>
