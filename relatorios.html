@@ -1,0 +1,696 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Silver Love | Relatórios</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff3f8;color:#492537;font-family:Arial,sans-serif}
+header{background:linear-gradient(120deg,#801b4c,#c13a7b);color:white;text-align:center;padding:25px}
+header h1{margin:0}
+main{max-width:1000px;margin:auto;padding:15px}
+.card{background:white;border-radius:16px;padding:20px;margin:15px 0;box-shadow:0 4px 18px #7d20451a}
+h2,h3{color:#922957}
+h2{margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.metric{background:#fff3f8;padding:14px;border-radius:12px;overflow-wrap:anywhere}
+.metric strong{display:block;color:#922957;font-size:22px;margin-top:8px}
+small,.muted{color:#806b77;font-size:13px;line-height:1.5}
+label{display:block;font-weight:bold;margin:12px 0 7px}
+select,input{width:100%;padding:13px;font-size:16px;border:1px solid #dab4c6;border-radius:9px;background:white;color:#492537}
+button,.btn{display:inline-block;padding:13px 16px;border:0;border-radius:10px;background:#a92c66;color:white;text-decoration:none;font-size:15px;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.5}
+.green{background:#28854c}
+.gray{background:#74606d}
+.red{color:#b93655}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0}
+.item{padding:14px 0;border-bottom:1px solid #ead6df;overflow-wrap:anywhere}
+.trilha{height:10px;background:#f2e4eb;border-radius:8px;overflow:hidden;margin:7px 0 12px}
+.barra{height:100%;border-radius:8px}
+.msg{padding:14px;background:#ffe1e7;color:#902b45;border-radius:10px}
+[hidden]{display:none!important}
+@media(min-width:720px){.indicadores{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media print{
+body{background:white}
+header{background:white;color:#922957}
+.actions,.filtros,button{display:none!important}
+.card{box-shadow:none;border:1px solid #ddd}
+.metric,.item{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>💎 Silver Love</h1>
+<p>Prata e Folheados a Ouro</p>
+<p>Central de Relatórios</p>
+</header>
+
+<main>
+
+<nav class="actions">
+<a class="btn gray" href="admin.html">← Painel</a>
+<a class="btn" href="vendas.html">Vendas</a>
+<a class="btn" href="despesas.html">Despesas</a>
+</nav>
+
+<div id="mensagem" class="msg" hidden></div>
+
+<section id="acesso" class="card">
+Validando acesso administrativo...
+</section>
+
+<div id="painel" hidden>
+
+<section class="card">
+
+<h2>📅 Período do relatório</h2>
+
+<div class="grid filtros">
+
+<div>
+<label>Ano</label>
+<select id="ano"></select>
+</div>
+
+<div>
+<label>Mês</label>
+<select id="mes">
+<option value="">Ano completo</option>
+<option value="01">Janeiro</option>
+<option value="02">Fevereiro</option>
+<option value="03">Março</option>
+<option value="04">Abril</option>
+<option value="05">Maio</option>
+<option value="06">Junho</option>
+<option value="07">Julho</option>
+<option value="08">Agosto</option>
+<option value="09">Setembro</option>
+<option value="10">Outubro</option>
+<option value="11">Novembro</option>
+<option value="12">Dezembro</option>
+</select>
+</div>
+
+</div>
+
+<p id="periodo"></p>
+
+<div class="actions">
+<button id="atualizar" class="gray">Atualizar dados</button>
+<button id="pdf">Salvar PDF</button>
+<button id="excel" class="green">Exportar CSV</button>
+</div>
+
+</section>
+
+<section class="card">
+<h2>💰 Resultado financeiro</h2>
+<div id="indicadores" class="grid indicadores"></div>
+<p id="aviso" class="muted"></p>
+</section>
+
+<section class="card">
+<h2>📈 Evolução mensal</h2>
+<p class="muted">Rosa: faturamento | Verde: lucro | Vermelho: despesas ou prejuízo.</p>
+<div id="grafico"></div>
+</section>
+
+<section class="card">
+<h2>🏆 Joias mais vendidas</h2>
+<div id="ranking"></div>
+</section>
+
+<section class="card">
+<h2>🧾 Despesas por categoria</h2>
+<div id="categorias"></div>
+</section>
+
+<section class="card">
+<h2>📦 Posição atual do estoque</h2>
+<div id="estoque" class="grid"></div>
+<p id="avisoEstoque" class="muted"></p>
+</section>
+
+<p class="muted">
+O resultado considera os lançamentos registrados.
+O capital em estoque não representa dinheiro disponível em caixa.
+</p>
+
+</div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<script>
+"use strict";
+
+const URL_DB="https://xyybmzfodlvwljhhfxhe.supabase.co";
+const KEY="sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
+
+const $=id=>document.getElementById(id);
+
+const moeda=v=>Number(v).toLocaleString("pt-BR",{
+style:"currency",currency:"BRL"
+});
+
+const meses=[
+"Janeiro","Fevereiro","Março","Abril",
+"Maio","Junho","Julho","Agosto",
+"Setembro","Outubro","Novembro","Dezembro"
+];
+
+let db;
+let autorizado=false;
+let ocupado=false;
+let vendas=[],despesas=[],produtos=[],custos=[];
+let ok={};
+
+function texto(p,tag,t,cls){
+const e=document.createElement(tag);
+e.textContent=String(t??"");
+if(cls)e.className=cls;
+p.appendChild(e);
+return e;
+}
+
+function metrica(p,t,v,cor){
+const c=texto(p,"div","","metric");
+texto(c,"small",t);
+const n=texto(c,"strong",v);
+if(cor)n.style.color=cor;
+}
+
+function mensagem(t){
+$("mensagem").textContent=t;
+$("mensagem").hidden=!t;
+}
+
+function mesData(d){
+const p=new Intl.DateTimeFormat("pt-BR",{
+year:"numeric",month:"2-digit",
+timeZone:"America/Sao_Paulo"
+}).formatToParts(new Date(d));
+
+return p.find(x=>x.type==="year").value+"-"+
+p.find(x=>x.type==="month").value;
+}
+
+function prefixo(){
+return $("ano").value+
+($("mes").value?"-"+$("mes").value:"");
+}
+
+async function consultar(t,c,ordem="id"){
+const lista=[];
+
+for(let i=0;;i+=500){
+const {data,error}=await db.from(t)
+.select(c).order(ordem).range(i,i+499);
+
+if(error)throw error;
+lista.push(...(data||[]));
+
+if(!data||data.length<500)return lista;
+}
+}
+
+async function carregar(){
+if(ocupado||!autorizado)return;
+
+ocupado=true;
+$("atualizar").disabled=true;
+$("excel").disabled=true;
+$("pdf").disabled=true;
+
+try{
+const r=await Promise.allSettled([
+
+consultar("financeiro_vendas",
+"id,produto_id,codigo,nome_produto,quantidade,preco_unitario,custo_unitario,desconto,vendido_em"),
+
+consultar("financeiro_despesas",
+"id,categoria,valor,data_despesa"),
+
+consultar("produtos",
+"id,nome,estoque,preco,imagem_url"),
+
+consultar("financeiro_custos",
+"produto_id,custo_unitario","produto_id")
+
+]);
+
+if(!autorizado)return;
+
+const nomes=["vendas","despesas","produtos","custos"];
+
+nomes.forEach((n,i)=>{
+ok[n]=r[i].status==="fulfilled";
+});
+
+vendas=ok.vendas?r[0].value:[];
+despesas=ok.despesas?r[1].value:[];
+produtos=ok.produtos?r[2].value:[];
+custos=ok.custos?r[3].value:[];
+
+const falhas=nomes.filter(n=>!ok[n]);
+
+mensagem(falhas.length?
+"Não foi possível consultar: "+falhas.join(", "):"");
+
+montarAnos();
+renderizar();
+
+}catch(e){
+mensagem("Erro: "+e.message);
+}finally{
+ocupado=false;
+$("atualizar").disabled=false;
+$("pdf").disabled=!autorizado;
+$("excel").disabled=!autorizado||!ok.vendas||!ok.despesas;
+}
+}
+
+function montarAnos(){
+const s=$("ano");
+const atual=mesData(new Date()).slice(0,4);
+const anterior=s.value||atual;
+const anos=new Set([atual,anterior]);
+
+for(const v of vendas){
+anos.add(mesData(v.vendido_em).slice(0,4));
+}
+
+for(const d of despesas){
+anos.add(String(d.data_despesa).slice(0,4));
+}
+
+s.replaceChildren();
+
+for(const a of [...anos].sort().reverse()){
+const op=texto(s,"option",a);
+op.value=a;
+}
+
+s.value=anterior;
+}
+
+function dadosPeriodo(p){
+const vs=vendas.filter(v=>
+mesData(v.vendido_em).startsWith(p));
+
+const ds=despesas.filter(d=>
+String(d.data_despesa).startsWith(p));
+
+let receita=0,custo=0,unidades=0,semCusto=0;
+
+for(const v of vs){
+receita+=Number(v.preco_unitario)*
+Number(v.quantidade)-Number(v.desconto||0);
+
+unidades+=Number(v.quantidade);
+
+if(v.custo_unitario==null){
+semCusto++;
+}else{
+custo+=Number(v.custo_unitario)*Number(v.quantidade);
+}
+}
+
+const gastos=ds.reduce((s,d)=>s+Number(d.valor),0);
+const bruto=receita-custo;
+const liquido=bruto-gastos;
+const lucroOK=ok.vendas&&semCusto===0;
+const liquidoOK=lucroOK&&ok.despesas;
+
+return {
+vs,ds,receita,custo,gastos,bruto,liquido,
+unidades,semCusto,lucroOK,liquidoOK
+};
+}
+
+function renderFinanceiro(){
+const p=prefixo();
+const t=dadosPeriodo(p);
+const h=$("indicadores");
+
+h.replaceChildren();
+
+$("periodo").textContent=$("mes").value?
+meses[Number($("mes").value)-1]+" / "+$("ano").value:
+"Ano de "+$("ano").value;
+
+metrica(h,"Faturamento",
+ok.vendas?moeda(t.receita):"—");
+
+metrica(h,"Custo das vendas",
+t.lucroOK?moeda(t.custo):"—");
+
+metrica(h,"Lucro bruto",
+t.lucroOK?moeda(t.bruto):"—",
+t.bruto>=0?"#28854c":"#b93655");
+
+metrica(h,"Despesas",
+ok.despesas?moeda(t.gastos):"—","#b93655");
+
+metrica(h,"Lucro líquido estimado",
+t.liquidoOK?moeda(t.liquido):"—",
+t.liquido>=0?"#28854c":"#b93655");
+
+metrica(h,"Margem líquida",
+t.liquidoOK&&t.receita>0?
+(t.liquido/t.receita*100).toFixed(1)
+.replace(".",",")+"%":"—");
+
+metrica(h,"Joias vendidas",
+ok.vendas?t.unidades:"—");
+
+metrica(h,"Vendas registradas",
+ok.vendas?t.vs.length:"—");
+
+$("aviso").textContent=t.semCusto?
+t.semCusto+" venda(s) sem custo de aquisição. Lucro indisponível.":
+"Resultado parcial baseado nos lançamentos do período.";
+}
+
+function barra(p,t,v,max,cor,formatar=moeda){
+texto(p,"small",t+" — "+formatar(v));
+const trilha=texto(p,"div","","trilha");
+const b=texto(trilha,"div","","barra");
+
+b.style.width=Math.min(100,
+Math.abs(v)/Math.max(1,max)*100)+"%";
+
+b.style.background=cor;
+}
+
+function renderGrafico(){
+const h=$("grafico");
+h.replaceChildren();
+
+if(!ok.vendas||!ok.despesas){
+h.textContent="Dados financeiros indisponíveis.";
+return;
+}
+
+const ano=$("ano").value;
+
+const lista=meses.map((nome,i)=>({
+nome,
+...dadosPeriodo(ano+"-"+String(i+1).padStart(2,"0"))
+}));
+
+const max=Math.max(1,...lista.flatMap(t=>[
+Math.abs(t.receita),
+Math.abs(t.gastos),
+t.liquidoOK?Math.abs(t.liquido):0
+]));
+
+for(const t of lista){
+const c=texto(h,"div","","item");
+
+texto(c,"strong",t.nome);
+
+barra(c,"Faturamento",t.receita,max,"#a92c66");
+barra(c,"Despesas",t.gastos,max,"#b93655");
+
+if(t.liquidoOK){
+barra(c,"Resultado líquido",t.liquido,max,
+t.liquido>=0?"#28854c":"#b93655");
+}else{
+texto(c,"small","Lucro indisponível");
+}
+}
+}
+
+function renderRanking(){
+const h=$("ranking");
+h.replaceChildren();
+
+if(!ok.vendas){
+h.textContent="Vendas indisponíveis.";
+return;
+}
+
+const {vs}=dadosPeriodo(prefixo());
+const mapa=new Map();
+
+for(const v of vs){
+const chave=v.produto_id||v.codigo||v.nome_produto;
+
+const a=mapa.get(chave)||{
+nome:v.nome_produto,
+codigo:v.codigo,
+qtd:0,
+receita:0,
+custo:0,
+incompleto:false
+};
+
+a.qtd+=Number(v.quantidade);
+a.receita+=Number(v.preco_unitario)*
+Number(v.quantidade)-Number(v.desconto||0);
+
+if(v.custo_unitario==null){
+a.incompleto=true;
+}else{
+a.custo+=Number(v.custo_unitario)*Number(v.quantidade);
+}
+
+mapa.set(chave,a);
+}
+
+const lista=[...mapa.values()]
+.sort((a,b)=>b.qtd-a.qtd);
+
+if(!lista.length){
+h.textContent="Nenhuma venda no período.";
+return;
+}
+
+const max=lista[0].qtd;
+
+lista.slice(0,20).forEach((a,i)=>{
+const c=texto(h,"div","","item");
+
+texto(c,"strong",(i+1)+"º — "+a.nome);
+texto(c,"p","Código: "+(a.codigo||"—"),"muted");
+
+barra(c,"Unidades vendidas",a.qtd,max,"#a92c66",
+v=>v+" un.");
+
+texto(c,"p","Faturamento: "+moeda(a.receita));
+
+texto(c,"p",a.incompleto?
+"Lucro bruto indisponível":
+"Lucro bruto: "+moeda(a.receita-a.custo));
+});
+}
+
+function renderCategorias(){
+const h=$("categorias");
+h.replaceChildren();
+
+if(!ok.despesas){
+h.textContent="Despesas indisponíveis.";
+return;
+}
+
+const t=dadosPeriodo(prefixo());
+const mapa=new Map();
+
+for(const d of t.ds){
+mapa.set(d.categoria,
+(mapa.get(d.categoria)||0)+Number(d.valor));
+}
+
+if(!mapa.size){
+h.textContent="Nenhuma despesa no período.";
+return;
+}
+
+for(const [nome,v] of [...mapa].sort((a,b)=>b[1]-a[1])){
+barra(h,nome,v,t.gastos,"#a92c66");
+}
+}
+
+function renderEstoque(){
+const h=$("estoque");
+h.replaceChildren();
+
+const mapa=new Map(custos.map(c=>[
+c.produto_id,Number(c.custo_unitario)
+]));
+
+const disponiveis=produtos.filter(p=>p.estoque>0);
+
+let unidades=0,capital=0,estimativa=0,faltam=0;
+
+for(const p of disponiveis){
+unidades+=Number(p.estoque);
+estimativa+=Number(p.preco)*Number(p.estoque);
+
+if(mapa.has(p.id)){
+capital+=mapa.get(p.id)*Number(p.estoque);
+}else{
+faltam++;
+}
+}
+
+metrica(h,"Unidades disponíveis",
+ok.produtos?unidades:"—");
+
+metrica(h,"Capital em estoque",
+ok.produtos&&ok.custos&&!faltam?moeda(capital):"—");
+
+metrica(h,"Valor potencial de venda",
+ok.produtos?moeda(estimativa):"—");
+
+metrica(h,"Produtos aguardando fotos",
+ok.produtos?disponiveis.filter(p=>!p.imagem_url).length:"—");
+
+$("avisoEstoque").textContent=
+!ok.produtos||!ok.custos?
+"Dados do estoque ou dos custos indisponíveis.":
+faltam?faltam+" produto(s) sem custo cadastrado.":
+"Valor potencial baseado nos preços atuais, não em vendas realizadas.";
+}
+
+function renderizar(){
+if(!autorizado)return;
+renderFinanceiro();
+renderGrafico();
+renderRanking();
+renderCategorias();
+renderEstoque();
+}
+
+// EXPORTAR RELATÓRIO
+
+function exportarCSV(){
+if(!autorizado||!ok.vendas||!ok.despesas)return;
+
+const linhas=[[
+"Período","Faturamento","Custo das vendas",
+"Lucro bruto","Despesas","Lucro líquido",
+"Unidades vendidas","Vendas sem custo"
+]];
+
+const ano=$("ano").value;
+
+const periodos=$("mes").value?
+[prefixo()]:
+meses.map((_,i)=>ano+"-"+String(i+1).padStart(2,"0"));
+
+const decimal=v=>Number(v).toFixed(2).replace(".",",");
+
+for(const p of periodos){
+const t=dadosPeriodo(p);
+
+linhas.push([
+p,
+decimal(t.receita),
+t.lucroOK?decimal(t.custo):"",
+t.lucroOK?decimal(t.bruto):"",
+decimal(t.gastos),
+t.liquidoOK?decimal(t.liquido):"",
+t.unidades,
+t.semCusto
+]);
+}
+
+const csv=linhas.map(l=>
+l.map(v=>'"'+String(v).replace(/"/g,'""')+'"')
+.join(";")).join("\r\n");
+
+const blob=new Blob(["\uFEFF",csv],{
+type:"text/csv;charset=utf-8"
+});
+
+const url=URL.createObjectURL(blob);
+const a=document.createElement("a");
+
+a.href=url;
+a.download="Silver-Love-"+prefixo()+".csv";
+
+document.body.appendChild(a);
+a.click();
+a.remove();
+
+setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+$("excel").onclick=exportarCSV;
+
+$("pdf").onclick=()=>{
+if(autorizado)window.print();
+};
+
+$("atualizar").onclick=carregar;
+$("ano").onchange=renderizar;
+$("mes").onchange=renderizar;
+
+// VALIDAR LOGIN ADMINISTRATIVO
+
+async function iniciar(){
+
+try{
+if(!window.supabase?.createClient){
+throw new Error("Falha ao conectar ao Supabase.");
+}
+
+db=window.supabase.createClient(URL_DB,KEY);
+
+const {data,error}=await db.auth.getUser();
+
+if(error||!data?.user){
+throw new Error("Entre primeiro pelo painel administrativo.");
+}
+
+const r=await db.from("administradores")
+.select("usuario_id")
+.eq("usuario_id",data.user.id)
+.maybeSingle();
+
+if(r.error)throw r.error;
+
+if(!r.data){
+throw new Error("Acesso não autorizado.");
+}
+
+autorizado=true;
+
+$("mes").value=mesData(new Date()).slice(5,7);
+
+db.auth.onAuthStateChange(event=>{
+if(event==="SIGNED_OUT"){
+autorizado=false;
+$("painel").hidden=true;
+vendas=[];despesas=[];produtos=[];custos=[];
+location.href="admin.html";
+}
+});
+
+await carregar();
+
+if(!autorizado)return;
+
+$("acesso").hidden=true;
+$("painel").hidden=false;
+
+}catch(e){
+autorizado=false;
+$("acesso").textContent=e.message;
+}
+
+}
+
+iniciar();
+
+</script>
+</body>
+</html>
