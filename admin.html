@@ -1105,3 +1105,33 @@ estoque:Number($("estoque").value),
 descricao:$("descricao").value.trim(),
 imagem_url:$("imagem_url").value.trim(),
 ativo:$("ativo")
+
+<script>
+(function(){
+
+const menu=document.getElementById("menuSilverLove");
+
+if(!menu)return;
+
+const antigo=Array.from(
+menu.querySelectorAll(".sl-menu-item")
+).find(e=>e.textContent.includes("Fotos"));
+
+if(!antigo)return;
+
+const novo=document.createElement("a");
+
+novo.className="sl-menu-item";
+
+novo.href="fotos.html";
+
+novo.innerHTML=`
+<span>📷</span>
+Fotos
+<small>Fotografar e publicar</small>
+`;
+
+antigo.replaceWith(novo);
+
+})();
+</script>
