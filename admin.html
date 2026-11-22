@@ -1300,3 +1300,133 @@ iniciar();
 </script>
 </body>
 </html>
+
+<style>
+#menuSilverLove{
+  background:#fff3f8;
+  padding:18px;
+  border-radius:16px;
+  margin:15px 0;
+  color:#922957;
+}
+#menuSilverLove h2{
+  text-align:center;
+  color:#922957;
+}
+.sl-menu-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.sl-menu-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:white;
+  border:1px solid #e8c1d4;
+  border-radius:12px;
+  padding:18px 8px;
+  color:#922957;
+  text-decoration:none;
+  font-weight:bold;
+}
+.sl-menu-item span{
+  font-size:28px;
+  margin-bottom:8px;
+}
+.sl-menu-item small{
+  font-size:12px;
+  font-weight:normal;
+  margin-top:5px;
+  color:#806575;
+}
+.sl-menu-item:hover{
+  background:#f9dce9;
+}
+</style>
+
+<script>
+(function(){
+
+  const painel=document.getElementById("dashboard");
+
+  if(!painel || document.getElementById("menuSilverLove"))return;
+
+  const menu=document.createElement("section");
+
+  menu.id="menuSilverLove";
+
+  menu.innerHTML=`
+    <h2>💎 Central de gerenciamento</h2>
+
+    <div class="sl-menu-grid">
+
+      <a class="sl-menu-item" href="#formTitle">
+        <span>💎</span>
+        Produtos
+        <small>Cadastrar joias</small>
+      </a>
+
+      <a class="sl-menu-item" href="vendas.html">
+        <span>🛒</span>
+        Vendas
+        <small>Registrar vendas</small>
+      </a>
+
+      <a class="sl-menu-item" href="compras.html">
+        <span>📦</span>
+        Compras
+        <small>Importar compras</small>
+      </a>
+
+      <a class="sl-menu-item" href="#productsList">
+        <span>📋</span>
+        Estoque
+        <small>Consultar peças</small>
+      </a>
+
+      <a class="sl-menu-item" href="#reservationsList">
+        <span>📅</span>
+        Reservas
+        <small>Pedidos de clientes</small>
+      </a>
+
+      <a class="sl-menu-item" href="#financeiro">
+        <span>💰</span>
+        Financeiro
+        <small>Custos e lucros</small>
+      </a>
+
+      <a class="sl-menu-item" href="index.html"
+         target="_blank" rel="noopener">
+        <span>🏪</span>
+        Minha loja
+        <small>Abrir catálogo</small>
+      </a>
+
+      <div class="sl-menu-item" style="opacity:0.6">
+        <span>📷</span>
+        Fotos
+        <small>Em breve</small>
+      </div>
+
+    </div>
+  `;
+
+  if(!document.getElementById("financeiro")){
+
+    const titulo=[...painel.querySelectorAll("h2,h3")]
+      .find(e=>e.textContent.toLowerCase()
+      .includes("financeiro"));
+
+    if(titulo){
+      titulo.id="financeiro";
+    }
+  }
+
+  painel.prepend(menu);
+
+})();
+</script>
