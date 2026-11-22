@@ -1,0 +1,700 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Silver Love | Fotos</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff3f8;color:#492537;font-family:Arial,sans-serif}
+header{background:linear-gradient(120deg,#801b4c,#c13a7b);color:white;padding:25px;text-align:center}
+header h1{margin:0}
+main{max-width:850px;margin:auto;padding:15px}
+.card{background:white;border-radius:16px;padding:20px;margin:15px 0;box-shadow:0 4px 18px #7d20451a}
+h2{color:#922957;margin-top:0}
+label{display:block;font-weight:bold;margin:15px 0 8px}
+input,select{width:100%;padding:14px;border:1px solid #dab4c6;border-radius:10px;font-size:16px;background:white;color:#492537}
+button,.btn{display:inline-block;padding:14px 16px;border:0;border-radius:10px;background:#a92c66;color:white;font-size:15px;font-weight:bold;text-decoration:none;cursor:pointer}
+button:disabled{opacity:.5}
+.green{background:#28854c}
+.secondary{background:#74606d}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0}
+.metric{background:#fff0f6;padding:18px;border-radius:12px;text-align:center}
+.metric strong{display:block;font-size:32px;color:#922957;margin-top:8px}
+.muted{font-size:14px;color:#806b77;line-height:1.6}
+.upload{border:2px dashed #c13a7b;border-radius:14px;padding:22px;text-align:center;background:#fff6fa;margin:15px 0}
+#preview{width:100%;max-height:350px;object-fit:contain;border-radius:12px;margin-top:15px}
+#info{padding:15px;background:#fff6fa;border-radius:12px;line-height:1.6}
+#nome{font-weight:bold;font-size:19px;color:#922957}
+#preco{font-weight:bold;font-size:24px;color:#28854c}
+.msg{padding:15px;background:#e1f5e8;color:#245b38;border-radius:10px;margin:15px 0}
+.erro{background:#ffe1e7;color:#902b45}
+[hidden]{display:none!important}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>💎 Silver Love</h1>
+<p>Prata e Folheados a Ouro</p>
+<p>Cadastro rápido de fotos</p>
+</header>
+
+<main>
+
+<nav class="actions">
+
+<a class="btn secondary" href="admin.html">
+← Painel
+</a>
+
+<a class="btn" href="compras.html">
+Compras
+</a>
+
+<a class="btn green" href="index.html">
+Minha loja
+</a>
+
+</nav>
+
+<div id="mensagem" class="msg" role="status" hidden></div>
+
+<section id="acesso" class="card">
+Validando acesso administrativo...
+</section>
+
+<div id="painel" hidden>
+
+<section class="card">
+
+<h2>📷 Fotos pendentes</h2>
+
+<div class="metric">
+Joias disponíveis sem foto
+<strong id="total">—</strong>
+</div>
+
+<p class="muted">
+Somente produtos com estoque disponível e sem foto cadastrada.
+</p>
+
+<button id="atualizar" class="secondary">
+Atualizar lista
+</button>
+
+</section>
+
+<section class="card" id="formFoto">
+
+<h2>💍 Fotografar e publicar</h2>
+
+<label>Buscar joia</label>
+
+<input id="busca" type="search"
+placeholder="Digite o código ou nome">
+
+<label>Selecionar joia</label>
+
+<select id="produto">
+<option value="">Selecione uma joia</option>
+</select>
+
+<div id="info" hidden>
+
+<div id="nome"></div>
+
+<p id="codigo"></p>
+
+<p id="descricao"></p>
+
+<p id="estoque"></p>
+
+<div id="preco"></div>
+
+</div>
+
+<div id="areaFoto" hidden>
+
+<div class="upload">
+
+<button type="button" id="escolher">
+📷 Escolher foto
+</button>
+
+<input id="arquivo" type="file"
+accept="image/jpeg,image/png,image/webp" hidden>
+
+<p id="arquivoNome" class="muted">
+Selecione uma foto da galeria.
+</p>
+
+<img id="preview" alt="Prévia da joia" hidden>
+
+</div>
+
+<p class="muted">
+Formatos JPG, PNG ou WEBP. Até 5 MB.
+A foto será exibida publicamente na loja.
+</p>
+
+<button id="publicar" class="green"
+style="width:100%" disabled>
+
+✓ Salvar foto e publicar
+
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<script>
+
+"use strict";
+
+const URL_DB="https://xyybmzfodlvwljhhfxhe.supabase.co";
+
+const KEY="sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
+
+const $=id=>document.getElementById(id);
+
+const moeda=v=>Number(v).toLocaleString("pt-BR",{
+style:"currency",
+currency:"BRL"
+});
+
+const normal=v=>String(v??"")
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+.toLowerCase();
+
+const extensoes={
+"image/jpeg":"jpg",
+"image/png":"png",
+"image/webp":"webp"
+};
+
+let db;
+let produtos=[];
+let autorizado=false;
+let ocupado=false;
+let previewURL=null;
+let fotoEnviada=null;
+
+function msg(t,erro=false){
+
+$("mensagem").textContent=t;
+
+$("mensagem").className=
+"msg"+(erro?" erro":"");
+
+$("mensagem").hidden=false;
+
+$("mensagem").scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+function selecionado(){
+
+return produtos.find(
+p=>p.id===$("produto").value
+);
+
+}
+
+function limparFoto(){
+
+if(previewURL){
+
+URL.revokeObjectURL(previewURL);
+
+}
+
+previewURL=null;
+fotoEnviada=null;
+
+$("arquivo").value="";
+
+$("preview").removeAttribute("src");
+
+$("preview").hidden=true;
+
+$("arquivoNome").textContent=
+"Selecione uma foto da galeria.";
+
+$("publicar").disabled=true;
+
+}
+
+function filtrar(){
+
+const busca=normal($("busca").value);
+
+const select=$("produto");
+
+const anterior=select.value;
+
+select.replaceChildren();
+
+const inicial=document.createElement("option");
+
+inicial.value="";
+inicial.textContent="Selecione uma joia";
+
+select.appendChild(inicial);
+
+for(const p of produtos){
+
+if(!normal(p.codigo+" "+p.nome)
+.includes(busca))continue;
+
+const op=document.createElement("option");
+
+op.value=p.id;
+
+op.textContent=p.codigo+" — "+p.nome;
+
+select.appendChild(op);
+
+}
+
+select.value=anterior;
+
+if(select.value!==anterior){
+
+mostrarProduto();
+
+}
+
+}
+
+function mostrarProduto(){
+
+limparFoto();
+
+const p=selecionado();
+
+$("info").hidden=!p;
+
+$("areaFoto").hidden=!p;
+
+if(!p)return;
+
+$("nome").textContent=p.nome;
+
+$("codigo").textContent=
+"Código: "+p.codigo;
+
+$("descricao").textContent=
+p.descricao||"";
+
+$("estoque").textContent=
+"Estoque: "+p.estoque+" unidade(s)";
+
+$("preco").textContent=moeda(p.preco);
+
+}
+
+async function carregar(){
+
+const lista=[];
+
+for(let inicio=0;;inicio+=500){
+
+const {data,error}=await db.from("produtos")
+
+.select("id,codigo,nome,descricao,preco,estoque,imagem_url,ativo")
+
+.gt("estoque",0)
+
+.order("id")
+
+.range(inicio,inicio+499);
+
+if(error)throw error;
+
+lista.push(...(data||[]));
+
+if(!data||data.length<500)break;
+
+}
+
+produtos=lista.filter(
+p=>!String(p.imagem_url??"").trim()
+);
+
+produtos.sort((a,b)=>
+String(a.nome).localeCompare(
+String(b.nome),"pt-BR"
+));
+
+$("total").textContent=produtos.length;
+
+filtrar();
+
+$("formFoto").hidden=produtos.length===0;
+
+if(!produtos.length){
+
+msg("💎 Todas as joias disponíveis possuem fotos!");
+
+}
+
+}
+
+$("busca").oninput=filtrar;
+
+$("produto").onchange=mostrarProduto;
+
+$("escolher").onclick=()=>{
+
+if(!ocupado)$("arquivo").click();
+
+};
+
+$("arquivo").onchange=()=>{
+
+const f=$("arquivo").files[0];
+
+if(previewURL)URL.revokeObjectURL(previewURL);
+
+previewURL=null;
+fotoEnviada=null;
+
+$("preview").hidden=true;
+$("preview").removeAttribute("src");
+$("publicar").disabled=true;
+
+$("arquivoNome").textContent=
+"Selecione uma foto da galeria.";
+
+if(!f)return;
+
+if(!extensoes[f.type]){
+
+$("arquivo").value="";
+
+return msg("Use JPG, PNG ou WEBP.",true);
+
+}
+
+if(f.size>5*1024*1024){
+
+$("arquivo").value="";
+
+return msg("A foto deve ter até 5 MB.",true);
+
+}
+
+previewURL=URL.createObjectURL(f);
+
+$("preview").src=previewURL;
+
+$("preview").hidden=false;
+
+$("arquivoNome").textContent=f.name;
+
+$("publicar").disabled=false;
+
+};
+
+async function enviarFoto(f){
+
+const caminho=
+crypto.randomUUID()+"."+extensoes[f.type];
+
+const {data,error}=await db.storage
+.from("fotos")
+.upload(caminho,f,{
+
+contentType:f.type,
+upsert:false
+
+});
+
+if(error)throw error;
+
+return db.storage.from("fotos")
+.getPublicUrl(data.path).data.publicUrl;
+
+}
+
+function bloquear(valor){
+
+ocupado=valor;
+
+for(const id of [
+
+"busca",
+"produto",
+"arquivo",
+"escolher",
+"atualizar"
+
+])$(id).disabled=valor;
+
+$("publicar").disabled=
+valor||!$("arquivo").files[0];
+
+$("publicar").textContent=valor?
+"Processando...":
+"✓ Salvar foto e publicar";
+
+}
+
+$("publicar").onclick=async()=>{
+
+if(ocupado||!autorizado)return;
+
+const p=selecionado();
+
+const f=$("arquivo").files[0];
+
+if(!p||!f){
+
+return msg("Selecione a joia e a foto.",true);
+
+}
+
+if(!confirm(
+"Publicar esta joia no catálogo?\n"+
+p.nome+"\n"+moeda(p.preco)
+))return;
+
+bloquear(true);
+
+let publicado=false;
+
+try{
+
+const atual=await db.from("produtos")
+
+.select("id,estoque,imagem_url")
+
+.eq("id",p.id)
+
+.maybeSingle();
+
+if(atual.error)throw atual.error;
+
+if(!atual.data||atual.data.estoque<=0){
+
+throw new Error("Esta joia não está mais disponível.");
+
+}
+
+if(String(atual.data.imagem_url??"").trim()){
+
+throw new Error("Esta joia já possui foto. Atualize a lista.");
+
+}
+
+if(!fotoEnviada){
+
+fotoEnviada=await enviarFoto(f);
+
+}
+
+let consulta=db.from("produtos")
+
+.update({
+
+imagem_url:fotoEnviada,
+ativo:true
+
+})
+
+.eq("id",p.id)
+
+.gt("estoque",0);
+
+consulta=atual.data.imagem_url===null?
+
+consulta.is("imagem_url",null):
+
+consulta.eq("imagem_url",atual.data.imagem_url);
+
+const r=await consulta
+
+.select("id")
+
+.maybeSingle();
+
+if(r.error||!r.data){
+
+const verificar=await db.from("produtos")
+
+.select("imagem_url,ativo")
+
+.eq("id",p.id)
+
+.maybeSingle();
+
+if(verificar.error||
+
+verificar.data?.imagem_url!==fotoEnviada||
+
+!verificar.data?.ativo){
+
+throw new Error(
+r.error?.message||
+"Produto alterado. Atualize a lista."
+);
+
+}
+
+}
+
+publicado=true;
+
+limparFoto();
+
+$("produto").value="";
+
+$("busca").value="";
+
+mostrarProduto();
+
+await carregar();
+
+msg("💎 Joia publicada com sucesso!");
+
+}catch(e){
+
+msg(
+
+publicado?
+
+"Joia publicada. Atualize a lista para conferir."
+
+:
+
+"Não foi possível confirmar a publicação: "+
+e.message+
+". Atualize a lista antes de repetir.",
+
+!publicado
+
+);
+
+}finally{
+
+bloquear(false);
+
+}
+
+};
+
+$("atualizar").onclick=async()=>{
+
+if(ocupado||!autorizado)return;
+
+try{
+
+bloquear(true);
+
+await carregar();
+
+mostrarProduto();
+
+}catch(e){
+
+msg(e.message,true);
+
+}finally{
+
+bloquear(false);
+
+}
+
+};
+
+async function iniciar(){
+
+try{
+
+if(!window.supabase?.createClient){
+
+throw new Error("Falha na conexão com Supabase.");
+
+}
+
+db=window.supabase.createClient(
+URL_DB,KEY
+);
+
+const {data,error}=await db.auth.getUser();
+
+if(error||!data?.user){
+
+throw new Error(
+"Entre primeiro pelo painel administrativo."
+);
+
+}
+
+const r=await db.from("administradores")
+
+.select("usuario_id")
+
+.eq("usuario_id",data.user.id)
+
+.maybeSingle();
+
+if(r.error)throw r.error;
+
+if(!r.data){
+
+throw new Error("Acesso não autorizado.");
+
+}
+
+autorizado=true;
+
+await carregar();
+
+$("acesso").hidden=true;
+
+$("painel").hidden=false;
+
+db.auth.onAuthStateChange(event=>{
+
+if(event==="SIGNED_OUT"){
+
+autorizado=false;
+
+$("painel").hidden=true;
+
+location.href="admin.html";
+
+}
+
+});
+
+}catch(e){
+
+autorizado=false;
+
+$("acesso").textContent=e.message;
+
+}
+
+}
+
+iniciar();
+
+</script>
+</body>
+</html>
