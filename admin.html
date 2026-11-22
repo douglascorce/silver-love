@@ -8,13 +8,15 @@
 
 <style>
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;background:#fff3f8;color:#492537;font-family:Arial,sans-serif}
 header{background:linear-gradient(120deg,#801b4c,#c13a7b);color:white;text-align:center;padding:24px 15px}
 header h1{margin:0}
 header p{margin:8px}
 main{max-width:1000px;margin:auto;padding:15px}
 .card{background:white;padding:20px;border-radius:16px;margin:16px 0;box-shadow:0 4px 18px #7d20451a}
-h2{color:#922957;margin-top:0}
+h2,h3{color:#922957}
+h2{margin-top:0}
 label{display:block;font-weight:bold;margin:15px 0 7px}
 input,textarea,select{width:100%;padding:13px;border:1px solid #dab4c6;border-radius:9px;font-size:16px;background:white;color:#38232d}
 textarea{min-height:90px}
@@ -24,14 +26,13 @@ button:disabled{opacity:.5}
 .green{background:#28854c}
 .danger{background:#b93655}
 .hidden{display:none!important}
-.actions,.menu{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0}
 .password{display:flex;gap:8px}
 .password input{flex:1;min-width:0}
 .message{padding:15px;border-radius:10px;background:#e1f5e8;color:#245b38;margin:15px 0}
 .error{background:#ffe1e7;color:#902b45}
 .muted{font-size:13px;color:#806b77;line-height:1.6}
-.item{border-bottom:1px solid #ead6df;padding:18px 0}
-.item:last-child{border:0}
+.item{border-bottom:1px solid #ead6df;padding:18px 0;overflow-wrap:anywhere}
 .item-head{display:flex;align-items:center;gap:12px}
 .item img{width:75px;height:75px;object-fit:cover;border-radius:10px}
 .item strong{display:block;margin-bottom:7px}
@@ -51,7 +52,18 @@ button:disabled{opacity:.5}
 .confirmada{background:#dff4e6;color:#277341}
 .cancelada{background:#ffe1e7;color:#a82d4c}
 .valor{font-size:20px;font-weight:bold;color:#a92c66}
-.financeiro{background:linear-gradient(145deg,white,#fff5fa)}
+.sl-menu-item{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:105px;background:#fff6fa;border:1px solid #e8c1d4;border-radius:12px;padding:14px 8px;color:#922957;text-decoration:none;font-weight:bold}
+.sl-menu-item span{font-size:26px;margin-bottom:7px}
+.sl-menu-item small{font-size:12px;font-weight:normal;margin-top:5px;color:#806575}
+.sl-menu-item[aria-disabled=true]{opacity:.6}
+.toplink{font-size:13px;color:#922957}
+section{scroll-margin-top:12px}
+
+@media(min-width:720px){
+.menu-grid,.resumo-grid{
+grid-template-columns:repeat(4,minmax(0,1fr))
+}
+}
 </style>
 </head>
 
@@ -66,16 +78,19 @@ button:disabled{opacity:.5}
 
 <main>
 
-<div id="message" class="message hidden"></div>
+<div id="message" class="message hidden" role="status"></div>
 
 <section id="loginPanel" class="card">
+
 <h2>🔐 Acesso administrativo</h2>
 
 <form id="loginForm">
+
 <label>E-mail</label>
 <input id="email" type="email" autocomplete="username" required>
 
 <label>Senha</label>
+
 <div class="password">
 <input id="password" type="password" autocomplete="current-password" required>
 <button type="button" onclick="olho('password',this)">👁️</button>
@@ -85,20 +100,25 @@ button:disabled{opacity:.5}
 <button id="loginButton">Entrar</button>
 <button type="button" id="forgotButton" class="secondary">Esqueci minha senha</button>
 </div>
+
 </form>
 </section>
 
 <section id="resetPanel" class="card hidden">
+
 <h2>🔑 Definir nova senha</h2>
 
 <form id="resetForm">
+
 <label>Nova senha</label>
+
 <div class="password">
 <input id="newPassword" type="password" minlength="8" required>
 <button type="button" onclick="olho('newPassword',this)">👁️</button>
 </div>
 
 <label>Confirmar nova senha</label>
+
 <div class="password">
 <input id="confirmPassword" type="password" minlength="8" required>
 <button type="button" onclick="olho('confirmPassword',this)">👁️</button>
@@ -107,15 +127,79 @@ button:disabled{opacity:.5}
 <div class="actions">
 <button id="resetButton">Salvar nova senha</button>
 </div>
+
 </form>
 </section>
 
 <div id="dashboard" class="hidden">
 
+<!-- MENU PRINCIPAL -->
+
+<section id="menuSilverLove" class="card">
+
+<h2>💎 Central de gerenciamento</h2>
+
+<div class="grid menu-grid">
+
+<a class="sl-menu-item" href="#cadastro">
+<span>💎</span>
+Produtos
+<small>Cadastrar joias</small>
+</a>
+
+<a class="sl-menu-item" href="vendas.html">
+<span>🛒</span>
+Vendas
+<small>Registrar vendas</small>
+</a>
+
+<a class="sl-menu-item" href="compras.html">
+<span>📦</span>
+Compras
+<small>Importar compras</small>
+</a>
+
+<a class="sl-menu-item" href="#lista">
+<span>📋</span>
+Estoque
+<small>Consultar e editar</small>
+</a>
+
+<a class="sl-menu-item" href="#pedidos">
+<span>📅</span>
+Reservas
+<small>Pedidos de clientes</small>
+</a>
+
+<a class="sl-menu-item" href="#financeiro">
+<span>💰</span>
+Financeiro
+<small>Custos e lucros</small>
+</a>
+
+<a class="sl-menu-item" href="index.html" target="_blank" rel="noopener noreferrer">
+<span>🏪</span>
+Minha loja
+<small>Abrir catálogo</small>
+</a>
+
+<div class="sl-menu-item" aria-disabled="true">
+<span>📷</span>
+Fotos rápidas
+<small>Em breve</small>
+</div>
+
+</div>
+</section>
+
+<!-- DASHBOARD -->
+
 <section class="card">
+
 <h2>📊 Resumo da loja</h2>
 
-<div class="grid">
+<div class="grid resumo-grid">
+
 <div class="metric">
 <span class="muted">Produtos cadastrados</span>
 <strong id="totalProdutos">—</strong>
@@ -132,20 +216,45 @@ button:disabled{opacity:.5}
 </div>
 
 <div class="metric">
-<span class="muted">Vendas confirmadas</span>
+<span class="muted">Vendas (reservas + manuais)</span>
 <strong id="totalVendas">—</strong>
 </div>
+
+<div class="metric">
+<span class="muted">Faturamento no mês atual</span>
+<strong id="resumoReceita">—</strong>
 </div>
 
-<nav class="menu">
-<a href="#cadastro" class="btn">Cadastrar</a>
-<a href="#lista" class="btn secondary">Produtos</a>
-<a href="#pedidos" class="btn green">Reservas</a>
-<a href="#financeiro" class="btn">💰 Financeiro</a>
-</nav>
+<div class="metric">
+<span class="muted">Lucro bruto no mês atual</span>
+<strong id="resumoLucro">—</strong>
+</div>
+
+<div class="metric">
+<span class="muted">Joias em estoque sem foto</span>
+<strong id="totalSemFoto">—</strong>
+</div>
+
+<div class="metric">
+<span class="muted">Capital em estoque</span>
+<strong id="resumoCapital">—</strong>
+</div>
+
+</div>
+
+<p class="muted">
+Indicadores financeiros consideram vendas registradas no financeiro. O lucro bruto não deduz despesas.
+</p>
+
+<button id="refreshResumo" class="secondary">
+Atualizar resumo
+</button>
+
 </section>
 
-<section id="financeiro" class="card financeiro">
+<!-- FINANCEIRO -->
+
+<section id="financeiro" class="card">
 
 <h2>💰 Gestão financeira</h2>
 
@@ -153,7 +262,15 @@ button:disabled{opacity:.5}
 <input id="mesFinanceiro" type="month">
 
 <div class="actions">
-<button id="refreshFinanceiro" class="secondary">Atualizar financeiro</button>
+
+<button id="refreshFinanceiro" class="secondary">
+Atualizar financeiro
+</button>
+
+<a class="btn green" href="vendas.html">
+Registrar venda
+</a>
+
 </div>
 
 <div class="grid">
@@ -193,14 +310,20 @@ button:disabled{opacity:.5}
 <p id="avisoFinanceiro" class="muted"></p>
 
 <h3>Histórico de vendas</h3>
-<div id="historico">Carregando...</div>
+
+<div id="historico"></div>
 
 <p class="muted">
-O histórico financeiro considera as vendas registradas após a implantação deste módulo.
-Lucro bruto não desconta despesas operacionais.
+Inclui vendas manuais e reservas registradas no financeiro. Lucro bruto não desconta despesas operacionais.
 </p>
 
+<a class="toplink" href="#menuSilverLove">
+↑ Voltar ao menu
+</a>
+
 </section>
+
+<!-- CADASTRO DE PRODUTOS -->
 
 <section id="cadastro" class="card">
 
@@ -217,12 +340,13 @@ Lucro bruto não desconta despesas operacionais.
 <input id="nome" required>
 
 <label>Custo de aquisição unitário (R$)</label>
-<input id="custo" type="number" min="0" step="0.01" placeholder="Informe quanto pagou">
+<input id="custo" type="number" min="0" step="0.01">
 
 <label>Preço de venda (R$)</label>
 <input id="preco" type="number" min="0" step="0.01" required>
 
 <div class="grid" style="margin-top:15px">
+
 <div class="metric">
 <span class="muted">Lucro bruto unitário</span>
 <strong id="lucroUnitario">—</strong>
@@ -232,10 +356,11 @@ Lucro bruto não desconta despesas operacionais.
 <span class="muted">Margem bruta</span>
 <strong id="margemUnitaria">—</strong>
 </div>
+
 </div>
 
 <p class="muted">
-O custo é privado. Deixar o campo vazio mantém o custo anterior, caso exista.
+O custo é privado. Deixar vazio mantém o custo anterior, se houver.
 </p>
 
 <label>Estoque</label>
@@ -247,15 +372,19 @@ O custo é privado. Deixar o campo vazio mantém o custo anterior, caso exista.
 <label>📷 Foto da joia</label>
 
 <div class="upload">
+
 <button type="button" onclick="document.getElementById('foto').click()">
 Escolher foto da galeria
 </button>
 
 <input id="foto" type="file" accept="image/jpeg,image/png,image/webp" class="hidden">
 
-<p id="fileName" class="muted">Nenhuma foto selecionada</p>
+<p id="fileName" class="muted">
+Nenhuma foto selecionada
+</p>
 
 <img id="preview" class="hidden" alt="Prévia">
+
 </div>
 
 <label>Foto existente ou URL</label>
@@ -267,12 +396,24 @@ Escolher foto da galeria
 </div>
 
 <div class="actions">
+
 <button id="saveButton">Salvar joia</button>
-<button id="cancelEdit" type="button" class="secondary">Limpar</button>
+
+<button type="button" id="cancelEdit" class="secondary">
+Limpar
+</button>
+
 </div>
 
 </form>
+
+<a class="toplink" href="#menuSilverLove">
+↑ Voltar ao menu
+</a>
+
 </section>
+
+<!-- ESTOQUE -->
 
 <section id="lista" class="card">
 
@@ -280,18 +421,37 @@ Escolher foto da galeria
 
 <input id="busca" type="search" placeholder="Buscar nome ou código...">
 
+<label>Filtrar produtos</label>
+
+<select id="filtroProdutos">
+<option value="todos">Todos</option>
+<option value="estoque">Com estoque</option>
+<option value="semfoto">Em estoque sem foto</option>
+<option value="inativo">Inativos</option>
+</select>
+
 <div class="actions">
-<button id="refreshProducts" class="secondary">Atualizar produtos</button>
+<button id="refreshProducts" class="secondary">
+Atualizar produtos
+</button>
 </div>
 
 <div id="productsList"></div>
+
+<a class="toplink" href="#menuSilverLove">
+↑ Voltar ao menu
+</a>
+
 </section>
+
+<!-- RESERVAS -->
 
 <section id="pedidos" class="card">
 
 <h2>📋 Reservas e vendas</h2>
 
 <label>Filtrar status</label>
+
 <select id="filtroReservas">
 <option value="todas">Todas as reservas</option>
 <option value="pendente">Pendentes</option>
@@ -300,23 +460,30 @@ Escolher foto da galeria
 </select>
 
 <div class="actions">
-<button id="refreshReservations" class="secondary">Atualizar reservas</button>
+<button id="refreshReservations" class="secondary">
+Atualizar reservas
+</button>
 </div>
 
 <p class="muted">
-Confirme a venda após verificar o pagamento.
-O estoque e o histórico financeiro serão atualizados automaticamente.
+Confirme apenas após verificar o pagamento. Estoque e financeiro serão atualizados automaticamente.
 </p>
 
 <div id="reservationsList"></div>
 
+<a class="toplink" href="#menuSilverLove">
+↑ Voltar ao menu
+</a>
+
 </section>
+
 </div>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
 <script>
+
 "use strict";
 
 const URL_DB="https://xyybmzfodlvwljhhfxhe.supabase.co";
@@ -325,25 +492,54 @@ const SITE="https://douglascorce.github.io/silver-love/";
 const ADMIN=SITE+"admin.html";
 
 const $=id=>document.getElementById(id);
-const moeda=v=>Number(v).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+
+const moeda=v=>Number(v).toLocaleString("pt-BR",{
+style:"currency",
+currency:"BRL"
+});
+
 const erro=e=>e?.message||String(e);
+
+const normal=v=>String(v??"")
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+.toLowerCase();
 
 let db;
 let produtos=[];
 let reservas=[];
 let vendas=[];
 let custos=new Map();
+
+let produtosOK=false;
+let reservasOK=false;
 let custosOK=false;
 let vendasOK=false;
-let produtosOK=false;
+
 let recuperando=false;
 let ocupado=false;
 let previewURL=null;
+let edicaoEstoque=null;
+let autorizado=false;
+let geracao=0;
+let carregando=null;
 
-function msg(texto,erro=false){
-$("message").textContent=texto;
-$("message").className="message"+(erro?" error":"");
-$("message").scrollIntoView({behavior:"smooth",block:"center"});
+function set(id,v){
+$(id).textContent=v;
+}
+
+function msg(t,e=false){
+
+set("message",t);
+
+$("message").className=
+"message"+(e?" error":"");
+
+$("message").scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
 }
 
 function limparMsg(){
@@ -351,80 +547,184 @@ $("message").classList.add("hidden");
 }
 
 function painel(p){
-$("loginPanel").classList.toggle("hidden",p!=="login");
-$("resetPanel").classList.toggle("hidden",p!=="reset");
-$("dashboard").classList.toggle("hidden",p!=="dashboard");
-$("logout").classList.toggle("hidden",p!=="dashboard");
+
+for(const [id,vis] of [
+["loginPanel","login"],
+["resetPanel","reset"],
+["dashboard","dashboard"],
+["logout","dashboard"]
+]){
+$(id).classList.toggle("hidden",p!==vis);
+}
+
 }
 
 function olho(id,b){
+
 const i=$(id);
+
 i.type=i.type==="password"?"text":"password";
+
 b.textContent=i.type==="password"?"👁️":"🙈";
+
 }
 
-function texto(parent,tag,valor,cls){
-const t=document.createElement(tag);
-t.textContent=String(valor??"");
-if(cls)t.className=cls;
-parent.appendChild(t);
-return t;
+function texto(parent,tag,t,cls){
+
+const e=document.createElement(tag);
+
+e.textContent=String(t??"");
+
+if(cls)e.className=cls;
+
+parent.appendChild(e);
+
+return e;
+
 }
 
-function botao(nome,cls,fn){
+function botao(t,cls,fn){
+
 const b=document.createElement("button");
+
 b.type="button";
-b.textContent=nome;
+b.textContent=t;
 b.className=cls;
 b.onclick=fn;
+
 return b;
+
 }
 
 function imagemURL(path){
+
 try{
+
 if(path){
+
 const u=new URL(path,SITE);
+
 if(u.protocol==="https:")return u.href;
+
 }
+
 }catch(e){}
+
 return "";
+
 }
 
 function foto(parent,path,nome){
+
 const src=imagemURL(path);
+
 if(!src)return;
-const img=document.createElement("img");
-img.src=src;
-img.alt=nome||"Joia";
-img.loading="lazy";
-img.onerror=()=>img.remove();
-parent.appendChild(img);
+
+const i=document.createElement("img");
+
+i.src=src;
+i.alt=nome||"Joia";
+i.loading="lazy";
+i.onerror=()=>i.remove();
+
+parent.appendChild(i);
+
 }
 
 function mes(data){
-const partes=new Intl.DateTimeFormat("pt-BR",{
-year:"numeric",month:"2-digit",
+
+const p=new Intl.DateTimeFormat("pt-BR",{
+year:"numeric",
+month:"2-digit",
 timeZone:"America/Sao_Paulo"
 }).formatToParts(new Date(data));
 
-return partes.find(p=>p.type==="year").value+"-"+
-partes.find(p=>p.type==="month").value;
+return p.find(t=>t.type==="year").value+"-"+
+p.find(t=>t.type==="month").value;
+
 }
 
-// AUTENTICACAO
+function dataBR(d){
+
+return new Date(d).toLocaleString("pt-BR",{
+timeZone:"America/Sao_Paulo"
+});
+
+}
+
+function lucroCor(id,v,ok){
+
+$(id).className=ok?
+(v>=0?"positive":"negative"):"";
+
+}
+
+// AUTENTICAÇÃO
+
+function limparDados(){
+
+autorizado=false;
+
+geracao++;
+
+produtos=[];
+reservas=[];
+vendas=[];
+
+custos.clear();
+
+produtosOK=reservasOK=custosOK=vendasOK=false;
+
+limparForm();
+
+for(const id of [
+"productsList",
+"reservationsList",
+"historico"
+])$(id).replaceChildren();
+
+for(const id of [
+"totalProdutos",
+"totalEstoque",
+"totalPendentes",
+"totalVendas",
+"resumoReceita",
+"resumoLucro",
+"totalSemFoto",
+"resumoCapital",
+"faturamento",
+"custoVendido",
+"lucroBruto",
+"margemBruta",
+"vendasMes",
+"investimento"
+])set(id,"—");
+
+set("avisoFinanceiro","");
+
+}
 
 async function validarAcesso(){
 
 if(recuperando){
+
 painel("reset");
+
 return;
+
 }
 
 try{
+
 const {data,error}=await db.auth.getUser();
+
 if(error||!data?.user){
+
+limparDados();
 painel("login");
+
 return;
+
 }
 
 const r=await db.from("administradores")
@@ -435,155 +735,206 @@ const r=await db.from("administradores")
 if(r.error)throw r.error;
 
 if(!r.data){
-painel("login");
-msg("Usuário sem acesso administrativo.",true);
-return;
+
+throw new Error("Usuário sem acesso administrativo.");
+
 }
+
+autorizado=true;
 
 painel("dashboard");
+
 await atualizarTudo();
 
-}catch(e){
-painel("login");
-msg("Erro ao acessar: "+erro(e),true);
+if([
+"#cadastro",
+"#lista",
+"#pedidos",
+"#financeiro"
+].includes(location.hash)){
+
+$(location.hash.slice(1)).scrollIntoView();
+
 }
+
+}catch(e){
+
+limparDados();
+painel("login");
+
+msg("Erro ao acessar: "+erro(e),true);
+
+}
+
 }
 
 $("loginForm").onsubmit=async e=>{
+
 e.preventDefault();
+
+if(!db)return;
+
 $("loginButton").disabled=true;
+
 limparMsg();
 
 try{
+
 const {error}=await db.auth.signInWithPassword({
+
 email:$("email").value.trim(),
 password:$("password").value
+
 });
 
 if(error)throw error;
 
 $("password").value="";
+
 await validarAcesso();
 
 }catch(e){
+
 msg("Erro no login: "+erro(e),true);
+
 }finally{
+
 $("loginButton").disabled=false;
+
 }
+
 };
 
 $("forgotButton").onclick=async()=>{
+
+if(!db)return;
+
 const email=$("email").value.trim();
+
 if(!email)return msg("Informe seu e-mail.",true);
 
 $("forgotButton").disabled=true;
 
 try{
-const {error}=await db.auth.resetPasswordForEmail(email,{
-redirectTo:ADMIN
-});
+
+const {error}=await db.auth.resetPasswordForEmail(
+email,
+{redirectTo:ADMIN}
+);
+
 if(error)throw error;
+
 msg("Se o e-mail estiver cadastrado, você receberá o link de recuperação.");
+
 }catch(e){
+
 msg(erro(e),true);
+
 }finally{
+
 $("forgotButton").disabled=false;
+
 }
+
 };
 
 $("resetForm").onsubmit=async e=>{
+
 e.preventDefault();
+
 const senha=$("newPassword").value;
 
-if(senha.length<8||senha!==$("confirmPassword").value){
+if(senha.length<8||
+senha!==$("confirmPassword").value){
+
 return msg("Confira as senhas. Use pelo menos 8 caracteres.",true);
+
 }
 
 $("resetButton").disabled=true;
 
 try{
-const {data}=await db.auth.getSession();
 
-if(!data.session||!recuperando){
+const {data,error:err}=await db.auth.getSession();
+
+if(err||!data.session||!recuperando){
+
 throw new Error("Link inválido ou expirado.");
+
 }
 
-const {error}=await db.auth.updateUser({password:senha});
+const {error}=await db.auth.updateUser({
+password:senha
+});
+
 if(error)throw error;
 
 $("resetForm").reset();
+
 recuperando=false;
+
 await db.auth.signOut();
+
 history.replaceState(null,"",ADMIN);
+
+limparDados();
+
 painel("login");
+
 msg("Senha atualizada com sucesso!");
 
 }catch(e){
+
 msg(erro(e),true);
+
 }finally{
+
 $("resetButton").disabled=false;
+
 }
+
 };
 
 $("logout").onclick=async()=>{
-if(ocupado)return;
+
+if(ocupado||!db)return;
+
 const {error}=await db.auth.signOut();
+
 if(error)return msg(erro(error),true);
+
 limparDados();
 limparMsg();
 painel("login");
+
 };
 
-function limparDados(){
-produtos=[];
-reservas=[];
-vendas=[];
-custos.clear();
-custosOK=false;
-vendasOK=false;
-produtosOK=false;
-limparForm();
-$("productsList").replaceChildren();
-$("reservationsList").replaceChildren();
-$("historico").replaceChildren();
-for(const id of [
-"totalProdutos","totalEstoque","totalPendentes","totalVendas",
-"faturamento","custoVendido","lucroBruto","margemBruta",
-"vendasMes","investimento"
-]){
-$(id).textContent="—";
-}
-$("avisoFinanceiro").textContent="";
-}
-
-// CALCULO DE LUCRO
+// CADASTRO E FOTOS
 
 function calcularLucro(){
-const custo=$("custo").value;
-const preco=$("preco").value;
 
-if(custo===""||preco===""){
-$("lucroUnitario").textContent="—";
-$("margemUnitaria").textContent="—";
-return;
-}
+const c=$("custo").value;
+const p=$("preco").value;
 
-const c=Number(custo);
-const p=Number(preco);
-const lucro=p-c;
+const ok=c!==""&&p!==""&&
+Number(c)>=0&&Number(p)>=0;
 
-$("lucroUnitario").textContent=moeda(lucro);
-$("lucroUnitario").className=lucro>=0?"positive":"negative";
+const l=Number(p)-Number(c);
 
-$("margemUnitaria").textContent=p>0
-?(lucro/p*100).toFixed(1).replace(".",",")+"%"
-:"—";
+set("lucroUnitario",ok?moeda(l):"—");
+
+lucroCor("lucroUnitario",l,ok);
+
+set("margemUnitaria",
+ok&&Number(p)>0?
+(l/Number(p)*100).toFixed(1).replace(".",",")+"%"
+:"—"
+);
+
 }
 
 $("custo").oninput=calcularLucro;
 $("preco").oninput=calcularLucro;
-
-// FOTOS
 
 const extensoes={
 "image/jpeg":"jpg",
@@ -592,43 +943,95 @@ const extensoes={
 };
 
 function validarFoto(f){
-if(!extensoes[f.type])throw new Error("Use JPG, PNG ou WEBP.");
-if(f.size>5*1024*1024)throw new Error("A foto deve ter até 5 MB.");
+
+if(!extensoes[f.type]){
+
+throw new Error("Use JPG, PNG ou WEBP.");
+
+}
+
+if(f.size>5*1024*1024){
+
+throw new Error("A foto deve ter até 5 MB.");
+
+}
+
 }
 
 function limparPreview(){
+
 if(previewURL)URL.revokeObjectURL(previewURL);
+
 previewURL=null;
+
 $("preview").removeAttribute("src");
+
 $("preview").classList.add("hidden");
+
 }
 
 function mostrarPreview(src){
+
 limparPreview();
+
 if(src){
+
 $("preview").src=src;
+
 $("preview").classList.remove("hidden");
+
 }
+
 }
 
 $("foto").onchange=()=>{
+
 const f=$("foto").files[0];
-if(!f)return;
+
+if(!f){
+
+mostrarPreview(imagemURL($("imagem_url").value));
+
+return;
+
+}
 
 try{
+
 validarFoto(f);
+
 limparPreview();
+
 previewURL=URL.createObjectURL(f);
+
 $("preview").src=previewURL;
+
 $("preview").classList.remove("hidden");
-$("fileName").textContent=f.name;
+
+set("fileName",f.name);
 
 }catch(e){
+
 $("foto").value="";
-$("fileName").textContent="Nenhuma foto selecionada";
+
+set("fileName","Nenhuma foto selecionada");
+
 mostrarPreview(imagemURL($("imagem_url").value));
+
 msg(erro(e),true);
+
 }
+
+};
+
+$("imagem_url").onchange=()=>{
+
+if(!$("foto").files[0]){
+
+mostrarPreview(imagemURL($("imagem_url").value));
+
+}
+
 };
 
 async function enviarFoto(f){
@@ -638,795 +1041,67 @@ validarFoto(f);
 const path=crypto.randomUUID()+"."+extensoes[f.type];
 
 const {data,error}=await db.storage.from("fotos")
-.upload(path,f,{contentType:f.type,upsert:false});
+.upload(path,f,{
+contentType:f.type,
+upsert:false
+});
 
 if(error)throw error;
 
 return db.storage.from("fotos")
 .getPublicUrl(data.path).data.publicUrl;
+
 }
 
-// CADASTRO DE JOIAS
-
 function limparForm(){
+
 $("productForm").reset();
+
 $("productId").value="";
 $("estoque").value="0";
 $("ativo").checked=true;
-$("formTitle").textContent="➕ Cadastrar joia";
-$("saveButton").textContent="Salvar joia";
-$("fileName").textContent="Nenhuma foto selecionada";
+
+edicaoEstoque=null;
+
+set("formTitle","➕ Cadastrar joia");
+set("saveButton","Salvar joia");
+set("fileName","Nenhuma foto selecionada");
+
 limparPreview();
+
 calcularLucro();
+
 }
 
 $("cancelEdit").onclick=()=>{
+
 if(!ocupado)limparForm();
+
 };
 
 $("productForm").onsubmit=async e=>{
+
 e.preventDefault();
-if(ocupado)return;
+
+if(!autorizado||ocupado)return;
 
 ocupado=true;
+
 $("saveButton").disabled=true;
 
 let produtoSalvo=false;
+let custoSalvo=false;
 
 try{
 
+const id=$("productId").value;
+
 const item={
+
 codigo:$("codigo").value.trim(),
 nome:$("nome").value.trim(),
 preco:Number($("preco").value),
 estoque:Number($("estoque").value),
 descricao:$("descricao").value.trim(),
 imagem_url:$("imagem_url").value.trim(),
-ativo:$("ativo").checked
-};
-
-const custo=$("custo").value===""
-?null:Number($("custo").value);
-
-if(!item.codigo||!item.nome||
-!Number.isFinite(item.preco)||item.preco<0||
-!Number.isInteger(item.estoque)||item.estoque<0||
-(custo!==null&&(!Number.isFinite(custo)||custo<0))){
-throw new Error("Confira os dados da joia.");
-}
-
-const f=$("foto").files[0];
-
-if(f){
-$("saveButton").textContent="Enviando foto...";
-item.imagem_url=await enviarFoto(f);
-$("imagem_url").value=item.imagem_url;
-$("foto").value="";
-$("fileName").textContent="Foto enviada!";
-}
-
-$("saveButton").textContent="Salvando...";
-
-const id=$("productId").value;
-
-const r=id
-?await db.from("produtos").update(item).eq("id",id).select("id").single()
-:await db.from("produtos").insert(item).select("id").single();
-
-if(r.error)throw r.error;
-if(!r.data?.id)throw new Error("Produto não salvo.");
-
-produtoSalvo=true;
-$("productId").value=r.data.id;
-
-// CUSTO PRIVADO
-
-if(custo!==null){
-
-const c=await db.from("financeiro_custos").upsert({
-produto_id:r.data.id,
-custo_unitario:custo,
-atualizado_em:new Date().toISOString()
-},{onConflict:"produto_id"});
-
-if(c.error)throw c.error;
-}
-
-limparForm();
-msg("💎 Joia salva com sucesso!");
-await atualizarTudo();
-
-}catch(e){
-
-if(produtoSalvo){
-$("formTitle").textContent="✏️ Editar joia";
-msg("Joia salva, mas o custo não foi registrado. Revise e salve novamente: "+erro(e),true);
-await atualizarTudo();
-}else{
-msg("Erro ao salvar: "+erro(e),true);
-}
-
-}finally{
-ocupado=false;
-$("saveButton").disabled=false;
-$("saveButton").textContent=$("productId").value
-?"Salvar alterações":"Salvar joia";
-}
-};
-
-// LISTA DE PRODUTOS
-
-async function carregarProdutos(){
-
-const {data,error}=await db.from("produtos")
-.select("*").order("nome");
-
-produtosOK=!error;
-
-if(error){
-$("productsList").textContent=erro(error);
-$("totalProdutos").textContent="—";
-$("totalEstoque").textContent="—";
-return;
-}
-
-produtos=data||[];
-
-$("totalProdutos").textContent=produtos.length;
-
-$("totalEstoque").textContent=
-produtos.reduce((s,p)=>s+Number(p.estoque),0);
-
-renderProdutos();
-}
-
-function renderProdutos(){
-
-if(!produtosOK)return;
-
-const list=$("productsList");
-const busca=$("busca").value.toLowerCase();
-
-list.replaceChildren();
-
-const filtrados=produtos.filter(p=>
-(p.nome+" "+p.codigo).toLowerCase().includes(busca));
-
-texto(list,"p",filtrados.length+" produtos encontrados","muted");
-
-for(const p of filtrados){
-
-const card=document.createElement("div");
-card.className="item";
-
-const head=document.createElement("div");
-head.className="item-head";
-
-foto(head,p.imagem_url,p.nome);
-
-const info=document.createElement("div");
-
-texto(info,"strong",p.nome);
-texto(info,"div","Código: "+p.codigo,"muted");
-texto(info,"div","Venda: "+moeda(p.preco),"valor");
-texto(info,"div","Estoque: "+p.estoque+" | "+(p.ativo?"Ativo":"Inativo"),"muted");
-
-const custo=custos.get(p.id);
-
-if(custosOK&&custo!==undefined){
-
-texto(info,"div","Custo: "+moeda(custo),"muted");
-texto(info,"div","Lucro bruto unitário: "+moeda(p.preco-custo),
-p.preco>=custo?"positive":"negative");
-
-}else{
-
-texto(info,"div",custosOK
-?"Custo não cadastrado"
-:"Custo indisponível","muted");
-
-}
-
-head.appendChild(info);
-card.appendChild(head);
-
-const a=document.createElement("div");
-a.className="actions";
-
-a.appendChild(botao("Editar","",()=>{
-if(ocupado)return;
-
-limparForm();
-
-for(const campo of [
-"codigo","nome","preco","estoque","descricao","imagem_url"
-]){
-$(campo).value=p[campo]??"";
-}
-
-$("productId").value=p.id;
-
-$("custo").value=custosOK
-?(custos.get(p.id)??""):"";
-
-$("ativo").checked=Boolean(p.ativo);
-
-$("formTitle").textContent="✏️ Editar joia";
-$("saveButton").textContent="Salvar alterações";
-
-mostrarPreview(imagemURL(p.imagem_url));
-calcularLucro();
-
-$("cadastro").scrollIntoView({behavior:"smooth"});
-}));
-
-a.appendChild(botao("Excluir","danger",async()=>{
-if(ocupado)return;
-if(!confirm('Excluir "'+p.nome+'"?'))return;
-
-ocupado=true;
-
-try{
-const {data,error}=await db.from("produtos")
-.delete().eq("id",p.id).select("id");
-
-if(error)throw error;
-if(!data?.length)throw new Error("Exclusão não realizada.");
-
-if($("productId").value===p.id)limparForm();
-
-msg("Produto excluído.");
-await atualizarTudo();
-
-}catch(e){
-msg("Erro: "+erro(e),true);
-}finally{
-ocupado=false;
-}
-}));
-
-card.appendChild(a);
-list.appendChild(card);
-}
-}
-
-$("busca").oninput=renderProdutos;
-$("refreshProducts").onclick=atualizarTudo;
-
-// RESERVAS
-
-async function carregarReservas(){
-
-const {data,error}=await db.from("reservas")
-.select("*").order("criado_em",{ascending:false});
-
-if(error){
-$("reservationsList").textContent=erro(error);
-return;
-}
-
-reservas=data||[];
-
-$("totalPendentes").textContent=
-reservas.filter(r=>r.status==="pendente").length;
-
-$("totalVendas").textContent=
-reservas.filter(r=>r.status==="confirmada").length;
-
-renderReservas();
-}
-
-function renderReservas(){
-
-const list=$("reservationsList");
-const filtro=$("filtroReservas").value;
-
-list.replaceChildren();
-
-const filtradas=reservas.filter(r=>
-filtro==="todas"||r.status===filtro);
-
-if(!filtradas.length){
-list.textContent="Nenhuma reserva encontrada.";
-return;
-}
-
-for(const r of filtradas){
-
-const p=produtos.find(p=>p.id===r.produto_id);
-const v=vendas.find(v=>v.reserva_id===r.id);
-
-const card=document.createElement("div");
-card.className="item";
-
-texto(card,"strong",r.cliente_nome||"Cliente");
-
-texto(card,"span",r.status,"status "+r.status);
-
-const head=document.createElement("div");
-head.className="item-head";
-
-if(p)foto(head,p.imagem_url,p.nome);
-
-const info=document.createElement("div");
-
-texto(info,"strong",v?.nome_produto||p?.nome||"Produto indisponível");
-
-texto(info,"div","Quantidade: "+r.quantidade,"muted");
-
-if(v){
-texto(info,"div","Venda: "+moeda(v.preco_unitario*v.quantidade-v.desconto),"valor");
-}else if(p){
-texto(info,"div","Valor de referência: "+moeda(p.preco*r.quantidade),"valor");
-}
-
-if(p)texto(info,"div","Estoque atual: "+p.estoque,"muted");
-
-head.appendChild(info);
-card.appendChild(head);
-
-texto(card,"p","WhatsApp: "+(r.cliente_whatsapp||"—"),"muted");
-
-if(r.criado_em){
-texto(card,"p",new Date(r.criado_em).toLocaleString("pt-BR"),"muted");
-}
-
-const a=document.createElement("div");
-a.className="actions";
-
-let telefone=String(r.cliente_whatsapp||"").replace(/\D/g,"");
-
-if(telefone.length===10||telefone.length===11){
-telefone="55"+telefone;
-}
-
-if(/^[0-9]{10,15}$/.test(telefone)){
-
-const link=document.createElement("a");
-link.className="btn green";
-link.textContent="WhatsApp";
-link.target="_blank";
-link.rel="noopener noreferrer";
-
-link.href="https://wa.me/"+telefone+
-"?text="+encodeURIComponent("Olá! Aqui é da Silver Love. Gostaria de falar sobre sua reserva.");
-
-a.appendChild(link);
-}
-
-if(r.status==="pendente"){
-
-const b1=botao("✓ Confirmar venda","green",
-()=>gerenciar(r,"confirmada"));
-
-const b2=botao("Cancelar reserva","danger",
-()=>gerenciar(r,"cancelada"));
-
-b1.disabled=ocupado;
-b2.disabled=ocupado;
-
-a.append(b1,b2);
-}
-
-card.appendChild(a);
-list.appendChild(card);
-}
-}
-
-async function gerenciar(r,acao){
-
-if(ocupado||r.status!=="pendente")return;
-
-if(acao==="confirmada"&&$("productId").value){
-return msg("Conclua ou limpe a edição da joia primeiro.",true);
-}
-
-const aviso=acao==="confirmada"
-?"Confirmar venda? O estoque e o financeiro serão atualizados."
-:"Cancelar reserva? O estoque permanecerá intacto.";
-
-if(!confirm(aviso))return;
-
-ocupado=true;
-renderReservas();
-
-try{
-
-const {error}=await db.rpc("gerenciar_reserva",{
-p_reserva_id:r.id,
-p_acao:acao
-});
-
-if(error)throw error;
-
-msg(acao==="confirmada"
-?"✅ Venda confirmada! Estoque e financeiro atualizados."
-:"Reserva cancelada com sucesso.");
-
-await atualizarTudo();
-
-}catch(e){
-msg("Erro: "+erro(e),true);
-await atualizarTudo();
-}finally{
-ocupado=false;
-renderReservas();
-}
-}
-
-$("filtroReservas").onchange=renderReservas;
-$("refreshReservations").onclick=atualizarTudo;
-
-// FINANCEIRO
-
-async function consultarTudo(tabela,ordem){
-
-let dados=[];
-
-for(let inicio=0;;inicio+=500){
-
-const {data,error}=await db.from(tabela)
-.select("*")
-.order(ordem,{ascending:true})
-.range(inicio,inicio+499);
-
-if(error)throw error;
-
-dados.push(...(data||[]));
-
-if(!data||data.length<500)break;
-
-}
-
-return dados;
-}
-
-async function carregarFinanceiro(){
-
-const resultados=await Promise.allSettled([
-consultarTudo("financeiro_custos","produto_id"),
-consultarTudo("financeiro_vendas","reserva_id")
-]);
-
-custosOK=resultados[0].status==="fulfilled";
-vendasOK=resultados[1].status==="fulfilled";
-
-custos=new Map();
-
-if(custosOK){
-for(const c of resultados[0].value){
-custos.set(c.produto_id,Number(c.custo_unitario));
-}
-}
-
-vendas=vendasOK?resultados[1].value:[];
-
-renderFinanceiro();
-renderProdutos();
-renderReservas();
-}
-
-function renderFinanceiro(){
-
-const periodo=$("mesFinanceiro").value;
-
-const lista=vendas.filter(v=>
-!periodo||mes(v.vendido_em)===periodo);
-
-let faturamento=0;
-let custoTotal=0;
-let semCusto=0;
-
-for(const v of lista){
-
-faturamento+=Number(v.preco_unitario)*v.quantidade-
-Number(v.desconto||0);
-
-if(v.custo_unitario===null){
-semCusto++;
-}else{
-custoTotal+=Number(v.custo_unitario)*v.quantidade;
-}
-}
-
-const completo=vendasOK&&semCusto===0;
-
-const lucro=faturamento-custoTotal;
-
-$("faturamento").textContent=vendasOK?moeda(faturamento):"—";
-
-$("custoVendido").textContent=completo?moeda(custoTotal):"—";
-
-$("lucroBruto").textContent=completo?moeda(lucro):"—";
-
-$("lucroBruto").className=completo
-?(lucro>=0?"positive":"negative"):"";
-
-$("margemBruta").textContent=completo&&faturamento>0
-?(lucro/faturamento*100).toFixed(1).replace(".",",")+"%"
-:"—";
-
-$("vendasMes").textContent=vendasOK?lista.length:"—";
-
-let investimento=0;
-let faltando=0;
-
-for(const p of produtos){
-
-if(Number(p.estoque)<=0)continue;
-
-if(!custos.has(p.id)){
-faltando++;
-}else{
-investimento+=custos.get(p.id)*Number(p.estoque);
-}
-}
-
-$("investimento").textContent=
-custosOK&&produtosOK&&faltando===0
-?moeda(investimento):"—";
-
-const avisos=[];
-
-if(!vendasOK)avisos.push("Não foi possível carregar as vendas.");
-
-if(!custosOK)avisos.push("Não foi possível carregar os custos.");
-
-if(semCusto){
-avisos.push(semCusto+" venda(s) sem custo histórico. O lucro total ficará indisponível.");
-}
-
-if(custosOK&&faltando){
-avisos.push(faltando+" produto(s) em estoque sem custo cadastrado.");
-}
-
-$("avisoFinanceiro").textContent=
-avisos.join(" ")||"Dados financeiros carregados.";
-
-const historico=$("historico");
-historico.replaceChildren();
-
-if(!vendasOK){
-historico.textContent="Erro ao carregar histórico financeiro.";
-return;
-}
-
-if(!lista.length){
-historico.textContent="Nenhuma venda financeira registrada neste período.";
-return;
-}
-
-lista.sort((a,b)=>new Date(b.vendido_em)-new Date(a.vendido_em));
-
-for(const v of lista){
-
-const card=document.createElement("div");
-card.className="item";
-
-const receita=Number(v.preco_unitario)*v.quantidade-
-Number(v.desconto||0);
-
-texto(card,"strong",v.nome_produto);
-
-texto(card,"p","Código: "+(v.codigo||"—")+" | Quantidade: "+v.quantidade,"muted");
-
-texto(card,"p","Venda: "+moeda(receita),"valor");
-
-if(v.custo_unitario!==null){
-
-const c=Number(v.custo_unitario)*v.quantidade;
-const l=receita-c;
-
-texto(card,"div","Custo: "+moeda(c),"muted");
-
-texto(card,"div","Lucro bruto: "+moeda(l),
-l>=0?"positive":"negative");
-
-}else{
-texto(card,"div","Custo histórico não informado.","muted");
-}
-
-texto(card,"p",
-new Date(v.vendido_em).toLocaleString("pt-BR",{
-timeZone:"America/Sao_Paulo"
-}),"muted");
-
-historico.appendChild(card);
-}
-}
-
-$("mesFinanceiro").value=mes(new Date());
-
-$("mesFinanceiro").onchange=renderFinanceiro;
-
-$("refreshFinanceiro").onclick=atualizarTudo;
-
-async function atualizarTudo(){
-
-await carregarProdutos();
-await carregarReservas();
-await carregarFinanceiro();
-
-}
-
-// INICIALIZACAO
-
-async function iniciar(){
-
-if(!window.supabase?.createClient){
-return msg("Não foi possível conectar ao Supabase.",true);
-}
-
-const hash=new URLSearchParams(location.hash.replace(/^#/,""));
-const query=new URLSearchParams(location.search);
-
-recuperando=hash.get("type")==="recovery"||
-query.get("type")==="recovery";
-
-db=window.supabase.createClient(URL_DB,KEY);
-
-db.auth.onAuthStateChange(event=>{
-
-if(event==="PASSWORD_RECOVERY"){
-recuperando=true;
-painel("reset");
-}
-
-if(event==="SIGNED_OUT"){
-limparDados();
-painel("login");
-}
-
-});
-
-if(recuperando){
-
-const {data,error}=await db.auth.getSession();
-
-if(error||!data.session){
-recuperando=false;
-painel("login");
-return msg("Link inválido ou expirado.",true);
-}
-
-painel("reset");
-return;
-}
-
-await validarAcesso();
-}
-
-iniciar();
-</script>
-</body>
-</html>
-
-<style>
-#menuSilverLove{
-  background:#fff3f8;
-  padding:18px;
-  border-radius:16px;
-  margin:15px 0;
-  color:#922957;
-}
-#menuSilverLove h2{
-  text-align:center;
-  color:#922957;
-}
-.sl-menu-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;
-}
-.sl-menu-item{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  background:white;
-  border:1px solid #e8c1d4;
-  border-radius:12px;
-  padding:18px 8px;
-  color:#922957;
-  text-decoration:none;
-  font-weight:bold;
-}
-.sl-menu-item span{
-  font-size:28px;
-  margin-bottom:8px;
-}
-.sl-menu-item small{
-  font-size:12px;
-  font-weight:normal;
-  margin-top:5px;
-  color:#806575;
-}
-.sl-menu-item:hover{
-  background:#f9dce9;
-}
-</style>
-
-<script>
-(function(){
-
-  const painel=document.getElementById("dashboard");
-
-  if(!painel || document.getElementById("menuSilverLove"))return;
-
-  const menu=document.createElement("section");
-
-  menu.id="menuSilverLove";
-
-  menu.innerHTML=`
-    <h2>💎 Central de gerenciamento</h2>
-
-    <div class="sl-menu-grid">
-
-      <a class="sl-menu-item" href="#formTitle">
-        <span>💎</span>
-        Produtos
-        <small>Cadastrar joias</small>
-      </a>
-
-      <a class="sl-menu-item" href="vendas.html">
-        <span>🛒</span>
-        Vendas
-        <small>Registrar vendas</small>
-      </a>
-
-      <a class="sl-menu-item" href="compras.html">
-        <span>📦</span>
-        Compras
-        <small>Importar compras</small>
-      </a>
-
-      <a class="sl-menu-item" href="#productsList">
-        <span>📋</span>
-        Estoque
-        <small>Consultar peças</small>
-      </a>
-
-      <a class="sl-menu-item" href="#reservationsList">
-        <span>📅</span>
-        Reservas
-        <small>Pedidos de clientes</small>
-      </a>
-
-      <a class="sl-menu-item" href="#financeiro">
-        <span>💰</span>
-        Financeiro
-        <small>Custos e lucros</small>
-      </a>
-
-      <a class="sl-menu-item" href="index.html"
-         target="_blank" rel="noopener">
-        <span>🏪</span>
-        Minha loja
-        <small>Abrir catálogo</small>
-      </a>
-
-      <div class="sl-menu-item" style="opacity:0.6">
-        <span>📷</span>
-        Fotos
-        <small>Em breve</small>
-      </div>
-
-    </div>
-  `;
-
-  if(!document.getElementById("financeiro")){
-
-    const titulo=[...painel.querySelectorAll("h2,h3")]
-      .find(e=>e.textContent.toLowerCase()
-      .includes("financeiro"));
-
-    if(titulo){
-      titulo.id="financeiro";
-    }
-  }
-
-  painel.prepend(menu);
-
-})();
-</script>
+ativo:$("ativo")
