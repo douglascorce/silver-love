@@ -1,0 +1,651 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Silver Love | Leitor Inteligente</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff3f8;color:#492537;font-family:Arial,sans-serif}
+header{background:linear-gradient(120deg,#801b4c,#c13a7b);color:white;padding:25px;text-align:center}
+header h1{margin:0}
+main{max-width:850px;margin:auto;padding:15px}
+.card{background:white;border-radius:16px;padding:20px;margin:15px 0;box-shadow:0 4px 18px #7d20451a}
+h2{color:#922957;margin-top:0}
+label{display:block;font-weight:bold;margin:15px 0 8px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #dab4c6;border-radius:9px;font-size:16px}
+textarea{min-height:240px}
+button,.btn{display:inline-block;border:0;border-radius:10px;background:#a92c66;color:white;padding:14px;font-weight:bold;font-size:15px;text-decoration:none;cursor:pointer}
+button:disabled{opacity:.5}
+.green{background:#28854c}
+.gray{background:#74606d}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.metric{background:#fff3f8;padding:14px;border-radius:12px}
+.metric strong{display:block;color:#922957;font-size:24px;margin-top:8px}
+.muted{color:#806b77;font-size:13px;line-height:1.6}
+canvas{width:100%;height:auto;border-radius:10px;margin-top:15px}
+progress{width:100%;accent-color:#a92c66}
+[hidden]{display:none!important}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>💎 Silver Love</h1>
+<p>Prata e Folheados a Ouro</p>
+<p>Leitor inteligente de documentos</p>
+</header>
+
+<main>
+
+<div class="actions">
+<a class="btn gray" href="admin.html">← Painel</a>
+<a class="btn" href="compras.html">Compras</a>
+</div>
+
+<section class="card">
+
+<h2>📄 Digitalizar documento</h2>
+
+<label>Selecionar fotografia</label>
+<input id="arquivo" type="file" accept="image/*">
+
+<label>Tratamento da imagem</label>
+
+<select id="tratamento">
+<option value="contraste">Contraste e nitidez</option>
+<option value="preto">Preto e branco</option>
+<option value="original">Imagem original</option>
+</select>
+
+<label>Modo de leitura</label>
+
+<select id="modo">
+<option value="6">Tabela e linhas</option>
+<option value="4">Colunas de texto</option>
+<option value="11">Texto disperso</option>
+</select>
+
+<div class="actions">
+
+<button id="girar" class="gray">
+🔄 Girar imagem
+</button>
+
+<button id="ler" class="green">
+Ler documento
+</button>
+
+</div>
+
+<canvas id="canvas" hidden></canvas>
+
+<progress id="progresso" max="100" value="0" hidden></progress>
+
+<p id="status" class="muted">
+Selecione uma foto legível do documento.
+</p>
+
+</section>
+
+<section class="card">
+
+<h2>📝 Texto reconhecido</h2>
+
+<textarea id="texto" placeholder="O texto extraído aparecerá aqui."></textarea>
+
+<button id="identificar">
+Identificar produtos
+</button>
+
+<p class="muted">
+Confira os dados com o documento original.
+A leitura automática pode cometer erros.
+</p>
+
+</section>
+
+<section class="card">
+
+<h2>📊 Resultado da leitura</h2>
+
+<div class="grid">
+
+<div class="metric">
+Itens encontrados
+<strong id="totalItens">0</strong>
+</div>
+
+<div class="metric">
+Quantidade
+<strong id="quantidade">0</strong>
+</div>
+
+<div class="metric">
+Valor bruto reconhecido
+<strong id="total">R$ 0,00</strong>
+</div>
+
+<div class="metric">
+Venda estimada (+110%)
+<strong id="venda">R$ 0,00</strong>
+</div>
+
+</div>
+
+<p class="muted">
+A estimativa utiliza os valores brutos,
+antes de eventuais descontos do fornecedor.
+</p>
+
+<label>Produtos identificados</label>
+
+<textarea id="resultado"
+placeholder="Código;descrição;quantidade;valor"></textarea>
+
+<p id="aviso" class="muted"></p>
+
+<div class="actions">
+
+<button id="copiar" class="green">
+Copiar produtos
+</button>
+
+<a class="btn" href="compras.html">
+Ir para Compras
+</a>
+
+</div>
+
+<p class="muted">
+Esta página não salva compras nem altera
+o estoque. A leitura é realizada no navegador.
+</p>
+
+</section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@6/dist/tesseract.min.js"></script>
+
+<script>
+"use strict";
+
+const $=id=>document.getElementById(id);
+
+const moeda=v=>Number(v).toLocaleString(
+"pt-BR",{
+style:"currency",
+currency:"BRL"
+});
+
+let imagem=null;
+let angulo=0;
+let ocupado=false;
+
+function status(t){
+$("status").textContent=t;
+}
+
+$("arquivo").onchange=async()=>{
+
+if(ocupado)return;
+
+const f=$("arquivo").files[0];
+
+if(!f)return;
+
+const url=URL.createObjectURL(f);
+
+try{
+
+const img=new Image();
+
+img.src=url;
+
+await img.decode();
+
+imagem=img;
+angulo=0;
+
+$("texto").value="";
+$("resultado").value="";
+
+resumir();
+
+preparar();
+
+status("Imagem preparada para leitura.");
+
+}catch(e){
+
+imagem=null;
+$("canvas").hidden=true;
+
+status("Não foi possível abrir esta imagem.");
+
+}finally{
+
+URL.revokeObjectURL(url);
+
+}
+
+};
+
+function preparar(){
+
+if(!imagem)return;
+
+const c=$("canvas");
+
+const escala=Math.min(
+2,
+3200/Math.max(
+imagem.naturalWidth,
+imagem.naturalHeight
+)
+);
+
+const w=Math.round(
+imagem.naturalWidth*escala
+);
+
+const h=Math.round(
+imagem.naturalHeight*escala
+);
+
+const invertido=angulo%180!==0;
+
+c.width=invertido?h:w;
+c.height=invertido?w:h;
+
+const ctx=c.getContext("2d",{
+willReadFrequently:true
+});
+
+ctx.fillStyle="white";
+
+ctx.fillRect(0,0,c.width,c.height);
+
+ctx.save();
+
+ctx.translate(c.width/2,c.height/2);
+
+ctx.rotate(angulo*Math.PI/180);
+
+ctx.imageSmoothingEnabled=true;
+
+ctx.imageSmoothingQuality="high";
+
+ctx.drawImage(imagem,-w/2,-h/2,w,h);
+
+ctx.restore();
+
+const tipo=$("tratamento").value;
+
+if(tipo!=="original"){
+
+const dados=ctx.getImageData(
+0,0,c.width,c.height
+);
+
+const a=dados.data;
+
+for(let i=0;i<a.length;i+=4){
+
+let cinza=
+a[i]*0.299+
+a[i+1]*0.587+
+a[i+2]*0.114;
+
+cinza=Math.max(
+0,
+Math.min(255,(cinza-128)*1.6+145)
+);
+
+if(tipo==="preto"){
+
+cinza=cinza>150?255:0;
+
+}
+
+a[i]=a[i+1]=a[i+2]=cinza;
+
+}
+
+ctx.putImageData(dados,0,0);
+
+// Reforço leve da nitidez
+
+if(tipo==="contraste"){
+
+const base=dados.data.slice();
+
+for(let y=1;y<c.height-1;y++){
+
+for(let x=1;x<c.width-1;x++){
+
+const i=(y*c.width+x)*4;
+
+const v=2*base[i]-
+0.25*(
+base[i-4]+base[i+4]+
+base[i-c.width*4]+
+base[i+c.width*4]
+);
+
+a[i]=a[i+1]=a[i+2]=
+Math.max(0,Math.min(255,v));
+
+}
+
+}
+
+ctx.putImageData(dados,0,0);
+
+}
+
+}
+
+c.hidden=false;
+
+}
+
+$("tratamento").onchange=()=>{
+
+if(!ocupado)preparar();
+
+};
+
+$("girar").onclick=()=>{
+
+if(ocupado||!imagem)return;
+
+angulo=(angulo+90)%360;
+
+preparar();
+
+};
+
+function numero(v){
+
+const s=String(v).trim();
+
+return Number(s.includes(",")?
+s.replace(/\./g,"").replace(",","."):s);
+
+}
+
+function identificar(){
+
+const linhas=$("texto").value.split(/\r?\n/);
+
+const itens=[];
+
+let ignoradas=0;
+
+for(const original of linhas){
+
+const linha=original.trim();
+
+if(!linha)continue;
+
+let codigo,descricao,qtd,valor;
+
+const partes=linha.split(";");
+
+if(partes.length===4){
+
+[codigo,descricao,qtd,valor]=
+partes.map(x=>x.trim());
+
+}else{
+
+// Formato: código, preço, quantidade, descrição
+
+const m=linha.match(
+/^[^\d]{0,4}(\d{4,10})\s+(?:R\$\s*)?([\d.]+,\d{2}|\d+\.\d{2})\s+(\d+(?:[,.]00)?)\s+(.+)$/i
+);
+
+if(m){
+
+codigo=m[1];
+valor=m[2];
+qtd=m[3];
+
+descricao=m[4]
+.replace(/^(?:\d{1,4}\s+){0,3}/,"")
+.split(/\bUN\b/i)[0]
+.trim();
+
+}else{
+
+ignoradas++;
+continue;
+
+}
+
+}
+
+const q=numero(qtd);
+const v=numero(valor);
+
+if(!codigo||
+!/[A-Za-zÀ-ÿ]{3}/.test(descricao)||
+!Number.isInteger(q)||
+q<=0||
+!Number.isFinite(v)||
+v<0){
+
+ignoradas++;
+continue;
+
+}
+
+itens.push([
+codigo,
+descricao,
+q,
+v.toFixed(2).replace(".",",")
+].join(";"));
+
+}
+
+$("resultado").value=itens.join("\n");
+
+resumir();
+
+$("aviso").textContent=
+
+itens.length+
+" linha(s) identificada(s). "+
+
+ignoradas+
+" linha(s) não convertida(s), incluindo possíveis cabeçalhos e totais. "+
+
+"Confira todas as peças antes de importar.";
+
+}
+
+function resumir(){
+
+let qtd=0,total=0,itens=0,venda=0;
+
+for(const l of $("resultado").value.split(/\r?\n/)){
+
+const p=l.split(";");
+
+if(p.length!==4)continue;
+
+const q=numero(p[2]);
+const v=numero(p[3]);
+
+if(!p[0].trim()||
+!p[1].trim()||
+!Number.isInteger(q)||
+q<1||
+!p[3].trim()||
+!Number.isFinite(v)||v<0)continue;
+
+itens++;
+qtd+=q;
+total+=q*v;
+venda+=q*Math.round(v*2.1*100)/100;
+
+}
+
+$("totalItens").textContent=itens;
+
+$("quantidade").textContent=qtd;
+
+$("total").textContent=moeda(total);
+
+$("venda").textContent=moeda(venda);
+
+}
+
+$("identificar").onclick=identificar;
+
+$("resultado").oninput=resumir;
+
+$("ler").onclick=async()=>{
+
+if(ocupado)return;
+
+if(!imagem){
+
+return status("Selecione uma fotografia.");
+
+}
+
+ocupado=true;
+
+const controles=[
+"arquivo","tratamento","modo",
+"girar","ler","identificar","copiar"
+];
+
+controles.forEach(id=>$(id).disabled=true);
+
+$("progresso").hidden=false;
+$("progresso").value=0;
+
+let worker;
+
+try{
+
+if(!window.Tesseract){
+
+throw new Error(
+"Não foi possível carregar o leitor."
+);
+
+}
+
+status("Iniciando reconhecimento em português...");
+
+worker=await Tesseract.createWorker(
+"por",1,{
+
+logger:m=>{
+
+const p=Math.round((m.progress||0)*100);
+
+$("progresso").value=p;
+
+status(m.status==="recognizing text"?
+"Reconhecendo texto: "+p+"%":
+"Preparando leitor... "+p+"%");
+
+}
+
+});
+
+await worker.setParameters({
+
+tessedit_pageseg_mode:$("modo").value,
+
+preserve_interword_spaces:"1",
+
+user_defined_dpi:"300"
+
+});
+
+const r=await worker.recognize(
+$("canvas")
+);
+
+$("texto").value=r.data.text;
+
+identificar();
+
+$("progresso").value=100;
+
+status(
+"Leitura concluída. Confiança média do OCR: "+
+Math.round(r.data.confidence)+"%"
+);
+
+}catch(e){
+
+status("Erro na leitura: "+e.message);
+
+}finally{
+
+if(worker){
+
+await worker.terminate().catch(()=>{});
+
+}
+
+ocupado=false;
+
+controles.forEach(
+id=>$(id).disabled=false
+);
+
+}
+
+};
+
+$("copiar").onclick=async()=>{
+
+const t=$("resultado").value;
+
+if(!t.trim()){
+
+$("aviso").textContent=
+"Nenhum produto para copiar.";
+
+return;
+
+}
+
+try{
+
+await navigator.clipboard.writeText(t);
+
+$("aviso").textContent=
+
+"Produtos copiados! Confira e cole no módulo Compras.";
+
+}catch(e){
+
+$("resultado").focus();
+
+$("resultado").select();
+
+$("aviso").textContent=
+"Selecione e copie o texto manualmente.";
+
+}
+
+};
+
+</script>
+</body>
+</html>
