@@ -1,0 +1,749 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Silver Love | Vendas</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff3f8;color:#492537;font-family:Arial,sans-serif}
+header{background:linear-gradient(120deg,#801b4c,#c13a7b);color:white;padding:24px;text-align:center}
+header h1{margin:0}
+main{max-width:900px;margin:auto;padding:15px}
+.card{background:white;border-radius:16px;padding:20px;margin:15px 0;box-shadow:0 4px 18px #7d20451a}
+h2{color:#922957;margin-top:0}
+label{display:block;font-weight:bold;margin:15px 0 7px}
+input,select{width:100%;padding:13px;border:1px solid #dab4c6;border-radius:9px;background:white;color:#492537;font-size:16px}
+button,.btn{display:inline-block;padding:13px 16px;border:0;border-radius:10px;background:#a92c66;color:white;font-size:15px;font-weight:bold;text-decoration:none;cursor:pointer}
+button:disabled{opacity:.5}
+.green{background:#28854c}
+.secondary{background:#74606d}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.metric{background:#fff3f8;border-radius:12px;padding:14px}
+.metric strong{display:block;color:#922957;font-size:21px;margin-top:8px}
+.muted{font-size:13px;color:#806b77;line-height:1.6}
+.msg{padding:15px;background:#e1f5e8;color:#245b38;border-radius:10px;margin:15px 0}
+.erro{background:#ffe1e7;color:#902b45}
+.item{border-bottom:1px solid #ead6df;padding:16px 0}
+.item:last-child{border-bottom:0}
+.foto{width:100%;max-height:190px;object-fit:contain;border-radius:12px}
+[hidden]{display:none!important}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>💎 Silver Love</h1>
+<p>Prata e Folheados a Ouro</p>
+<p>Registro de Vendas</p>
+</header>
+
+<main>
+
+<nav class="actions">
+<a class="btn secondary" href="admin.html">← Painel</a>
+<a class="btn" href="compras.html">Compras</a>
+<a class="btn green" href="admin.html#financeiro">Financeiro</a>
+</nav>
+
+<div id="mensagem" class="msg" role="status" hidden></div>
+
+<section id="acesso" class="card">
+Validando acesso administrativo...
+</section>
+
+<div id="painel" hidden>
+
+<section class="card">
+
+<h2>💰 Registrar venda manual</h2>
+
+<form id="formVenda">
+
+<label>Buscar joia por nome ou código</label>
+<input id="busca" type="search" placeholder="Digite o nome ou código">
+
+<label>Selecionar joia</label>
+<select id="produto" required>
+<option value="">Selecione</option>
+</select>
+
+<img id="foto" class="foto" alt="Foto da joia" hidden>
+
+<p id="infoProduto" class="muted"></p>
+
+<label>Data real da venda</label>
+<input id="data" type="date" required>
+
+<label>Quantidade vendida</label>
+<input id="quantidade" type="number" min="1" step="1" value="1" required>
+
+<label>Custo unitário (R$)</label>
+<input id="custo" type="number" min="0" step="0.01">
+
+<p id="avisoCusto" class="muted">
+Confira o custo original da peça.
+</p>
+
+<label>Preço unitário efetivo da venda (R$)</label>
+<input id="preco" type="number" min="0" step="0.01" required>
+
+<label>Forma de pagamento</label>
+<select id="pagamento" required>
+<option value="">Selecione</option>
+<option>Pix</option>
+<option>Dinheiro</option>
+<option>Cartão de crédito</option>
+<option>Cartão de débito</option>
+<option>Transferência</option>
+<option>Outros</option>
+<option>Não informado</option>
+</select>
+
+<label>Movimentação de estoque</label>
+<select id="baixa" required>
+<option value="">Selecione uma opção</option>
+<option value="sim">Dar baixa no estoque</option>
+<option value="nao">Venda já baixada — somente financeiro</option>
+</select>
+
+<p id="avisoEstoque" class="muted">
+Escolha se a quantidade vendida ainda precisa ser descontada.
+</p>
+
+<div class="grid">
+
+<div class="metric">
+<span class="muted">Valor total da venda</span>
+<strong id="total">—</strong>
+</div>
+
+<div class="metric">
+<span class="muted">Custo total</span>
+<strong id="totalCusto">—</strong>
+</div>
+
+<div class="metric">
+<span class="muted">Lucro bruto</span>
+<strong id="lucro">—</strong>
+</div>
+
+<div class="metric">
+<span class="muted">Margem bruta</span>
+<strong id="margem">—</strong>
+</div>
+
+</div>
+
+<p class="muted">
+O lucro bruto não considera taxas de cartão ou outras despesas.
+Não registre novamente vendas já lançadas no financeiro.
+</p>
+
+<div class="actions">
+<button id="salvar" class="green" type="submit">
+Registrar venda
+</button>
+
+<button id="limpar" class="secondary" type="button">
+Limpar
+</button>
+</div>
+
+</form>
+</section>
+
+<section class="card">
+
+<h2>📋 Histórico de vendas manuais</h2>
+
+<button id="atualizar" class="secondary">
+Atualizar histórico
+</button>
+
+<div id="historico">Carregando...</div>
+
+</section>
+
+</div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<script>
+"use strict";
+
+const URL_DB="https://xyybmzfodlvwljhhfxhe.supabase.co";
+const KEY="sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
+const SITE="https://douglascorce.github.io/silver-love/";
+
+const $=id=>document.getElementById(id);
+
+const moeda=v=>Number(v).toLocaleString("pt-BR",{
+style:"currency",
+currency:"BRL"
+});
+
+const normal=v=>String(v??"")
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+.toLowerCase();
+
+let db;
+let produtos=[];
+let custos=new Map();
+let ocupado=false;
+let tentativa=null;
+
+function hoje(){
+
+const p=new Intl.DateTimeFormat("pt-BR",{
+year:"numeric",
+month:"2-digit",
+day:"2-digit",
+timeZone:"America/Sao_Paulo"
+}).formatToParts(new Date());
+
+return p.find(x=>x.type==="year").value+"-"+
+p.find(x=>x.type==="month").value+"-"+
+p.find(x=>x.type==="day").value;
+
+}
+
+function msg(t,erro=false){
+
+$("mensagem").textContent=t;
+$("mensagem").className="msg"+(erro?" erro":"");
+$("mensagem").hidden=false;
+$("mensagem").scrollIntoView({behavior:"smooth"});
+
+}
+
+function texto(parent,tag,t,cls){
+
+const e=document.createElement(tag);
+e.textContent=String(t??"");
+if(cls)e.className=cls;
+parent.appendChild(e);
+return e;
+
+}
+
+function escolhido(){
+
+return produtos.find(p=>p.id===$("produto").value);
+
+}
+
+async function consultar(tabela,colunas){
+
+let lista=[];
+
+for(let inicio=0;;inicio+=500){
+
+const {data,error}=await db.from(tabela)
+.select(colunas)
+.order(tabela==="produtos"?"id":"produto_id")
+.range(inicio,inicio+499);
+
+if(error)throw error;
+
+lista.push(...(data||[]));
+
+if(!data||data.length<500)return lista;
+
+}
+
+}
+
+async function carregarProdutos(){
+
+produtos=await consultar(
+"produtos",
+"id,codigo,nome,preco,estoque,imagem_url"
+);
+
+produtos.sort((a,b)=>
+String(a.nome).localeCompare(String(b.nome),"pt-BR")
+);
+
+const dados=await consultar(
+"financeiro_custos",
+"produto_id,custo_unitario"
+);
+
+custos=new Map(
+dados.map(c=>[
+c.produto_id,
+Number(c.custo_unitario)
+])
+);
+
+filtrar();
+
+}
+
+function filtrar(){
+
+const busca=normal($("busca").value);
+const select=$("produto");
+const anterior=select.value;
+
+select.replaceChildren();
+
+const inicial=document.createElement("option");
+inicial.value="";
+inicial.textContent="Selecione uma joia";
+select.appendChild(inicial);
+
+for(const p of produtos){
+
+if(!normal(p.codigo+" "+p.nome).includes(busca)){
+continue;
+}
+
+const op=document.createElement("option");
+
+op.value=p.id;
+
+op.textContent=
+p.codigo+" — "+p.nome+
+" | Estoque: "+p.estoque;
+
+select.appendChild(op);
+
+}
+
+select.value=anterior;
+
+if(select.value!==anterior){
+selecionar();
+}
+
+}
+
+function selecionar(){
+
+const p=escolhido();
+
+$("foto").hidden=true;
+$("foto").removeAttribute("src");
+
+if(!p){
+
+$("preco").value="";
+$("custo").value="";
+$("infoProduto").textContent="";
+$("avisoCusto").textContent="Confira o custo original da peça.";
+calcular();
+return;
+
+}
+
+$("preco").value=Number(p.preco).toFixed(2);
+$("custo").value=custos.has(p.id)
+?custos.get(p.id).toFixed(2):"";
+
+$("infoProduto").textContent=
+"Código: "+p.codigo+
+" | Estoque atual: "+p.estoque;
+
+$("avisoCusto").textContent=custos.has(p.id)
+?"Custo atual sugerido. Para vendas antigas, confira o custo da época."
+:"Custo não cadastrado. Informe o valor original, se souber.";
+
+if(p.imagem_url){
+
+try{
+
+const u=new URL(p.imagem_url,SITE);
+
+if(u.protocol==="https:"){
+
+$("foto").src=u.href;
+$("foto").hidden=false;
+$("foto").onerror=()=>$("foto").hidden=true;
+
+}
+
+}catch(e){}
+
+}
+
+calcular();
+
+}
+
+function custoConsiderado(){
+
+if($("custo").value!==""){
+return Number($("custo").value);
+}
+
+const p=escolhido();
+
+if(p&&$("baixa").value==="sim"&&custos.has(p.id)){
+return custos.get(p.id);
+}
+
+return null;
+
+}
+
+function calcular(){
+
+const qtd=Number($("quantidade").value);
+const preco=Number($("preco").value);
+const custo=custoConsiderado();
+
+const valido=$("preco").value!==""&&
+Number.isInteger(qtd)&&qtd>0&&
+Number.isFinite(preco)&&preco>=0;
+
+const total=preco*qtd;
+const conhecido=valido&&custo!==null&&
+Number.isFinite(custo)&&custo>=0;
+
+const lucro=total-custo*qtd;
+
+$("total").textContent=valido?moeda(total):"—";
+$("totalCusto").textContent=conhecido?moeda(custo*qtd):"—";
+$("lucro").textContent=conhecido?moeda(lucro):"—";
+
+$("lucro").style.color=
+conhecido&&lucro<0?"#b93655":"#28854c";
+
+$("margem").textContent=conhecido&&total>0
+?(lucro/total*100).toFixed(1).replace(".",",")+"%"
+:"—";
+
+const baixa=$("baixa").value;
+
+$("avisoEstoque").textContent=
+baixa==="sim"
+?"A quantidade será descontada do estoque atual."
+:baixa==="nao"
+?"O estoque permanecerá intacto."
+:"Escolha se a venda precisa de baixa no estoque.";
+
+}
+
+$("busca").oninput=filtrar;
+$("produto").onchange=selecionar;
+
+for(const id of ["quantidade","preco","custo","baixa"]){
+$(id).addEventListener("input",calcular);
+$(id).addEventListener("change",calcular);
+}
+
+function limparForm(){
+
+$("formVenda").reset();
+$("busca").value="";
+$("data").value=hoje();
+$("data").max=hoje();
+$("quantidade").value="1";
+
+filtrar();
+selecionar();
+
+}
+
+$("limpar").onclick=()=>{
+
+if(ocupado)return;
+limparForm();
+
+};
+
+async function historico(){
+
+const h=$("historico");
+
+h.textContent="Carregando vendas...";
+
+const {data,error}=await db
+.from("financeiro_vendas")
+.select("*")
+.eq("origem","manual")
+.order("vendido_em",{ascending:false})
+.limit(100);
+
+if(error){
+
+h.textContent="Erro: "+error.message;
+return;
+
+}
+
+h.replaceChildren();
+
+if(!data?.length){
+
+h.textContent="Nenhuma venda manual registrada.";
+return;
+
+}
+
+for(const v of data){
+
+const card=document.createElement("div");
+card.className="item";
+
+const total=
+Number(v.preco_unitario)*v.quantidade-
+Number(v.desconto||0);
+
+texto(card,"strong",v.nome_produto);
+texto(card,"p","Código: "+v.codigo+
+" | Quantidade: "+v.quantidade,"muted");
+
+texto(card,"p","Venda: "+moeda(total));
+
+if(v.custo_unitario!==null){
+
+texto(card,"p",
+"Lucro bruto: "+
+moeda(total-v.custo_unitario*v.quantidade),
+"muted");
+
+}else{
+
+texto(card,"p","Custo histórico não informado.","muted");
+
+}
+
+texto(card,"p",
+"Pagamento: "+(v.forma_pagamento||"Não informado"),
+"muted");
+
+texto(card,"p",
+v.baixa_estoque
+?"Estoque atualizado"
+:"Somente financeiro",
+"muted");
+
+texto(card,"p",
+new Date(v.vendido_em).toLocaleDateString("pt-BR",{
+timeZone:"America/Sao_Paulo"
+}),"muted");
+
+h.appendChild(card);
+
+}
+
+}
+
+$("atualizar").onclick=async()=>{
+
+if(ocupado)return;
+
+try{
+await carregarProdutos();
+await historico();
+}catch(e){
+msg(e.message,true);
+}
+
+};
+
+// REGISTRAR VENDA
+
+$("formVenda").onsubmit=async e=>{
+
+e.preventDefault();
+
+if(ocupado)return;
+
+const p=escolhido();
+
+if(!p)return msg("Selecione uma joia.",true);
+
+const qtd=Number($("quantidade").value);
+const preco=Number($("preco").value);
+const custo=custoConsiderado();
+const data=$("data").value;
+const pagamento=$("pagamento").value;
+const baixa=$("baixa").value==="sim";
+
+if(!Number.isInteger(qtd)||qtd<1||
+$("preco").value===""||
+!Number.isFinite(preco)||preco<0||
+!data||data>hoje()||
+!pagamento||!$("baixa").value||
+(custo!==null&&
+(!Number.isFinite(custo)||custo<0))){
+
+return msg("Confira os dados da venda.",true);
+
+}
+
+if(baixa&&qtd>Number(p.estoque)){
+
+return msg("Estoque insuficiente. Atualize a lista de produtos.",true);
+
+}
+
+const dados={
+p_produto_id:p.id,
+p_quantidade:qtd,
+p_preco_unitario:preco,
+p_data:data,
+p_pagamento:pagamento,
+p_baixar_estoque:baixa,
+p_custo_unitario:custo
+};
+
+const assinatura=JSON.stringify(dados);
+
+if(!tentativa||tentativa.assinatura!==assinatura){
+
+tentativa={
+id:crypto.randomUUID(),
+assinatura:assinatura
+};
+
+}
+
+if(!confirm(
+"Registrar venda de "+p.nome+
+"\nQuantidade: "+qtd+
+"\nValor: "+moeda(preco*qtd)+
+"\n"+(baixa
+?"Com baixa no estoque."
+:"Somente financeiro, sem baixa no estoque.")
+))return;
+
+ocupado=true;
+$("salvar").disabled=true;
+$("salvar").textContent="Registrando...";
+
+try{
+
+const {error}=await db.rpc(
+"registrar_venda_manual",
+{
+p_id:tentativa.id,
+...dados
+}
+);
+
+if(error){
+
+const verificacao=await db
+.from("financeiro_vendas")
+.select("id")
+.eq("id",tentativa.id)
+.maybeSingle();
+
+if(verificacao.error||!verificacao.data){
+throw error;
+}
+
+}
+
+tentativa=null;
+
+limparForm();
+
+msg("💎 Venda registrada com sucesso! "+
+(baixa
+?"Estoque e financeiro atualizados."
+:"Financeiro atualizado sem nova baixa no estoque."));
+
+try{
+
+await carregarProdutos();
+await historico();
+
+}catch(e){
+
+msg("Venda registrada. Atualize o histórico para conferir.");
+
+}
+
+}catch(e){
+
+msg(
+"Não foi possível confirmar a venda: "+
+e.message+
+". Confira o histórico antes de tentar novamente.",
+true
+);
+
+}finally{
+
+ocupado=false;
+$("salvar").disabled=false;
+$("salvar").textContent="Registrar venda";
+
+}
+
+};
+
+// VALIDAR ACESSO ADMINISTRATIVO
+
+async function iniciar(){
+
+try{
+
+if(!window.supabase?.createClient){
+throw new Error("Não foi possível conectar ao Supabase.");
+}
+
+db=window.supabase.createClient(URL_DB,KEY);
+
+const {data,error}=await db.auth.getUser();
+
+if(error||!data?.user){
+throw new Error("Entre primeiro pelo painel administrativo.");
+}
+
+const r=await db.from("administradores")
+.select("usuario_id")
+.eq("usuario_id",data.user.id)
+.maybeSingle();
+
+if(r.error)throw r.error;
+
+if(!r.data){
+throw new Error("Acesso não autorizado.");
+}
+
+$("data").value=hoje();
+$("data").max=hoje();
+
+await carregarProdutos();
+await historico();
+
+$("acesso").hidden=true;
+$("painel").hidden=false;
+
+db.auth.onAuthStateChange(event=>{
+
+if(event==="SIGNED_OUT"){
+
+$("painel").hidden=true;
+location.href="admin.html";
+
+}
+
+});
+
+}catch(e){
+
+$("acesso").textContent=e.message;
+
+}
+
+}
+
+iniciar();
+
+</script>
+</body>
+</html>
