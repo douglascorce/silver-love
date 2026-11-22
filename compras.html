@@ -1737,5 +1737,186 @@ $("acesso").textContent=e.message;
 
 iniciar();
 </script>
+<script>
+(() => {
+  const iniciarNuvem = async () => {
+    if (document.getElementById("rascunhoNuvem")) return;
+
+    const painel = document.getElementById("painel");
+    if (!painel || painel.hidden) return;
+
+    const { data, error } = await db.auth.getUser();
+    if (error || !data.user) return;
+
+    const usuario = data.user.id;
+    const chave = "silverlove_compra_rascunho_v1_" + usuario;
+
+    const area = document.createElement("div");
+    area.id = "rascunhoNuvem";
+    area.style.cssText = `
+      background:#292024;
+      border:1px solid #806975;
+      border-radius:16px;
+      padding:20px;
+      margin:20px 0;
+      color:#f5c7df;
+    `;
+
+    area.innerHTML = `
+      <h2>☁️ Rascunho na nuvem</h2>
+      <p id="statusNuvem">Consultando Supabase...</p>
+      <button type="button" id="salvarNuvem">
+        ☁️ Salvar na nuvem
+      </button>
+      <button type="button" id="restaurarNuvem">
+        Recuperar da nuvem
+      </button>
+      <button type="button" id="excluirNuvem">
+        Excluir da nuvem
+      </button>
+    `;
+
+    painel.prepend(area);
+
+    const status = document.getElementById("statusNuvem");
+    let ocupadoNuvem = false;
+
+    async function consultarNuvem() {
+      const { data, error } = await db
+        .from("compras_rascunhos")
+        .select("dados, atualizado_em")
+        .eq("usuario_id", usuario)
+        .maybeSingle();
+
+      if (error) throw error;
+      return data;
+    }
+
+    async function salvar() {
+      if (ocupadoNuvem) return;
+      ocupadoNuvem = true;
+
+      try {
+        const bruto = localStorage.getItem(chave);
+
+        if (!bruto) {
+          status.textContent =
+            "Salve primeiro o rascunho local.";
+          return;
+        }
+
+        const atual = await consultarNuvem();
+
+        if (atual && !confirm(
+          "Substituir o rascunho da nuvem pelo atual?"
+        )) return;
+
+        const { error } = await db
+          .from("compras_rascunhos")
+          .upsert({
+            usuario_id: usuario,
+            dados: JSON.parse(bruto),
+            atualizado_em: new Date().toISOString()
+          });
+
+        if (error) throw error;
+
+        status.textContent =
+          "✅ Rascunho salvo na nuvem!";
+      } catch (e) {
+        status.textContent = "Erro: " + e.message;
+      } finally {
+        ocupadoNuvem = false;
+      }
+    }
+
+    async function restaurar() {
+      if (ocupadoNuvem) return;
+      ocupadoNuvem = true;
+
+      try {
+        const registro = await consultarNuvem();
+
+        if (!registro) {
+          status.textContent =
+            "Nenhum rascunho na nuvem.";
+          return;
+        }
+
+        if (!confirm(
+          "Recuperar o rascunho da nuvem e substituir o local?"
+        )) return;
+
+        localStorage.setItem(
+          chave,
+          JSON.stringify(registro.dados)
+        );
+
+        location.reload();
+      } catch (e) {
+        status.textContent = "Erro: " + e.message;
+      } finally {
+        ocupadoNuvem = false;
+      }
+    }
+
+    async function excluir() {
+      if (ocupadoNuvem) return;
+      if (!confirm("Excluir o rascunho da nuvem?")) return;
+
+      ocupadoNuvem = true;
+
+      try {
+        const { error } = await db
+          .from("compras_rascunhos")
+          .delete()
+          .eq("usuario_id", usuario);
+
+        if (error) throw error;
+
+        status.textContent =
+          "Rascunho removido da nuvem.";
+      } catch (e) {
+        status.textContent = "Erro: " + e.message;
+      } finally {
+        ocupadoNuvem = false;
+      }
+    }
+
+    document.getElementById("salvarNuvem")
+      .onclick = salvar;
+
+    document.getElementById("restaurarNuvem")
+      .onclick = restaurar;
+
+    document.getElementById("excluirNuvem")
+      .onclick = excluir;
+
+    try {
+      const registro = await consultarNuvem();
+
+      status.textContent = registro
+        ? "☁️ Rascunho disponível para recuperar."
+        : "Nenhum rascunho salvo na nuvem.";
+    } catch (e) {
+      status.textContent = "Erro: " + e.message;
+    }
+  };
+
+  const aguardar = setInterval(() => {
+    const painel = document.getElementById("painel");
+
+    if (
+      painel &&
+      !painel.hidden &&
+      typeof db !== "undefined" &&
+      db
+    ) {
+      clearInterval(aguardar);
+      iniciarNuvem().catch(console.error);
+    }
+  }, 1000);
+})();
+</script>
 </body>
 </html>
