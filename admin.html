@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Silver Love | Administração</title>
+
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -41,9 +42,12 @@ small,.muted{font-size:13px;color:#806b77;line-height:1.5}
 .check label{margin:0}
 [hidden]{display:none!important}
 section{scroll-margin-top:15px}
-@media(min-width:720px){.menu,.resumo{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(min-width:720px){
+.menu,.resumo{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
 </style>
 </head>
+
 <body>
 
 <header>
@@ -54,157 +58,326 @@ section{scroll-margin-top:15px}
 </header>
 
 <main>
+
 <div id="mensagem" class="msg" hidden></div>
 
 <section id="login" class="card">
+
 <h2>🔐 Acesso administrativo</h2>
+
 <form id="loginForm" method="post" onsubmit="return false">
+
 <label>E-mail</label>
-<input id="email" type="email" autocomplete="username" required>
+<input id="email" type="email"
+autocomplete="username" required>
+
 <label>Senha</label>
-<input id="senha" type="password" autocomplete="current-password" required>
+<input id="senha" type="password"
+autocomplete="current-password" required>
+
 <div class="check">
 <input id="mostrar" type="checkbox">
 <label for="mostrar">Mostrar senha</label>
 </div>
+
 <div class="actions">
 <button id="entrar" disabled>Entrar</button>
-<button type="button" id="esqueci" class="gray">Esqueci minha senha</button>
+<button type="button" id="esqueci" class="gray">
+Esqueci minha senha
+</button>
 </div>
+
 </form>
+
 <p id="conexao" class="muted">Conectando...</p>
+
 </section>
 
 <section id="recuperacao" class="card" hidden>
+
 <h2>🔑 Nova senha</h2>
+
 <form id="resetForm" method="post" onsubmit="return false">
+
 <label>Nova senha</label>
 <input id="novaSenha" type="password" minlength="8" required>
+
 <label>Confirmar senha</label>
 <input id="confirmaSenha" type="password" minlength="8" required>
-<div class="actions"><button>Salvar nova senha</button></div>
+
+<div class="actions">
+<button>Salvar nova senha</button>
+</div>
+
 </form>
 </section>
 
 <div id="dashboard" hidden>
 
+<!-- MENU PRINCIPAL -->
+
 <section id="menu" class="card">
+
 <h2>💎 Central de gerenciamento</h2>
+
 <div class="grid menu">
-<a class="menuitem" href="#cadastro"><span>💎</span>Produtos<small>Cadastrar joias</small></a>
-<a class="menuitem" href="vendas.html"><span>🛒</span>Vendas<small>Registrar vendas</small></a>
-<a class="menuitem" href="compras.html"><span>📦</span>Compras<small>Importar documentos</small></a>
-<a class="menuitem" href="#estoque"><span>📋</span>Estoque<small>Consultar peças</small></a>
-<a class="menuitem" href="#reservas"><span>📅</span>Reservas<small>Pedidos de clientes</small></a>
-<a class="menuitem" href="#financeiro"><span>💰</span>Financeiro<small>Custos e lucros</small></a>
-<a class="menuitem" href="index.html" target="_blank" rel="noopener noreferrer"><span>🏪</span>Minha loja<small>Abrir catálogo</small></a>
-<a class="menuitem" href="fotos.html"><span>📷</span>Fotos<small>Fotografar e publicar</small></a>
-<a class="menuitem" href="despesas.html"><span>🧾</span>Despesas<small>Registrar gastos</small></a>
+
+<a class="menuitem" href="#cadastro">
+<span>💎</span>
+Produtos
+<small>Cadastrar joias</small>
+</a>
+
+<a class="menuitem" href="vendas.html">
+<span>🛒</span>
+Vendas
+<small>Registrar vendas</small>
+</a>
+
+<a class="menuitem" href="compras.html">
+<span>📦</span>
+Compras
+<small>Importar documentos</small>
+</a>
+
+<a class="menuitem" href="#estoque">
+<span>📋</span>
+Estoque
+<small>Consultar peças</small>
+</a>
+
+<a class="menuitem" href="#reservas">
+<span>📅</span>
+Reservas
+<small>Pedidos de clientes</small>
+</a>
+
+<a class="menuitem" href="#financeiro">
+<span>💰</span>
+Financeiro
+<small>Custos e lucros</small>
+</a>
+
+<a class="menuitem" href="index.html"
+target="_blank" rel="noopener noreferrer">
+<span>🏪</span>
+Minha loja
+<small>Abrir catálogo</small>
+</a>
+
+<a class="menuitem" href="fotos.html">
+<span>📷</span>
+Fotos
+<small>Fotografar e publicar</small>
+</a>
+
+<a class="menuitem" href="despesas.html">
+<span>🧾</span>
+Despesas
+<small>Registrar gastos</small>
+</a>
+
+<a class="menuitem" href="relatorios.html">
+<span>📊</span>
+Relatórios
+<small>Gráficos e resultados</small>
+</a>
+
 </div>
 </section>
+
+<!-- RESUMO -->
 
 <section class="card">
+
 <h2>📊 Resumo da loja</h2>
+
 <div id="resumo" class="grid resumo"></div>
+
 <div class="actions">
-<button class="gray" id="atualizar">Atualizar informações</button>
+<button class="gray" id="atualizar">
+Atualizar informações
+</button>
 </div>
+
 </section>
+
+<!-- FINANCEIRO -->
 
 <section id="financeiro" class="card">
+
 <h2>💰 Resultado financeiro</h2>
+
 <label>Mês de referência</label>
 <input id="mes" type="month">
-<div id="indicadores" class="grid" style="margin-top:15px"></div>
+
+<div id="indicadores" class="grid"
+style="margin-top:15px"></div>
+
 <p id="aviso" class="muted"></p>
+
 <div class="actions">
-<a href="vendas.html" class="btn green">Registrar venda</a>
-<a href="despesas.html" class="btn">Despesas</a>
+
+<a href="vendas.html" class="btn green">
+Registrar venda
+</a>
+
+<a href="despesas.html" class="btn">
+Despesas
+</a>
+
+<a href="relatorios.html" class="btn gray">
+Relatórios
+</a>
+
 </div>
+
 <h3>Histórico de vendas</h3>
+
 <div id="historico"></div>
+
 <a href="#menu">↑ Voltar ao menu</a>
+
 </section>
 
+<!-- CADASTRO -->
+
 <section id="cadastro" class="card">
+
 <h2 id="tituloProduto">➕ Cadastrar joia</h2>
+
 <form id="produtoForm" onsubmit="return false">
+
 <input id="produtoId" type="hidden">
+
 <label>Código</label>
 <input id="codigo" required>
+
 <label>Nome da joia</label>
 <input id="nome" required>
+
 <label>Custo unitário (R$)</label>
 <input id="custo" type="number" min="0" step="0.01">
+
 <label>Preço de venda (R$)</label>
 <input id="preco" type="number" min="0" step="0.01" required>
+
 <p id="lucroUnitario" class="muted"></p>
+
 <label>Quantidade em estoque</label>
-<input id="quantidade" type="number" min="0" step="1" value="0" required>
+<input id="quantidade" type="number" min="0"
+step="1" value="0" required>
+
 <label>Descrição</label>
 <textarea id="descricao"></textarea>
+
 <label>Foto da joia</label>
-<input id="arquivo" type="file" accept="image/jpeg,image/png,image/webp">
+<input id="arquivo" type="file"
+accept="image/jpeg,image/png,image/webp">
+
 <img id="preview" alt="Prévia da foto" hidden>
+
 <label>URL ou caminho da foto existente</label>
 <input id="imagem">
+
 <div class="check">
 <input id="ativo" type="checkbox" checked>
 <label for="ativo">Publicar no catálogo</label>
 </div>
+
 <div class="actions">
 <button id="salvar">Salvar joia</button>
-<button type="button" id="limpar" class="gray">Limpar</button>
+<button type="button" id="limpar" class="gray">
+Limpar
+</button>
 </div>
+
 </form>
+
 <a href="#menu">↑ Voltar ao menu</a>
+
 </section>
 
+<!-- ESTOQUE -->
+
 <section id="estoque" class="card">
+
 <h2>💍 Produtos e estoque</h2>
-<input id="busca" type="search" placeholder="Buscar código ou nome">
+
+<input id="busca" type="search"
+placeholder="Buscar código ou nome">
+
 <label>Filtrar produtos</label>
+
 <select id="filtro">
 <option value="todos">Todos os produtos</option>
 <option value="disponivel">Com estoque</option>
 <option value="semfoto">Em estoque sem foto</option>
 <option value="inativo">Inativos</option>
 </select>
+
 <div id="listaProdutos"></div>
+
 <a href="#menu">↑ Voltar ao menu</a>
+
 </section>
 
+<!-- RESERVAS -->
+
 <section id="reservas" class="card">
+
 <h2>📋 Reservas dos clientes</h2>
+
 <label>Status</label>
+
 <select id="filtroReservas">
 <option value="todos">Todas</option>
 <option value="pendente">Pendentes</option>
 <option value="confirmada">Confirmadas</option>
 <option value="cancelada">Canceladas</option>
 </select>
+
 <div id="listaReservas"></div>
+
 <a href="#menu">↑ Voltar ao menu</a>
+
 </section>
 
 </div>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
 <script>
 "use strict";
 
 const URL_DB="https://xyybmzfodlvwljhhfxhe.supabase.co";
 const KEY="sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
 const SITE="https://douglascorce.github.io/silver-love/";
+
 const $=id=>document.getElementById(id);
-const moeda=v=>Number(v).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
-const normal=v=>String(v??"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+
+const moeda=v=>Number(v).toLocaleString("pt-BR",{
+style:"currency",
+currency:"BRL"
+});
+
+const normal=v=>String(v??"")
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+.toLowerCase();
+
 const erro=e=>e?.message||String(e);
 
-let db,produtos=[],reservas=[],vendas=[],despesas=[],custos=new Map();
-let autorizado=false,ocupado=false,recuperando=false,geracao=0;
-let estoqueAnterior=null,previewURL=null;
+let db,produtos=[],reservas=[],vendas=[],despesas=[];
+let custos=new Map();
+
+let autorizado=false;
+let ocupado=false;
+let recuperando=false;
+let geracao=0;
+let estoqueAnterior=null;
+let previewURL=null;
 let ok={};
 let carga=null;
 
@@ -232,7 +405,9 @@ return e;
 
 function botao(t,cls,fn){
 const b=document.createElement("button");
-b.type="button";b.textContent=t;b.className=cls;
+b.type="button";
+b.textContent=t;
+b.className=cls;
 b.onclick=fn;
 return b;
 }
@@ -246,9 +421,13 @@ if(cor)n.style.color=cor;
 
 function mesData(d){
 const p=new Intl.DateTimeFormat("pt-BR",{
-year:"numeric",month:"2-digit",timeZone:"America/Sao_Paulo"
+year:"numeric",
+month:"2-digit",
+timeZone:"America/Sao_Paulo"
 }).formatToParts(new Date(d));
-return p.find(x=>x.type==="year").value+"-"+p.find(x=>x.type==="month").value;
+
+return p.find(x=>x.type==="year").value+"-"+
+p.find(x=>x.type==="month").value;
 }
 
 function urlFoto(s){
@@ -262,363 +441,1113 @@ return "";
 }
 
 function limparDados(){
-autorizado=false;geracao++;
-produtos=[];reservas=[];vendas=[];despesas=[];custos.clear();ok={};
-for(const id of ["resumo","indicadores","historico","listaProdutos","listaReservas"]){
+autorizado=false;
+geracao++;
+
+produtos=[];
+reservas=[];
+vendas=[];
+despesas=[];
+custos.clear();
+ok={};
+
+for(const id of [
+"resumo",
+"indicadores",
+"historico",
+"listaProdutos",
+"listaReservas"
+]){
 $(id).replaceChildren();
 }
+
 $("aviso").textContent="";
 limparForm();
 }
 
+// LOGIN
+
 async function validar(){
-if(recuperando){tela("reset");return;}
+
+if(recuperando){
+tela("reset");
+return;
+}
+
 const {data,error}=await db.auth.getUser();
-if(error||!data?.user){limparDados();tela("login");return;}
-const r=await db.from("administradores").select("usuario_id").eq("usuario_id",data.user.id).maybeSingle();
+
+if(error||!data?.user){
+limparDados();
+tela("login");
+return;
+}
+
+const r=await db.from("administradores")
+.select("usuario_id")
+.eq("usuario_id",data.user.id)
+.maybeSingle();
+
 if(r.error)throw r.error;
-if(!r.data)throw new Error("Usuário sem acesso administrativo.");
-autorizado=true;tela("painel");
+
+if(!r.data){
+throw new Error("Usuário sem acesso administrativo.");
+}
+
+autorizado=true;
+tela("painel");
+
 await carregar();
+
 }
 
 $("mostrar").onchange=()=>{
-$("senha").type=$("mostrar").checked?"text":"password";
+$("senha").type=$("mostrar").checked?
+"text":"password";
 };
 
 $("loginForm").onsubmit=async e=>{
+
 e.preventDefault();
+
 if(!db)return msg("Conexão indisponível.",true);
+
 $("entrar").disabled=true;
 $("entrar").textContent="Entrando...";
+
 try{
-const {error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("senha").value});
+
+const {error}=await db.auth.signInWithPassword({
+email:$("email").value.trim(),
+password:$("senha").value
+});
+
 if(error)throw error;
+
 $("senha").value="";
 $("mensagem").hidden=true;
+
 await validar();
+
 }catch(e){
-limparDados();tela("login");
+
+limparDados();
+tela("login");
+
 msg("Erro no acesso: "+erro(e),true);
+
 }finally{
-$("entrar").disabled=false;$("entrar").textContent="Entrar";
+
+$("entrar").disabled=false;
+$("entrar").textContent="Entrar";
+
 }
+
 };
 
 $("esqueci").onclick=async()=>{
+
 if(!db)return;
+
 const email=$("email").value.trim();
+
 if(!email)return msg("Informe seu e-mail.",true);
+
 try{
-const {error}=await db.auth.resetPasswordForEmail(email,{redirectTo:SITE+"admin.html"});
+
+const {error}=await db.auth.resetPasswordForEmail(
+email,{
+redirectTo:SITE+"admin.html"
+});
+
 if(error)throw error;
+
 msg("Se cadastrado, você receberá o link de recuperação.");
-}catch(e){msg(erro(e),true);}
+
+}catch(e){
+
+msg(erro(e),true);
+
+}
+
 };
 
 $("resetForm").onsubmit=async e=>{
+
 e.preventDefault();
+
 if(!recuperando)return;
+
 const s=$("novaSenha").value;
-if(s.length<8||s!==$("confirmaSenha").value)return msg("Confira as senhas.",true);
+
+if(s.length<8||s!==$("confirmaSenha").value){
+return msg("Confira as senhas.",true);
+}
+
 try{
-const {error}=await db.auth.updateUser({password:s});
+
+const {error}=await db.auth.updateUser({
+password:s
+});
+
 if(error)throw error;
+
 recuperando=false;
+
 $("resetForm").reset();
+
 await db.auth.signOut();
+
 history.replaceState(null,"",SITE+"admin.html");
-limparDados();tela("login");
+
+limparDados();
+tela("login");
+
 msg("Senha atualizada!");
-}catch(e){msg(erro(e),true);}
+
+}catch(e){
+
+msg(erro(e),true);
+
+}
+
 };
 
 $("sair").onclick=async()=>{
+
 if(ocupado)return;
+
 try{
+
 const {error}=await db.auth.signOut();
+
 if(error)throw error;
-limparDados();tela("login");$("mensagem").hidden=true;
-}catch(e){msg(erro(e),true);}
+
+limparDados();
+tela("login");
+$("mensagem").hidden=true;
+
+}catch(e){
+
+msg(erro(e),true);
+
+}
+
 };
 
+// CONSULTAR BANCO
+
 async function consultar(t,ordem="id"){
+
 const lista=[];
+
 for(let i=0;;i+=500){
-const {data,error}=await db.from(t).select("*").order(ordem).range(i,i+499);
+
+const {data,error}=await db.from(t)
+.select("*")
+.order(ordem)
+.range(i,i+499);
+
 if(error)throw error;
+
 lista.push(...(data||[]));
+
 if(!data||data.length<500)return lista;
+
 }
+
 }
 
 async function carregar(){
+
 if(!autorizado)return;
+
 if(carga)return carga;
+
 const g=geracao;
+
 const tarefa=(async()=>{
+
 const r=await Promise.allSettled([
+
 consultar("produtos"),
+
 consultar("reservas"),
+
 consultar("financeiro_vendas"),
+
 consultar("financeiro_despesas"),
+
 consultar("financeiro_custos","produto_id")
+
 ]);
+
 if(!autorizado||g!==geracao)return;
-const nomes=["produtos","reservas","vendas","despesas","custos"];
-nomes.forEach((n,i)=>ok[n]=r[i].status==="fulfilled");
+
+const nomes=[
+"produtos",
+"reservas",
+"vendas",
+"despesas",
+"custos"
+];
+
+nomes.forEach((n,i)=>{
+ok[n]=r[i].status==="fulfilled";
+});
+
 produtos=ok.produtos?r[0].value:[];
 reservas=ok.reservas?r[1].value:[];
 vendas=ok.vendas?r[2].value:[];
 despesas=ok.despesas?r[3].value:[];
-custos=new Map(ok.custos?r[4].value.map(c=>[c.produto_id,Number(c.custo_unitario)]):[]);
-renderResumo();renderFinanceiro();renderProdutos();renderReservas();
+
+custos=new Map(ok.custos?r[4].value.map(c=>[
+c.produto_id,Number(c.custo_unitario)
+]):[]);
+
+renderResumo();
+renderFinanceiro();
+renderProdutos();
+renderReservas();
+
 const falhas=nomes.filter(n=>!ok[n]);
-if(falhas.length)msg("Falha ao carregar: "+falhas.join(", ")+". Atualize novamente.",true);
-})();
-carga=tarefa;
-try{await tarefa;}finally{if(carga===tarefa)carga=null;}
+
+if(falhas.length){
+
+msg("Falha ao carregar: "+
+falhas.join(", ")+
+". Atualize novamente.",true);
+
 }
+
+})();
+
+carga=tarefa;
+
+try{
+
+await tarefa;
+
+}finally{
+
+if(carga===tarefa)carga=null;
+
+}
+
+}
+
+// RESUMO
 
 function renderResumo(){
-const p=$("resumo");p.replaceChildren();
-const estoque=produtos.reduce((s,x)=>s+Number(x.estoque),0);
-const semfoto=produtos.filter(x=>x.estoque>0&&!x.imagem_url).length;
-const falta=produtos.some(x=>x.estoque>0&&!custos.has(x.id));
-const capital=produtos.reduce((s,x)=>s+x.estoque*(custos.get(x.id)||0),0);
-const ids=new Set(reservas.filter(x=>x.status==="confirmada").map(x=>x.id));
-vendas.filter(x=>x.reserva_id).forEach(x=>ids.add(x.reserva_id));
-const manuais=vendas.filter(x=>x.origem==="manual").length;
-metrica(p,"Produtos cadastrados",ok.produtos?produtos.length:"—");
-metrica(p,"Unidades em estoque",ok.produtos?estoque:"—");
-metrica(p,"Reservas pendentes",ok.reservas?reservas.filter(x=>x.status==="pendente").length:"—");
-metrica(p,"Vendas totais",ok.vendas&&ok.reservas?ids.size+manuais:"—");
-metrica(p,"Joias sem foto",ok.produtos?semfoto:"—");
-metrica(p,"Capital em estoque",ok.produtos&&ok.custos&&!falta?moeda(capital):"—");
+
+const p=$("resumo");
+
+p.replaceChildren();
+
+const estoque=produtos.reduce(
+(s,x)=>s+Number(x.estoque),0
+);
+
+const semfoto=produtos.filter(
+x=>x.estoque>0&&!x.imagem_url
+).length;
+
+const falta=produtos.some(
+x=>x.estoque>0&&!custos.has(x.id)
+);
+
+const capital=produtos.reduce(
+(s,x)=>s+x.estoque*(custos.get(x.id)||0),0
+);
+
+const ids=new Set(
+
+reservas.filter(
+x=>x.status==="confirmada"
+).map(x=>x.id)
+
+);
+
+vendas.filter(x=>x.reserva_id)
+.forEach(x=>ids.add(x.reserva_id));
+
+const manuais=vendas.filter(
+x=>x.origem==="manual"
+).length;
+
+metrica(p,"Produtos cadastrados",
+ok.produtos?produtos.length:"—");
+
+metrica(p,"Unidades em estoque",
+ok.produtos?estoque:"—");
+
+metrica(p,"Reservas pendentes",
+ok.reservas?
+reservas.filter(x=>x.status==="pendente").length:"—");
+
+metrica(p,"Vendas totais",
+ok.vendas&&ok.reservas?ids.size+manuais:"—");
+
+metrica(p,"Joias sem foto",
+ok.produtos?semfoto:"—");
+
+metrica(p,"Capital em estoque",
+ok.produtos&&ok.custos&&!falta?moeda(capital):"—");
+
 }
 
+// FINANCEIRO
+
 function receita(v){
-return Number(v.preco_unitario)*Number(v.quantidade)-Number(v.desconto||0);
+
+return Number(v.preco_unitario)*
+Number(v.quantidade)-
+Number(v.desconto||0);
+
 }
 
 function renderFinanceiro(){
-const p=$("indicadores");p.replaceChildren();
+
+const p=$("indicadores");
+p.replaceChildren();
+
 const m=$("mes").value;
-const vs=vendas.filter(v=>mesData(v.vendido_em)===m);
-const ds=despesas.filter(d=>String(d.data_despesa).slice(0,7)===m);
-const total=vs.reduce((s,v)=>s+receita(v),0);
-const custo=vs.reduce((s,v)=>s+(Number(v.custo_unitario)||0)*v.quantidade,0);
-const gastos=ds.reduce((s,d)=>s+Number(d.valor),0);
-const faltam=vs.filter(v=>v.custo_unitario==null).length;
-const bruto=total-custo,liquido=bruto-gastos;
+
+const vs=vendas.filter(
+v=>mesData(v.vendido_em)===m
+);
+
+const ds=despesas.filter(
+d=>String(d.data_despesa).slice(0,7)===m
+);
+
+const total=vs.reduce(
+(s,v)=>s+receita(v),0
+);
+
+const custo=vs.reduce(
+(s,v)=>s+(Number(v.custo_unitario)||0)*v.quantidade,0
+);
+
+const gastos=ds.reduce(
+(s,d)=>s+Number(d.valor),0
+);
+
+const faltam=vs.filter(
+v=>v.custo_unitario==null
+).length;
+
+const bruto=total-custo;
+const liquido=bruto-gastos;
+
 const bOK=ok.vendas&&!faltam;
 const lOK=bOK&&ok.despesas;
-metrica(p,"Faturamento",ok.vendas?moeda(total):"—");
-metrica(p,"Custo das vendas",bOK?moeda(custo):"—");
-metrica(p,"Lucro bruto",bOK?moeda(bruto):"—",bruto>=0?"#28854c":"#b93655");
-metrica(p,"Despesas",ok.despesas?moeda(gastos):"—","#b93655");
-metrica(p,"Resultado líquido estimado",lOK?moeda(liquido):"—",liquido>=0?"#28854c":"#b93655");
-metrica(p,"Margem líquida",lOK&&total>0?(liquido/total*100).toFixed(1).replace(".",",")+"%":"—");
-metrica(p,"Vendas no período",ok.vendas?vs.length:"—");
-$("aviso").textContent=!ok.vendas||!ok.despesas?"Dados financeiros indisponíveis.":faltam?faltam+" venda(s) sem custo registrado.":"Resultado parcial baseado nos lançamentos registrados.";
-const h=$("historico");h.replaceChildren();
-if(!ok.vendas){h.textContent="Histórico indisponível.";return;}
-if(!vs.length)h.textContent="Nenhuma venda neste mês.";
-for(const v of vs.sort((a,b)=>new Date(b.vendido_em)-new Date(a.vendido_em))){
-const c=texto(h,"div","","item");
-texto(c,"strong",v.nome_produto);
-texto(c,"p",v.codigo+" | Quantidade: "+v.quantidade,"muted");
-texto(c,"p","Venda: "+moeda(receita(v)));
-texto(c,"p",v.custo_unitario==null?"Custo não informado":"Lucro bruto: "+moeda(receita(v)-v.custo_unitario*v.quantidade));
-texto(c,"p",(v.origem==="manual"?"Venda manual":"Reserva")+" | "+(v.forma_pagamento||"Não informado"),"muted");
-texto(c,"p",new Date(v.vendido_em).toLocaleDateString("pt-BR",{timeZone:"America/Sao_Paulo"}),"muted");
-}
+
+metrica(p,"Faturamento",
+ok.vendas?moeda(total):"—");
+
+metrica(p,"Custo das vendas",
+bOK?moeda(custo):"—");
+
+metrica(p,"Lucro bruto",
+bOK?moeda(bruto):"—",
+bruto>=0?"#28854c":"#b93655");
+
+metrica(p,"Despesas",
+ok.despesas?moeda(gastos):"—",
+"#b93655");
+
+metrica(p,"Resultado líquido estimado",
+lOK?moeda(liquido):"—",
+liquido>=0?"#28854c":"#b93655");
+
+metrica(p,"Margem líquida",
+lOK&&total>0?
+(liquido/total*100).toFixed(1).replace(".",",")+"%"
+:"—");
+
+metrica(p,"Vendas no período",
+ok.vendas?vs.length:"—");
+
+$("aviso").textContent=
+!ok.vendas||!ok.despesas?
+"Dados financeiros indisponíveis.":
+faltam?
+faltam+" venda(s) sem custo registrado.":
+"Resultado parcial baseado nos lançamentos registrados.";
+
+const h=$("historico");
+
+h.replaceChildren();
+
+if(!ok.vendas){
+
+h.textContent="Histórico indisponível.";
+return;
+
 }
 
-function renderProdutos(){
-const h=$("listaProdutos");h.replaceChildren();
-if(!ok.produtos){h.textContent="Produtos indisponíveis.";return;}
-const f=$("filtro").value,b=normal($("busca").value);
-const lista=produtos.filter(p=>normal(p.codigo+" "+p.nome).includes(b)&&(
-f==="todos"||f==="disponivel"&&p.estoque>0||f==="semfoto"&&p.estoque>0&&!p.imagem_url||f==="inativo"&&!p.ativo));
-texto(h,"p",lista.length+" produtos encontrados","muted");
-for(const p of lista.sort((a,b)=>String(a.nome).localeCompare(String(b.nome)))){
+if(!vs.length){
+
+h.textContent="Nenhuma venda neste mês.";
+
+}
+
+for(const v of vs.sort(
+(a,b)=>new Date(b.vendido_em)-new Date(a.vendido_em)
+)){
+
 const c=texto(h,"div","","item");
+
+texto(c,"strong",v.nome_produto);
+
+texto(c,"p",
+v.codigo+" | Quantidade: "+v.quantidade,
+"muted");
+
+texto(c,"p","Venda: "+moeda(receita(v)));
+
+texto(c,"p",v.custo_unitario==null?
+"Custo não informado":
+"Lucro bruto: "+moeda(
+receita(v)-v.custo_unitario*v.quantidade
+));
+
+texto(c,"p",
+(v.origem==="manual"?"Venda manual":"Reserva")+
+" | "+(v.forma_pagamento||"Não informado"),
+"muted");
+
+texto(c,"p",
+new Date(v.vendido_em).toLocaleDateString("pt-BR",{
+timeZone:"America/Sao_Paulo"
+}),"muted");
+
+}
+
+}
+
+// PRODUTOS
+
+function renderProdutos(){
+
+const h=$("listaProdutos");
+
+h.replaceChildren();
+
+if(!ok.produtos){
+
+h.textContent="Produtos indisponíveis.";
+return;
+
+}
+
+const f=$("filtro").value;
+const b=normal($("busca").value);
+
+const lista=produtos.filter(p=>
+normal(p.codigo+" "+p.nome).includes(b)&&(
+f==="todos"||
+f==="disponivel"&&p.estoque>0||
+f==="semfoto"&&p.estoque>0&&!p.imagem_url||
+f==="inativo"&&!p.ativo
+));
+
+texto(h,"p",
+lista.length+" produtos encontrados",
+"muted");
+
+for(const p of lista.sort(
+(a,b)=>String(a.nome).localeCompare(String(b.nome))
+)){
+
+const c=texto(h,"div","","item");
+
 if(urlFoto(p.imagem_url)){
+
 const img=document.createElement("img");
-img.src=urlFoto(p.imagem_url);img.alt=p.nome;img.loading="lazy";c.appendChild(img);
+
+img.src=urlFoto(p.imagem_url);
+img.alt=p.nome;
+img.loading="lazy";
+
+c.appendChild(img);
+
 }
+
 texto(c,"h3",p.nome);
+
 texto(c,"p","Código: "+p.codigo,"muted");
+
 texto(c,"p","Venda: "+moeda(p.preco));
-texto(c,"p","Estoque: "+p.estoque+" | "+(p.ativo?"Ativo":"Inativo"));
-texto(c,"p",custos.has(p.id)?"Custo: "+moeda(custos.get(p.id)):"Custo não cadastrado","muted");
-c.appendChild(botao("Editar joia","gray",()=>editar(p)));
+
+texto(c,"p",
+"Estoque: "+p.estoque+
+" | "+(p.ativo?"Ativo":"Inativo"));
+
+texto(c,"p",
+custos.has(p.id)?
+"Custo: "+moeda(custos.get(p.id)):
+"Custo não cadastrado",
+"muted");
+
+c.appendChild(
+botao("Editar joia","gray",()=>editar(p))
+);
+
 }
+
 }
 
 function limparPreview(){
+
 if(previewURL)URL.revokeObjectURL(previewURL);
-previewURL=null;$("preview").hidden=true;$("preview").removeAttribute("src");
+
+previewURL=null;
+
+$("preview").hidden=true;
+
+$("preview").removeAttribute("src");
+
 }
 
 function limparForm(){
-$("produtoForm").reset();$("produtoId").value="";
-$("quantidade").value="0";$("ativo").checked=true;
+
+$("produtoForm").reset();
+
+$("produtoId").value="";
+
+$("quantidade").value="0";
+
+$("ativo").checked=true;
+
 $("tituloProduto").textContent="➕ Cadastrar joia";
-$("salvar").textContent="Salvar joia";estoqueAnterior=null;
-limparPreview();calcularLucro();
+
+$("salvar").textContent="Salvar joia";
+
+estoqueAnterior=null;
+
+limparPreview();
+calcularLucro();
+
 }
 
 function calcularLucro(){
-const c=$("custo").value,p=$("preco").value;
-$("lucroUnitario").textContent=c!==""&&p!==""?"Lucro bruto unitário: "+moeda(Number(p)-Number(c)):"";
+
+const c=$("custo").value;
+const p=$("preco").value;
+
+$("lucroUnitario").textContent=
+c!==""&&p!==""?
+"Lucro bruto unitário: "+moeda(Number(p)-Number(c)):
+"";
+
 }
 
 function editar(p){
+
 if(ocupado)return;
+
 limparForm();
+
 $("produtoId").value=p.id;
-for(const k of ["codigo","nome","preco","descricao"])$(k).value=p[k]??"";
-$("quantidade").value=p.estoque;
-estoqueAnterior=p.estoque;
-$("custo").value=custos.get(p.id)??"";
-$("imagem").value=p.imagem_url||"";
-$("ativo").checked=p.ativo;
-if(urlFoto(p.imagem_url)){
-$("preview").src=urlFoto(p.imagem_url);$("preview").hidden=false;
-}
-$("tituloProduto").textContent="✏️ Editar joia";
-$("salvar").textContent="Salvar alterações";calcularLucro();
-$("cadastro").scrollIntoView();
+
+for(const k of [
+"codigo",
+"nome",
+"preco",
+"descricao"
+]){
+
+$(k).value=p[k]??"";
+
 }
 
-const ext={"image/jpeg":"jpg","image/png":"png","image/webp":"webp"};
+$("quantidade").value=p.estoque;
+
+estoqueAnterior=p.estoque;
+
+$("custo").value=custos.get(p.id)??"";
+
+$("imagem").value=p.imagem_url||"";
+
+$("ativo").checked=p.ativo;
+
+if(urlFoto(p.imagem_url)){
+
+$("preview").src=urlFoto(p.imagem_url);
+
+$("preview").hidden=false;
+
+}
+
+$("tituloProduto").textContent="✏️ Editar joia";
+
+$("salvar").textContent="Salvar alterações";
+
+calcularLucro();
+
+$("cadastro").scrollIntoView();
+
+}
+
+// FOTOS
+
+const ext={
+"image/jpeg":"jpg",
+"image/png":"png",
+"image/webp":"webp"
+};
 
 function validarFoto(f){
-if(!ext[f.type]||f.size>5242880)throw new Error("Use JPG, PNG ou WEBP de até 5 MB.");
+
+if(!ext[f.type]||f.size>5242880){
+
+throw new Error(
+"Use JPG, PNG ou WEBP de até 5 MB."
+);
+
+}
+
 }
 
 $("arquivo").onchange=()=>{
+
 limparPreview();
+
 const f=$("arquivo").files[0];
+
 if(!f)return;
+
 try{
-validarFoto(f);previewURL=URL.createObjectURL(f);
-$("preview").src=previewURL;$("preview").hidden=false;
-}catch(e){$("arquivo").value="";msg(erro(e),true);}
+
+validarFoto(f);
+
+previewURL=URL.createObjectURL(f);
+
+$("preview").src=previewURL;
+
+$("preview").hidden=false;
+
+}catch(e){
+
+$("arquivo").value="";
+
+msg(erro(e),true);
+
+}
+
 };
+
+// SALVAR PRODUTO
 
 $("produtoForm").onsubmit=async e=>{
-e.preventDefault();if(!autorizado||ocupado)return;
-ocupado=true;$("salvar").disabled=true;
+
+e.preventDefault();
+
+if(!autorizado||ocupado)return;
+
+ocupado=true;
+
+$("salvar").disabled=true;
+
 let gravado=false;
+
 try{
+
 const id=$("produtoId").value;
-const item={codigo:$("codigo").value.trim(),nome:$("nome").value.trim(),preco:Number($("preco").value),estoque:Number($("quantidade").value),descricao:$("descricao").value.trim(),imagem_url:$("imagem").value.trim(),ativo:$("ativo").checked};
-const custo=$("custo").value===""?null:Number($("custo").value);
-if(!item.codigo||!item.nome||$("preco").value===""||!Number.isFinite(item.preco)||item.preco<0||!Number.isInteger(item.estoque)||item.estoque<0||custo!==null&&(!Number.isFinite(custo)||custo<0))throw new Error("Confira os dados.");
-if(item.imagem_url&&!urlFoto(item.imagem_url))throw new Error("URL de foto inválida.");
-const f=$("arquivo").files[0];
-if(f){
-validarFoto(f);
-const path=crypto.randomUUID()+"."+ext[f.type];
-const u=await db.storage.from("fotos").upload(path,f,{contentType:f.type,upsert:false});
-if(u.error)throw u.error;
-item.imagem_url=db.storage.from("fotos").getPublicUrl(path).data.publicUrl;
-$("imagem").value=item.imagem_url;$("arquivo").value="";
-}
-let r;
-if(id){
-r=await db.from("produtos").update(item).eq("id",id).eq("estoque",estoqueAnterior).select("id").maybeSingle();
-}else{
-r=await db.from("produtos").insert(item).select("id").single();
-}
-if(r.error)throw r.error;
-if(!r.data)throw new Error("Estoque alterado. Atualize e abra a joia novamente.");
-gravado=true;$("produtoId").value=r.data.id;estoqueAnterior=item.estoque;
-if(custo!==null){
-const c=await db.from("financeiro_custos").upsert({produto_id:r.data.id,custo_unitario:custo,atualizado_em:new Date().toISOString()},{onConflict:"produto_id"});
-if(c.error)throw c.error;
-}
-limparForm();msg("💎 Joia salva com sucesso!");
-await carregar();
-}catch(e){msg((gravado?"Joia salva. Revise o custo: ":"Erro: ")+erro(e),true);}
-finally{ocupado=false;$("salvar").disabled=false;}
+
+const item={
+
+codigo:$("codigo").value.trim(),
+
+nome:$("nome").value.trim(),
+
+preco:Number($("preco").value),
+
+estoque:Number($("quantidade").value),
+
+descricao:$("descricao").value.trim(),
+
+imagem_url:$("imagem").value.trim(),
+
+ativo:$("ativo").checked
+
 };
 
+const custo=$("custo").value===""?
+null:Number($("custo").value);
+
+if(
+!item.codigo||
+!item.nome||
+$("preco").value===""||
+!Number.isFinite(item.preco)||
+item.preco<0||
+!Number.isInteger(item.estoque)||
+item.estoque<0||
+custo!==null&&
+(!Number.isFinite(custo)||custo<0)
+){
+
+throw new Error("Confira os dados.");
+
+}
+
+if(item.imagem_url&&!urlFoto(item.imagem_url)){
+
+throw new Error("URL de foto inválida.");
+
+}
+
+const f=$("arquivo").files[0];
+
+if(f){
+
+validarFoto(f);
+
+const path=crypto.randomUUID()+"."+ext[f.type];
+
+const u=await db.storage.from("fotos")
+.upload(path,f,{
+contentType:f.type,
+upsert:false
+});
+
+if(u.error)throw u.error;
+
+item.imagem_url=db.storage.from("fotos")
+.getPublicUrl(path).data.publicUrl;
+
+$("imagem").value=item.imagem_url;
+
+$("arquivo").value="";
+
+}
+
+let r;
+
+if(id){
+
+r=await db.from("produtos")
+.update(item)
+.eq("id",id)
+.eq("estoque",estoqueAnterior)
+.select("id")
+.maybeSingle();
+
+}else{
+
+r=await db.from("produtos")
+.insert(item)
+.select("id")
+.single();
+
+}
+
+if(r.error)throw r.error;
+
+if(!r.data){
+
+throw new Error(
+"Estoque alterado. Atualize e abra a joia novamente."
+);
+
+}
+
+gravado=true;
+
+$("produtoId").value=r.data.id;
+
+estoqueAnterior=item.estoque;
+
+if(custo!==null){
+
+const c=await db.from("financeiro_custos")
+.upsert({
+
+produto_id:r.data.id,
+
+custo_unitario:custo,
+
+atualizado_em:new Date().toISOString()
+
+},{onConflict:"produto_id"});
+
+if(c.error)throw c.error;
+
+}
+
+limparForm();
+
+msg("💎 Joia salva com sucesso!");
+
+await carregar();
+
+}catch(e){
+
+msg(
+(gravado?"Joia salva. Revise o custo: ":"Erro: ")+
+erro(e),true
+);
+
+}finally{
+
+ocupado=false;
+
+$("salvar").disabled=false;
+
+}
+
+};
+
+// RESERVAS
+
 function renderReservas(){
-const h=$("listaReservas");h.replaceChildren();
-if(!ok.reservas){h.textContent="Reservas indisponíveis.";return;}
+
+const h=$("listaReservas");
+
+h.replaceChildren();
+
+if(!ok.reservas){
+
+h.textContent="Reservas indisponíveis.";
+return;
+
+}
+
 const f=$("filtroReservas").value;
-const lista=reservas.filter(r=>f==="todos"||r.status===f);
-if(!lista.length)h.textContent="Nenhuma reserva encontrada.";
+
+const lista=reservas.filter(
+r=>f==="todos"||r.status===f
+);
+
+if(!lista.length){
+
+h.textContent="Nenhuma reserva encontrada.";
+
+}
+
 for(const r of lista){
-const p=produtos.find(p=>p.id===r.produto_id);
+
+const p=produtos.find(
+p=>p.id===r.produto_id
+);
+
 const c=texto(h,"div","","item");
+
 texto(c,"strong",r.cliente_nome||"Cliente");
-texto(c,"p",(p?.nome||"Produto")+" | Quantidade: "+r.quantidade);
+
+texto(c,"p",
+(p?.nome||"Produto")+
+" | Quantidade: "+r.quantidade
+);
+
 texto(c,"p","Status: "+r.status);
-texto(c,"p","WhatsApp: "+(r.cliente_whatsapp||"—"),"muted");
+
+texto(c,"p",
+"WhatsApp: "+(r.cliente_whatsapp||"—"),
+"muted");
+
 const a=texto(c,"div","","actions");
-let tel=String(r.cliente_whatsapp||"").replace(/\D/g,"");
-if(tel.length===10||tel.length===11)tel="55"+tel;
+
+let tel=String(r.cliente_whatsapp||"")
+.replace(/\D/g,"");
+
+if(tel.length===10||tel.length===11){
+
+tel="55"+tel;
+
+}
+
 if(/^[0-9]{10,15}$/.test(tel)){
+
 const link=texto(a,"a","WhatsApp","btn green");
-link.href="https://wa.me/"+tel;link.target="_blank";link.rel="noopener noreferrer";
+
+link.href="https://wa.me/"+tel;
+
+link.target="_blank";
+
+link.rel="noopener noreferrer";
+
 }
+
 if(r.status==="pendente"){
-a.append(botao("Confirmar venda","green",()=>gerenciar(r,"confirmada")),botao("Cancelar","red",()=>gerenciar(r,"cancelada")));
+
+a.append(
+
+botao("Confirmar venda","green",
+()=>gerenciar(r,"confirmada")),
+
+botao("Cancelar","red",
+()=>gerenciar(r,"cancelada"))
+
+);
+
 }
+
 }
+
 }
 
 async function gerenciar(r,acao){
+
 if(ocupado||!autorizado)return;
-if(!confirm(acao==="confirmada"?"Confirmar venda após conferir o pagamento?":"Cancelar esta reserva?"))return;
+
+if(!confirm(
+acao==="confirmada"?
+"Confirmar venda após conferir o pagamento?":
+"Cancelar esta reserva?"
+))return;
+
 ocupado=true;
+
 try{
-const {error}=await db.rpc("gerenciar_reserva",{p_reserva_id:r.id,p_acao:acao});
+
+const {error}=await db.rpc(
+"gerenciar_reserva",{
+
+p_reserva_id:r.id,
+
+p_acao:acao
+
+});
+
 if(error)throw error;
+
 msg("Reserva atualizada com sucesso!");
+
 await carregar();
-}catch(e){msg(erro(e),true);}
-finally{ocupado=false;}
+
+}catch(e){
+
+msg(erro(e),true);
+
+}finally{
+
+ocupado=false;
+
 }
+
+}
+
+// EVENTOS
 
 $("mes").value=mesData(new Date());
+
 $("mes").onchange=renderFinanceiro;
+
 $("busca").oninput=renderProdutos;
+
 $("filtro").onchange=renderProdutos;
+
 $("filtroReservas").onchange=renderReservas;
+
 $("custo").oninput=calcularLucro;
+
 $("preco").oninput=calcularLucro;
-$("limpar").onclick=()=>{if(!ocupado)limparForm();};
-$("atualizar").onclick=()=>{if(!ocupado)carregar().catch(e=>msg(erro(e),true));};
+
+$("limpar").onclick=()=>{
+
+if(!ocupado)limparForm();
+
+};
+
+$("atualizar").onclick=()=>{
+
+if(!ocupado){
+
+carregar().catch(e=>msg(erro(e),true));
+
+}
+
+};
+
+// INICIAR SISTEMA
 
 async function iniciar(){
+
 try{
-if(!window.supabase?.createClient)throw new Error("Falha ao carregar Supabase.");
-const hash=new URLSearchParams(location.hash.slice(1));
-recuperando=hash.get("type")==="recovery";
-db=window.supabase.createClient(URL_DB,KEY);
-db.auth.onAuthStateChange(event=>{
-if(event==="PASSWORD_RECOVERY"){recuperando=true;tela("reset");}
-if(event==="SIGNED_OUT"){limparDados();tela("login");}
-});
-$("entrar").disabled=false;
-$("conexao").textContent="Conexão inicializada.";
-if(recuperando){
-const {data,error}=await db.auth.getSession();
-if(error||!data.session){recuperando=false;tela("login");return msg("Link expirado.",true);}
-tela("reset");return;
+
+if(!window.supabase?.createClient){
+
+throw new Error("Falha ao carregar Supabase.");
+
 }
+
+const hash=new URLSearchParams(
+location.hash.slice(1)
+);
+
+recuperando=hash.get("type")==="recovery";
+
+db=window.supabase.createClient(
+URL_DB,KEY
+);
+
+db.auth.onAuthStateChange(event=>{
+
+if(event==="PASSWORD_RECOVERY"){
+
+recuperando=true;
+
+tela("reset");
+
+}
+
+if(event==="SIGNED_OUT"){
+
+limparDados();
+
+tela("login");
+
+}
+
+});
+
+$("entrar").disabled=false;
+
+$("conexao").textContent="Conexão inicializada.";
+
+if(recuperando){
+
+const {data,error}=await db.auth.getSession();
+
+if(error||!data.session){
+
+recuperando=false;
+
+tela("login");
+
+return msg("Link expirado.",true);
+
+}
+
+tela("reset");
+
+return;
+
+}
+
 await validar();
-}catch(e){tela("login");msg(erro(e),true);}
+
+}catch(e){
+
+tela("login");
+
+msg(erro(e),true);
+
+}
+
 }
 
 window.addEventListener("pageshow",e=>{
-if(e.persisted&&autorizado)carregar().catch(x=>msg(erro(x),true));
+
+if(e.persisted&&autorizado){
+
+carregar().catch(x=>msg(erro(x),true));
+
+}
+
 });
 
 iniciar();
