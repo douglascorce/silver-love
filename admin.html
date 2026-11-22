@@ -1135,3 +1135,343 @@ antigo.replaceWith(novo);
 
 })();
 </script>
+
+<script>
+(function(){
+
+const menu=document.getElementById("menuSilverLove");
+
+if(!menu)return;
+
+const grade=menu.querySelector(".menu-grid,.sl-menu-grid,.grid");
+
+if(grade&&!document.getElementById("menuDespesas")){
+
+const despesas=document.createElement("a");
+
+despesas.id="menuDespesas";
+despesas.className="sl-menu-item";
+despesas.href="despesas.html";
+
+despesas.innerHTML=`
+<span>🧾</span>
+Despesas
+<small>Registrar gastos</small>
+`;
+
+grade.appendChild(despesas);
+
+}
+
+if(document.getElementById("resultadoMensal"))return;
+
+const painel=document.createElement("section");
+
+painel.id="resultadoMensal";
+painel.className="card";
+
+painel.innerHTML=`
+
+<h2>📊 Resultado financeiro mensal</h2>
+
+<p id="slPeriodo" class="muted"></p>
+
+<div class="grid">
+
+<div class="metric">
+<span class="muted">Faturamento</span>
+<strong id="slReceita">—</strong>
+</div>
+
+<div class="metric">
+<span class="muted">Custo das vendas</span>
+<strong id="slCusto">—</strong>
+</div>
+
+<div class="metric">
+<span class="muted">Lucro bruto</span>
+<strong id="slBruto">—</strong>
+</div>
+
+<div class="metric">
+<span class="muted">Despesas</span>
+<strong id="slDespesas">—</strong>
+</div>
+
+<div class="metric">
+<span class="muted">Resultado líquido estimado</span>
+<strong id="slLiquido">—</strong>
+</div>
+
+<div class="metric">
+<span class="muted">Margem líquida estimada</span>
+<strong id="slMargem">—</strong>
+</div>
+
+</div>
+
+<p id="slAviso" class="muted"></p>
+
+<div class="actions">
+
+<button id="slAtualizar" class="secondary">
+Atualizar resultado
+</button>
+
+<a class="btn" href="despesas.html">
+Ver despesas
+</a>
+
+</div>
+
+`;
+
+menu.after(painel);
+
+const $sl=id=>document.getElementById(id);
+
+const moedaSL=v=>Number(v).toLocaleString(
+"pt-BR",{
+style:"currency",
+currency:"BRL"
+});
+
+function periodoSL(data){
+
+const p=new Intl.DateTimeFormat("pt-BR",{
+
+year:"numeric",
+month:"2-digit",
+timeZone:"America/Sao_Paulo"
+
+}).formatToParts(new Date(data));
+
+return p.find(x=>x.type==="year").value+"-"+
+p.find(x=>x.type==="month").value;
+
+}
+
+async function consultarSL(tabela,colunas){
+
+const lista=[];
+
+for(let inicio=0;;inicio+=500){
+
+const {data,error}=await db.from(tabela)
+.select(colunas)
+.order("id")
+.range(inicio,inicio+499);
+
+if(error)throw error;
+
+lista.push(...(data||[]));
+
+if(!data||data.length<500)return lista;
+
+}
+
+}
+
+let carregandoSL=false;
+
+async function atualizarSL(){
+
+if(carregandoSL)return;
+
+if(!painel.getClientRects().length)return;
+
+if(typeof db==="undefined"||!db)return;
+
+carregandoSL=true;
+
+$sl("slAtualizar").disabled=true;
+
+$sl("slAviso").textContent=
+"Atualizando informações...";
+
+const ids=[
+
+"slReceita",
+"slCusto",
+"slBruto",
+"slDespesas",
+"slLiquido",
+"slMargem"
+
+];
+
+try{
+
+const periodo=periodoSL(new Date());
+
+$sl("slPeriodo").textContent=
+new Date().toLocaleDateString("pt-BR",{
+
+month:"long",
+year:"numeric",
+timeZone:"America/Sao_Paulo"
+
+});
+
+const [vendas,despesas]=await Promise.all([
+
+consultarSL(
+"financeiro_vendas",
+"id,quantidade,preco_unitario,custo_unitario,desconto,vendido_em"
+),
+
+consultarSL(
+"financeiro_despesas",
+"id,valor,data_despesa"
+)
+
+]);
+
+const vendasMes=vendas.filter(v=>
+
+periodoSL(v.vendido_em)===periodo
+
+);
+
+const despesasMes=despesas.filter(d=>
+
+String(d.data_despesa).slice(0,7)===periodo
+
+);
+
+let receita=0;
+let custo=0;
+let semCusto=0;
+
+for(const v of vendasMes){
+
+receita+=
+
+Number(v.preco_unitario)*
+Number(v.quantidade)-
+Number(v.desconto||0);
+
+if(v.custo_unitario==null){
+
+semCusto++;
+
+}else{
+
+custo+=Number(v.custo_unitario)*
+Number(v.quantidade);
+
+}
+
+}
+
+const gastos=despesasMes.reduce(
+
+(s,d)=>s+Number(d.valor),0
+
+);
+
+const bruto=receita-custo;
+
+const liquido=bruto-gastos;
+
+$sl("slReceita").textContent=moedaSL(receita);
+
+$sl("slDespesas").textContent=moedaSL(gastos);
+
+$sl("slCusto").textContent=
+semCusto?"—":moedaSL(custo);
+
+$sl("slBruto").textContent=
+semCusto?"—":moedaSL(bruto);
+
+$sl("slLiquido").textContent=
+semCusto?"—":moedaSL(liquido);
+
+$sl("slMargem").textContent=
+
+!semCusto&&receita>0?
+
+(liquido/receita*100)
+.toFixed(1).replace(".",",")+"%"
+
+:"—";
+
+$sl("slBruto").style.color=
+semCusto?"":bruto>=0?"#28854c":"#b93655";
+
+$sl("slDespesas").style.color="#b93655";
+
+$sl("slLiquido").style.color=
+semCusto?"":liquido>=0?"#28854c":"#b93655";
+
+$sl("slMargem").style.color=
+semCusto||receita<=0?"":liquido>=0?"#28854c":"#b93655";
+
+$sl("slAviso").textContent=
+
+semCusto?
+
+semCusto+" venda(s) sem custo cadastrado."
+
+:
+
+"Resultado estimado com base nas vendas e despesas registradas neste mês.";
+
+}catch(e){
+
+for(const id of ids){
+
+$sl(id).textContent="—";
+
+}
+
+$sl("slAviso").textContent=
+"Erro ao consultar financeiro: "+e.message;
+
+}finally{
+
+carregandoSL=false;
+
+$sl("slAtualizar").disabled=false;
+
+}
+
+}
+
+$sl("slAtualizar").onclick=atualizarSL;
+
+const dashboard=document.getElementById("dashboard");
+
+if(dashboard){
+
+const observer=new MutationObserver(()=>{
+
+if(painel.getClientRects().length){
+
+atualizarSL();
+
+}
+
+});
+
+observer.observe(dashboard,{
+
+attributes:true,
+attributeFilter:["class","hidden","style"]
+
+});
+
+}
+
+window.addEventListener("pageshow",atualizarSL);
+
+document.addEventListener("visibilitychange",()=>{
+
+if(!document.hidden)atualizarSL();
+
+});
+
+atualizarSL();
+
+})();
+</script>
