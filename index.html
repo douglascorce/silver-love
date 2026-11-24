@@ -10,7 +10,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Bodoni+Moda:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -31,31 +31,27 @@
 --moderna:'Montserrat',Arial,sans-serif;
 
 --prata-metalica:linear-gradient(
-175deg,
-#343943 0%,
-#707783 22%,
-#a3aab4 38%,
-#515864 50%,
-#929aa5 65%,
-#454b55 85%,
-#303640 100%
+175deg,#343943 0%,#707783 22%,
+#a3aab4 38%,#515864 50%,
+#929aa5 65%,#454b55 85%,#303640 100%
 );
 
 --ouro-metalico:linear-gradient(
-175deg,
-#654313 0%,
-#9d7537 22%,
-#c5a05b 38%,
-#79501c 50%,
-#bb9650 65%,
-#906323 85%,
-#654313 100%
+175deg,#654313 0%,#9d7537 22%,
+#c5a05b 38%,#79501c 50%,
+#bb9650 65%,#906323 85%,#654313 100%
 );
 }
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--perola);color:var(--texto);font-family:var(--moderna)}
+body{
+margin:0;
+background:var(--perola);
+color:var(--texto);
+font-family:var(--moderna);
+}
+
 [hidden]{display:none!important}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
@@ -70,7 +66,10 @@ outline:2px solid var(--ouro);
 outline-offset:4px;
 }
 
-.container{width:min(1440px,94%);margin:auto}
+.container{
+width:min(1440px,94%);
+margin:auto;
+}
 
 .icon{
 width:25px;
@@ -154,6 +153,7 @@ overflow:hidden;
 
 .search-box input{
 width:100%;
+min-width:0;
 border:0;
 outline:none;
 background:transparent;
@@ -188,7 +188,11 @@ transition:color .25s;
 }
 
 .icon-button:hover{color:white}
-.icon-button small{font-size:10px;white-space:nowrap}
+
+.icon-button small{
+font-size:10px;
+white-space:nowrap;
+}
 
 .counter{
 position:absolute;
@@ -240,7 +244,7 @@ letter-spacing:3px;
 font-weight:600;
 }
 
-/* CARROSSEL */
+/* BANNERS */
 
 .carousel{
 position:relative;
@@ -250,7 +254,11 @@ background:var(--escuro);
 }
 
 .slide{display:none;width:100%}
-.slide.active{display:block;animation:fade .8s ease}
+
+.slide.active{
+display:block;
+animation:fade .8s ease;
+}
 
 .slide img{
 width:100%;
@@ -368,9 +376,12 @@ font-size:13px;
 margin-bottom:6px;
 }
 
-.benefit span{font-size:11px;color:var(--cinza)}
+.benefit span{
+font-size:11px;
+color:var(--cinza);
+}
 
-/* TÍTULOS DAS COLEÇÕES */
+/* TÍTULOS */
 
 .section{
 padding:80px 0;
@@ -524,7 +535,7 @@ font-size:11px;
 color:var(--texto);
 }
 
-/* VITRINE PREMIUM */
+/* VITRINE */
 
 .product-grid{
 display:grid;
@@ -542,13 +553,8 @@ overflow:hidden;
 transition:transform .3s,box-shadow .3s,border-color .3s;
 }
 
-.product-card.prata{
-border-color:#d5d9df;
-}
-
-.product-card.ouro{
-border-color:#dfcba9;
-}
+.product-card.prata{border-color:#d5d9df}
+.product-card.ouro{border-color:#dfcba9}
 
 .product-card:hover{
 transform:translateY(-5px);
@@ -608,7 +614,7 @@ text-align:center;
 align-items:center;
 }
 
-/* NOVA CALIGRAFIA DAS JOIAS */
+/* CALIGRAFIA PREMIUM */
 
 .product-name{
 font-family:var(--caligrafia);
@@ -622,38 +628,127 @@ overflow-wrap:anywhere;
 width:100%;
 }
 
-/* ACABAMENTO METÁLICO */
+/* ACABAMENTOS METÁLICOS */
 
 .metal-prata{color:#515864}
 .metal-ouro{color:#906323}
 .metal-vinho{color:var(--vinho)}
 
+/* CORES DAS PEDRAS */
+
+.pedra-vermelha{
+color:#b50932;
+--metal-cor:linear-gradient(
+175deg,#650019,#c91b45,#8c0027,#dc4665,#650019
+);
+}
+
+.pedra-azul{
+color:#1854b4;
+--metal-cor:linear-gradient(
+175deg,#082b70,#3979d2,#123d92,#6198e4,#082b70
+);
+}
+
+.pedra-verde{
+color:#16834e;
+--metal-cor:linear-gradient(
+175deg,#06472b,#39a76a,#08643a,#65bb87,#06472b
+);
+}
+
+.pedra-rosa{
+color:#b93670;
+--metal-cor:linear-gradient(
+175deg,#8b2251,#df75a1,#b93670,#ef9abb,#8b2251
+);
+}
+
+.pedra-roxa{
+color:#8139a5;
+--metal-cor:linear-gradient(
+175deg,#482064,#a86aca,#703294,#bb8bd6,#482064
+);
+}
+
+.pedra-preta{
+color:#252525;
+--metal-cor:linear-gradient(
+175deg,#111,#555,#181818,#666,#111
+);
+}
+
+.pedra-amarela{
+color:#a87b12;
+--metal-cor:linear-gradient(
+175deg,#79520b,#d5b145,#9e7514,#e0c15d,#79520b
+);
+}
+
+.pedra-lilas{
+color:#8760b0;
+--metal-cor:linear-gradient(
+175deg,#62428b,#ad8bd1,#8760b0,#c1a6e0,#62428b
+);
+}
+
+.pedra-laranja{
+color:#c55a19;
+--metal-cor:linear-gradient(
+175deg,#873707,#e18b43,#bd5415,#edaa65,#873707
+);
+}
+
+.pedra-branca{
+color:#727780;
+--metal-cor:linear-gradient(
+175deg,#626975,#b4bbc5,#737b86,#c0c6ce,#626975
+);
+}
+
+.pedra-marrom{
+color:#80502c;
+--metal-cor:linear-gradient(
+175deg,#54331c,#a77953,#80502c,#bc946f,#54331c
+);
+}
+
+/* O efeito é aplicado em cada trecho,
+   permitindo cores diferentes no mesmo nome. */
+
 @supports ((background-clip:text) or (-webkit-background-clip:text)){
 
 .metal-prata{
 background-image:var(--prata-metalica);
-background-size:100% 180%;
-background-position:50% 0%;
--webkit-background-clip:text;
-background-clip:text;
--webkit-text-fill-color:transparent;
-color:transparent;
 }
 
 .metal-ouro{
 background-image:var(--ouro-metalico);
+}
+
+.pedra-cor{
+background-image:var(--metal-cor);
+}
+
+.metal-prata,
+.metal-ouro,
+.pedra-cor{
 background-size:100% 180%;
 background-position:50% 0%;
 -webkit-background-clip:text;
 background-clip:text;
 -webkit-text-fill-color:transparent;
 color:transparent;
+-webkit-box-decoration-break:clone;
+box-decoration-break:clone;
 }
 
 .product-card:hover .metal-prata,
 .product-card:hover .metal-ouro,
+.product-card:hover .pedra-cor,
 .detail-info:hover .metal-prata,
-.detail-info:hover .metal-ouro{
+.detail-info:hover .metal-ouro,
+.detail-info:hover .pedra-cor{
 animation:brilhoMetalico 1.8s ease-in-out;
 }
 
@@ -665,7 +760,7 @@ animation:brilhoMetalico 1.8s ease-in-out;
 100%{background-position:50% 0%}
 }
 
-/* IDENTIFICAÇÃO DO MATERIAL */
+/* MATERIAL */
 
 .material-label{
 display:block;
@@ -681,8 +776,6 @@ margin:0;
 .material-prata{color:#656e7a}
 .material-ouro{color:#98733d}
 .material-vinho{color:var(--vinho)}
-
-/* DIVISÓRIA DELICADA */
 
 .product-divider{
 display:flex;
@@ -891,7 +984,7 @@ opacity:.75;
 margin-top:18px!important;
 }
 
-/* JANELA DE DETALHES */
+/* DETALHES */
 
 .overlay{
 position:fixed;
@@ -1002,7 +1095,7 @@ margin:0 0 25px;
 
 .drawer-item{
 display:grid;
-grid-template-columns:85px 1fr;
+grid-template-columns:85px minmax(0,1fr);
 gap:15px;
 border-bottom:1px solid var(--borda);
 padding:16px 0;
@@ -1368,8 +1461,6 @@ html{scroll-behavior:auto}
 
 </svg>
 
-<!-- CABEÇALHO -->
-
 <div class="topbar">
 ENTREGAS EM CURITIBA E REGIÃO • 3 MESES DE GARANTIA PARA TROCA
 </div>
@@ -1423,10 +1514,8 @@ aria-label="Pesquisar joias">
 <a class="icon-button" id="headerWhats"
 target="_blank" rel="noopener noreferrer"
 aria-label="Atendimento">
-
 <svg class="icon"><use href="#i-chat"/></svg>
 <small>Atendimento</small>
-
 </a>
 
 </div>
@@ -1587,12 +1676,10 @@ onclick="alternarCarrossel()">Ⅱ Pausar</button>
 <div class="container">
 
 <div class="section-title">
-
 <small>Silver Love Collection</small>
 <h2 id="collectionTitle">Nossas joias</h2>
 <div class="title-line">◇</div>
 <p>Uma joia especial para cada história.</p>
-
 </div>
 
 <div class="filters">
@@ -1620,7 +1707,7 @@ Tentar novamente
 </div>
 </section>
 
-<!-- ASSINATURA OFICIAL -->
+<!-- ASSINATURA -->
 
 <section class="brand-section">
 
@@ -1711,16 +1798,14 @@ Fale pelo WhatsApp
 </div>
 
 <div class="footer-bottom">
-
 © <span id="year"></span> Silver Love Joias.
 Todos os direitos reservados.
-
 </div>
 
 </div>
 </footer>
 
-<!-- DETALHES DO PRODUTO -->
+<!-- DETALHES -->
 
 <div id="detailOverlay" class="overlay" hidden>
 
@@ -1736,7 +1821,7 @@ aria-label="Fechar">×</button>
 
 <div class="detail-info">
 
-<h2 id="detailName" class="metal-vinho"></h2>
+<h2 id="detailName"></h2>
 
 <div id="detailMaterial" class="material-label" hidden></div>
 
@@ -1890,7 +1975,7 @@ aria-label="Falar pelo WhatsApp">
 
 "use strict";
 
-/* CONFIGURAÇÕES */
+/* CONFIGURAÇÕES ORIGINAIS */
 
 const URL_DB="https://xyybmzfodlvwljhhfxhe.supabase.co";
 const KEY="sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
@@ -1958,7 +2043,9 @@ return padrao;
 
 }
 
-let favoritos=lerLocal("silverlove_favoritos",[]).map(String);
+let favoritos=[...new Set(
+lerLocal("silverlove_favoritos",[]).map(String)
+)];
 
 let sacola=lerLocal("silverlove_sacola",[])
 .filter(x=>x&&x.id!=null&&Number.isInteger(x.qtd)&&x.qtd>0)
@@ -2066,7 +2153,6 @@ const distancia=e.changedTouches[0].screenX-toqueX;
 if(Math.abs(distancia)>50){
 
 deslizou=true;
-
 mudarSlide(distancia<0?1:-1);
 
 setTimeout(()=>{
@@ -2208,17 +2294,26 @@ return "Outras joias";
 
 }
 
-/* IDENTIFICAÇÃO AUTOMÁTICA DO MATERIAL */
+/* NOVO RECONHECIMENTO DE MATERIAL */
 
 function analisarMaterial(valor){
 
 const n=normal(valor);
 
 const folheadoOuro=
-/\b(?:folhead[oa]s?|banhad[oa]s?)\s+(?:a|em|de)\s+ouro\b/.test(n);
+/\b(?:folh?ead[oa]s?|banhad[oa]s?)\s+(?:(?:a|ao|em|de|com)\s+)?ouro\b/.test(n);
 
-const prata=
-/\bprata\b/.test(n);
+const banhoOuro=
+/\bbanho\s+(?:(?:de|em|a)\s+)?ouro\b/.test(n);
+
+const ouroNegado=
+/\b(?:nao|sem)\s+(?:e\s+)?(?:folh?ead[oa]s?|banhad[oa]s?|banho)\b/.test(n);
+
+const prataNegada=
+/\b(?:nao\s+(?:e\s+)?|sem\s+|cor\s+|tom\s+|efeito\s+|imitacao\s+de\s+)prata\b/.test(n);
+
+const revestimentoPrata=
+/\b(?:folh?ead[oa]s?|banhad[oa]s?|banho)\s+(?:(?:a|em|de)\s+)?prata\b/.test(n);
 
 const prata925=
 /\bprata\s*(?:de\s+lei\s*)?925\b/.test(n);
@@ -2226,20 +2321,32 @@ const prata925=
 const prata950=
 /\bprata\s*(?:de\s+lei\s*)?950\b/.test(n);
 
-const outroRevestimento=
-/\b(?:folhead[oa]s?|banhad[oa]s?)\b/.test(n);
+const prata=
+/\bprata\b/.test(n);
 
-if(folheadoOuro){
+const outroRevestimento=
+/\b(?:folh?ead[oa]s?|banhad[oa]s?|banho)\b/.test(n);
+
+if((folheadoOuro||banhoOuro)&&!ouroNegado){
+
+const teor=n.match(/\bouro\s*(\d{1,2})\s*k\b/);
 
 return {
 colecao:"Folheados a Ouro",
-rotulo:"Folheado a Ouro",
+rotulo:teor?
+"Folheado a Ouro "+teor[1]+"K":
+"Folheado a Ouro",
 estilo:"ouro"
 };
 
 }
 
-if(prata&&!outroRevestimento){
+if(
+prata&&
+!prataNegada&&
+!revestimentoPrata&&
+!outroRevestimento
+){
 
 return {
 colecao:"Prata",
@@ -2258,26 +2365,23 @@ function identificarMaterial(p){
 const nome=analisarMaterial(p.nome);
 const descricao=analisarMaterial(p.descricao||"");
 
-if(nome&&descricao&&nome.colecao!==descricao.colecao){
-
-return {
+const desconhecido={
 colecao:"",
 rotulo:"",
 estilo:"vinho"
 };
 
-}
-
 if(nome&&descricao){
+
+if(nome.colecao!==descricao.colecao){
+return desconhecido;
+}
 
 if(nome.colecao==="Prata"){
 
-const n=nome.rotulo;
-const d=descricao.rotulo;
-
 if(
-(n==="Prata 925"&&d==="Prata 950")||
-(n==="Prata 950"&&d==="Prata 925")
+(nome.rotulo==="Prata 925"&&descricao.rotulo==="Prata 950")||
+(nome.rotulo==="Prata 950"&&descricao.rotulo==="Prata 925")
 ){
 
 return {
@@ -2292,28 +2396,87 @@ if(nome.rotulo==="Prata")return descricao;
 
 }
 
-return nome;
+if(nome.colecao==="Folheados a Ouro"){
 
-}
+const teorNome=nome.rotulo.match(/\d+K/);
+const teorDescricao=descricao.rotulo.match(/\d+K/);
 
-if(nome)return nome;
-if(descricao)return descricao;
+if(teorNome&&teorDescricao&&teorNome[0]!==teorDescricao[0]){
 
 return {
-colecao:"",
-rotulo:"",
-estilo:"vinho"
+colecao:"Folheados a Ouro",
+rotulo:"Folheado a Ouro",
+estilo:"ouro"
 };
 
 }
 
-/* SEPARAR MATERIAL DO NOME */
+if(!teorNome&&teorDescricao)return descricao;
+
+}
+
+return nome;
+
+}
+
+return nome||descricao||desconhecido;
+
+}
+
+/* NOVO SISTEMA DE CAPITALIZAÇÃO */
+
+function formatarNome(valor){
+
+const original=String(valor||"Joia Silver Love").trim();
+
+const letras=original.replace(/[^\p{L}]/gu,"");
+
+const tudoMaiusculo=
+letras.length>0&&
+letras===letras.toLocaleUpperCase("pt-BR");
+
+const tudoMinusculo=
+letras.length>0&&
+letras===letras.toLocaleLowerCase("pt-BR");
+
+if(!tudoMaiusculo&&!tudoMinusculo){
+return original;
+}
+
+const conectivos=new Set([
+"a","o","as","os","de","da","do","das","dos",
+"em","com","e","para","por","sem","ao","aos"
+]);
+
+let indice=0;
+
+return original.toLocaleLowerCase("pt-BR")
+.replace(/[\p{L}\p{N}]+/gu,palavra=>{
+
+const primeiro=indice++===0;
+
+if(/^\d+k$/.test(palavra)){
+return palavra.toUpperCase();
+}
+
+if(!primeiro&&conectivos.has(palavra)){
+return palavra;
+}
+
+return palavra.charAt(0).toLocaleUpperCase("pt-BR")+
+palavra.slice(1);
+
+});
+
+}
+
+/* SEPARAÇÃO DO MATERIAL */
 
 function nomeExibicao(p){
 
 let nome=String(p.nome||"Joia Silver Love").trim();
 
-if(!p.rotuloMaterial)return nome;
+if(p.rotuloMaterial){
 
 let limpo=nome;
 
@@ -2329,7 +2492,7 @@ limpo=limpo.replace(
 if(p.estiloMetal==="ouro"){
 
 limpo=limpo.replace(
-/\s*(?:[-–—|,]\s*)?(?:folhead[oa]s?|banhad[oa]s?)\s+(?:a|em|de)\s+ouro(?:\s+\d+\s*k)?\s*$/i,
+/\s*(?:[-–—|,]\s*)?(?:folh?ead[oa]s?|banhad[oa]s?|banho)\s+(?:(?:a|ao|em|de|com)\s+)?ouro(?:\s*\d+\s*k)?\s*$/i,
 ""
 );
 
@@ -2337,17 +2500,166 @@ limpo=limpo.replace(
 
 limpo=limpo.replace(/[\s\-–—|,]+$/g,"").trim();
 
-return limpo||nome;
+nome=limpo||nome;
 
 }
 
-function criarNomeProduto(p,tag="h3",classe="product-name"){
+return formatarNome(nome);
 
-return texto(
-tag,
-nomeExibicao(p),
-classe+" metal-"+p.estiloMetal
+}
+
+/* NOVO SISTEMA DE CORES INTELIGENTES */
+
+const mapaCores={
+
+vermelho:"vermelha",
+vermelha:"vermelha",
+vermelhos:"vermelha",
+vermelhas:"vermelha",
+
+azul:"azul",
+azuis:"azul",
+
+verde:"verde",
+verdes:"verde",
+
+rosa:"rosa",
+rosas:"rosa",
+
+roxo:"roxa",
+roxa:"roxa",
+roxos:"roxa",
+roxas:"roxa",
+
+preto:"preta",
+preta:"preta",
+pretos:"preta",
+pretas:"preta",
+
+amarelo:"amarela",
+amarela:"amarela",
+amarelos:"amarela",
+amarelas:"amarela",
+
+lilas:"lilas",
+
+laranja:"laranja",
+laranjas:"laranja",
+
+branco:"branca",
+branca:"branca",
+brancos:"branca",
+brancas:"branca",
+
+marrom:"marrom",
+marrons:"marrom"
+
+};
+
+function classeCor(palavra){
+
+return mapaCores[normal(palavra)]||null;
+
+}
+
+/* Formata palavras de cor individualmente.
+   O restante mantém o acabamento do material. */
+
+function aplicarCores(elemento,valor,estiloMetal=null){
+
+elemento.replaceChildren();
+
+const frase=String(valor??"");
+
+const partes=frase.match(
+/[\p{L}\p{N}]+|[^\p{L}\p{N}]+/gu
+)||[];
+
+let trechoNormal="";
+
+function adicionarTrechoNormal(){
+
+if(!trechoNormal)return;
+
+if(estiloMetal){
+
+elemento.appendChild(
+texto(
+"span",
+trechoNormal,
+"metal-"+estiloMetal
+)
 );
+
+}else{
+
+elemento.appendChild(
+document.createTextNode(trechoNormal)
+);
+
+}
+
+trechoNormal="";
+
+}
+
+partes.forEach((parte,i)=>{
+
+const cor=classeCor(parte);
+
+/* Evita confundir ouro branco com
+   uma indicação de cor da pedra. */
+
+const anterior=normal(
+partes.slice(0,i).join("")
+);
+
+const ouroBranco=
+cor==="branca"&&/\bouro\s+$/.test(anterior);
+
+if(cor&&!ouroBranco){
+
+adicionarTrechoNormal();
+
+const span=texto(
+"span",
+parte,
+"pedra-cor pedra-"+cor
+);
+
+elemento.appendChild(span);
+
+}else{
+
+trechoNormal+=parte;
+
+}
+
+});
+
+adicionarTrechoNormal();
+
+}
+
+/* NOMES PERSONALIZADOS */
+
+function criarNomeProduto(
+p,
+tag="h3",
+classe="product-name"
+){
+
+const el=document.createElement(tag);
+
+el.className=classe;
+
+aplicarCores(
+el,
+nomeExibicao(p),
+p.estiloMetal
+);
+
+return el;
 
 }
 
@@ -2534,7 +2846,7 @@ selecionarCategoria(el.dataset.filter);
 
 });
 
-/* VITRINE DE PRODUTOS */
+/* VITRINE */
 
 function renderizar(){
 
@@ -2626,7 +2938,7 @@ const info=document.createElement("div");
 
 info.className="product-info";
 
-/* NOVO NOME METÁLICO */
+/* NOME COM CORES INTELIGENTES */
 
 info.appendChild(criarNomeProduto(p));
 
@@ -2637,8 +2949,6 @@ if(material){
 info.appendChild(material);
 
 }
-
-/* DIVISÓRIA PREMIUM */
 
 info.appendChild(
 texto("div","◇","product-divider")
@@ -2740,9 +3050,15 @@ if(!atual)return;
 
 definirImagem($("detailImage"),atual);
 
-$("detailName").textContent=nomeExibicao(atual);
+/* NOME COLORIDO NOS DETALHES */
 
-$("detailName").className="metal-"+atual.estiloMetal;
+$("detailName").className="";
+
+aplicarCores(
+$("detailName"),
+nomeExibicao(atual),
+atual.estiloMetal
+);
 
 $("detailMaterial").textContent=atual.rotuloMaterial;
 
@@ -2759,9 +3075,16 @@ $("detailPrice").textContent=moeda(atual.preco);
 $("detailStock").textContent=atual.estoque>0?
 "Disponível em estoque":"Sob consulta";
 
-$("detailDescription").textContent=
+/* CORES TAMBÉM NA DESCRIÇÃO */
+
+aplicarCores(
+
+$("detailDescription"),
+
 atual.descricao||
-"Consulte a loja para mais informações.";
+"Consulte a loja para mais informações."
+
+);
 
 $("detailBuy").disabled=atual.estoque<1;
 
@@ -2920,7 +3243,7 @@ $("favoriteItems").appendChild(item);
 
 }
 
-/* SACOLA DE COMPRAS */
+/* SACOLA */
 
 function adicionarSacola(id){
 
