@@ -13,6 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+
 :root{
 --vinho:#750b2b;
 --escuro:#310d1c;
@@ -28,6 +29,28 @@
 --caligrafia:'Great Vibes','Brush Script MT',cursive;
 --editorial:'Bodoni Moda',Georgia,serif;
 --moderna:'Montserrat',Arial,sans-serif;
+
+--prata-metalica:linear-gradient(
+175deg,
+#343943 0%,
+#707783 22%,
+#a3aab4 38%,
+#515864 50%,
+#929aa5 65%,
+#454b55 85%,
+#303640 100%
+);
+
+--ouro-metalico:linear-gradient(
+175deg,
+#654313 0%,
+#9d7537 22%,
+#c5a05b 38%,
+#79501c 50%,
+#bb9650 65%,
+#906323 85%,
+#654313 100%
+);
 }
 
 *{box-sizing:border-box}
@@ -38,9 +61,26 @@ button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
-button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--ouro);outline-offset:4px}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible{
+outline:2px solid var(--ouro);
+outline-offset:4px;
+}
+
 .container{width:min(1440px,94%);margin:auto}
-.icon{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+.icon{
+width:25px;
+height:25px;
+fill:none;
+stroke:currentColor;
+stroke-width:1.5;
+stroke-linecap:round;
+stroke-linejoin:round;
+}
 
 /* BARRA SUPERIOR */
 
@@ -54,7 +94,7 @@ font-weight:600;
 letter-spacing:1.8px;
 }
 
-/* CABEÇALHO PREMIUM */
+/* CABEÇALHO */
 
 .header{
 background:radial-gradient(ellipse at left,#590b25,#310d1c 65%,#21171b);
@@ -89,8 +129,18 @@ object-fit:contain;
 }
 
 .logo-fallback{text-align:center}
-.logo-fallback strong{font-family:var(--caligrafia);font-size:44px;font-weight:400}
-.logo-fallback small{display:block;font-size:9px;letter-spacing:2px}
+
+.logo-fallback strong{
+font-family:var(--caligrafia);
+font-size:44px;
+font-weight:400;
+}
+
+.logo-fallback small{
+display:block;
+font-size:9px;
+letter-spacing:2px;
+}
 
 .search-box{
 display:flex;
@@ -158,6 +208,7 @@ place-items:center;
 /* MENU */
 
 .nav{border-top:1px solid #b9914e35}
+
 .nav-inner{
 display:flex;
 align-items:center;
@@ -200,7 +251,13 @@ background:var(--escuro);
 
 .slide{display:none;width:100%}
 .slide.active{display:block;animation:fade .8s ease}
-.slide img{width:100%;height:auto;aspect-ratio:3/1;object-fit:contain}
+
+.slide img{
+width:100%;
+height:auto;
+aspect-ratio:3/1;
+object-fit:contain;
+}
 
 @keyframes fade{
 from{opacity:.45}
@@ -296,11 +353,24 @@ border-right:1px solid var(--borda);
 }
 
 .benefit:last-child{border:0}
-.benefit .icon{width:33px;height:33px;color:var(--ouro);flex-shrink:0}
-.benefit strong{display:block;color:var(--vinho);font-size:13px;margin-bottom:6px}
+
+.benefit .icon{
+width:33px;
+height:33px;
+color:var(--ouro);
+flex-shrink:0;
+}
+
+.benefit strong{
+display:block;
+color:var(--vinho);
+font-size:13px;
+margin-bottom:6px;
+}
+
 .benefit span{font-size:11px;color:var(--cinza)}
 
-/* TÍTULOS DE ALTO PADRÃO */
+/* TÍTULOS DAS COLEÇÕES */
 
 .section{
 padding:80px 0;
@@ -345,7 +415,8 @@ color:var(--ouro);
 font-size:17px;
 }
 
-.title-line:before,.title-line:after{
+.title-line:before,
+.title-line:after{
 content:"";
 width:55px;
 height:1px;
@@ -392,11 +463,24 @@ object-fit:cover;
 border-radius:50%;
 }
 
-.category-image .icon{width:45px;height:45px;color:var(--ouro)}
-.category strong{font-family:var(--editorial);font-size:21px;font-weight:500}
-.category:hover .category-image{transform:translateY(-5px);box-shadow:0 10px 25px #750b2b18}
+.category-image .icon{
+width:45px;
+height:45px;
+color:var(--ouro);
+}
 
-/* VITRINE */
+.category strong{
+font-family:var(--caligrafia);
+font-size:36px;
+font-weight:400;
+}
+
+.category:hover .category-image{
+transform:translateY(-5px);
+box-shadow:0 10px 25px #750b2b18;
+}
+
+/* FILTROS */
 
 .products-section{background:white}
 
@@ -409,7 +493,11 @@ gap:20px;
 margin-bottom:30px;
 }
 
-.filter-buttons{display:flex;flex-wrap:wrap;gap:8px}
+.filter-buttons{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+}
 
 .filter-button{
 background:white;
@@ -421,7 +509,8 @@ border-radius:2px;
 transition:all .2s;
 }
 
-.filter-button.active,.filter-button:hover{
+.filter-button.active,
+.filter-button:hover{
 background:var(--vinho);
 color:white;
 border-color:var(--vinho);
@@ -434,6 +523,8 @@ padding:11px;
 font-size:11px;
 color:var(--texto);
 }
+
+/* VITRINE PREMIUM */
 
 .product-grid{
 display:grid;
@@ -448,12 +539,30 @@ position:relative;
 display:flex;
 flex-direction:column;
 overflow:hidden;
-transition:transform .3s,box-shadow .3s;
+transition:transform .3s,box-shadow .3s,border-color .3s;
+}
+
+.product-card.prata{
+border-color:#d5d9df;
+}
+
+.product-card.ouro{
+border-color:#dfcba9;
 }
 
 .product-card:hover{
 transform:translateY(-5px);
 box-shadow:0 12px 35px #310d1c12;
+}
+
+.product-card.prata:hover{
+border-color:#a3abb7;
+box-shadow:0 12px 35px #7b879322;
+}
+
+.product-card.ouro:hover{
+border-color:#b9914e;
+box-shadow:0 12px 35px #b9914e22;
 }
 
 .product-photo{
@@ -469,7 +578,9 @@ cursor:pointer;
 transition:transform .5s;
 }
 
-.product-card:hover .product-image{transform:scale(1.045)}
+.product-card:hover .product-image{
+transform:scale(1.045);
+}
 
 .favorite{
 position:absolute;
@@ -488,21 +599,116 @@ place-items:center;
 .favorite.active .icon{fill:var(--vinho)}
 
 .product-info{
-padding:23px 19px;
+padding:27px 19px 23px;
 display:flex;
 flex-direction:column;
 flex:1;
 gap:10px;
+text-align:center;
+align-items:center;
 }
 
+/* NOVA CALIGRAFIA DAS JOIAS */
+
 .product-name{
-font-family:var(--editorial);
-font-size:23px;
-font-weight:500;
-line-height:1.4;
+font-family:var(--caligrafia);
+font-size:clamp(29px,2.8vw,43px);
+font-weight:400;
+line-height:1.35;
 margin:0;
-color:var(--escuro);
+padding:7px 5px;
+color:var(--vinho);
+overflow-wrap:anywhere;
+width:100%;
 }
+
+/* ACABAMENTO METÁLICO */
+
+.metal-prata{color:#515864}
+.metal-ouro{color:#906323}
+.metal-vinho{color:var(--vinho)}
+
+@supports ((background-clip:text) or (-webkit-background-clip:text)){
+
+.metal-prata{
+background-image:var(--prata-metalica);
+background-size:100% 180%;
+background-position:50% 0%;
+-webkit-background-clip:text;
+background-clip:text;
+-webkit-text-fill-color:transparent;
+color:transparent;
+}
+
+.metal-ouro{
+background-image:var(--ouro-metalico);
+background-size:100% 180%;
+background-position:50% 0%;
+-webkit-background-clip:text;
+background-clip:text;
+-webkit-text-fill-color:transparent;
+color:transparent;
+}
+
+.product-card:hover .metal-prata,
+.product-card:hover .metal-ouro,
+.detail-info:hover .metal-prata,
+.detail-info:hover .metal-ouro{
+animation:brilhoMetalico 1.8s ease-in-out;
+}
+
+}
+
+@keyframes brilhoMetalico{
+0%{background-position:50% 0%}
+50%{background-position:50% 100%}
+100%{background-position:50% 0%}
+}
+
+/* IDENTIFICAÇÃO DO MATERIAL */
+
+.material-label{
+display:block;
+font-family:var(--moderna);
+font-size:10px;
+font-weight:600;
+letter-spacing:2.5px;
+text-transform:uppercase;
+line-height:1.6;
+margin:0;
+}
+
+.material-prata{color:#656e7a}
+.material-ouro{color:#98733d}
+.material-vinho{color:var(--vinho)}
+
+/* DIVISÓRIA DELICADA */
+
+.product-divider{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+width:100%;
+color:var(--ouro);
+font-size:12px;
+margin:5px 0 8px;
+}
+
+.product-divider:before,
+.product-divider:after{
+content:"";
+width:35px;
+height:1px;
+background:linear-gradient(90deg,transparent,currentColor);
+}
+
+.product-divider:after{
+background:linear-gradient(90deg,currentColor,transparent);
+}
+
+.prata .product-divider{color:#a3abb7}
+.ouro .product-divider{color:var(--ouro)}
 
 .product-code{
 font-size:9px;
@@ -519,6 +725,8 @@ color:var(--vinho);
 
 .stock{font-size:10px;color:var(--verde)}
 .unavailable{color:var(--cinza)}
+
+/* BOTÕES */
 
 .btn{
 display:flex;
@@ -537,12 +745,33 @@ border-radius:2px;
 transition:all .25s;
 }
 
-.btn:hover{background:#310d1c;box-shadow:0 3px 12px #750b2b20}
-.btn.secondary{background:white;color:var(--vinho);border-color:#d9c6aa}
+.btn:hover{
+background:#310d1c;
+box-shadow:0 3px 12px #750b2b20;
+}
+
+.btn.secondary{
+background:white;
+color:var(--vinho);
+border-color:#d9c6aa;
+}
+
 .btn.secondary:hover{background:#fff6f2}
-.btn.whatsapp{background:var(--verde);border-color:var(--verde)}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.product-info .btn:first-of-type{margin-top:auto}
+
+.btn.whatsapp{
+background:var(--verde);
+border-color:var(--verde);
+}
+
+.btn:disabled{
+opacity:.5;
+cursor:not-allowed;
+}
+
+.product-info .btn:first-of-type{
+margin-top:auto;
+}
+
 .product-info .btn{width:100%}
 
 .status{
@@ -627,8 +856,16 @@ color:var(--ouro-claro);
 margin:0 0 20px;
 }
 
-.footer p,.footer a{font-size:12px;line-height:1.9}
-.footer-links a{display:block;margin:8px 0}
+.footer p,.footer a{
+font-size:12px;
+line-height:1.9;
+}
+
+.footer-links a{
+display:block;
+margin:8px 0;
+}
+
 .footer-links a:hover{color:var(--ouro)}
 
 .footer-slogan{
@@ -648,9 +885,13 @@ letter-spacing:.8px;
 color:#b9a6af;
 }
 
-.admin-link{font-size:10px!important;opacity:.75;margin-top:18px!important}
+.admin-link{
+font-size:10px!important;
+opacity:.75;
+margin-top:18px!important;
+}
 
-/* MODAIS */
+/* JANELA DE DETALHES */
 
 .overlay{
 position:fixed;
@@ -699,17 +940,37 @@ object-fit:contain;
 background:white;
 }
 
+.detail-info{text-align:center}
+
 .detail-info h2{
-font-family:var(--editorial);
-font-size:33px;
-font-weight:500;
-color:var(--vinho);
-margin:0 0 15px;
+font-family:var(--caligrafia);
+font-size:clamp(36px,4vw,52px);
+font-weight:400;
+line-height:1.3;
+margin:0 0 10px;
+padding:7px;
+overflow-wrap:anywhere;
 }
 
-.detail-info p{font-size:13px;line-height:1.8}
+.detail-info p{
+font-size:13px;
+line-height:1.8;
+}
+
 .detail-info .price{font-size:27px}
-.detail-info .btn{width:100%;margin-top:12px}
+
+.detail-info .btn{
+width:100%;
+margin-top:12px;
+}
+
+.detail-description{
+font-family:var(--editorial);
+font-size:18px!important;
+line-height:1.8!important;
+color:#64535b;
+white-space:pre-line;
+}
 
 /* SACOLA E FAVORITOS */
 
@@ -754,11 +1015,40 @@ object-fit:contain;
 background:white;
 }
 
-.drawer-item strong{font-size:13px;display:block;margin-bottom:8px}
-.drawer-item p{font-size:12px;margin:6px 0}
+.drawer-item strong{
+display:block;
+margin-bottom:8px;
+font-size:13px;
+}
 
-.quantity{display:flex;align-items:center;gap:12px;margin:10px 0}
-.quantity button{width:29px;height:29px;border:1px solid var(--ouro);background:white;color:var(--vinho)}
+.drawer-item .drawer-product-name{
+font-family:var(--caligrafia);
+font-size:30px;
+font-weight:400;
+line-height:1.3;
+padding:4px 0;
+overflow-wrap:anywhere;
+}
+
+.drawer-item p{
+font-size:12px;
+margin:6px 0;
+}
+
+.quantity{
+display:flex;
+align-items:center;
+gap:12px;
+margin:10px 0;
+}
+
+.quantity button{
+width:29px;
+height:29px;
+border:1px solid var(--ouro);
+background:white;
+color:var(--vinho);
+}
 
 .remove{
 border:0;
@@ -779,7 +1069,10 @@ padding:25px 0;
 color:var(--vinho);
 }
 
-.drawer .btn{width:100%;margin-top:10px}
+.drawer .btn{
+width:100%;
+margin-top:10px;
+}
 
 .checkout label{
 display:block;
@@ -788,7 +1081,9 @@ margin:15px 0 7px;
 font-weight:600;
 }
 
-.checkout input,.checkout select,.checkout textarea{
+.checkout input,
+.checkout select,
+.checkout textarea{
 width:100%;
 padding:13px;
 border:1px solid #d9c6aa;
@@ -796,7 +1091,11 @@ border-radius:2px;
 background:white;
 }
 
-.notice{font-size:11px;line-height:1.8;color:var(--cinza)}
+.notice{
+font-size:11px;
+line-height:1.8;
+color:var(--cinza);
+}
 
 /* NOTIFICAÇÕES */
 
@@ -831,11 +1130,15 @@ z-index:15;
 box-shadow:0 4px 15px #0003;
 }
 
-.whatsapp-float .icon{width:28px;height:28px}
+.whatsapp-float .icon{
+width:28px;
+height:28px;
+}
 
-/* RESPONSIVIDADE */
+/* TABLETS */
 
 @media(max-width:1050px){
+
 .header-main{gap:20px}
 .logo{width:200px}
 .header-actions{gap:12px}
@@ -843,10 +1146,19 @@ box-shadow:0 4px 15px #0003;
 .category-grid{grid-template-columns:repeat(3,1fr)}
 .product-grid{grid-template-columns:repeat(3,1fr)}
 .slide img{aspect-ratio:auto}
+.product-name{font-size:35px}
+
 }
 
+/* CELULARES */
+
 @media(max-width:650px){
-.topbar{font-size:8px;letter-spacing:.6px}
+
+.topbar{
+font-size:8px;
+letter-spacing:.6px;
+}
+
 .header-main{
 display:grid;
 grid-template-columns:1fr auto;
@@ -854,50 +1166,152 @@ gap:12px;
 padding:10px 0;
 min-height:0;
 }
-.logo{width:155px;justify-content:flex-start}
+
+.logo{
+width:155px;
+justify-content:flex-start;
+}
+
 .logo img{max-height:85px}
 .logo-fallback strong{font-size:30px}
 .logo-fallback small{font-size:7px}
-.search-box{grid-column:1/-1;grid-row:2;max-width:none}
+
+.search-box{
+grid-column:1/-1;
+grid-row:2;
+max-width:none;
+}
+
 .search-box input{padding:12px}
 .header-actions{gap:7px}
 .icon-button small{display:none}
-.header-actions .icon{width:22px;height:22px}
-.nav-inner{gap:22px;padding:13px 0}
-.nav a{font-size:9px;letter-spacing:1px}
-.brand-strip{font-size:8px;letter-spacing:1.2px}
-.carousel-arrow{width:29px;height:29px;font-size:16px}
+
+.header-actions .icon{
+width:22px;
+height:22px;
+}
+
+.nav-inner{
+gap:22px;
+padding:13px 0;
+}
+
+.nav a{
+font-size:9px;
+letter-spacing:1px;
+}
+
+.brand-strip{
+font-size:8px;
+letter-spacing:1.2px;
+}
+
+.carousel-arrow{
+width:29px;
+height:29px;
+font-size:16px;
+}
+
 .prev{left:6px}
 .next{right:6px}
-.benefits-inner{grid-template-columns:1fr;padding:8px 0}
-.benefit{justify-content:flex-start;border-right:0;padding:12px 20px}
-.benefit .icon{width:25px;height:25px}
-.section{padding:45px 0;scroll-margin-top:210px}
+
+.benefits-inner{
+grid-template-columns:1fr;
+padding:8px 0;
+}
+
+.benefit{
+justify-content:flex-start;
+border-right:0;
+padding:12px 20px;
+}
+
+.benefit .icon{
+width:25px;
+height:25px;
+}
+
+.section{
+padding:45px 0;
+scroll-margin-top:210px;
+}
+
 .section-title{margin-bottom:30px}
-.section-title small{font-size:9px;letter-spacing:2.5px}
-.section-title h2{font-size:clamp(43px,10vw,60px)}
+
+.section-title small{
+font-size:9px;
+letter-spacing:2.5px;
+}
+
+.section-title h2{
+font-size:clamp(43px,10vw,60px);
+}
+
 .category-grid{gap:12px}
-.category strong{font-size:17px}
-.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.product-info{padding:13px;gap:9px}
-.product-name{font-size:19px}
+.category strong{font-size:27px}
+
+.product-grid{
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:12px;
+}
+
+.product-info{
+padding:15px 10px;
+gap:9px;
+}
+
+.product-name{
+font-size:clamp(26px,6.8vw,34px);
+line-height:1.35;
+padding:5px 2px;
+}
+
+.material-label{
+font-size:8px;
+letter-spacing:1.3px;
+}
+
 .price{font-size:17px}
-.product-info .btn{font-size:9px;padding:11px 5px;letter-spacing:0}
-.filter-button{font-size:10px;padding:9px 10px}
-.footer-grid{grid-template-columns:1fr;gap:30px}
+
+.product-info .btn{
+font-size:9px;
+padding:11px 5px;
+letter-spacing:0;
+}
+
+.filter-button{
+font-size:10px;
+padding:9px 10px;
+}
+
+.footer-grid{
+grid-template-columns:1fr;
+gap:30px;
+}
+
 .footer-logo{width:210px}
 .detail-grid{grid-template-columns:1fr}
 .detail-grid img{max-height:280px}
+.detail-info h2{font-size:42px}
 .modal{padding:18px}
+
 .brand-section{padding:45px 18px}
 .brand-section img{width:220px}
-.whatsapp-float{width:48px;height:48px;right:14px;bottom:14px}
+
+.whatsapp-float{
+width:48px;
+height:48px;
+right:14px;
+bottom:14px;
+}
+
 }
 
 @media(prefers-reduced-motion:reduce){
 html{scroll-behavior:auto}
 *{animation:none!important;transition:none!important}
 }
+
 </style>
 </head>
 
@@ -906,6 +1320,7 @@ html{scroll-behavior:auto}
 <!-- ÍCONES -->
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+
 <symbol id="i-search" viewBox="0 0 24 24">
 <circle cx="10.5" cy="10.5" r="6.5"/>
 <path d="m16 16 5 5"/>
@@ -950,6 +1365,7 @@ html{scroll-behavior:auto}
 <path d="M90 39 70 36 50 79Z" fill="#55001c"/>
 <path d="M30 36 50 20 70 36 50 47Z" fill="#ef456f"/>
 </symbol>
+
 </svg>
 
 <!-- CABEÇALHO -->
@@ -959,6 +1375,7 @@ ENTREGAS EM CURITIBA E REGIÃO • 3 MESES DE GARANTIA PARA TROCA
 </div>
 
 <header class="header">
+
 <div class="container header-main">
 
 <a class="logo" href="index.html" aria-label="Silver Love - Página inicial">
@@ -978,10 +1395,15 @@ onerror="this.hidden=true;this.nextElementSibling.hidden=false">
 </a>
 
 <form class="search-box" id="searchForm">
-<input id="search" type="search" placeholder="Encontre sua próxima joia..." aria-label="Pesquisar joias">
+
+<input id="search" type="search"
+placeholder="Encontre sua próxima joia..."
+aria-label="Pesquisar joias">
+
 <button type="submit" aria-label="Pesquisar">
 <svg class="icon"><use href="#i-search"/></svg>
 </button>
+
 </form>
 
 <div class="header-actions">
@@ -998,9 +1420,13 @@ onerror="this.hidden=true;this.nextElementSibling.hidden=false">
 <small>Minha sacola</small>
 </button>
 
-<a class="icon-button" id="headerWhats" target="_blank" rel="noopener noreferrer" aria-label="Atendimento">
+<a class="icon-button" id="headerWhats"
+target="_blank" rel="noopener noreferrer"
+aria-label="Atendimento">
+
 <svg class="icon"><use href="#i-chat"/></svg>
 <small>Atendimento</small>
+
 </a>
 
 </div>
@@ -1008,6 +1434,7 @@ onerror="this.hidden=true;this.nextElementSibling.hidden=false">
 
 <nav class="nav">
 <div class="container nav-inner">
+
 <a href="#produtos" data-filter="Todas">Novidades</a>
 <a href="#produtos" data-filter="Anéis">Anéis</a>
 <a href="#produtos" data-filter="Brincos">Brincos</a>
@@ -1016,8 +1443,10 @@ onerror="this.hidden=true;this.nextElementSibling.hidden=false">
 <a href="#produtos" data-filter="Prata">Prata</a>
 <a href="#produtos" data-filter="Folheados a Ouro">Folheados a Ouro</a>
 <a href="catalogo.html" class="catalog-link">Catálogo rápido</a>
+
 </div>
 </nav>
+
 </header>
 
 <div class="brand-strip">
@@ -1029,57 +1458,78 @@ SILVER LOVE ✧ AMOR PURO EM SUA FORMA MAIS BELA ✧ SILVER LOVE
 <section class="carousel" id="carousel" aria-label="Coleções Silver Love">
 
 <a class="slide active" href="#produtos" data-filter="Todas">
+
 <img src="./Amor%20Puro%20em%20Joias%20Douradas.png"
 alt="Silver Love - Conheça nossas joias"
 fetchpriority="high"
 onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+
 <div class="banner-fallback" hidden>
 <h2>Silver Love</h2>
 <p>Amor puro em sua forma mais bela.</p>
 </div>
+
 </a>
 
 <a class="slide" href="#produtos" data-filter="Prata">
+
 <img src="./Cole%C3%A7%C3%A3o%20Prata_%20Brilho%20que%20Encanta.png"
 alt="Coleção Prata"
 onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+
 <div class="banner-fallback" hidden>
 <h2>Coleção Prata</h2>
 <p>Brilho que encanta</p>
 </div>
+
 </a>
 
 <a class="slide" href="#produtos" data-filter="Folheados a Ouro">
+
 <img src="./Cole%C3%A7%C3%A3o%20Folheados%20a%20Ouro.png"
 alt="Coleção Folheados a Ouro"
 onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+
 <div class="banner-fallback" hidden>
 <h2>Folheados a Ouro</h2>
 <p>O brilho de ser única</p>
 </div>
+
 </a>
 
 <a class="slide" href="#produtos" data-filter="Todas">
+
 <img src="./Presentes%20Especiais%20Silver%20Love.png"
 alt="Presentes especiais Silver Love"
 onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+
 <div class="banner-fallback" hidden>
 <h2>Presentes Especiais</h2>
 <p>Uma joia especial para cada história.</p>
 </div>
+
 </a>
 
-<button class="carousel-arrow prev" onclick="mudarSlide(-1)" aria-label="Banner anterior">❮</button>
-<button class="carousel-arrow next" onclick="mudarSlide(1)" aria-label="Próximo banner">❯</button>
+<button class="carousel-arrow prev"
+onclick="mudarSlide(-1)"
+aria-label="Banner anterior">❮</button>
+
+<button class="carousel-arrow next"
+onclick="mudarSlide(1)"
+aria-label="Próximo banner">❯</button>
 
 </section>
 
 <div class="carousel-controls">
+
 <button class="dot active" onclick="irSlide(0)" aria-label="Banner 1"></button>
 <button class="dot" onclick="irSlide(1)" aria-label="Banner 2"></button>
 <button class="dot" onclick="irSlide(2)" aria-label="Banner 3"></button>
 <button class="dot" onclick="irSlide(3)" aria-label="Banner 4"></button>
-<button id="pauseBanner" class="pause-button" onclick="alternarCarrossel()">Ⅱ Pausar</button>
+
+<button id="pauseBanner" class="pause-button"
+onclick="alternarCarrossel()">Ⅱ Pausar</button>
+
 </div>
 
 <!-- BENEFÍCIOS -->
@@ -1133,16 +1583,20 @@ onerror="this.hidden=true;this.nextElementSibling.hidden=false">
 <!-- VITRINE -->
 
 <section id="produtos" class="section products-section">
+
 <div class="container">
 
 <div class="section-title">
+
 <small>Silver Love Collection</small>
 <h2 id="collectionTitle">Nossas joias</h2>
 <div class="title-line">◇</div>
 <p>Uma joia especial para cada história.</p>
+
 </div>
 
 <div class="filters">
+
 <div id="filters" class="filter-buttons"></div>
 
 <select id="sort" class="sort" aria-label="Ordenar produtos">
@@ -1151,13 +1605,15 @@ onerror="this.hidden=true;this.nextElementSibling.hidden=false">
 <option value="maior">Maior preço</option>
 <option value="nome">Nome A-Z</option>
 </select>
+
 </div>
 
 <p id="status" class="status">Carregando joias...</p>
 
 <div id="productGrid" class="product-grid"></div>
 
-<button id="retry" class="btn secondary" onclick="carregarProdutos()" hidden>
+<button id="retry" class="btn secondary"
+onclick="carregarProdutos()" hidden>
 Tentar novamente
 </button>
 
@@ -1193,40 +1649,72 @@ ACESSAR CATÁLOGO RÁPIDO
 
 <footer class="footer">
 <div class="container">
+
 <div class="footer-grid">
 
 <div>
+
 <img class="footer-logo"
 src="./Logotipo%20Silver%20Love%20com%20Cora%C3%A7%C3%A3o%20Rubi.png"
 alt="Silver Love - Prata e Folheados a Ouro"
 loading="lazy"
 onerror="this.hidden=true">
 
-<p class="footer-slogan">Amor puro em sua forma mais bela.</p>
+<p class="footer-slogan">
+Amor puro em sua forma mais bela.
+</p>
+
 </div>
 
 <div class="footer-links">
+
 <h3>Navegação</h3>
+
 <a href="index.html">Loja virtual</a>
 <a href="catalogo.html">Catálogo rápido</a>
-<a href="#produtos" onclick="selecionarCategoria('Todas');return false">Todas as joias</a>
-<a href="#" onclick="abrirFavoritos();return false">Meus favoritos</a>
-<a href="#" onclick="abrirSacola();return false">Minha sacola</a>
+
+<a href="#produtos"
+onclick="selecionarCategoria('Todas');return false">
+Todas as joias
+</a>
+
+<a href="#" onclick="abrirFavoritos();return false">
+Meus favoritos
+</a>
+
+<a href="#" onclick="abrirSacola();return false">
+Minha sacola
+</a>
+
 </div>
 
 <div class="footer-links">
-<h3>Atendimento</h3>
-<p>Entregas em Curitiba e região.</p>
-<p>Garantia de 3 meses para troca, respeitados os direitos legais do consumidor.</p>
-<a id="footerWhats" target="_blank" rel="noopener noreferrer">Fale pelo WhatsApp</a>
-<a href="admin.html" class="admin-link">🔐 Área Administrativa</a>
-</div>
 
+<h3>Atendimento</h3>
+
+<p>Entregas em Curitiba e região.</p>
+
+<p>
+Garantia de 3 meses para troca,
+respeitados os direitos legais do consumidor.
+</p>
+
+<a id="footerWhats" target="_blank" rel="noopener noreferrer">
+Fale pelo WhatsApp
+</a>
+
+<a href="admin.html" class="admin-link">
+🔐 Área Administrativa
+</a>
+
+</div>
 </div>
 
 <div class="footer-bottom">
+
 © <span id="year"></span> Silver Love Joias.
 Todos os direitos reservados.
+
 </div>
 
 </div>
@@ -1235,9 +1723,12 @@ Todos os direitos reservados.
 <!-- DETALHES DO PRODUTO -->
 
 <div id="detailOverlay" class="overlay" hidden>
-<div class="modal" role="dialog" aria-modal="true" aria-label="Detalhes da joia">
 
-<button class="close" onclick="fecharDetalhes()" aria-label="Fechar">×</button>
+<div class="modal" role="dialog" aria-modal="true"
+aria-label="Detalhes da joia">
+
+<button class="close" onclick="fecharDetalhes()"
+aria-label="Fechar">×</button>
 
 <div class="detail-grid">
 
@@ -1245,11 +1736,19 @@ Todos os direitos reservados.
 
 <div class="detail-info">
 
-<h2 id="detailName"></h2>
+<h2 id="detailName" class="metal-vinho"></h2>
+
+<div id="detailMaterial" class="material-label" hidden></div>
+
+<div class="product-divider">◇</div>
+
 <p id="detailCode"></p>
+
 <div id="detailPrice" class="price"></div>
+
 <p id="detailStock"></p>
-<p id="detailDescription"></p>
+
+<p id="detailDescription" class="detail-description"></p>
 
 <button id="detailBuy" class="btn" onclick="comprarAtual()">
 Adicionar à sacola
@@ -1259,7 +1758,8 @@ Adicionar à sacola
 ♡ Adicionar ou remover dos favoritos
 </button>
 
-<a id="detailWhats" class="btn whatsapp" target="_blank" rel="noopener noreferrer">
+<a id="detailWhats" class="btn whatsapp"
+target="_blank" rel="noopener noreferrer">
 Consultar pelo WhatsApp
 </a>
 
@@ -1275,9 +1775,12 @@ Acessar catálogo para reservar
 <!-- SACOLA -->
 
 <div id="cartOverlay" class="drawer-overlay" hidden>
-<aside class="drawer" role="dialog" aria-modal="true" aria-label="Minha sacola">
 
-<button class="close" onclick="fecharSacola()" aria-label="Fechar">×</button>
+<aside class="drawer" role="dialog" aria-modal="true"
+aria-label="Minha sacola">
+
+<button class="close" onclick="fecharSacola()"
+aria-label="Fechar">×</button>
 
 <h2>Minha sacola</h2>
 
@@ -1291,6 +1794,7 @@ Acessar catálogo para reservar
 </div>
 
 <div id="checkout" class="checkout" hidden>
+
 <form id="checkoutForm">
 
 <label for="customerName">Seu nome</label>
@@ -1300,6 +1804,7 @@ Acessar catálogo para reservar
 <input id="customerPhone" type="tel" required maxlength="20">
 
 <label for="delivery">Recebimento</label>
+
 <select id="delivery" required>
 <option value="">Selecione</option>
 <option>Entrega em Curitiba e região</option>
@@ -1310,6 +1815,7 @@ Acessar catálogo para reservar
 <textarea id="address" maxlength="300" rows="3"></textarea>
 
 <label for="payment">Forma de pagamento</label>
+
 <select id="payment" required>
 <option value="">Selecione</option>
 <option>Pix</option>
@@ -1346,9 +1852,12 @@ Continuar comprando
 <!-- FAVORITOS -->
 
 <div id="favoriteOverlay" class="drawer-overlay" hidden>
-<aside class="drawer" role="dialog" aria-modal="true" aria-label="Favoritos">
 
-<button class="close" onclick="fecharFavoritos()" aria-label="Fechar">×</button>
+<aside class="drawer" role="dialog" aria-modal="true"
+aria-label="Favoritos">
+
+<button class="close" onclick="fecharFavoritos()"
+aria-label="Fechar">×</button>
 
 <h2>Meus favoritos</h2>
 
@@ -1365,8 +1874,12 @@ Continuar explorando
 
 <div id="toast" class="toast" role="status" hidden></div>
 
-<a id="floatingWhats" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Falar pelo WhatsApp">
+<a id="floatingWhats" class="whatsapp-float"
+target="_blank" rel="noopener noreferrer"
+aria-label="Falar pelo WhatsApp">
+
 <svg class="icon"><use href="#i-chat"/></svg>
+
 </a>
 
 <!-- SUPABASE -->
@@ -1374,6 +1887,7 @@ Continuar explorando
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
 <script>
+
 "use strict";
 
 /* CONFIGURAÇÕES */
@@ -1405,10 +1919,13 @@ let carregado=false;
 let finalizando=false;
 
 function conectar(){
+
 if(!db){
+
 if(!window.supabase){
 throw new Error("Conexão indisponível.");
 }
+
 db=window.supabase.createClient(URL_DB,KEY,{
 auth:{
 persistSession:false,
@@ -1416,19 +1933,29 @@ autoRefreshToken:false,
 detectSessionInUrl:false
 }
 });
+
 }
+
 return db;
+
 }
 
 /* ARMAZENAMENTO LOCAL */
 
 function lerLocal(chave,padrao){
+
 try{
+
 const valor=JSON.parse(localStorage.getItem(chave));
+
 return Array.isArray(valor)?valor:padrao;
+
 }catch(e){
+
 return padrao;
+
 }
+
 }
 
 let favoritos=lerLocal("silverlove_favoritos",[]).map(String);
@@ -1438,14 +1965,26 @@ let sacola=lerLocal("silverlove_sacola",[])
 .map(x=>({id:String(x.id),qtd:x.qtd}));
 
 function salvarLocal(){
+
 try{
-localStorage.setItem("silverlove_favoritos",JSON.stringify(favoritos));
-localStorage.setItem("silverlove_sacola",JSON.stringify(sacola));
+
+localStorage.setItem(
+"silverlove_favoritos",
+JSON.stringify(favoritos)
+);
+
+localStorage.setItem(
+"silverlove_sacola",
+JSON.stringify(sacola)
+);
+
 }catch(e){}
+
 atualizarContadores();
+
 }
 
-/* CARROSSEL AUTOMÁTICO */
+/* CARROSSEL */
 
 let slideAtual=0;
 let timerBanner=null;
@@ -1458,6 +1997,7 @@ const slides=[...document.querySelectorAll(".slide")];
 const dots=[...document.querySelectorAll(".dot")];
 
 function mostrarSlide(indice){
+
 slideAtual=(indice+slides.length)%slides.length;
 
 slides.forEach((s,i)=>{
@@ -1468,62 +2008,88 @@ dots.forEach((d,i)=>{
 d.classList.toggle("active",i===slideAtual);
 d.setAttribute("aria-current",String(i===slideAtual));
 });
+
 }
 
 function iniciarCarrossel(){
+
 clearInterval(timerBanner);
 
 if(!pausado&&!document.hidden){
+
 timerBanner=setInterval(()=>{
 mostrarSlide(slideAtual+1);
 },5000);
+
 }
 
 $("pauseBanner").textContent=pausado?
 "▶ Reproduzir":"Ⅱ Pausar";
+
 }
 
 function mudarSlide(direcao){
+
 mostrarSlide(slideAtual+direcao);
 iniciarCarrossel();
+
 }
 
 function irSlide(indice){
+
 mostrarSlide(indice);
 iniciarCarrossel();
+
 }
 
 function alternarCarrossel(){
+
 pausado=!pausado;
 iniciarCarrossel();
+
 }
 
 let toqueX=0;
 let deslizou=false;
 
 $("carousel").addEventListener("touchstart",e=>{
+
 toqueX=e.changedTouches[0].screenX;
 deslizou=false;
+
 },{passive:true});
 
 $("carousel").addEventListener("touchend",e=>{
+
 const distancia=e.changedTouches[0].screenX-toqueX;
 
 if(Math.abs(distancia)>50){
+
 deslizou=true;
+
 mudarSlide(distancia<0?1:-1);
-setTimeout(()=>{deslizou=false;},400);
+
+setTimeout(()=>{
+deslizou=false;
+},400);
+
 }
+
 },{passive:true});
 
 $("carousel").addEventListener("click",e=>{
+
 if(deslizou){
 e.preventDefault();
 e.stopPropagation();
 }
+
 },true);
 
-document.addEventListener("visibilitychange",iniciarCarrossel);
+document.addEventListener(
+"visibilitychange",
+iniciarCarrossel
+);
 
 mostrarSlide(0);
 iniciarCarrossel();
@@ -1532,59 +2098,91 @@ iniciarCarrossel();
 
 const placeholder="data:image/svg+xml,"+
 encodeURIComponent(
+
 '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400">'+
 '<rect width="400" height="400" fill="#f7e5eb"/>'+
 '<path d="M200 180 160 140 160 120 180 110 200 125 220 110 240 120 240 140Z" fill="#a00832" stroke="#b9914e" stroke-width="2"/>'+
 '<text x="200" y="225" text-anchor="middle" fill="#750b2b" font-size="30" font-family="Georgia">Silver Love</text>'+
 '</svg>'
+
 );
 
 function foto(url){
+
 try{
+
 if(url){
+
 const u=new URL(url,location.href);
+
 if(u.protocol==="https:")return u.href;
+
 }
+
 }catch(e){}
+
 return placeholder;
+
 }
 
 function definirImagem(img,p){
+
 img.onerror=()=>{
+
 img.onerror=null;
 img.src=placeholder;
+
 };
+
 img.src=foto(p.imagem_url);
 img.alt=p.nome||"Joia Silver Love";
+
 }
 
 /* ELEMENTOS SEGUROS */
 
 function texto(tag,valor,classe){
+
 const el=document.createElement(tag);
+
 el.textContent=valor;
+
 if(classe)el.className=classe;
+
 return el;
+
 }
 
 function botao(valor,classe,acao){
+
 const b=texto("button",valor,classe);
+
 b.type="button";
 b.onclick=acao;
+
 return b;
+
 }
 
 function icone(nome){
+
 const ns="http://www.w3.org/2000/svg";
+
 const svg=document.createElementNS(ns,"svg");
+
 svg.setAttribute("class","icon");
+
 const use=document.createElementNS(ns,"use");
+
 use.setAttribute("href","#i-"+nome);
+
 svg.appendChild(use);
+
 return svg;
+
 }
 
-/* CATEGORIAS E MATERIAIS */
+/* CATEGORIAS */
 
 const categorias=[
 "Anéis",
@@ -1596,6 +2194,7 @@ const categorias=[
 ];
 
 function identificarCategoria(p){
+
 const n=normal(p.nome);
 
 if(/tornozeleira/.test(n))return "Tornozeleiras";
@@ -1606,29 +2205,176 @@ if(/pulseira|bracelete/.test(n))return "Pulseiras";
 if(/colar|corrente|pingente|gargantilha/.test(n))return "Colares";
 
 return "Outras joias";
+
+}
+
+/* IDENTIFICAÇÃO AUTOMÁTICA DO MATERIAL */
+
+function analisarMaterial(valor){
+
+const n=normal(valor);
+
+const folheadoOuro=
+/\b(?:folhead[oa]s?|banhad[oa]s?)\s+(?:a|em|de)\s+ouro\b/.test(n);
+
+const prata=
+/\bprata\b/.test(n);
+
+const prata925=
+/\bprata\s*(?:de\s+lei\s*)?925\b/.test(n);
+
+const prata950=
+/\bprata\s*(?:de\s+lei\s*)?950\b/.test(n);
+
+const outroRevestimento=
+/\b(?:folhead[oa]s?|banhad[oa]s?)\b/.test(n);
+
+if(folheadoOuro){
+
+return {
+colecao:"Folheados a Ouro",
+rotulo:"Folheado a Ouro",
+estilo:"ouro"
+};
+
+}
+
+if(prata&&!outroRevestimento){
+
+return {
+colecao:"Prata",
+rotulo:prata925?"Prata 925":prata950?"Prata 950":"Prata",
+estilo:"prata"
+};
+
+}
+
+return null;
+
 }
 
 function identificarMaterial(p){
-const n=normal(p.nome+" "+(p.descricao||""));
 
-if(/folhead[oa]/.test(n)&&/ouro/.test(n)){
-return "Folheados a Ouro";
+const nome=analisarMaterial(p.nome);
+const descricao=analisarMaterial(p.descricao||"");
+
+if(nome&&descricao&&nome.colecao!==descricao.colecao){
+
+return {
+colecao:"",
+rotulo:"",
+estilo:"vinho"
+};
+
 }
 
-if(/prata/.test(n)&&!/folhead[oa]|banhad[oa]/.test(n)){
-return "Prata";
+if(nome&&descricao){
+
+if(nome.colecao==="Prata"){
+
+const n=nome.rotulo;
+const d=descricao.rotulo;
+
+if(
+(n==="Prata 925"&&d==="Prata 950")||
+(n==="Prata 950"&&d==="Prata 925")
+){
+
+return {
+colecao:"Prata",
+rotulo:"Prata",
+estilo:"prata"
+};
+
 }
 
-return "";
+if(nome.rotulo==="Prata")return descricao;
+
+}
+
+return nome;
+
+}
+
+if(nome)return nome;
+if(descricao)return descricao;
+
+return {
+colecao:"",
+rotulo:"",
+estilo:"vinho"
+};
+
+}
+
+/* SEPARAR MATERIAL DO NOME */
+
+function nomeExibicao(p){
+
+let nome=String(p.nome||"Joia Silver Love").trim();
+
+if(!p.rotuloMaterial)return nome;
+
+let limpo=nome;
+
+if(p.estiloMetal==="prata"){
+
+limpo=limpo.replace(
+/\s*(?:[-–—|,]\s*)?(?:em\s+|de\s+)?prata(?:\s+(?:de\s+lei))?(?:\s*(?:925|950))?\s*$/i,
+""
+);
+
+}
+
+if(p.estiloMetal==="ouro"){
+
+limpo=limpo.replace(
+/\s*(?:[-–—|,]\s*)?(?:folhead[oa]s?|banhad[oa]s?)\s+(?:a|em|de)\s+ouro(?:\s+\d+\s*k)?\s*$/i,
+""
+);
+
+}
+
+limpo=limpo.replace(/[\s\-–—|,]+$/g,"").trim();
+
+return limpo||nome;
+
+}
+
+function criarNomeProduto(p,tag="h3",classe="product-name"){
+
+return texto(
+tag,
+nomeExibicao(p),
+classe+" metal-"+p.estiloMetal
+);
+
+}
+
+function criarRotuloMaterial(p){
+
+if(!p.rotuloMaterial)return null;
+
+return texto(
+"span",
+p.rotuloMaterial,
+"material-label material-"+p.estiloMetal
+);
+
 }
 
 function pertence(p,c){
-return c==="Todas"||p.categoria===c||p.material===c;
+
+return c==="Todas"||
+p.categoria===c||
+p.material===c;
+
 }
 
-/* CARREGAR PRODUTOS DO SUPABASE */
+/* CARREGAR PRODUTOS */
 
 async function carregarProdutos(){
+
 $("status").textContent="Carregando joias...";
 $("retry").hidden=true;
 
@@ -1642,15 +2388,23 @@ const {data,error}=await conectar()
 
 if(error)throw error;
 
-produtos=(data||[]).map(p=>({
+produtos=(data||[]).map(p=>{
+
+const material=identificarMaterial(p);
+
+return {
 ...p,
 id:String(p.id),
 nome:String(p.nome||"Joia Silver Love"),
 preco:Number(p.preco),
 estoque:Math.max(0,Math.floor(Number(p.estoque)||0)),
 categoria:identificarCategoria(p),
-material:identificarMaterial(p)
-})).filter(p=>Number.isFinite(p.preco)&&p.preco>=0);
+material:material.colecao,
+rotuloMaterial:material.rotulo,
+estiloMetal:material.estilo
+};
+
+}).filter(p=>Number.isFinite(p.preco)&&p.preco>=0);
 
 carregado=true;
 
@@ -1667,23 +2421,28 @@ $("status").textContent=
 "Não foi possível carregar as joias. Tente novamente.";
 
 $("retry").hidden=false;
+
 console.error(e);
 
 }
+
 }
 
 /* CATEGORIAS COM FOTOS REAIS */
 
 function criarCategorias(){
+
 $("categories").replaceChildren();
 
 categorias.forEach(c=>{
 
 const b=document.createElement("button");
+
 b.type="button";
 b.className="category";
 
 const area=document.createElement("div");
+
 area.className="category-image";
 
 const p=produtos.find(x=>
@@ -1691,22 +2450,33 @@ x.categoria===c&&x.imagem_url
 );
 
 if(p){
+
 const img=document.createElement("img");
+
 definirImagem(img,p);
+
 img.loading="lazy";
+
 area.appendChild(img);
+
 }else{
+
 area.appendChild(icone("gem"));
+
 }
 
 b.append(area,texto("strong",c));
+
 b.onclick=()=>selecionarCategoria(c);
+
 $("categories").appendChild(b);
 
 });
+
 }
 
 function criarFiltros(){
+
 $("filters").replaceChildren();
 
 const opcoes=[
@@ -1721,43 +2491,67 @@ opcoes.push("Outras joias");
 }
 
 opcoes.forEach(c=>{
+
 const b=botao(c,"filter-button",()=>{
 selecionarCategoria(c,false);
 });
+
 b.dataset.value=c;
+
 $("filters").appendChild(b);
+
 });
+
 }
 
 function selecionarCategoria(c,rolar=true){
+
 filtro=c;
+
 $("search").value="";
+
 renderizar();
 
 if(rolar){
-$("produtos").scrollIntoView({behavior:"smooth"});
+
+$("produtos").scrollIntoView({
+behavior:"smooth"
+});
+
 }
+
 }
 
 document.querySelectorAll("[data-filter]").forEach(el=>{
+
 el.addEventListener("click",e=>{
+
 e.preventDefault();
+
 selecionarCategoria(el.dataset.filter);
+
 });
+
 });
 
 /* VITRINE DE PRODUTOS */
 
 function renderizar(){
+
 if(!carregado)return;
 
 const busca=normal($("search").value);
 
 let lista=produtos.filter(p=>
+
 pertence(p,filtro)&&
+
 normal(
-p.nome+" "+(p.codigo||"")+" "+(p.descricao||"")
+p.nome+" "+
+(p.codigo||"")+" "+
+(p.descricao||"")
 ).includes(busca)
+
 );
 
 const ordem=$("sort").value;
@@ -1774,8 +2568,14 @@ if(ordem==="nome"){
 lista.sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR"));
 }
 
-$("collectionTitle").textContent=
+const titulo=$("collectionTitle");
+
+titulo.textContent=
 filtro==="Todas"?"Nossas joias":filtro;
+
+titulo.className=
+filtro==="Prata"?"metal-prata":
+filtro==="Folheados a Ouro"?"metal-ouro":"metal-vinho";
 
 $("status").textContent=lista.length?
 lista.length+" joia(s) encontrada(s)":
@@ -1786,77 +2586,140 @@ $("productGrid").replaceChildren();
 lista.forEach(p=>{
 
 const card=document.createElement("article");
-card.className="product-card";
+
+card.className="product-card "+p.estiloMetal;
 
 const fotoArea=document.createElement("div");
+
 fotoArea.className="product-photo";
 
 const img=document.createElement("img");
+
 img.className="product-image";
 img.loading="lazy";
+
 definirImagem(img,p);
+
 img.onclick=()=>abrirDetalhes(p.id);
 
 fotoArea.appendChild(img);
 
 const fav=document.createElement("button");
+
 fav.type="button";
+
 fav.className="favorite"+
 (favoritos.includes(p.id)?" active":"");
 
 fav.setAttribute("aria-label","Favoritar "+p.nome);
-fav.setAttribute("aria-pressed",String(favoritos.includes(p.id)));
+
+fav.setAttribute(
+"aria-pressed",
+String(favoritos.includes(p.id))
+);
+
 fav.appendChild(icone("heart"));
+
 fav.onclick=()=>alternarFavorito(p.id);
 
 const info=document.createElement("div");
+
 info.className="product-info";
 
+/* NOVO NOME METÁLICO */
+
+info.appendChild(criarNomeProduto(p));
+
+const material=criarRotuloMaterial(p);
+
+if(material){
+
+info.appendChild(material);
+
+}
+
+/* DIVISÓRIA PREMIUM */
+
+info.appendChild(
+texto("div","◇","product-divider")
+);
+
 const comprar=botao(
-p.estoque>0?"Adicionar à sacola":"Consultar disponibilidade",
+
+p.estoque>0?
+"Adicionar à sacola":
+"Consultar disponibilidade",
+
 "btn",
-()=>p.estoque>0?adicionarSacola(p.id):abrirDetalhes(p.id)
+
+()=>p.estoque>0?
+adicionarSacola(p.id):
+abrirDetalhes(p.id)
+
 );
 
 const detalhes=botao(
+
 "Ver detalhes",
 "btn secondary",
 ()=>abrirDetalhes(p.id)
+
 );
 
 info.append(
-texto("h3",p.nome,"product-name"),
+
 texto("span","Cód. "+(p.codigo||""),"product-code"),
+
 texto("div",moeda(p.preco),"price"),
+
 texto(
 "span",
 p.estoque>0?"Disponível":"Sob consulta",
 p.estoque>0?"stock":"stock unavailable"
 ),
+
 comprar,
 detalhes
+
 );
 
 card.append(fotoArea,fav,info);
+
 $("productGrid").appendChild(card);
 
 });
 
 document.querySelectorAll(".filter-button").forEach(b=>{
-b.classList.toggle("active",b.dataset.value===filtro);
+
+b.classList.toggle(
+"active",
+b.dataset.value===filtro
+);
+
 });
+
 }
 
 $("searchForm").onsubmit=e=>{
+
 e.preventDefault();
+
 filtro="Todas";
+
 renderizar();
-$("produtos").scrollIntoView({behavior:"smooth"});
+
+$("produtos").scrollIntoView({
+behavior:"smooth"
+});
+
 };
 
 $("search").oninput=()=>{
+
 filtro="Todas";
+
 renderizar();
+
 };
 
 $("sort").onchange=renderizar;
@@ -1864,151 +2727,245 @@ $("sort").onchange=renderizar;
 /* DETALHES DO PRODUTO */
 
 function encontrar(id){
+
 return produtos.find(p=>p.id===String(id));
+
 }
 
 function abrirDetalhes(id){
+
 atual=encontrar(id);
+
 if(!atual)return;
 
 definirImagem($("detailImage"),atual);
 
-$("detailName").textContent=atual.nome;
-$("detailCode").textContent="Código: "+(atual.codigo||"");
+$("detailName").textContent=nomeExibicao(atual);
+
+$("detailName").className="metal-"+atual.estiloMetal;
+
+$("detailMaterial").textContent=atual.rotuloMaterial;
+
+$("detailMaterial").className=
+"material-label material-"+atual.estiloMetal;
+
+$("detailMaterial").hidden=!atual.rotuloMaterial;
+
+$("detailCode").textContent=
+"Código: "+(atual.codigo||"");
+
 $("detailPrice").textContent=moeda(atual.preco);
 
 $("detailStock").textContent=atual.estoque>0?
 "Disponível em estoque":"Sob consulta";
 
 $("detailDescription").textContent=
-atual.descricao||"Consulte a loja para mais informações.";
+atual.descricao||
+"Consulte a loja para mais informações.";
 
 $("detailBuy").disabled=atual.estoque<1;
 
 $("detailWhats").href=whats(
+
 "Olá, Silver Love! Gostaria de saber mais sobre "+
-atual.nome+" - Código: "+(atual.codigo||"")
+atual.nome+
+" - Código: "+(atual.codigo||"")
+
 );
 
 $("detailOverlay").hidden=false;
+
 bloquearRolagem();
+
 }
 
 function fecharDetalhes(){
+
 $("detailOverlay").hidden=true;
+
 bloquearRolagem();
+
 }
 
 function comprarAtual(){
+
 if(atual)adicionarSacola(atual.id);
+
 }
 
 function favoritarAtual(){
+
 if(atual)alternarFavorito(atual.id);
+
 }
 
 /* FAVORITOS */
 
 function alternarFavorito(id){
+
 id=String(id);
 
 if(favoritos.includes(id)){
+
 favoritos=favoritos.filter(x=>x!==id);
+
 notificar("Joia removida dos favoritos.");
+
 }else{
+
 favoritos.push(id);
+
 notificar("Joia adicionada aos favoritos!");
+
 }
 
 salvarLocal();
+
 renderizar();
+
 renderizarFavoritos();
+
 }
 
 function abrirFavoritos(){
+
 renderizarFavoritos();
+
 $("favoriteOverlay").hidden=false;
+
 bloquearRolagem();
+
 }
 
 function fecharFavoritos(){
+
 $("favoriteOverlay").hidden=true;
+
 bloquearRolagem();
+
 }
 
 function renderizarFavoritos(){
+
 $("favoriteItems").replaceChildren();
 
 if(!carregado){
-$("favoriteItems").textContent="Aguardando carregamento das joias.";
+
+$("favoriteItems").textContent=
+"Aguardando carregamento das joias.";
+
 return;
+
 }
 
 const lista=produtos.filter(p=>favoritos.includes(p.id));
 
 if(!lista.length){
+
 $("favoriteItems").appendChild(
-texto("p","Você ainda não tem joias favoritas.","notice")
+
+texto(
+"p",
+"Você ainda não tem joias favoritas.",
+"notice"
+)
+
 );
+
 return;
+
 }
 
 lista.forEach(p=>{
 
 const item=document.createElement("div");
+
 item.className="drawer-item";
 
 const img=document.createElement("img");
+
 definirImagem(img,p);
 
 const info=document.createElement("div");
 
+info.appendChild(
+criarNomeProduto(p,"strong","drawer-product-name")
+);
+
+const material=criarRotuloMaterial(p);
+
+if(material)info.appendChild(material);
+
 info.append(
-texto("strong",p.nome),
+
 texto("p",moeda(p.preco)),
+
 botao("Ver detalhes","remove",()=>{
+
 fecharFavoritos();
+
 abrirDetalhes(p.id);
+
 }),
+
 botao("Remover","remove",()=>alternarFavorito(p.id))
+
 );
 
 item.append(img,info);
+
 $("favoriteItems").appendChild(item);
 
 });
+
 }
 
 /* SACOLA DE COMPRAS */
 
 function adicionarSacola(id){
+
 if(finalizando)return;
 
 const p=encontrar(id);
 
 if(!p||p.estoque<1){
+
 notificar("Esta joia está indisponível.");
+
 return;
+
 }
 
 const item=sacola.find(x=>x.id===p.id);
 
 if(item){
+
 if(item.qtd>=p.estoque){
+
 notificar("Quantidade máxima disponível atingida.");
+
 return;
+
 }
+
 item.qtd++;
+
 }else{
+
 sacola.push({id:p.id,qtd:1});
+
 }
 
 salvarLocal();
+
 renderizarSacola();
+
 notificar("Joia adicionada à sua sacola!");
+
 }
 
 function alterarQuantidade(id,delta){
+
 if(finalizando)return;
 
 const item=sacola.find(x=>x.id===id);
@@ -2019,55 +2976,80 @@ if(!item||!p)return;
 const nova=item.qtd+delta;
 
 if(nova<1){
+
 removerSacola(id);
+
 return;
+
 }
 
 if(delta>0&&nova>p.estoque){
+
 notificar("Quantidade indisponível.");
+
 return;
+
 }
 
 item.qtd=nova;
 
 salvarLocal();
+
 renderizarSacola();
+
 }
 
 function removerSacola(id){
+
 if(finalizando)return;
 
 sacola=sacola.filter(x=>x.id!==id);
 
 salvarLocal();
+
 renderizarSacola();
+
 }
 
 function abrirSacola(){
+
 if(!finalizando)$("checkout").hidden=true;
 
 renderizarSacola();
+
 $("cartOverlay").hidden=false;
+
 bloquearRolagem();
+
 }
 
 function fecharSacola(){
+
 $("cartOverlay").hidden=true;
+
 bloquearRolagem();
+
 }
 
 function renderizarSacola(){
+
 $("cartItems").replaceChildren();
 
 let total=0;
+
 let valida=carregado&&sacola.length>0;
 
 if(!carregado){
-$("cartItems").textContent="Aguardando carregamento das joias.";
+
+$("cartItems").textContent=
+"Aguardando carregamento das joias.";
+
 }else if(!sacola.length){
+
 $("cartItems").appendChild(
 texto("p","Sua sacola está vazia.","notice")
 );
+
 }
 
 if(carregado){
@@ -2077,53 +3059,91 @@ sacola.forEach(item=>{
 const p=encontrar(item.id);
 
 if(!p){
+
 valida=false;
 
 const aviso=document.createElement("div");
 
 aviso.append(
+
 texto("p","Uma joia não está mais disponível."),
-botao("Remover","remove",()=>removerSacola(item.id))
+
+botao(
+"Remover",
+"remove",
+()=>removerSacola(item.id)
+)
+
 );
 
 $("cartItems").appendChild(aviso);
+
 return;
+
 }
 
 total+=p.preco*item.qtd;
 
 const linha=document.createElement("div");
+
 linha.className="drawer-item";
 
 const img=document.createElement("img");
+
 definirImagem(img,p);
 
 const info=document.createElement("div");
 
 const quantidade=document.createElement("div");
+
 quantidade.className="quantity";
 
 quantidade.append(
+
 botao("−","",()=>alterarQuantidade(p.id,-1)),
+
 texto("span",item.qtd),
+
 botao("+","",()=>alterarQuantidade(p.id,1))
+
 );
 
+info.appendChild(
+criarNomeProduto(p,"strong","drawer-product-name")
+);
+
+const material=criarRotuloMaterial(p);
+
+if(material)info.appendChild(material);
+
 info.append(
-texto("strong",p.nome),
+
 texto("p",moeda(p.preco*item.qtd)),
+
 quantidade,
+
 botao("Remover","remove",()=>removerSacola(p.id))
+
 );
 
 if(item.qtd>p.estoque){
+
 valida=false;
+
 info.appendChild(
-texto("p","Quantidade acima do estoque disponível.","notice")
+
+texto(
+"p",
+"Quantidade acima do estoque disponível.",
+"notice"
+)
+
 );
+
 }
 
 linha.append(img,info);
+
 $("cartItems").appendChild(linha);
 
 });
@@ -2131,25 +3151,36 @@ $("cartItems").appendChild(linha);
 }
 
 $("cartTotal").textContent=moeda(total);
+
 $("startCheckout").disabled=!valida||finalizando;
+
 $("checkoutButton").disabled=!valida||finalizando;
 
 if(!valida)$("checkout").hidden=true;
+
 }
 
 function atualizarContadores(){
+
 $("favoriteCount").textContent=favoritos.length;
 
 $("cartCount").textContent=sacola.reduce(
-(total,item)=>total+item.qtd,0
+(total,item)=>total+item.qtd,
+0
 );
+
 }
 
 function iniciarCheckout(){
+
 if(!sacola.length||$("startCheckout").disabled)return;
 
 $("checkout").hidden=false;
-$("checkout").scrollIntoView({behavior:"smooth"});
+
+$("checkout").scrollIntoView({
+behavior:"smooth"
+});
+
 }
 
 /* FINALIZAÇÃO PELO WHATSAPP */
@@ -2161,14 +3192,19 @@ e.preventDefault();
 if(!sacola.length||finalizando)return;
 
 const nome=$("customerName").value.trim();
+
 const telefone=$("customerPhone").value.replace(/\D/g,"");
 
 if(nome.length<2||!/^\d{10,15}$/.test(telefone)){
+
 notificar("Confira seu nome e WhatsApp.");
+
 return;
+
 }
 
 const itens=sacola.map(x=>({...x}));
+
 const recebimento=$("delivery").value;
 const endereco=$("address").value.trim();
 const pagamento=$("payment").value;
@@ -2180,7 +3216,9 @@ if(aba)aba.opener=null;
 finalizando=true;
 
 $("checkoutButton").disabled=true;
-$("checkoutButton").textContent="Conferindo disponibilidade...";
+
+$("checkoutButton").textContent=
+"Conferindo disponibilidade...";
 
 try{
 
@@ -2204,16 +3242,25 @@ x=>String(x.id)===item.id
 );
 
 if(!p||!p.ativo||Number(p.estoque)<item.qtd){
-throw new Error("Uma das joias não possui estoque suficiente.");
+
+throw new Error(
+"Uma das joias não possui estoque suficiente."
+);
+
 }
 
 const anterior=encontrar(item.id);
 
 if(!anterior||Number(p.preco)!==anterior.preco){
-throw new Error("Um preço foi atualizado. Confira novamente sua sacola.");
+
+throw new Error(
+"Um preço foi atualizado. Confira novamente sua sacola."
+);
+
 }
 
 const subtotal=Number(p.preco)*item.qtd;
+
 total+=subtotal;
 
 mensagem+="• "+p.nome+"\n";
@@ -2224,19 +3271,29 @@ mensagem+="Subtotal: "+moeda(subtotal)+"\n\n";
 }
 
 mensagem+="Subtotal do pedido: "+moeda(total)+"\n\n";
+
 mensagem+="Nome: "+nome+"\n";
+
 mensagem+="WhatsApp: "+telefone+"\n";
+
 mensagem+="Recebimento: "+recebimento+"\n";
+
 mensagem+="Local/observações: "+(endereco||"A combinar")+"\n";
+
 mensagem+="Pagamento: "+pagamento+"\n\n";
+
 mensagem+="Aguardo confirmação da disponibilidade e do valor final.";
 
 const link=whats(mensagem);
 
 if(aba){
+
 aba.location.href=link;
+
 }else{
+
 location.href=link;
+
 }
 
 notificar("Confira e envie sua mensagem pelo WhatsApp.");
@@ -2245,14 +3302,20 @@ notificar("Confira e envie sua mensagem pelo WhatsApp.");
 
 if(aba)aba.close();
 
-notificar(e.message||"Não foi possível conferir o pedido.");
+notificar(
+e.message||
+"Não foi possível conferir o pedido."
+);
 
 await carregarProdutos();
 
 }finally{
 
 finalizando=false;
-$("checkoutButton").textContent="Enviar pedido pelo WhatsApp";
+
+$("checkoutButton").textContent=
+"Enviar pedido pelo WhatsApp";
+
 renderizarSacola();
 
 }
@@ -2264,44 +3327,64 @@ renderizarSacola();
 let toastTimer;
 
 function notificar(mensagem){
+
 clearTimeout(toastTimer);
 
 $("toast").textContent=mensagem;
+
 $("toast").hidden=false;
 
 toastTimer=setTimeout(()=>{
+
 $("toast").hidden=true;
+
 },3000);
+
 }
 
 /* CONTROLE DAS JANELAS */
 
 function bloquearRolagem(){
+
 const aberto=[
+
 "detailOverlay",
 "cartOverlay",
 "favoriteOverlay"
+
 ].some(id=>!$(id).hidden);
 
-document.body.style.overflow=aberto?"hidden":"";
+document.body.style.overflow=
+aberto?"hidden":"";
+
 }
 
 [
+
 ["detailOverlay",fecharDetalhes],
 ["cartOverlay",fecharSacola],
 ["favoriteOverlay",fecharFavoritos]
+
 ].forEach(([id,fechar])=>{
+
 $(id).addEventListener("click",e=>{
+
 if(e.target===$(id))fechar();
+
 });
+
 });
 
 document.addEventListener("keydown",e=>{
+
 if(e.key==="Escape"){
+
 fecharDetalhes();
 fecharSacola();
 fecharFavoritos();
+
 }
+
 });
 
 /* CONTATOS */
@@ -2311,13 +3394,17 @@ const contato=whats(
 );
 
 $("headerWhats").href=contato;
+
 $("footerWhats").href=contato;
+
 $("floatingWhats").href=contato;
+
 $("year").textContent=new Date().getFullYear();
 
 /* INICIALIZAÇÃO */
 
 atualizarContadores();
+
 carregarProdutos();
 
 </script>
