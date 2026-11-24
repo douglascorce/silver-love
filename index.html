@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#310d1c">
-<meta name="description" content="Silver Love - Prata e Folheados a Ouro. Joias especiais, entregas em Curitiba e região.">
+<meta name="description" content="Silver Love - Prata e Folheados a Ouro. Entregas em Curitiba e região.">
 
 <title>Silver Love | Prata e Folheados a Ouro</title>
 
@@ -257,6 +257,29 @@ width:100%;
 height:auto;
 aspect-ratio:3/1;
 object-fit:contain;
+}
+
+.banner-fallback{
+min-height:200px;
+aspect-ratio:3/1;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:var(--ouro-claro);
+background:linear-gradient(120deg,#310d1c,#750b2b);
+padding:25px;
+}
+
+.banner-fallback h2{
+font-size:clamp(28px,5vw,65px);
+font-weight:500;
+margin:10px;
+}
+
+.banner-fallback p{
+font-size:13px;
 }
 
 @keyframes fade{
@@ -832,6 +855,7 @@ border:0;
 background:transparent;
 color:var(--vinho);
 padding:0;
+margin-right:12px;
 font-size:11px;
 text-decoration:underline;
 }
@@ -885,6 +909,7 @@ font-size:13px;
 border-radius:5px;
 z-index:100;
 box-shadow:0 4px 20px #0003;
+max-width:90%;
 }
 
 /* WHATSAPP FLUTUANTE */
@@ -1110,24 +1135,66 @@ ENTREGAS EM CURITIBA E REGIÃO • 3 MESES DE GARANTIA PARA TROCA
 SILVER LOVE ✧ AMOR EM CADA DETALHE ✧ SILVER LOVE
 </div>
 
-<!-- BANNERS -->
+<!-- BANNERS CORRIGIDOS COM NOMES ORIGINAIS -->
 
 <section class="carousel" id="carousel" aria-label="Coleções Silver Love">
 
 <a class="slide active" href="#produtos" data-filter="Todas">
-<img src="banner-01.png" alt="Silver Love - Conheça nossas joias" fetchpriority="high">
+
+<img
+src="./Amor%20Puro%20em%20Joias%20Douradas.png"
+alt="Silver Love - Conheça nossas joias"
+fetchpriority="high"
+onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+
+<div class="banner-fallback" hidden>
+<h2>Silver Love</h2>
+<p>Prata e Folheados a Ouro</p>
+<p>Conheça nossas joias</p>
+</div>
+
 </a>
 
 <a class="slide" href="#produtos" data-filter="Prata">
-<img src="banner-02.png" alt="Coleção Prata">
+
+<img
+src="./Cole%C3%A7%C3%A3o%20Prata_%20Brilho%20que%20Encanta.png"
+alt="Coleção Prata"
+onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+
+<div class="banner-fallback" hidden>
+<h2>Coleção Prata</h2>
+<p>Brilho que encanta</p>
+</div>
+
 </a>
 
 <a class="slide" href="#produtos" data-filter="Folheados a Ouro">
-<img src="banner-03.png" alt="Coleção Folheados a Ouro">
+
+<img
+src="./Cole%C3%A7%C3%A3o%20Folheados%20a%20Ouro.png"
+alt="Coleção Folheados a Ouro"
+onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+
+<div class="banner-fallback" hidden>
+<h2>Folheados a Ouro</h2>
+<p>Elegância em cada detalhe</p>
+</div>
+
 </a>
 
 <a class="slide" href="#produtos" data-filter="Todas">
-<img src="banner-04.png" alt="Presentes especiais Silver Love">
+
+<img
+src="./Presentes%20Especiais%20Silver%20Love.png"
+alt="Presentes especiais Silver Love"
+onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+
+<div class="banner-fallback" hidden>
+<h2>Presentes Especiais</h2>
+<p>Surpreenda quem você ama</p>
+</div>
+
 </a>
 
 <button class="carousel-arrow prev" onclick="mudarSlide(-1)" aria-label="Banner anterior">❮</button>
@@ -1299,7 +1366,7 @@ Todos os direitos reservados.
 
 </footer>
 
-<!-- DETALHES -->
+<!-- DETALHES DO PRODUTO -->
 
 <div id="detailOverlay" class="overlay" hidden>
 
@@ -1471,10 +1538,16 @@ let produtos=[];
 let atual=null;
 let filtro="Todas";
 let carregado=false;
+let finalizando=false;
 
 function conectar(){
+
 if(!db){
-if(!window.supabase)throw new Error("Conexão indisponível.");
+
+if(!window.supabase){
+throw new Error("Conexão indisponível.");
+}
+
 db=window.supabase.createClient(URL_DB,KEY,{
 auth:{
 persistSession:false,
@@ -1482,19 +1555,29 @@ autoRefreshToken:false,
 detectSessionInUrl:false
 }
 });
+
 }
+
 return db;
+
 }
 
 /* ARMAZENAMENTO LOCAL */
 
 function lerLocal(chave,padrao){
+
 try{
+
 const valor=JSON.parse(localStorage.getItem(chave));
+
 return Array.isArray(valor)?valor:padrao;
+
 }catch(e){
+
 return padrao;
+
 }
+
 }
 
 let favoritos=lerLocal("silverlove_favoritos",[])
@@ -1505,11 +1588,17 @@ let sacola=lerLocal("silverlove_sacola",[])
 .map(x=>({id:String(x.id),qtd:x.qtd}));
 
 function salvarLocal(){
+
 try{
+
 localStorage.setItem("silverlove_favoritos",JSON.stringify(favoritos));
+
 localStorage.setItem("silverlove_sacola",JSON.stringify(sacola));
+
 }catch(e){}
+
 atualizarContadores();
+
 }
 
 /* CARROSSEL */
@@ -1522,6 +1611,7 @@ let pausado=window.matchMedia(
 ).matches;
 
 const slides=[...document.querySelectorAll(".slide")];
+
 const dots=[...document.querySelectorAll(".dot")];
 
 function mostrarSlide(indice){
@@ -1540,52 +1630,91 @@ d.setAttribute("aria-current",String(i===slideAtual));
 }
 
 function iniciarCarrossel(){
+
 clearInterval(timerBanner);
 
 if(!pausado&&!document.hidden){
+
 timerBanner=setInterval(()=>{
+
 mostrarSlide(slideAtual+1);
+
 },5000);
+
 }
 
 $("pauseBanner").textContent=pausado?
 "▶ Reproduzir":"Ⅱ Pausar";
+
 }
 
 function mudarSlide(direcao){
+
 mostrarSlide(slideAtual+direcao);
+
 iniciarCarrossel();
+
 }
 
 function irSlide(indice){
+
 mostrarSlide(indice);
+
 iniciarCarrossel();
+
 }
 
 function alternarCarrossel(){
+
 pausado=!pausado;
+
 iniciarCarrossel();
+
 }
 
 let toqueX=0;
+let deslizou=false;
 
 $("carousel").addEventListener("touchstart",e=>{
+
 toqueX=e.changedTouches[0].screenX;
+deslizou=false;
+
 },{passive:true});
 
 $("carousel").addEventListener("touchend",e=>{
+
 const distancia=e.changedTouches[0].screenX-toqueX;
 
 if(Math.abs(distancia)>50){
+
+deslizou=true;
+
 mudarSlide(distancia<0?1:-1);
+
+setTimeout(()=>{deslizou=false;},400);
+
 }
+
 },{passive:true});
+
+$("carousel").addEventListener("click",e=>{
+
+if(deslizou){
+
+e.preventDefault();
+e.stopPropagation();
+
+}
+
+},true);
 
 document.addEventListener("visibilitychange",iniciarCarrossel);
 
+mostrarSlide(0);
 iniciarCarrossel();
 
-/* IMAGENS */
+/* IMAGENS DOS PRODUTOS */
 
 const placeholder="data:image/svg+xml,"+
 encodeURIComponent(
@@ -1596,49 +1725,81 @@ encodeURIComponent(
 );
 
 function foto(url){
+
 try{
+
 if(url){
+
 const u=new URL(url,location.href);
+
 if(u.protocol==="https:")return u.href;
+
 }
+
 }catch(e){}
+
 return placeholder;
+
 }
 
 function definirImagem(img,p){
-img.src=foto(p.imagem_url);
-img.alt=p.nome||"Joia Silver Love";
 
 img.onerror=()=>{
+
 img.onerror=null;
+
 img.src=placeholder;
+
 };
+
+img.src=foto(p.imagem_url);
+
+img.alt=p.nome||"Joia Silver Love";
+
 }
 
 /* ELEMENTOS SEGUROS */
 
 function texto(tag,valor,classe){
+
 const el=document.createElement(tag);
+
 el.textContent=valor;
+
 if(classe)el.className=classe;
+
 return el;
+
 }
 
 function botao(valor,classe,acao){
+
 const b=texto("button",valor,classe);
+
 b.type="button";
+
 b.onclick=acao;
+
 return b;
+
 }
 
 function icone(nome){
+
 const ns="http://www.w3.org/2000/svg";
+
 const svg=document.createElementNS(ns,"svg");
+
 svg.setAttribute("class","icon");
+
 const use=document.createElementNS(ns,"use");
+
 use.setAttribute("href","#i-"+nome);
+
 svg.appendChild(use);
+
 return svg;
+
 }
 
 /* CATEGORIAS E MATERIAIS */
@@ -1653,37 +1814,51 @@ const categorias=[
 ];
 
 function identificarCategoria(p){
+
 const n=normal(p.nome);
 
 if(/tornozeleira/.test(n))return "Tornozeleiras";
+
 if(/conjunto|kit/.test(n))return "Conjuntos";
+
 if(/brinco|argola/.test(n))return "Brincos";
+
 if(/anel|aneis|alianca/.test(n))return "Anéis";
+
 if(/pulseira|bracelete/.test(n))return "Pulseiras";
+
 if(/colar|corrente|pingente|gargantilha/.test(n))return "Colares";
 
 return "Outras joias";
+
 }
 
 function identificarMaterial(p){
 
 const n=normal(p.nome+" "+(p.descricao||""));
 
-if(/folhead[oa]|banhad[oa]/.test(n)&&/ouro/.test(n)){
+if(/folhead[oa]/.test(n)&&/ouro/.test(n)){
+
 return "Folheados a Ouro";
+
 }
 
 if(/prata/.test(n)&&!/folhead[oa]|banhad[oa]/.test(n)){
+
 return "Prata";
+
 }
 
 return "";
+
 }
 
 function pertence(p,c){
+
 return c==="Todas"||
 p.categoria===c||
 p.material===c;
+
 }
 
 /* CARREGAR PRODUTOS */
@@ -1691,6 +1866,7 @@ p.material===c;
 async function carregarProdutos(){
 
 $("status").textContent="Carregando joias...";
+
 $("retry").hidden=true;
 
 try{
@@ -1704,20 +1880,36 @@ const {data,error}=await conectar()
 if(error)throw error;
 
 produtos=(data||[]).map(p=>({
+
 ...p,
+
 id:String(p.id),
+
+nome:String(p.nome||"Joia Silver Love"),
+
 preco:Number(p.preco),
-estoque:Math.max(0,Number(p.estoque)||0),
+
+estoque:Math.max(0,Math.floor(Number(p.estoque)||0)),
+
 categoria:identificarCategoria(p),
+
 material:identificarMaterial(p)
-}));
+
+})).filter(p=>Number.isFinite(p.preco)&&p.preco>=0);
 
 carregado=true;
 
 criarCategorias();
+
 criarFiltros();
+
 renderizar();
+
 atualizarContadores();
+
+renderizarSacola();
+
+renderizarFavoritos();
 
 }catch(e){
 
@@ -1741,10 +1933,13 @@ $("categories").replaceChildren();
 categorias.forEach(c=>{
 
 const b=document.createElement("button");
+
 b.type="button";
+
 b.className="category";
 
 const area=document.createElement("div");
+
 area.className="category-image";
 
 const p=produtos.find(x=>
@@ -1752,12 +1947,19 @@ x.categoria===c&&x.imagem_url
 );
 
 if(p){
+
 const img=document.createElement("img");
+
 definirImagem(img,p);
+
 img.loading="lazy";
+
 area.appendChild(img);
+
 }else{
+
 area.appendChild(icone("gem"));
+
 }
 
 b.append(area,texto("strong",c));
@@ -1782,13 +1984,17 @@ const opcoes=[
 ];
 
 if(produtos.some(p=>p.categoria==="Outras joias")){
+
 opcoes.push("Outras joias");
+
 }
 
 opcoes.forEach(c=>{
 
 const b=botao(c,"filter-button",()=>{
+
 selecionarCategoria(c,false);
+
 });
 
 b.dataset.value=c;
@@ -1802,12 +2008,15 @@ $("filters").appendChild(b);
 function selecionarCategoria(c,rolar=true){
 
 filtro=c;
+
 $("search").value="";
 
 renderizar();
 
 if(rolar){
+
 $("produtos").scrollIntoView({behavior:"smooth"});
+
 }
 
 }
@@ -1815,8 +2024,11 @@ $("produtos").scrollIntoView({behavior:"smooth"});
 document.querySelectorAll("[data-filter]").forEach(el=>{
 
 el.addEventListener("click",e=>{
+
 e.preventDefault();
+
 selecionarCategoria(el.dataset.filter);
+
 });
 
 });
@@ -1830,31 +2042,43 @@ if(!carregado)return;
 const busca=normal($("search").value);
 
 let lista=produtos.filter(p=>
+
 pertence(p,filtro)&&
+
 normal(
-p.nome+" "+p.codigo+" "+p.descricao
+p.nome+" "+(p.codigo||"")+" "+(p.descricao||"")
 ).includes(busca)
+
 );
 
 const ordem=$("sort").value;
 
 if(ordem==="menor"){
+
 lista.sort((a,b)=>a.preco-b.preco);
+
 }
 
 if(ordem==="maior"){
+
 lista.sort((a,b)=>b.preco-a.preco);
+
 }
 
 if(ordem==="nome"){
+
 lista.sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR"));
+
 }
 
 $("collectionTitle").textContent=
+
 filtro==="Todas"?"Nossas joias":filtro;
 
 $("status").textContent=lista.length?
+
 lista.length+" joia(s) encontrada(s)":
+
 "Nenhuma joia encontrada nesta seleção.";
 
 $("productGrid").replaceChildren();
@@ -1862,10 +2086,13 @@ $("productGrid").replaceChildren();
 lista.forEach(p=>{
 
 const card=document.createElement("article");
+
 card.className="product-card";
 
 const img=document.createElement("img");
+
 img.className="product-image";
+
 img.loading="lazy";
 
 definirImagem(img,p);
@@ -1880,6 +2107,7 @@ fav.className="favorite"+
 (favoritos.includes(p.id)?" active":"");
 
 fav.setAttribute("aria-label","Favoritar "+p.nome);
+
 fav.setAttribute("aria-pressed",String(favoritos.includes(p.id)));
 
 fav.appendChild(icone("heart"));
@@ -1887,31 +2115,51 @@ fav.appendChild(icone("heart"));
 fav.onclick=()=>alternarFavorito(p.id);
 
 const info=document.createElement("div");
+
 info.className="product-info";
 
 const comprar=botao(
+
 p.estoque>0?"Adicionar à sacola":"Consultar disponibilidade",
+
 "btn",
+
 ()=>p.estoque>0?adicionarSacola(p.id):abrirDetalhes(p.id)
+
 );
 
 const detalhes=botao(
+
 "Ver detalhes",
+
 "btn secondary",
+
 ()=>abrirDetalhes(p.id)
+
 );
 
 info.append(
+
 texto("h3",p.nome,"product-name"),
+
 texto("span","Cód. "+(p.codigo||""),"product-code"),
+
 texto("div",moeda(p.preco),"price"),
+
 texto(
+
 "span",
+
 p.estoque>0?"Disponível":"Sob consulta",
+
 p.estoque>0?"stock":"stock unavailable"
+
 ),
+
 comprar,
+
 detalhes
+
 );
 
 card.append(img,fav,info);
@@ -1921,21 +2169,31 @@ $("productGrid").appendChild(card);
 });
 
 document.querySelectorAll(".filter-button").forEach(b=>{
+
 b.classList.toggle("active",b.dataset.value===filtro);
+
 });
 
 }
 
 $("searchForm").onsubmit=e=>{
+
 e.preventDefault();
+
 filtro="Todas";
+
 renderizar();
+
 $("produtos").scrollIntoView({behavior:"smooth"});
+
 };
 
 $("search").oninput=()=>{
+
 filtro="Todas";
+
 renderizar();
+
 };
 
 $("sort").onchange=renderizar;
@@ -1943,7 +2201,9 @@ $("sort").onchange=renderizar;
 /* DETALHES */
 
 function encontrar(id){
+
 return produtos.find(p=>p.id===String(id));
+
 }
 
 function abrirDetalhes(id){
@@ -1955,20 +2215,27 @@ if(!atual)return;
 definirImagem($("detailImage"),atual);
 
 $("detailName").textContent=atual.nome;
+
 $("detailCode").textContent="Código: "+(atual.codigo||"");
+
 $("detailPrice").textContent=moeda(atual.preco);
 
 $("detailStock").textContent=atual.estoque>0?
+
 "Disponível em estoque":"Sob consulta";
 
 $("detailDescription").textContent=
+
 atual.descricao||"Consulte a loja para mais informações.";
 
 $("detailBuy").disabled=atual.estoque<1;
 
 $("detailWhats").href=whats(
+
 "Olá, Silver Love! Gostaria de saber mais sobre "+
-atual.nome+" - Código: "+atual.codigo
+
+atual.nome+" - Código: "+(atual.codigo||"")
+
 );
 
 $("detailOverlay").hidden=false;
@@ -1978,16 +2245,23 @@ bloquearRolagem();
 }
 
 function fecharDetalhes(){
+
 $("detailOverlay").hidden=true;
+
 bloquearRolagem();
+
 }
 
 function comprarAtual(){
+
 if(atual)adicionarSacola(atual.id);
+
 }
 
 function favoritarAtual(){
+
 if(atual)alternarFavorito(atual.id);
+
 }
 
 /* FAVORITOS */
@@ -2011,7 +2285,9 @@ notificar("Joia adicionada aos favoritos!");
 }
 
 salvarLocal();
+
 renderizar();
+
 renderizarFavoritos();
 
 }
@@ -2039,8 +2315,11 @@ function renderizarFavoritos(){
 $("favoriteItems").replaceChildren();
 
 if(!carregado){
+
 $("favoriteItems").textContent="Aguardando carregamento das joias.";
+
 return;
+
 }
 
 const lista=produtos.filter(p=>favoritos.includes(p.id));
@@ -2048,7 +2327,9 @@ const lista=produtos.filter(p=>favoritos.includes(p.id));
 if(!lista.length){
 
 $("favoriteItems").appendChild(
+
 texto("p","Você ainda não tem joias favoritas.","notice")
+
 );
 
 return;
@@ -2058,21 +2339,31 @@ return;
 lista.forEach(p=>{
 
 const item=document.createElement("div");
+
 item.className="drawer-item";
 
 const img=document.createElement("img");
+
 definirImagem(img,p);
 
 const info=document.createElement("div");
 
 info.append(
+
 texto("strong",p.nome),
+
 texto("p",moeda(p.preco)),
+
 botao("Ver detalhes","remove",()=>{
+
 fecharFavoritos();
+
 abrirDetalhes(p.id);
+
 }),
+
 botao("Remover","remove",()=>alternarFavorito(p.id))
+
 );
 
 item.append(img,info);
@@ -2087,11 +2378,16 @@ $("favoriteItems").appendChild(item);
 
 function adicionarSacola(id){
 
+if(finalizando)return;
+
 const p=encontrar(id);
 
 if(!p||p.estoque<1){
+
 notificar("Esta joia está indisponível.");
+
 return;
+
 }
 
 const item=sacola.find(x=>x.id===p.id);
@@ -2099,8 +2395,11 @@ const item=sacola.find(x=>x.id===p.id);
 if(item){
 
 if(item.qtd>=p.estoque){
+
 notificar("Quantidade máxima disponível atingida.");
+
 return;
+
 }
 
 item.qtd++;
@@ -2112,6 +2411,7 @@ sacola.push({id:p.id,qtd:1});
 }
 
 salvarLocal();
+
 renderizarSacola();
 
 notificar("Joia adicionada à sua sacola!");
@@ -2120,7 +2420,10 @@ notificar("Joia adicionada à sua sacola!");
 
 function alterarQuantidade(id,delta){
 
+if(finalizando)return;
+
 const item=sacola.find(x=>x.id===id);
+
 const p=encontrar(id);
 
 if(!item||!p)return;
@@ -2130,13 +2433,15 @@ const nova=item.qtd+delta;
 if(nova<1){
 
 removerSacola(id);
+
 return;
 
 }
 
-if(nova>p.estoque){
+if(delta>0&&nova>p.estoque){
 
 notificar("Quantidade indisponível.");
+
 return;
 
 }
@@ -2144,22 +2449,26 @@ return;
 item.qtd=nova;
 
 salvarLocal();
+
 renderizarSacola();
 
 }
 
 function removerSacola(id){
 
+if(finalizando)return;
+
 sacola=sacola.filter(x=>x.id!==id);
 
 salvarLocal();
+
 renderizarSacola();
 
 }
 
 function abrirSacola(){
 
-$("checkout").hidden=true;
+if(!finalizando)$("checkout").hidden=true;
 
 renderizarSacola();
 
@@ -2182,6 +2491,7 @@ function renderizarSacola(){
 $("cartItems").replaceChildren();
 
 let total=0;
+
 let valida=carregado&&sacola.length>0;
 
 if(!carregado){
@@ -2191,7 +2501,9 @@ $("cartItems").textContent="Aguardando carregamento das joias.";
 }else if(!sacola.length){
 
 $("cartItems").appendChild(
+
 texto("p","Sua sacola está vazia.","notice")
+
 );
 
 }
@@ -2209,8 +2521,11 @@ valida=false;
 const aviso=document.createElement("div");
 
 aviso.append(
+
 texto("p","Uma joia não está mais disponível."),
+
 botao("Remover","remove",()=>removerSacola(item.id))
+
 );
 
 $("cartItems").appendChild(aviso);
@@ -2222,27 +2537,39 @@ return;
 total+=p.preco*item.qtd;
 
 const linha=document.createElement("div");
+
 linha.className="drawer-item";
 
 const img=document.createElement("img");
+
 definirImagem(img,p);
 
 const info=document.createElement("div");
 
 const quantidade=document.createElement("div");
+
 quantidade.className="quantity";
 
 quantidade.append(
+
 botao("−","",()=>alterarQuantidade(p.id,-1)),
+
 texto("span",item.qtd),
+
 botao("+","",()=>alterarQuantidade(p.id,1))
+
 );
 
 info.append(
+
 texto("strong",p.nome),
+
 texto("p",moeda(p.preco*item.qtd)),
+
 quantidade,
+
 botao("Remover","remove",()=>removerSacola(p.id))
+
 );
 
 if(item.qtd>p.estoque){
@@ -2250,7 +2577,9 @@ if(item.qtd>p.estoque){
 valida=false;
 
 info.appendChild(
+
 texto("p","Quantidade acima do estoque disponível.","notice")
+
 );
 
 }
@@ -2265,9 +2594,9 @@ $("cartItems").appendChild(linha);
 
 $("cartTotal").textContent=moeda(total);
 
-$("startCheckout").disabled=!valida;
+$("startCheckout").disabled=!valida||finalizando;
 
-$("checkoutButton").disabled=!valida;
+$("checkoutButton").disabled=!valida||finalizando;
 
 if(!valida)$("checkout").hidden=true;
 
@@ -2278,7 +2607,9 @@ function atualizarContadores(){
 $("favoriteCount").textContent=favoritos.length;
 
 $("cartCount").textContent=sacola.reduce(
+
 (total,item)=>total+item.qtd,0
+
 );
 
 }
@@ -2299,7 +2630,7 @@ $("checkoutForm").onsubmit=async e=>{
 
 e.preventDefault();
 
-if(!sacola.length)return;
+if(!sacola.length||finalizando)return;
 
 const nome=$("customerName").value.trim();
 
@@ -2315,11 +2646,20 @@ return;
 
 const itens=sacola.map(x=>({...x}));
 
+const recebimento=$("delivery").value;
+
+const endereco=$("address").value.trim();
+
+const pagamento=$("payment").value;
+
 const aba=window.open("about:blank","_blank");
 
 if(aba)aba.opener=null;
 
+finalizando=true;
+
 $("checkoutButton").disabled=true;
+
 $("checkoutButton").textContent="Conferindo disponibilidade...";
 
 try{
@@ -2332,13 +2672,17 @@ const {data,error}=await conectar()
 if(error)throw error;
 
 let total=0;
+
 let mensagem="Olá, Silver Love! 💎\n\n";
+
 mensagem+="Gostaria de solicitar este pedido:\n\n";
 
 for(const item of itens){
 
 const p=(data||[]).find(
+
 x=>String(x.id)===item.id
+
 );
 
 if(!p||!p.ativo||Number(p.estoque)<item.qtd){
@@ -2360,18 +2704,27 @@ const subtotal=Number(p.preco)*item.qtd;
 total+=subtotal;
 
 mensagem+="• "+p.nome+"\n";
-mensagem+="Código: "+p.codigo+"\n";
+
+mensagem+="Código: "+(p.codigo||"")+"\n";
+
 mensagem+="Quantidade: "+item.qtd+"\n";
+
 mensagem+="Subtotal: "+moeda(subtotal)+"\n\n";
 
 }
 
 mensagem+="Subtotal do pedido: "+moeda(total)+"\n\n";
+
 mensagem+="Nome: "+nome+"\n";
+
 mensagem+="WhatsApp: "+telefone+"\n";
-mensagem+="Recebimento: "+$("delivery").value+"\n";
-mensagem+="Local/observações: "+($("address").value||"A combinar")+"\n";
-mensagem+="Pagamento: "+$("payment").value+"\n\n";
+
+mensagem+="Recebimento: "+recebimento+"\n";
+
+mensagem+="Local/observações: "+(endereco||"A combinar")+"\n";
+
+mensagem+="Pagamento: "+pagamento+"\n\n";
+
 mensagem+="Aguardo confirmação da disponibilidade e do valor final.";
 
 const link=whats(mensagem);
@@ -2396,9 +2749,9 @@ notificar(e.message||"Não foi possível conferir o pedido.");
 
 await carregarProdutos();
 
-renderizarSacola();
-
 }finally{
+
+finalizando=false;
 
 $("checkoutButton").textContent="Enviar pedido pelo WhatsApp";
 
@@ -2421,7 +2774,9 @@ $("toast").textContent=mensagem;
 $("toast").hidden=false;
 
 toastTimer=setTimeout(()=>{
+
 $("toast").hidden=true;
+
 },3000);
 
 }
@@ -2431,9 +2786,13 @@ $("toast").hidden=true;
 function bloquearRolagem(){
 
 const aberto=[
+
 "detailOverlay",
+
 "cartOverlay",
+
 "favoriteOverlay"
+
 ].some(id=>!$(id).hidden);
 
 document.body.style.overflow=aberto?"hidden":"";
@@ -2441,13 +2800,19 @@ document.body.style.overflow=aberto?"hidden":"";
 }
 
 [
+
 ["detailOverlay",fecharDetalhes],
+
 ["cartOverlay",fecharSacola],
+
 ["favoriteOverlay",fecharFavoritos]
+
 ].forEach(([id,fechar])=>{
 
 $(id).addEventListener("click",e=>{
+
 if(e.target===$(id))fechar();
+
 });
 
 });
@@ -2457,7 +2822,9 @@ document.addEventListener("keydown",e=>{
 if(e.key==="Escape"){
 
 fecharDetalhes();
+
 fecharSacola();
+
 fecharFavoritos();
 
 }
@@ -2467,11 +2834,15 @@ fecharFavoritos();
 /* CONTATOS */
 
 const contato=whats(
+
 "Olá, Silver Love! Gostaria de conhecer suas joias."
+
 );
 
 $("headerWhats").href=contato;
+
 $("footerWhats").href=contato;
+
 $("floatingWhats").href=contato;
 
 $("year").textContent=new Date().getFullYear();
@@ -2479,6 +2850,7 @@ $("year").textContent=new Date().getFullYear();
 /* INICIALIZAÇÃO */
 
 atualizarContadores();
+
 carregarProdutos();
 
 </script>
