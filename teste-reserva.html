@@ -1,0 +1,598 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+
+<title>Silver Love | Laboratório de Reservas</title>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 35px 20px;
+  background: #fffaf5;
+  color: #310d1c;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 850px;
+  margin: auto;
+}
+
+header {
+  text-align: center;
+  padding: 30px;
+  background: #310d1c;
+  color: #e5c58b;
+  border-radius: 18px;
+  border: 1px solid #b9914e;
+  margin-bottom: 25px;
+}
+
+h1 {
+  font-family: Georgia, serif;
+  font-size: 42px;
+  font-weight: normal;
+  margin: 10px;
+}
+
+header p {
+  letter-spacing: 3px;
+  font-size: 12px;
+}
+
+.painel {
+  background: white;
+  border: 1px solid #e6d4bf;
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-family: Georgia, serif;
+  font-weight: normal;
+  margin-top: 0;
+}
+
+label {
+  display: block;
+  margin: 15px 0 8px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+input, select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #d8c4b3;
+  border-radius: 8px;
+  background: #fffaf5;
+  color: #310d1c;
+}
+
+button {
+  padding: 14px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #750b2b;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #310d1c;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.secundario {
+  background: #b9914e;
+  color: #21171b;
+}
+
+.botoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+#cronometro {
+  font-family: Georgia, serif;
+  font-size: 42px;
+  color: #750b2b;
+  text-align: center;
+  padding: 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+#status {
+  text-align: center;
+  padding: 14px;
+  border-radius: 8px;
+  background: #f3dbe0;
+  margin-top: 15px;
+}
+
+pre {
+  background: #21171b;
+  color: #e5c58b;
+  padding: 20px;
+  border-radius: 10px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+
+.aviso {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #78645c;
+}
+
+#turnstile {
+  margin-top: 20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+  <div style="font-size:35px">💎</div>
+  <h1>Silver Love</h1>
+  <p>LABORATÓRIO DE RESERVA PRIVATIVA</p>
+  <small>Ambiente temporário de testes</small>
+</header>
+
+<section class="painel">
+
+  <h2>01 — Identificação do cliente</h2>
+
+  <label>Cliente de teste</label>
+
+  <select id="cliente">
+    <option value="A">Cliente A</option>
+    <option value="B">Cliente B</option>
+  </select>
+
+  <label>Identificador da sacola</label>
+
+  <input id="identificador" readonly>
+
+  <p class="aviso">
+    Os clientes A e B possuem identificadores diferentes,
+    permitindo testar a exclusividade de uma mesma joia.
+  </p>
+
+</section>
+
+<section class="painel">
+
+  <h2>02 — Selecionar joia</h2>
+
+  <label>Produto</label>
+
+  <select id="produto">
+    <option value="5acb35fa-0ab2-43be-966a-79026a968627">
+      Joia selecionada para teste
+    </option>
+  </select>
+
+  <label>Quantidade</label>
+
+  <input id="quantidade" type="number"
+         min="1" max="5" value="1">
+
+  <div id="turnstile"></div>
+
+  <div class="botoes">
+
+    <button class="secundario"
+            onclick="executar('vitrine')">
+      Consultar disponibilidade
+    </button>
+
+    <button onclick="executar('reservar')">
+      Reservar joia
+    </button>
+
+    <button class="secundario"
+            onclick="executar('consultar')">
+      Consultar sacola
+    </button>
+
+    <button onclick="executar('liberar')">
+      Liberar joia
+    </button>
+
+  </div>
+
+  <div id="status">Aguardando operação...</div>
+
+</section>
+
+<section class="painel">
+
+  <h2>03 — Tempo restante da reserva</h2>
+
+  <div id="cronometro">--:--:--</div>
+
+  <p class="aviso" style="text-align:center">
+    Contagem regressiva baseada no vencimento
+    registrado no servidor.
+  </p>
+
+</section>
+
+<section class="painel">
+
+  <h2>04 — Resposta do servidor</h2>
+
+  <pre id="resultado">Nenhuma operação realizada.</pre>
+
+</section>
+
+</div>
+
+<script>
+
+const API =
+  "https://xyybmzfodlvwljhhfxhe.supabase.co/functions/v1/reserva-privativa";
+
+const SITE_KEY =
+  "0x4AAAAAAGTX5C_q-HgEuQIo";
+
+let captchaToken = "";
+let widgetId = null;
+let vencimento = null;
+let diferencaHorario = 0;
+let ocupado = false;
+
+function obterCliente() {
+
+  const cliente =
+    document.getElementById("cliente").value;
+
+  const chave =
+    "silverlove_teste_cliente_" + cliente;
+
+  let identificador = localStorage.getItem(chave);
+
+  if (!identificador) {
+
+    identificador = crypto.randomUUID();
+
+    localStorage.setItem(
+      chave,
+      identificador
+    );
+
+  }
+
+  document.getElementById(
+    "identificador"
+  ).value = identificador;
+
+  return identificador;
+
+}
+
+document.getElementById("cliente")
+  .addEventListener("change", () => {
+
+    obterCliente();
+
+    vencimento = null;
+
+    document.getElementById(
+      "cronometro"
+    ).textContent = "--:--:--";
+
+    document.getElementById(
+      "status"
+    ).textContent = "Cliente alterado.";
+
+  });
+
+function iniciarCaptcha() {
+
+  if (!window.turnstile) {
+
+    setTimeout(iniciarCaptcha, 300);
+
+    return;
+
+  }
+
+  widgetId = turnstile.render("#turnstile", {
+
+    sitekey: SITE_KEY,
+
+    theme: "light",
+
+    callback: function(token) {
+
+      captchaToken = token;
+
+    },
+
+    "expired-callback": function() {
+
+      captchaToken = "";
+
+    },
+
+    "error-callback": function() {
+
+      captchaToken = "";
+
+    }
+
+  });
+
+}
+
+function renovarCaptcha() {
+
+  captchaToken = "";
+
+  if (
+    window.turnstile &&
+    widgetId !== null
+  ) {
+
+    turnstile.reset(widgetId);
+
+  }
+
+}
+
+function mostrarStatus(texto, sucesso) {
+
+  const elemento =
+    document.getElementById("status");
+
+  elemento.textContent = texto;
+
+  elemento.style.background =
+    sucesso ? "#e1f3e7" : "#f3dbe0";
+
+  elemento.style.color =
+    sucesso ? "#17683a" : "#750b2b";
+
+}
+
+function atualizarCronometro() {
+
+  const elemento =
+    document.getElementById("cronometro");
+
+  if (!vencimento) {
+
+    elemento.textContent = "--:--:--";
+
+    return;
+
+  }
+
+  const agora =
+    Date.now() + diferencaHorario;
+
+  const restante =
+    Math.max(0, vencimento - agora);
+
+  const segundos =
+    Math.floor(restante / 1000);
+
+  const h =
+    Math.floor(segundos / 3600);
+
+  const m =
+    Math.floor((segundos % 3600) / 60);
+
+  const s =
+    segundos % 60;
+
+  elemento.textContent =
+    [h, m, s]
+      .map(n => String(n).padStart(2, "0"))
+      .join(":");
+
+}
+
+setInterval(atualizarCronometro, 1000);
+
+async function executar(acao) {
+
+  if (ocupado) return;
+
+  const exigeCaptcha =
+    ["reservar", "liberar"].includes(acao);
+
+  if (exigeCaptcha && !captchaToken) {
+
+    mostrarStatus(
+      "Aguarde ou conclua a verificação de segurança.",
+      false
+    );
+
+    return;
+
+  }
+
+  const produto =
+    document.getElementById("produto").value;
+
+  const cliente = obterCliente();
+
+  const quantidade = Number(
+    document.getElementById("quantidade").value
+  );
+
+  ocupado = true;
+
+  document.querySelectorAll(
+    "button, select, input"
+  ).forEach(el => el.disabled = true);
+
+  mostrarStatus(
+    "Comunicando com o servidor...",
+    true
+  );
+
+  try {
+
+    const corpo = {
+
+      acao,
+
+      produto_id: produto,
+
+      token_cliente: cliente,
+
+      quantidade,
+
+      token: exigeCaptcha
+        ? captchaToken
+        : undefined
+
+    };
+
+    const resposta = await fetch(API, {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify(corpo)
+
+    });
+
+    const dados = await resposta.json();
+
+    document.getElementById(
+      "resultado"
+    ).textContent =
+
+      "HTTP " + resposta.status +
+      "\n\n" +
+      JSON.stringify(dados, null, 2);
+
+    if (dados.horario_servidor) {
+
+      diferencaHorario =
+        new Date(dados.horario_servidor)
+          .getTime() - Date.now();
+
+    }
+
+    if (!resposta.ok || !dados.sucesso) {
+
+      mostrarStatus(
+        dados.mensagem || "Operação recusada.",
+        false
+      );
+
+      return;
+
+    }
+
+    if (acao === "reservar") {
+
+      vencimento =
+        new Date(dados.expira_em).getTime();
+
+    }
+
+    if (acao === "consultar") {
+
+      const reserva = dados.reservas.find(
+        item => item.produto_id === produto
+      );
+
+      vencimento = reserva
+        ? new Date(reserva.expira_em).getTime()
+        : null;
+
+    }
+
+    if (acao === "liberar") {
+
+      vencimento = null;
+
+    }
+
+    atualizarCronometro();
+
+    mostrarStatus(
+
+      dados.mensagem ||
+      "Operação concluída com sucesso.",
+
+      true
+
+    );
+
+  } catch (erro) {
+
+    mostrarStatus(
+      "Erro de comunicação com o servidor.",
+      false
+    );
+
+    document.getElementById(
+      "resultado"
+    ).textContent = String(erro);
+
+  } finally {
+
+    if (exigeCaptcha) {
+
+      renovarCaptcha();
+
+    }
+
+    ocupado = false;
+
+    document.querySelectorAll(
+      "button, select, input"
+    ).forEach(el => el.disabled = false);
+
+  }
+
+}
+
+obterCliente();
+
+window.addEventListener(
+  "load",
+  iniciarCaptcha
+);
+
+</script>
+
+</body>
+</html>
