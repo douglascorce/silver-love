@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -506,6 +505,7 @@ color:#96304d;
 .container{padding:0 14px}
 }
 </style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 </head>
 
 <body>
@@ -720,11 +720,14 @@ Consultar pelo WhatsApp
 <p id="total" class="preco"></p>
 <p class="muted">
 Seu nome, WhatsApp, produto e quantidade serão registrados
-para atendimento. A reserva depende da confirmação da loja.
+para atendimento. A joia será bloqueada no servidor durante a reserva. Após registrar o pedido, você terá 24 horas para combinar o pagamento com a loja.
 Não informe dados de cartão.
 </p>
 
+<div id="seguranca"></div>
+<p id="prazo" role="status" class="muted"></p>
 <div class="acoes">
+<button type="button" id="liberarReserva" class="btn sec" hidden>Cancelar reserva</button>
 <button id="enviar" class="btn" type="submit">
 Confirmar solicitação
 </button>
@@ -762,6 +765,40 @@ const URL_DB="https://xyybmzfodlvwljhhfxhe.supabase.co";
 const KEY="sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
 const SITE="https://silverlovejoias.com.br/";
 const WHATSAPP="5541984300046";
+const API=URL_DB+"/functions/v1/reserva-privativa";
+const SITE_KEY="0x4AAAAAAGTX5C_q-HgEuQIo";
+const CHAVE="silverlove_token_cliente";
+let tokenCliente=localStorage.getItem(CHAVE);
+if(!tokenCliente){tokenCliente=crypto.randomUUID();localStorage.setItem(CHAVE,tokenCliente);}
+let reservas=[];
+let widget=null;
+let resolverCaptcha=null;
+let rejeitarCaptcha=null;
+let diferenca=0;
+async function api(acao,dados={}){
+ const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json",apikey:KEY},body:JSON.stringify({acao,token_cliente:tokenCliente,...dados})});
+ const j=await r.json();
+ if(!r.ok||!j.sucesso)throw new Error(j.mensagem||"Falha na comunicação com o servidor.");
+ if(j.horario_servidor)diferenca=Date.parse(j.horario_servidor)-Date.now();
+ return j;
+}
+async function captcha(){
+ for(let i=0;i<50&&!window.turnstile;i++)await new Promise(r=>setTimeout(r,200));
+ if(!window.turnstile)throw new Error("Verificação de segurança indisponível.");
+ if(widget!==null){turnstile.remove(widget);widget=null;}
+ return new Promise((resolve,reject)=>{
+ let timer=setTimeout(()=>{if(widget!==null)turnstile.remove(widget);widget=null;reject(new Error("Tempo de verificação esgotado. Tente novamente."));},120000);
+ widget=turnstile.render("#seguranca",{sitekey:SITE_KEY,callback:t=>{clearTimeout(timer);resolve(t);},"error-callback":()=>{clearTimeout(timer);reject(new Error("Falha na verificação de segurança."));},"expired-callback":()=>{clearTimeout(timer);reject(new Error("Verificação expirada."));}});
+ });
+}
+async function recuperar(){const j=await api("consultar");reservas=j.reservas||[];}
+function minha(p){return reservas.find(r=>r.produto_id===p.id&&Date.parse(r.expira_em)>Date.now()+diferenca);}
+function disponivel(p){return Number(p.disponivel||0);}
+function chavePedido(p){return "silverlove_catalogo_pedido_"+p.id;}
+function pendente(p){try{return JSON.parse(localStorage.getItem(chavePedido(p))||"null");}catch{return null;}}
+function atualizarPrazo(){if(!atual)return;const r=minha(atual);const n=r?Math.max(0,Math.ceil((Date.parse(r.expira_em)-Date.now()-diferenca)/1000)):0;$("prazo").textContent=n?"Reserva exclusiva: "+[Math.floor(n/3600),Math.floor(n/60)%60,n%60].map(x=>String(x).padStart(2,"0")).join(":"):"";$("liberarReserva").hidden=!r||!!pendente(atual);}
+setInterval(atualizarPrazo,1000);
+
 
 /* UTILITÁRIOS */
 const $=id=>document.getElementById(id);
@@ -878,8 +915,12 @@ const {data,error}=await db.from("produtos")
 
 if(error)throw error;
 
+const v=await api("vitrine");
+const mapa=new Map(v.produtos.map(p=>[p.produto_id,p.disponivel]));
+await recuperar();
 lista=(data||[]).map(p=>({
 ...p,
+disponivel:mapa.get(p.id)||0,
 categoria:categoria(p.nome)
 }));
 
@@ -974,8 +1015,8 @@ texto("p","Código: "+p.codigo,"muted"),
 texto("p",moeda(p.preco),"preco"),
 texto(
 "p",
-p.estoque>0?"Disponível":"Sob consulta",
-p.estoque>0?"disponivel":"muted"
+minha(p)?"Reservada para você":disponivel(p)>0?"Disponível":"Sob consulta",
+disponivel(p)>0||minha(p)?"disponivel":"muted"
 ),
 b
 );
@@ -1000,10 +1041,10 @@ $("nomeDetalhe").textContent=p.nome;
 $("codigoDetalhe").textContent="Código: "+p.codigo;
 $("precoDetalhe").textContent=moeda(p.preco);
 $("descricaoDetalhe").textContent=p.descricao||"Consulte a loja.";
-$("estoqueDetalhe").textContent=p.estoque>0?
+$("estoqueDetalhe").textContent=minha(p)?"Reservada para você":disponivel(p)>0?
 "Disponível em estoque":"Sob consulta";
 
-$("reservar").hidden=p.estoque<1;
+$("reservar").hidden=disponivel(p)<1&&!minha(p)&&!pendente(p);
 
 $("consultar").href=whats(
 "Olá, Silver Love! Gostaria de saber mais sobre "+
@@ -1038,7 +1079,7 @@ moeda(atual.preco*Number($("quantidade").value||0));
 $("quantidade").oninput=atualizarTotal;
 
 function abrirReserva(){
-if(!atual||atual.estoque<1)return;
+if(!atual||(disponivel(atual)<1&&!minha(atual)&&!pendente(atual)))return;
 
 $("formReserva").reset();
 $("formReserva").hidden=false;
@@ -1046,8 +1087,12 @@ $("confirmacao").hidden=true;
 $("erro").hidden=true;
 
 $("resumo").textContent=atual.nome+" - "+moeda(atual.preco);
-$("quantidade").max=atual.estoque;
-$("quantidade").value=1;
+const r=minha(atual), salvo=pendente(atual);
+$("quantidade").max=Math.min(5,disponivel(atual)+(r?.quantidade||0));
+$("quantidade").value=r?.quantidade||1;
+if(salvo){$("cliente").value=salvo.nome;$("telefone").value=salvo.whatsapp;$("quantidade").max=salvo.itens[0].quantidade;$("quantidade").value=salvo.itens[0].quantidade;$("endereco").value=salvo.endereco;$("pagamento").value=salvo.pagamento;}
+$("quantidade").readOnly=!!salvo;$("cliente").readOnly=!!salvo;$("telefone").readOnly=!!salvo;
+atualizarPrazo();
 
 $("detalhes").hidden=true;
 $("reserva").hidden=false;
@@ -1079,41 +1124,35 @@ throw new Error("Quantidade inválida.");
 if(!pagamento)
 throw new Error("Selecione o pagamento.");
 
-conectar();
-
-const {data:p,error:ep}=await db.from("produtos")
-.select("id,nome,codigo,preco,estoque")
-.eq("id",atual.id)
-.eq("ativo",true)
-.maybeSingle();
-
-if(ep)throw ep;
-if(!p||p.estoque<qtd)
-throw new Error("Estoque insuficiente.");
-
-if(Number(p.preco)!==Number(atual.preco)){
-atual.preco=p.preco;
-$("resumo").textContent=p.nome+" - "+moeda(p.preco);
-atualizarTotal();
-throw new Error("Preço atualizado. Confira o novo valor.");
+let pedido=pendente(atual);
+const p=atual;
+if(!pedido){
+ const r=minha(p);
+ if(!r||r.quantidade!==qtd){
+  const t=await captcha();
+  const j=await api("reservar",{produto_id:p.id,quantidade:qtd,token:t});
+  reservas=reservas.filter(x=>x.produto_id!==p.id);
+  reservas.push({produto_id:p.id,quantidade:qtd,expira_em:j.expira_em});
+ }
+ pedido={solicitacao_id:crypto.randomUUID(),nome,whatsapp:telefone,itens:[{produto_id:p.id,quantidade:qtd,preco:Number(p.preco)}],endereco,pagamento};
+ localStorage.setItem(chavePedido(p),JSON.stringify(pedido));
 }
-
-const {error}=await db.from("reservas").insert({
-produto_id:p.id,
-cliente_nome:nome,
-cliente_whatsapp:telefone,
-quantidade:qtd
-});
-
-if(error)throw error;
-
+atualizarPrazo();
+const t=await captcha();
+const j=await api("finalizar",{...pedido,token:t});
+const ids=(j.pedidos||[]).map(x=>x.pedido_id).join(", ");
+if(!ids)throw new Error("Resposta incompleta. Repita a solicitação.");
+localStorage.removeItem(chavePedido(p));
+reservas=reservas.filter(x=>x.produto_id!==p.id);
+p.disponivel=0;
+renderizar();
 $("pedido").textContent=
-p.nome+" | "+qtd+" unidade(s) | "+
+"Pedido: "+ids+" | "+p.nome+" | "+qtd+" unidade(s) | "+
 moeda(p.preco*qtd)+" | Pendente";
 
 $("whatsappPedido").href=whats(
 "Olá, Silver Love! 💎\n\n"+
-"Registrei uma solicitação de reserva no catálogo.\n\n"+
+"Registrei uma solicitação de reserva no catálogo.\nPedido: "+ids+"\n\n"+
 "Joia: "+p.nome+"\n"+
 "Código: "+p.codigo+"\n"+
 "Quantidade: "+qtd+"\n"+
@@ -1129,6 +1168,7 @@ $("formReserva").hidden=true;
 $("confirmacao").hidden=false;
 
 }catch(e){
+if(atual&&["O preço da joia foi atualizado.","A quantidade reservada foi alterada.","Reserva inexistente ou expirada."].includes(e.message)){localStorage.removeItem(chavePedido(atual));$("quantidade").readOnly=false;$("cliente").readOnly=false;$("telefone").readOnly=false;await carregar();const novo=lista.find(p=>p.id===atual.id);if(novo){atual=novo;$("resumo").textContent=novo.nome+" - "+moeda(novo.preco);atualizarTotal();}}
 $("erro").textContent="Erro: "+e.message;
 $("erro").hidden=false;
 $("erro").scrollIntoView({block:"center"});
@@ -1139,6 +1179,13 @@ $("enviar").textContent="Confirmar solicitação";
 }
 };
 
+$("liberarReserva").onclick=async()=>{
+ if(enviando||!atual||pendente(atual))return;
+ enviando=true;$("enviar").disabled=true;$("liberarReserva").disabled=true;
+ try{await api("liberar",{produto_id:atual.id,token:await captcha()});reservas=reservas.filter(r=>r.produto_id!==atual.id);atualizarPrazo();}
+ catch(e){$("erro").textContent=e.message;$("erro").hidden=false;}
+ finally{enviando=false;$("enviar").disabled=false;$("liberarReserva").disabled=false;await carregar();}
+};
 /* WHATSAPP */
 $("contato").href=whats(
 "Olá! Gostaria de conhecer as joias da Silver Love."
