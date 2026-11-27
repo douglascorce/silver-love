@@ -3,6 +3,8 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -1411,6 +1413,12 @@ html{scroll-behavior:auto}
 
 
 #privOverlay{z-index:90;background:#210912e8}.priv-card{max-width:480px;text-align:center;background:#fffaf0;border:2px solid #b9914e;box-shadow:0 20px 80px #0008}.priv-card h2{font-family:var(--caligrafia);font-size:48px;font-weight:400;color:var(--vinho);margin:12px 0}.priv-card p{font-size:13px;line-height:1.7}.priv-card .btn{width:100%;margin-top:12px}.velvet{width:220px;max-width:90%;margin:35px auto 15px;perspective:700px}.velvet-lid{height:65px;background:linear-gradient(135deg,#951b43,#39091d);border:3px solid #b9914e;border-radius:12px 12px 4px 4px;transform-origin:bottom;animation:abrirCaixa 1.5s forwards;color:#e7cda1;display:grid;place-items:center;font-family:var(--caligrafia);font-size:32px}.velvet-base{padding:14px;background:radial-gradient(#89173b,#35091b);border:3px solid #b9914e;border-radius:4px 4px 15px 15px;box-shadow:0 12px 20px #310d1c55}.velvet-base img{width:100%;height:130px;object-fit:contain;background:#fffaf5;border-radius:5px}.priv-time{font-size:23px;letter-spacing:3px;color:#750b2b;font-variant-numeric:tabular-nums}.priv-letter{border:1px solid #b9914e;padding:18px;margin-top:15px}.priv-clock{color:#750b2b;font-size:11px;font-variant-numeric:tabular-nums}@keyframes abrirCaixa{from{transform:rotateX(0)}to{transform:rotateX(-65deg)}}
+
+#privOverlay{background:radial-gradient(ellipse at center,#58162be8,#160810f5)}
+.priv-card{max-width:510px;padding:clamp(16px,4vw,30px);background:linear-gradient(135deg,#fffdf7,#f4e8d3);border:1px solid #c5a05b;box-shadow:0 25px 90px #0009,inset 0 0 0 5px #fff9ed}
+.priv-letter{position:relative;border:1px solid #b9914e;outline:1px solid #d9c29b;outline-offset:-6px;padding:24px 18px 20px;background:radial-gradient(ellipse at top,#fffef9,#f9f0df);box-shadow:0 6px 22px #53301912}
+.priv-letter small{font-size:9px;letter-spacing:2px;color:#87622d}.priv-letter h2{font-size:clamp(37px,9vw,52px);line-height:1.1;margin:12px 0}.priv-ruby{display:block;margin:0 auto 9px;width:48px;height:44px;filter:drop-shadow(0 3px 3px #750b2b44)}.priv-signature{font-family:var(--caligrafia);font-size:30px!important;color:#750b2b;margin:12px 0 0}.priv-time{display:inline-block;background:#310d1c;color:#f3d7a2;padding:10px 20px;border:1px solid #b9914e;letter-spacing:4px;font-size:25px}.priv-label{display:block;font-size:9px;letter-spacing:2px;color:#87622d;margin:12px 0 7px}.velvet{margin:8px auto 18px;width:240px}.velvet-lid,.velvet-base{background:repeating-linear-gradient(115deg,#ffffff05 0 1px,transparent 1px 4px),radial-gradient(ellipse at 30% 20%,#8b2547,#4b0a25 55%,#260716);border-color:#c9a568;box-shadow:inset 0 0 0 2px #4a0b23,inset 0 0 15px #160710,0 8px 16px #310d1c44}.velvet-lid{height:60px;animation:abrirCaixa 1.2s ease-in-out both}.velvet-base{padding:12px 22px 17px}.velvet-base img{height:120px;background:#f7eddb;border:1px solid #c9a568}.priv-card .btn{min-height:44px}.checkout{scroll-margin-top:16px}.checkout-heading{font-family:var(--editorial);color:var(--vinho);font-size:23px;margin:12px 0}.order-success{border:1px solid var(--ouro);background:#fffaf0;text-align:center;padding:24px 16px;margin:16px 0}.order-success h3{font-family:var(--caligrafia);font-size:39px;font-weight:400;color:var(--vinho);margin:8px 0}.order-success p{font-size:12px;line-height:1.8}.order-success svg{width:44px;height:40px;margin:auto;display:block}
+
 </style>
 </head>
 
@@ -1886,6 +1894,7 @@ aria-label="Fechar">×</button>
 
 <div id="checkout" class="checkout" hidden>
 
+<h3 class="checkout-heading">Dados do seu pedido</h3>
 <form id="checkoutForm">
 
 <label for="customerName">Seu nome</label>
@@ -1927,6 +1936,7 @@ Registrar pedido
 </form>
 </div>
 
+<div id="orderSuccess" class="order-success" hidden><svg aria-hidden="true"><use href="#i-ruby"/></svg><h3>Seu pedido foi registrado.</h3><p>Suas joias aguardam por você. O prazo para pagamento é de 24 horas. Combine os detalhes com nossa equipe.</p><a id="orderWhats" class="btn whatsapp" target="_blank" rel="noopener noreferrer">Continuar pelo WhatsApp</a></div>
 <button id="startCheckout" class="btn" onclick="iniciarCheckout()">
 Finalizar compra
 </button>
@@ -1971,7 +1981,7 @@ aria-label="Falar pelo WhatsApp">
 
 </a>
 
-<div id="privOverlay" class="overlay" hidden><div class="modal priv-card" role="dialog" aria-modal="true" aria-label="Reserva Privativa"><div id="privSecurity"><h2>Reserva Privativa</h2><p>Confirme a verificação de segurança para continuar.</p><div id="privCaptcha"></div><button class="btn secondary" id="privCancel" type="button">Cancelar</button></div><div id="privLetter" hidden><div id="privBox" class="velvet"><div class="velvet-lid">Silver Love</div><div class="velvet-base"><img id="privPhoto" alt="Sua joia"></div></div><div class="priv-letter"><small>SILVER LOVE · RESERVA PRIVATIVA</small><h2>Uma joia, só sua.</h2><p id="privName"></p><p>Esta peça está reservada exclusivamente para você até o término do prazo abaixo.</p><div id="privTime" class="priv-time"></div><p>Amor puro em sua forma mais bela.</p></div><button class="btn" onclick="fecharPriv();abrirSacola()">Ver minha sacola</button><button class="btn secondary" onclick="fecharPriv()">Continuar comprando</button></div></div></div>
+<div id="privOverlay" class="overlay" hidden><div class="modal priv-card" role="dialog" aria-modal="true" aria-label="Reserva Privativa"><div id="privSecurity"><h2>Reserva Privativa</h2><p>Confirme a verificação de segurança para continuar.</p><div id="privCaptcha"></div><button class="btn secondary" id="privCancel" type="button">Cancelar</button></div><div id="privLetter" hidden><div id="privBox" class="velvet"><div class="velvet-lid">Silver Love</div><div class="velvet-base"><img id="privPhoto" alt="Sua joia"></div></div><div class="priv-letter"><svg class="priv-ruby" aria-hidden="true"><use href="#i-ruby"/></svg><small>SILVER LOVE · RESERVA PRIVATIVA</small><h2>Uma joia, só sua.</h2><p id="privName"></p><p>Esta peça está reservada exclusivamente para você até o término do prazo abaixo.</p><span class="priv-label">TEMPO RESTANTE DA RESERVA</span><div id="privTime" class="priv-time"></div><p class="priv-signature">Silver Love</p><p>Amor puro em sua forma mais bela.</p></div><button class="btn" onclick="fecharPriv();abrirSacola()">Ver minha sacola</button><button class="btn secondary" onclick="fecharPriv()">Continuar comprando</button></div></div></div>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 <!-- SUPABASE -->
 
@@ -3269,6 +3279,7 @@ function adicionarSacola(id){const p=encontrar(id),item=sacola.find(x=>x.id===id
 function alterarQuantidade(id,delta){const item=sacola.find(x=>x.id===id);if(!item)return;if(delta>0){adicionarSacola(id);return;}mudarReserva(id,Math.max(0,item.qtd+delta));}
 function removerSacola(id){mudarReserva(id,0);}
 function abrirSacola(){
+if(sacola.length)$("orderSuccess").hidden=true;
 
 if(!finalizando)$("checkout").hidden=true;
 
@@ -3415,6 +3426,7 @@ $("startCheckout").disabled=(!valida&&!pedido)||finalizando;
 $("checkoutButton").disabled=(!valida&&!pedido)||finalizando;
 
 if(!valida&&!pedido)$("checkout").hidden=true;
+$("startCheckout").hidden=!$("checkout").hidden||!$("orderSuccess").hidden||(!sacola.length&&!pedido);
 
 }
 
@@ -3435,15 +3447,14 @@ if((!sacola.length&&!pedido)||$("startCheckout").disabled)return;
 
 $("checkout").hidden=false;
 
-$("checkout").scrollIntoView({
-behavior:"smooth"
-});
+$("startCheckout").hidden=true;
+requestAnimationFrame(()=>{const drawer=$("cartOverlay").querySelector(".drawer");const top=$("checkout").getBoundingClientRect().top-drawer.getBoundingClientRect().top+drawer.scrollTop-16;drawer.scrollTo({top,behavior:"smooth"});});
 
 }
 
 /* FINALIZAÇÃO PELO WHATSAPP */
 
-$("checkoutForm").onsubmit=async e=>{e.preventDefault();if(finalizando||(!sacola.length&&!pedido))return;const nome=$('customerName').value.trim(),telefone=$('customerPhone').value.replace(/\D/g,'');if(nome.length<2||!/^\d{10,15}$/.test(telefone)||/^([0-9])\1*$/.test(telefone)){notificar('Confira seu nome e WhatsApp.');return;}finalizando=true;renderizarSacola();try{if(!pedido){const itens=sacola.map(x=>({produto_id:x.id,quantidade:x.qtd,preco:encontrar(x.id).preco}));pedido={solicitacao_id:crypto.randomUUID(),nome,whatsapp:telefone,itens};sessionStorage.setItem(pedidoKey,JSON.stringify(pedido));}if(pedido.nome!==nome||pedido.whatsapp!==telefone)throw new Error('Use os mesmos dados da tentativa anterior.');const token=await captcha();const j=await api('finalizar',{...pedido,token});let msg='Olá, Silver Love! 💎 Pedido registrado.\n';for(const x of pedido.itens){const p=encontrar(x.produto_id);msg+='\n'+(p?.nome||x.produto_id)+' × '+x.quantidade+' — '+moeda(x.preco*x.quantidade);}msg+='\nPedidos: '+j.pedidos.map(x=>x.pedido_id).join(', ')+'\nNome: '+nome+'\nWhatsApp: '+telefone+'\nRecebimento: '+$('delivery').value+'\nObservações: '+$('address').value+'\nPagamento: '+$('payment').value;const link=whats(msg);pedido=null;sessionStorage.removeItem(pedidoKey);sacola=[];salvarLocal();$('checkout').hidden=true;const a=document.createElement('a');a.className='btn whatsapp';a.href=link;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Pedido registrado — abrir WhatsApp';$('cartOverlay').querySelector('.drawer').appendChild(a);notificar('Pedido registrado. Prazo de pagamento: 24 horas.');await sincronizar().catch(()=>{});}catch(e){notificar(e.message+' Se necessário, tente novamente com os mesmos dados.');}finally{finalizando=false;renderizarSacola();}};
+$("checkoutForm").onsubmit=async e=>{e.preventDefault();if(finalizando||(!sacola.length&&!pedido))return;const nome=$('customerName').value.trim(),telefone=$('customerPhone').value.replace(/\D/g,'');if(nome.length<2||!/^\d{10,15}$/.test(telefone)||/^([0-9])\1*$/.test(telefone)){notificar('Confira seu nome e WhatsApp.');return;}finalizando=true;renderizarSacola();try{if(!pedido){const itens=sacola.map(x=>({produto_id:x.id,quantidade:x.qtd,preco:encontrar(x.id).preco}));pedido={solicitacao_id:crypto.randomUUID(),nome,whatsapp:telefone,itens};sessionStorage.setItem(pedidoKey,JSON.stringify(pedido));}if(pedido.nome!==nome||pedido.whatsapp!==telefone)throw new Error('Use os mesmos dados da tentativa anterior.');const token=await captcha();const j=await api('finalizar',{...pedido,token});let msg='Olá, Silver Love! 💎 Pedido registrado.\n';for(const x of pedido.itens){const p=encontrar(x.produto_id);msg+='\n'+(p?.nome||x.produto_id)+' × '+x.quantidade+' — '+moeda(x.preco*x.quantidade);}msg+='\nPedidos: '+j.pedidos.map(x=>x.pedido_id).join(', ')+'\nNome: '+nome+'\nWhatsApp: '+telefone+'\nRecebimento: '+$('delivery').value+'\nObservações: '+$('address').value+'\nPagamento: '+$('payment').value;const link=whats(msg);pedido=null;sessionStorage.removeItem(pedidoKey);sacola=[];salvarLocal();$('checkout').hidden=true;$('orderWhats').href=link;$('orderSuccess').hidden=false;requestAnimationFrame(()=>$('orderSuccess').scrollIntoView({block:'center',behavior:'smooth'}));notificar('Pedido registrado. Prazo de pagamento: 24 horas.');await sincronizar().catch(()=>{});}catch(e){notificar(e.message+' Se necessário, tente novamente com os mesmos dados.');}finally{finalizando=false;renderizarSacola();}};
 /* NOTIFICAÇÕES */
 
 let toastTimer;
