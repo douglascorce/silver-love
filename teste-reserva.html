@@ -5,20 +5,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-
 <title>Silver Love | Laboratório de Reservas</title>
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
 
 <style>
-
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
-  padding: 35px 20px;
+  padding: 30px 20px;
   background: #fffaf5;
   color: #310d1c;
   font-family: Arial, sans-serif;
@@ -31,24 +27,22 @@ body {
 
 header {
   text-align: center;
-  padding: 30px;
+  padding: 35px;
   background: #310d1c;
   color: #e5c58b;
-  border-radius: 18px;
   border: 1px solid #b9914e;
+  border-radius: 18px;
   margin-bottom: 25px;
 }
 
 h1 {
-  font-family: Georgia, serif;
-  font-size: 42px;
-  font-weight: normal;
-  margin: 10px;
+  font: 44px Georgia, serif;
+  margin: 12px;
 }
 
 header p {
-  letter-spacing: 3px;
   font-size: 12px;
+  letter-spacing: 3px;
 }
 
 .painel {
@@ -60,8 +54,7 @@ header p {
 }
 
 h2 {
-  font-family: Georgia, serif;
-  font-weight: normal;
+  font: 24px Georgia, serif;
   margin-top: 0;
 }
 
@@ -82,14 +75,12 @@ input, select {
 }
 
 button {
-  padding: 14px 20px;
+  padding: 15px 20px;
   border: none;
   border-radius: 8px;
   background: #750b2b;
   color: white;
   cursor: pointer;
-  font-size: 14px;
-  transition: 0.2s;
 }
 
 button:hover {
@@ -97,7 +88,7 @@ button:hover {
 }
 
 button:disabled {
-  opacity: 0.5;
+  opacity: .5;
   cursor: not-allowed;
 }
 
@@ -108,14 +99,14 @@ button:disabled {
 
 .botoes {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  grid-template-columns:
+    repeat(auto-fit, minmax(180px, 1fr));
   gap: 12px;
   margin-top: 20px;
 }
 
 #cronometro {
-  font-family: Georgia, serif;
-  font-size: 42px;
+  font: 44px Georgia, serif;
   color: #750b2b;
   text-align: center;
   padding: 20px;
@@ -124,7 +115,7 @@ button:disabled {
 
 #status {
   text-align: center;
-  padding: 14px;
+  padding: 15px;
   border-radius: 8px;
   background: #f3dbe0;
   margin-top: 15px;
@@ -135,16 +126,21 @@ pre {
   color: #e5c58b;
   padding: 20px;
   border-radius: 10px;
-  overflow: auto;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   font-size: 13px;
 }
 
 .aviso {
+  color: #78645c;
   font-size: 13px;
   line-height: 1.6;
-  color: #78645c;
+}
+
+.preco {
+  font: 36px Georgia, serif;
+  color: #b9914e;
+  margin: 15px 0;
 }
 
 #turnstile {
@@ -162,94 +158,117 @@ pre {
   <div style="font-size:35px">💎</div>
   <h1>Silver Love</h1>
   <p>LABORATÓRIO DE RESERVA PRIVATIVA</p>
-  <small>Ambiente temporário de testes</small>
+  <small>Teste de finalização da compra</small>
 </header>
 
 <section class="painel">
 
-  <h2>01 — Identificação do cliente</h2>
+<h2>01 — Identificação</h2>
 
-  <label>Cliente de teste</label>
+<label>Cliente de teste</label>
 
-  <select id="cliente">
-    <option value="A">Cliente A</option>
-    <option value="B">Cliente B</option>
-  </select>
+<select id="cliente">
+  <option value="A">Cliente A</option>
+  <option value="B">Cliente B</option>
+</select>
 
-  <label>Identificador da sacola</label>
-
-  <input id="identificador" readonly>
-
-  <p class="aviso">
-    Os clientes A e B possuem identificadores diferentes,
-    permitindo testar a exclusividade de uma mesma joia.
-  </p>
+<label>Identificador da sacola</label>
+<input id="identificador" readonly>
 
 </section>
 
 <section class="painel">
 
-  <h2>02 — Selecionar joia</h2>
+<h2>02 — Joia selecionada</h2>
 
-  <label>Produto</label>
+<p>Trio de brincos trevo — Prata 925</p>
 
-  <select id="produto">
-    <option value="5acb35fa-0ab2-43be-966a-79026a968627">
-      Joia selecionada para teste
-    </option>
-  </select>
+<div class="preco" id="preco">Consultando...</div>
 
-  <label>Quantidade</label>
+<label>Quantidade</label>
+<input id="quantidade" type="number" value="1" readonly>
 
-  <input id="quantidade" type="number"
-         min="1" max="5" value="1">
+<div id="turnstile"></div>
 
-  <div id="turnstile"></div>
+<div class="botoes">
 
-  <div class="botoes">
+<button class="secundario"
+onclick="executar('vitrine')">
+Consultar disponibilidade
+</button>
 
-    <button class="secundario"
-            onclick="executar('vitrine')">
-      Consultar disponibilidade
-    </button>
+<button onclick="executar('reservar')">
+Reservar joia
+</button>
 
-    <button onclick="executar('reservar')">
-      Reservar joia
-    </button>
+<button class="secundario"
+onclick="executar('consultar')">
+Consultar sacola
+</button>
 
-    <button class="secundario"
-            onclick="executar('consultar')">
-      Consultar sacola
-    </button>
+<button onclick="executar('liberar')">
+Liberar joia
+</button>
 
-    <button onclick="executar('liberar')">
-      Liberar joia
-    </button>
+</div>
 
-  </div>
-
-  <div id="status">Aguardando operação...</div>
+<div id="status">Aguardando operação...</div>
 
 </section>
 
 <section class="painel">
 
-  <h2>03 — Tempo restante da reserva</h2>
+<h2>03 — Tempo restante</h2>
 
-  <div id="cronometro">--:--:--</div>
-
-  <p class="aviso" style="text-align:center">
-    Contagem regressiva baseada no vencimento
-    registrado no servidor.
-  </p>
+<div id="cronometro">--:--:--</div>
 
 </section>
 
 <section class="painel">
 
-  <h2>04 — Resposta do servidor</h2>
+<h2>04 — Finalização da compra</h2>
 
-  <pre id="resultado">Nenhuma operação realizada.</pre>
+<label>Nome de teste</label>
+
+<input id="nome"
+value="Cliente Teste Navegador Silver Love"
+readonly>
+
+<label>WhatsApp fictício</label>
+
+<input id="whatsapp"
+value="41999999999"
+readonly>
+
+<label>Identificador da solicitação</label>
+
+<input id="solicitacao" readonly>
+
+<div class="botoes">
+
+<button onclick="executar('finalizar')">
+Finalizar compra
+</button>
+
+<button class="secundario"
+onclick="executar('repetir')">
+Repetir mesma solicitação
+</button>
+
+</div>
+
+<p class="aviso">
+A finalização cria um pedido pendente real.
+Não confirme o pagamento desse pedido.
+</p>
+
+</section>
+
+<section class="painel">
+
+<h2>05 — Resposta do servidor</h2>
+
+<pre id="resultado">Nenhuma operação realizada.</pre>
 
 </section>
 
@@ -257,204 +276,301 @@ pre {
 
 <script>
 
+const BASE =
+"https://xyybmzfodlvwljhhfxhe.supabase.co";
+
 const API =
-  "https://xyybmzfodlvwljhhfxhe.supabase.co/functions/v1/reserva-privativa";
+BASE + "/functions/v1/reserva-privativa";
+
+const PUBLIC_KEY =
+"sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
 
 const SITE_KEY =
-  "0x4AAAAAAGTX5C_q-HgEuQIo";
+"0x4AAAAAAGTX5C_q-HgEuQIo";
+
+const PRODUTO =
+"5acb35fa-0ab2-43be-966a-79026a968627";
 
 let captchaToken = "";
 let widgetId = null;
 let vencimento = null;
 let diferencaHorario = 0;
 let ocupado = false;
+let preco = null;
+
+const el = id => document.getElementById(id);
 
 function obterCliente() {
 
-  const cliente =
-    document.getElementById("cliente").value;
-
   const chave =
-    "silverlove_teste_cliente_" + cliente;
+    "silverlove_teste_cliente_" +
+    el("cliente").value;
 
-  let identificador = localStorage.getItem(chave);
+  let token = localStorage.getItem(chave);
 
-  if (!identificador) {
-
-    identificador = crypto.randomUUID();
-
-    localStorage.setItem(
-      chave,
-      identificador
-    );
-
+  if (!token) {
+    token = crypto.randomUUID();
+    localStorage.setItem(chave, token);
   }
 
-  document.getElementById(
-    "identificador"
-  ).value = identificador;
+  el("identificador").value = token;
 
-  return identificador;
-
+  return token;
 }
 
-document.getElementById("cliente")
-  .addEventListener("change", () => {
+function chaveSolicitacao() {
 
+  return "silverlove_teste_finalizacao_" +
     obterCliente();
+}
 
-    vencimento = null;
+function recuperarSolicitacao() {
 
-    document.getElementById(
-      "cronometro"
-    ).textContent = "--:--:--";
+  try {
+    return JSON.parse(
+      localStorage.getItem(chaveSolicitacao())
+    );
+  } catch {
+    return null;
+  }
+}
 
-    document.getElementById(
-      "status"
-    ).textContent = "Cliente alterado.";
+function mostrarSolicitacao() {
 
-  });
+  const dados = recuperarSolicitacao();
+
+  el("solicitacao").value =
+    dados?.solicitacao_id || "";
+}
+
+function mostrarStatus(texto, sucesso) {
+
+  el("status").textContent = texto;
+
+  el("status").style.background =
+    sucesso ? "#e1f3e7" : "#f3dbe0";
+
+  el("status").style.color =
+    sucesso ? "#17683a" : "#750b2b";
+}
+
+async function consultarPreco() {
+
+  try {
+
+    const url = BASE +
+      "/rest/v1/produtos" +
+      "?select=preco&id=eq." + PRODUTO;
+
+    const resposta = await fetch(url, {
+      headers: {
+        apikey: PUBLIC_KEY
+      },
+      cache: "no-store"
+    });
+
+    if (!resposta.ok) {
+      throw new Error("Consulta recusada.");
+    }
+
+    const dados = await resposta.json();
+
+    if (
+      !dados.length ||
+      dados[0].preco == null
+    ) {
+      throw new Error("Preço indisponível.");
+    }
+
+    preco = Number(dados[0].preco);
+
+    if (!Number.isFinite(preco) || preco < 0) {
+      throw new Error("Preço inválido.");
+    }
+
+    el("preco").textContent =
+      preco.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+
+  } catch {
+
+    preco = null;
+
+    el("preco").textContent =
+      "Preço indisponível";
+
+  }
+}
 
 function iniciarCaptcha() {
 
   if (!window.turnstile) {
-
     setTimeout(iniciarCaptcha, 300);
-
     return;
-
   }
 
   widgetId = turnstile.render("#turnstile", {
 
     sitekey: SITE_KEY,
-
     theme: "light",
 
-    callback: function(token) {
-
+    callback: token => {
       captchaToken = token;
-
     },
 
-    "expired-callback": function() {
-
+    "expired-callback": () => {
       captchaToken = "";
-
     },
 
-    "error-callback": function() {
-
+    "error-callback": () => {
       captchaToken = "";
-
     }
 
   });
-
 }
 
 function renovarCaptcha() {
 
   captchaToken = "";
 
-  if (
-    window.turnstile &&
-    widgetId !== null
-  ) {
-
+  if (window.turnstile && widgetId !== null) {
     turnstile.reset(widgetId);
-
   }
-
-}
-
-function mostrarStatus(texto, sucesso) {
-
-  const elemento =
-    document.getElementById("status");
-
-  elemento.textContent = texto;
-
-  elemento.style.background =
-    sucesso ? "#e1f3e7" : "#f3dbe0";
-
-  elemento.style.color =
-    sucesso ? "#17683a" : "#750b2b";
-
 }
 
 function atualizarCronometro() {
 
-  const elemento =
-    document.getElementById("cronometro");
-
   if (!vencimento) {
-
-    elemento.textContent = "--:--:--";
-
+    el("cronometro").textContent = "--:--:--";
     return;
-
   }
 
-  const agora =
-    Date.now() + diferencaHorario;
+  const restante = Math.max(
+    0,
+    vencimento - Date.now() - diferencaHorario
+  );
 
-  const restante =
-    Math.max(0, vencimento - agora);
+  const segundos = Math.floor(restante / 1000);
 
-  const segundos =
-    Math.floor(restante / 1000);
-
-  const h =
-    Math.floor(segundos / 3600);
-
-  const m =
-    Math.floor((segundos % 3600) / 60);
-
-  const s =
-    segundos % 60;
-
-  elemento.textContent =
-    [h, m, s]
-      .map(n => String(n).padStart(2, "0"))
-      .join(":");
-
+  el("cronometro").textContent = [
+    Math.floor(segundos / 3600),
+    Math.floor((segundos % 3600) / 60),
+    segundos % 60
+  ].map(n => String(n).padStart(2, "0"))
+   .join(":");
 }
 
 setInterval(atualizarCronometro, 1000);
+
+el("cliente").addEventListener("change", () => {
+
+  obterCliente();
+  mostrarSolicitacao();
+
+  vencimento = null;
+
+  atualizarCronometro();
+
+  mostrarStatus("Cliente alterado.", true);
+});
 
 async function executar(acao) {
 
   if (ocupado) return;
 
+  const finalizar =
+    acao === "finalizar" || acao === "repetir";
+
   const exigeCaptcha =
+    finalizar ||
     ["reservar", "liberar"].includes(acao);
 
   if (exigeCaptcha && !captchaToken) {
 
     mostrarStatus(
-      "Aguarde ou conclua a verificação de segurança.",
+      "Aguarde a verificação Cloudflare.",
       false
     );
 
     return;
-
   }
-
-  const produto =
-    document.getElementById("produto").value;
 
   const cliente = obterCliente();
 
-  const quantidade = Number(
-    document.getElementById("quantidade").value
-  );
+  let corpo = {
+    acao,
+    produto_id: PRODUTO,
+    token_cliente: cliente,
+    quantidade: 1
+  };
+
+  if (finalizar) {
+
+    let solicitacao = recuperarSolicitacao();
+
+    if (acao === "repetir" && !solicitacao) {
+
+      mostrarStatus(
+        "Nenhuma solicitação anterior encontrada.",
+        false
+      );
+
+      return;
+    }
+
+    if (!solicitacao) {
+
+      if (preco === null) {
+
+        mostrarStatus(
+          "Não foi possível obter o preço.",
+          false
+        );
+
+        return;
+      }
+
+      solicitacao = {
+
+        acao: "finalizar",
+
+        solicitacao_id: crypto.randomUUID(),
+
+        token_cliente: cliente,
+
+        nome: el("nome").value,
+
+        whatsapp: el("whatsapp").value,
+
+        itens: [{
+          produto_id: PRODUTO,
+          quantidade: 1,
+          preco: preco
+        }]
+
+      };
+
+      localStorage.setItem(
+        chaveSolicitacao(),
+        JSON.stringify(solicitacao)
+      );
+    }
+
+    corpo = { ...solicitacao };
+
+    mostrarSolicitacao();
+  }
+
+  if (exigeCaptcha) {
+    corpo.token = captchaToken;
+  }
 
   ocupado = true;
 
-  document.querySelectorAll(
-    "button, select, input"
-  ).forEach(el => el.disabled = true);
+  document.querySelectorAll("button, select")
+    .forEach(e => e.disabled = true);
 
   mostrarStatus(
     "Comunicando com o servidor...",
@@ -462,22 +578,6 @@ async function executar(acao) {
   );
 
   try {
-
-    const corpo = {
-
-      acao,
-
-      produto_id: produto,
-
-      token_cliente: cliente,
-
-      quantidade,
-
-      token: exigeCaptcha
-        ? captchaToken
-        : undefined
-
-    };
 
     const resposta = await fetch(API, {
 
@@ -493,67 +593,56 @@ async function executar(acao) {
 
     const dados = await resposta.json();
 
-    document.getElementById(
-      "resultado"
-    ).textContent =
-
+    el("resultado").textContent =
       "HTTP " + resposta.status +
-      "\n\n" +
-      JSON.stringify(dados, null, 2);
+      "\n\n" + JSON.stringify(dados, null, 2);
 
     if (dados.horario_servidor) {
 
       diferencaHorario =
         new Date(dados.horario_servidor)
           .getTime() - Date.now();
-
     }
 
     if (!resposta.ok || !dados.sucesso) {
 
       mostrarStatus(
-        dados.mensagem || "Operação recusada.",
+        dados.mensagem ||
+        dados.message ||
+        "Operação recusada.",
         false
       );
 
       return;
-
     }
 
     if (acao === "reservar") {
 
       vencimento =
         new Date(dados.expira_em).getTime();
-
     }
 
     if (acao === "consultar") {
 
       const reserva = dados.reservas.find(
-        item => item.produto_id === produto
+        r => r.produto_id === PRODUTO
       );
 
       vencimento = reserva
         ? new Date(reserva.expira_em).getTime()
         : null;
-
     }
 
-    if (acao === "liberar") {
-
+    if (acao === "liberar" || finalizar) {
       vencimento = null;
-
     }
 
     atualizarCronometro();
 
     mostrarStatus(
-
       dados.mensagem ||
       "Operação concluída com sucesso.",
-
       true
-
     );
 
   } catch (erro) {
@@ -563,34 +652,26 @@ async function executar(acao) {
       false
     );
 
-    document.getElementById(
-      "resultado"
-    ).textContent = String(erro);
+    el("resultado").textContent = String(erro);
 
   } finally {
 
     if (exigeCaptcha) {
-
       renovarCaptcha();
-
     }
 
     ocupado = false;
 
-    document.querySelectorAll(
-      "button, select, input"
-    ).forEach(el => el.disabled = false);
-
+    document.querySelectorAll("button, select")
+      .forEach(e => e.disabled = false);
   }
-
 }
 
 obterCliente();
+mostrarSolicitacao();
+consultarPreco();
 
-window.addEventListener(
-  "load",
-  iniciarCaptcha
-);
+window.addEventListener("load", iniciarCaptcha);
 
 </script>
 
