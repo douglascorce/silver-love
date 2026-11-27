@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#922957">
+<meta name="description" content="Silver Love Joias — Prata e Folheados a Ouro. Conheça nossa coleção de joias e encontre sua próxima peça favorita.">
+<title>Silver Love | Prata e Folheados a Ouro</title>
+
+<style>
+:root{
+--rosa:#b72c68;
+--vinho:#922957;
+--rosa-claro:#fff5f8;
+--perola:#fffaf7;
+--dourado:#b38a47;
+--texto:#45333e;
+--muted:#887780;
+--borda:#efdce5;
+--verde:#248c51;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+margin:0;
+background:var(--perola);
+color:var(--texto);
+font-family:Arial,Helvetica,sans-serif;
+}
+[hidden]{display:none!important}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
+h1,h2,h3{font-family:Georgia,serif}
+h1,h2{color:var(--vinho)}
+button:disabled{opacity:.5;cursor:wait}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+outline:3px solid var(--dourado);
+outline-offset:2px;
+}
+.btn,button.btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+padding:14px 22px;
+border:0;
+border-radius:8px;
+background:var(--rosa);
+color:white;
+font-weight:bold;
+text-decoration:none;
+text-align:center;
+}
+.btn:hover{background:var(--vinho)}
+.btn.sec{
+background:white;
+color:var(--rosa);
+border:1px solid var(--rosa);
+}
+.btn.whats{background:var(--verde)}
+.muted{color:var(--muted);font-size:13px}
+.preco{color:var(--rosa);font-size:22px;font-weight:bold}
+.disponivel{color:#38764b;font-size:13px}
+.container{max-width:1200px;margin:auto;padding:0 20px}
+
+/* Barra superior */
+.topbar{
+background:var(--vinho);
+color:white;
+text-align:center;
+padding:10px 15px;
+font-size:11px;
+letter-spacing:1.3px;
+}
+
+/* Cabeçalho */
+.cabecalho{
+background:white;
+border-bottom:1px solid var(--borda);
+position:sticky;
+top:0;
+z-index:10;
+}
+.cabecalho-interno{
+max-width:1200px;
+margin:auto;
+padding:17px 20px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px;
+}
+.marca{
+text-decoration:none;
+font:italic 34px Georgia,serif;
+color:var(--vinho);
+white-space:nowrap;
+}
+.marca span{color:var(--dourado)}
+.icone-btn{
+border:0;
+background:transparent;
+color:var(--vinho);
+font-size:23px;
+padding:8px;
+}
+.acoes-header{display:flex;gap:8px}
+.menu{
+background:white;
+border-top:1px solid var(--borda);
+}
+.menu-interno{
+max-width:1200px;
+margin:auto;
+display:flex;
+justify-content:center;
+gap:28px;
+padding:15px;
+overflow-x:auto;
+}
+.menu a{
+text-decoration:none;
+white-space:nowrap;
+font-size:12px;
+font-weight:bold;
+text-transform:uppercase;
+letter-spacing:1px;
+color:#765567;
+}
+.menu a:hover{color:var(--rosa)}
+.menu-mobile{
+display:none;
+background:white;
+border-top:1px solid var(--borda);
+padding:15px 20px;
+}
+.menu-mobile a{
+display:block;
+padding:12px;
+text-decoration:none;
+border-bottom:1px solid var(--borda);
+}
+
+/* Hero */
+.hero{
+position:relative;
+min-height:480px;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:65px 20px;
+background:
+linear-gradient(110deg,rgba(255,247,249,.92),rgba(255,230,239,.65)),
+radial-gradient(circle at 75% 25%,#f1cbd9,transparent 45%),
+linear-gradient(130deg,#fffaf7,#eec7d5);
+}
+.hero-conteudo{
+position:relative;
+max-width:650px;
+}
+.hero .eyebrow{
+letter-spacing:3px;
+text-transform:uppercase;
+color:var(--dourado);
+font-size:12px;
+font-weight:bold;
+}
+.hero h1{
+font-size:clamp(38px,6vw,70px);
+font-weight:normal;
+line-height:1.08;
+margin:18px 0;
+}
+.hero p{
+font-size:17px;
+line-height:1.7;
+color:#785767;
+}
+.hero .btn{
+margin-top:20px;
+border-radius:30px;
+padding:16px 32px;
+}
+.hero-decoracao{
+font-size:45px;
+margin-bottom:10px;
+}
+
+/* Benefícios */
+.beneficios{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+padding:25px 20px;
+background:white;
+border-bottom:1px solid var(--borda);
+text-align:center;
+}
+.beneficio{
+padding:8px;
+font-size:13px;
+color:#765567;
+}
+.beneficio strong{
+display:block;
+font-size:14px;
+color:var(--vinho);
+margin-bottom:5px;
+}
+
+/* Seções */
+.secao{
+padding:60px 0;
+}
+.titulo-secao{
+text-align:center;
+margin-bottom:35px;
+}
+.titulo-secao small{
+color:var(--dourado);
+letter-spacing:3px;
+text-transform:uppercase;
+font-size:11px;
+}
+.titulo-secao h2{
+font-size:clamp(29px,4vw,42px);
+font-weight:normal;
+margin:12px 0;
+}
+.titulo-secao p{
+color:var(--muted);
+line-height:1.6;
+}
+
+/* Categorias */
+.categorias{
+display:grid;
+grid-template-columns:repeat(4,minmax(0,1fr));
+gap:16px;
+}
+.categoria-card{
+border:1px solid var(--borda);
+border-radius:15px;
+background:white;
+padding:27px 10px;
+text-align:center;
+cursor:pointer;
+transition:.2s;
+}
+.categoria-card:hover{
+transform:translateY(-3px);
+box-shadow:0 8px 25px #9b57701c;
+}
+.categoria-card .simbolo{
+display:block;
+font-size:31px;
+margin-bottom:13px;
+}
+.categoria-card strong{
+font:20px Georgia,serif;
+color:var(--vinho);
+}
+
+/* Catálogo */
+#catalogo{scroll-margin-top:110px}
+.catalogo{background:#fff5f8}
+.busca{
+width:100%;
+padding:15px 18px;
+border:1px solid #dfcbd4;
+border-radius:12px;
+background:white;
+color:var(--texto);
+}
+.filtros{
+display:flex;
+overflow-x:auto;
+gap:9px;
+padding:20px 0 25px;
+}
+.filtros button{
+border:1px solid var(--borda);
+background:white;
+color:var(--vinho);
+border-radius:25px;
+padding:11px 18px;
+white-space:nowrap;
+font-size:13px;
+}
+.filtros button.ativo{
+background:var(--rosa);
+color:white;
+border-color:var(--rosa);
+}
+.grade{
+display:grid;
+grid-template-columns:repeat(4,minmax(0,1fr));
+gap:20px;
+}
+.produto{
+background:white;
+border:1px solid var(--borda);
+border-radius:15px;
+overflow:hidden;
+display:flex;
+flex-direction:column;
+box-shadow:0 4px 16px #9b577014;
+transition:.2s;
+}
+.produto:hover{transform:translateY(-3px)}
+.produto img{
+width:100%;
+aspect-ratio:1;
+object-fit:contain;
+background:white;
+cursor:pointer;
+}
+.info{
+padding:17px;
+flex:1;
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+.info h3{
+font-size:19px;
+font-weight:normal;
+margin:0;
+color:var(--vinho);
+}
+.info p{margin:0}
+.info .btn{
+margin-top:auto;
+width:100%;
+font-size:13px;
+padding:12px;
+}
+.status{
+text-align:center;
+padding:12px;
+color:var(--muted);
+}
+#recarregar{
+display:block;
+margin:10px auto 25px;
+}
+
+/* Faixa institucional */
+.institucional{
+background:linear-gradient(135deg,#fff0f5,#f8dce7);
+text-align:center;
+padding:65px 20px;
+}
+.institucional h2{
+font-size:36px;
+font-weight:normal;
+}
+.institucional p{
+max-width:600px;
+margin:15px auto;
+line-height:1.8;
+color:#765567;
+}
+
+/* Rodapé */
+footer{
+background:#fff;
+border-top:1px solid var(--borda);
+padding:55px 20px 25px;
+text-align:center;
+}
+footer h2{
+font-size:34px;
+font-weight:normal;
+font-style:italic;
+margin:0;
+}
+footer .subtitulo{
+font-size:12px;
+letter-spacing:2px;
+color:var(--dourado);
+text-transform:uppercase;
+}
+footer .contato{
+max-width:350px;
+margin:25px auto;
+}
+footer .contato .btn{width:100%}
+.admin-link{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+margin-top:20px;
+padding:10px 18px;
+border:1px solid #e8d5de;
+border-radius:30px;
+color:#936a7e;
+background:white;
+font-size:12px;
+text-decoration:none;
+}
+.admin-link:hover{
+background:#fff0f5;
+color:var(--vinho);
+}
+.rodape-final{
+border-top:1px solid var(--borda);
+margin-top:35px;
+padding-top:20px;
+color:var(--muted);
+font-size:12px;
+}
+
+/* Modais */
+.modal{
+position:fixed;
+inset:0;
+background:#21141bcc;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:12px;
+z-index:30;
+}
+.janela{
+width:100%;
+max-width:570px;
+max-height:94dvh;
+overflow:auto;
+background:#fff9fb;
+border-radius:18px;
+padding:22px;
+}
+.janela img{
+width:100%;
+max-height:42vh;
+object-fit:contain;
+background:white;
+border-radius:12px;
+}
+.janela p{line-height:1.5}
+.janela label{
+display:block;
+margin:14px 0 6px;
+font-weight:bold;
+}
+.janela input,
+.janela select,
+.janela textarea{
+width:100%;
+padding:13px;
+border:1px solid #dfcbd4;
+border-radius:10px;
+background:white;
+color:var(--texto);
+}
+.fechar{
+display:block;
+margin:0 0 12px auto;
+border:0;
+border-radius:10px;
+background:#f5e0ea;
+color:var(--vinho);
+padding:10px 14px;
+font-size:20px;
+}
+.acoes{
+display:grid;
+gap:10px;
+margin-top:18px;
+}
+.acoes .btn{width:100%}
+.msg{
+padding:15px;
+background:#e3f5e9;
+color:#25613c;
+border-radius:10px;
+margin:15px 0;
+}
+.erro{
+background:#ffe1e7;
+color:#96304d;
+}
+
+/* Responsividade */
+@media(max-width:950px){
+.grade{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:650px){
+.cabecalho-interno{padding:13px 15px}
+.marca{font-size:27px}
+.menu{display:none}
+.hero{min-height:410px}
+.hero p{font-size:15px}
+.beneficios{grid-template-columns:1fr;gap:3px}
+.categorias{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grade{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.info{padding:12px}
+.info h3{font-size:17px}
+.preco{font-size:20px}
+.secao{padding:45px 0}
+.container{padding:0 14px}
+}
+</style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+</head>
+
+<body>
+
+<div class="topbar">
+SILVER LOVE • PRATA E FOLHEADOS A OURO
+</div>
+
+<header class="cabecalho">
+<div class="cabecalho-interno">
+<button class="icone-btn" id="abrirMenu" aria-label="Abrir menu" aria-expanded="false" aria-controls="menuMobile">☰</button>
+
+<a href="#inicio" class="marca">Silver <span>Love</span></a>
+
+<div class="acoes-header">
+<button class="icone-btn" id="abrirBusca" aria-label="Buscar joias">⌕</button>
+</div>
+</div>
+
+<nav class="menu" aria-label="Categorias">
+<div class="menu-interno">
+<a href="#inicio">Início</a>
+<a href="#categorias">Categorias</a>
+<a href="#catalogo" data-categoria="Todas">Todas as joias</a>
+<a href="#catalogo" data-categoria="Anéis">Anéis</a>
+<a href="#catalogo" data-categoria="Brincos">Brincos</a>
+<a href="#catalogo" data-categoria="Pulseiras">Pulseiras</a>
+<a href="#catalogo" data-categoria="Colares">Colares</a>
+</div>
+</nav>
+
+<nav id="menuMobile" class="menu-mobile" aria-label="Menu móvel" hidden>
+<a href="#inicio">Início</a>
+<a href="#categorias">Categorias</a>
+<a href="#catalogo" data-categoria="Todas">Todas as joias</a>
+<a href="#catalogo" data-categoria="Anéis">Anéis</a>
+<a href="#catalogo" data-categoria="Brincos">Brincos</a>
+<a href="#catalogo" data-categoria="Pulseiras">Pulseiras</a>
+<a href="#catalogo" data-categoria="Colares">Colares</a>
+<a href="admin.html">Área Administrativa</a>
+</nav>
+</header>
+
+<section id="inicio" class="hero">
+<div class="hero-conteudo">
+<div class="hero-decoracao">💎</div>
+<p class="eyebrow">Silver Love Joias</p>
+<h1>Um brilho para cada momento</h1>
+<p>
+Descubra joias especiais que valorizam sua beleza
+e tornam cada momento ainda mais inesquecível.
+</p>
+<a href="#catalogo" class="btn">Conhecer nossa coleção</a>
+</div>
+</section>
+
+<section class="beneficios">
+<div class="beneficio">
+<strong>♡ Escolhidas com carinho</strong>
+Peças para momentos especiais
+</div>
+<div class="beneficio">
+<strong>✧ Prata e Folheados a Ouro</strong>
+Beleza em cada detalhe
+</div>
+<div class="beneficio">
+<strong>◇ Atendimento personalizado</strong>
+Converse diretamente com a loja
+</div>
+</section>
+
+<section id="categorias" class="secao">
+<div class="container">
+<div class="titulo-secao">
+<small>Encontre seu estilo</small>
+<h2>Nossas categorias</h2>
+<p>Explore a coleção e descubra sua próxima joia favorita.</p>
+</div>
+
+<div class="categorias">
+<button class="categoria-card" data-categoria="Anéis">
+<span class="simbolo">💍</span>
+<strong>Anéis</strong>
+</button>
+<button class="categoria-card" data-categoria="Brincos">
+<span class="simbolo">✨</span>
+<strong>Brincos</strong>
+</button>
+<button class="categoria-card" data-categoria="Pulseiras">
+<span class="simbolo">♡</span>
+<strong>Pulseiras</strong>
+</button>
+<button class="categoria-card" data-categoria="Colares">
+<span class="simbolo">💎</span>
+<strong>Colares</strong>
+</button>
+</div>
+</div>
+</section>
+
+<section id="catalogo" class="secao catalogo">
+<div class="container">
+
+<div class="titulo-secao">
+<small>Silver Love Collection</small>
+<h2>Joias para você se apaixonar</h2>
+<p>Conheça nossas peças e escolha a que combina com você.</p>
+</div>
+
+<input
+id="busca"
+class="busca"
+type="search"
+placeholder="🔍 Buscar uma joia..."
+aria-label="Buscar uma joia"
+>
+
+<nav id="filtros" class="filtros" aria-label="Filtrar produtos"></nav>
+
+<p id="status" class="status" role="status"></p>
+
+<button id="recarregar" class="btn sec" onclick="carregar()" hidden>
+Tentar novamente
+</button>
+
+<div id="produtos" class="grade"></div>
+
+</div>
+</section>
+
+<section class="institucional">
+<h2>Amor puro em sua forma mais bela</h2>
+<p>
+Na Silver Love, acreditamos que cada joia pode
+representar uma história, um sentimento ou um momento especial.
+</p>
+<a href="#catalogo" class="btn">Explorar joias</a>
+</section>
+
+<footer>
+<h2>Silver Love</h2>
+<p class="subtitulo">Prata e Folheados a Ouro</p>
+<p>Seu brilho, sua essência, seu momento.</p>
+
+<div class="contato">
+<a id="contato" class="btn whats" target="_blank" rel="noopener noreferrer">
+Falar pelo WhatsApp
+</a>
+</div>
+
+<a href="admin.html" class="admin-link">
+🔐 Área Administrativa
+</a>
+
+<div class="rodape-final">
+© Silver Love Joias • Todos os direitos reservados
+</div>
+</footer>
+
+<!-- DETALHES DO PRODUTO -->
+<div id="detalhes" class="modal" hidden>
+<div class="janela">
+<button class="fechar" onclick="fechar()" aria-label="Fechar">✕</button>
+<img id="fotoDetalhe" alt="Foto da joia">
+<h2 id="nomeDetalhe"></h2>
+<p id="codigoDetalhe" class="muted"></p>
+<p id="precoDetalhe" class="preco"></p>
+<p id="estoqueDetalhe"></p>
+<p id="descricaoDetalhe"></p>
+<div class="acoes">
+<button id="reservar" class="btn" onclick="abrirReserva()">
+Reservar esta peça
+</button>
+<a id="consultar" class="btn sec" target="_blank" rel="noopener noreferrer">
+Consultar pelo WhatsApp
+</a>
+</div>
+</div>
+</div>
+
+<!-- RESERVA -->
+<div id="reserva" class="modal" hidden>
+<div class="janela">
+<button class="fechar" onclick="fechar()" aria-label="Fechar">✕</button>
+
+<form id="formReserva">
+<h2>Solicitar reserva</h2>
+<p id="resumo"></p>
+<div id="erro" class="msg erro" role="alert" hidden></div>
+
+<label for="cliente">Seu nome</label>
+<input id="cliente" minlength="2" maxlength="100" required>
+
+<label for="telefone">WhatsApp com DDD</label>
+<input id="telefone" type="tel" maxlength="20" required>
+
+<label for="quantidade">Quantidade</label>
+<input id="quantidade" type="number" min="1" step="1" value="1" required>
+
+<label for="endereco">Entrega ou retirada (opcional)</label>
+<textarea id="endereco" maxlength="400"></textarea>
+
+<label for="pagamento">Forma de pagamento</label>
+<select id="pagamento" required>
+<option value="">Selecione</option>
+<option>Pix</option>
+<option>Cartão de crédito</option>
+<option>Cartão de débito</option>
+<option>Combinar com a loja</option>
+</select>
+
+<p id="total" class="preco"></p>
+<p class="muted">
+Seu nome, WhatsApp, produto e quantidade serão registrados
+para atendimento. A joia será bloqueada no servidor durante a reserva. Após registrar o pedido, você terá 24 horas para combinar o pagamento com a loja.
+Não informe dados de cartão.
+</p>
+
+<div id="seguranca"></div>
+<p id="prazo" role="status" class="muted"></p>
+<div class="acoes">
+<button type="button" id="liberarReserva" class="btn sec" hidden>Cancelar reserva</button>
+<button id="enviar" class="btn" type="submit">
+Confirmar solicitação
+</button>
+<button type="button" class="btn sec" onclick="voltarDetalhes()">
+Voltar
+</button>
+</div>
+</form>
+
+<div id="confirmacao" hidden>
+<h2>💎 Solicitação recebida!</h2>
+<p class="msg">
+Sua reserva foi registrada. Aguarde a confirmação da loja.
+</p>
+<p id="pedido"></p>
+<div class="acoes">
+<a id="whatsappPedido" class="btn whats" target="_blank" rel="noopener noreferrer">
+Continuar pelo WhatsApp
+</a>
+<button class="btn sec" onclick="fechar();carregar()">
+Continuar comprando
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<script>
+"use strict";
+
+/* CONFIGURAÇÕES */
+const URL_DB="https://xyybmzfodlvwljhhfxhe.supabase.co";
+const KEY="sb_publishable_eoIGcXFPzWsdl9_qTUOeRw_uZoNx-80";
+const SITE="https://silverlovejoias.com.br/";
+const WHATSAPP="5541984300046";
+const API=URL_DB+"/functions/v1/reserva-privativa";
+const SITE_KEY="0x4AAAAAAGTX5C_q-HgEuQIo";
+const CHAVE="silverlove_token_cliente";
+let tokenCliente=localStorage.getItem(CHAVE);
+if(!tokenCliente){tokenCliente=crypto.randomUUID();localStorage.setItem(CHAVE,tokenCliente);}
+let reservas=[];
+let widget=null;
+let resolverCaptcha=null;
+let rejeitarCaptcha=null;
+let diferenca=0;
+async function api(acao,dados={}){
+ const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json",apikey:KEY},body:JSON.stringify({acao,token_cliente:tokenCliente,...dados})});
+ const j=await r.json();
+ if(!r.ok||!j.sucesso)throw new Error(j.mensagem||"Falha na comunicação com o servidor.");
+ if(j.horario_servidor)diferenca=Date.parse(j.horario_servidor)-Date.now();
+ return j;
+}
+async function captcha(){
+ for(let i=0;i<50&&!window.turnstile;i++)await new Promise(r=>setTimeout(r,200));
+ if(!window.turnstile)throw new Error("Verificação de segurança indisponível.");
+ if(widget!==null){turnstile.remove(widget);widget=null;}
+ return new Promise((resolve,reject)=>{
+ let timer=setTimeout(()=>{if(widget!==null)turnstile.remove(widget);widget=null;reject(new Error("Tempo de verificação esgotado. Tente novamente."));},120000);
+ widget=turnstile.render("#seguranca",{sitekey:SITE_KEY,callback:t=>{clearTimeout(timer);resolve(t);},"error-callback":()=>{clearTimeout(timer);reject(new Error("Falha na verificação de segurança."));},"expired-callback":()=>{clearTimeout(timer);reject(new Error("Verificação expirada."));}});
+ });
+}
+async function recuperar(){const j=await api("consultar");reservas=j.reservas||[];}
+function minha(p){return reservas.find(r=>r.produto_id===p.id&&Date.parse(r.expira_em)>Date.now()+diferenca);}
+function disponivel(p){return Number(p.disponivel||0);}
+function chavePedido(p){return "silverlove_catalogo_pedido_"+p.id;}
+function pendente(p){try{return JSON.parse(localStorage.getItem(chavePedido(p))||"null");}catch{return null;}}
+function atualizarPrazo(){if(!atual)return;const r=minha(atual);const n=r?Math.max(0,Math.ceil((Date.parse(r.expira_em)-Date.now()-diferenca)/1000)):0;$("prazo").textContent=n?"Reserva exclusiva: "+[Math.floor(n/3600),Math.floor(n/60)%60,n%60].map(x=>String(x).padStart(2,"0")).join(":"):"";$("liberarReserva").hidden=!r||!!pendente(atual);}
+setInterval(atualizarPrazo,1000);
+
+
+/* UTILITÁRIOS */
+const $=id=>document.getElementById(id);
+
+const moeda=v=>Number(v).toLocaleString("pt-BR",{
+style:"currency",
+currency:"BRL"
+});
+
+const normal=v=>String(v??"")
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+.toLowerCase();
+
+const whats=v=>"https://wa.me/"+WHATSAPP+
+"?text="+encodeURIComponent(v);
+
+let db;
+let lista=[];
+let atual=null;
+let filtro="Todas";
+let enviando=false;
+let carregando=false;
+
+/* SUPABASE */
+function conectar(){
+if(!db){
+if(!window.supabase)throw new Error("Falha na conexão.");
+db=window.supabase.createClient(URL_DB,KEY,{
+auth:{
+persistSession:false,
+autoRefreshToken:false,
+detectSessionInUrl:false
+}
+});
+}
+return db;
+}
+
+/* CATEGORIAS */
+function categoria(nome){
+const n=normal(nome);
+if(/brinco|argola/.test(n))return "Brincos";
+if(/anel|aneis|alianca/.test(n))return "Anéis";
+if(/pulseira|bracelete/.test(n))return "Pulseiras";
+if(/colar|corrente|pingente|gargantilha/.test(n))return "Colares";
+if(/tornozeleira/.test(n))return "Tornozeleiras";
+if(/conjunto/.test(n))return "Conjuntos";
+return "Outras joias";
+}
+
+/* IMAGENS */
+function foto(url){
+try{
+if(url){
+const u=new URL(url,SITE);
+if(u.protocol==="https:")return u.href;
+}
+}catch(e){}
+
+return "data:image/svg+xml,"+encodeURIComponent(
+'<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400">'+
+'<rect width="100%" height="100%" fill="#fff1f6"/>'+
+'<text x="200" y="200" text-anchor="middle" fill="#b72c68" font-size="25">Silver Love</text>'+
+'</svg>'
+);
+}
+
+function imagem(el,p){
+el.src=foto(p.imagem_url);
+el.alt=p.nome;
+el.onerror=()=>{
+el.onerror=null;
+el.src=foto("");
+};
+}
+
+/* MENU */
+function fecharMenu(){
+$("menuMobile").hidden=true;
+$("abrirMenu").setAttribute("aria-expanded","false");
+}
+
+$("abrirMenu").onclick=()=>{
+const abrir=$("menuMobile").hidden;
+$("menuMobile").hidden=!abrir;
+$("abrirMenu").setAttribute("aria-expanded",String(abrir));
+};
+
+$("abrirBusca").onclick=()=>{
+document.getElementById("catalogo").scrollIntoView();
+$("busca").focus();
+};
+
+document.querySelectorAll("#menuMobile a").forEach(a=>{
+a.addEventListener("click",fecharMenu);
+});
+
+/* CARREGAR PRODUTOS */
+async function carregar(){
+if(carregando)return;
+
+carregando=true;
+$("status").textContent="Carregando joias...";
+$("recarregar").hidden=true;
+
+try{
+conectar();
+
+const {data,error}=await db.from("produtos")
+.select("id,codigo,nome,descricao,preco,estoque,imagem_url,ativo")
+.eq("ativo",true)
+.order("criado_em",{ascending:false});
+
+if(error)throw error;
+
+const v=await api("vitrine");
+const mapa=new Map(v.produtos.map(p=>[p.produto_id,p.disponivel]));
+await recuperar();
+lista=(data||[]).map(p=>({
+...p,
+disponivel:mapa.get(p.id)||0,
+categoria:categoria(p.nome)
+}));
+
+criarFiltros();
+renderizar();
+
+}catch(e){
+$("status").textContent="Erro ao carregar: "+e.message;
+$("recarregar").hidden=false;
+}finally{
+carregando=false;
+}
+}
+
+/* FILTROS */
+function criarFiltros(){
+$("filtros").replaceChildren();
+
+const categorias=["Todas",...new Set(lista.map(p=>p.categoria))];
+
+if(!categorias.includes(filtro))filtro="Todas";
+
+for(const c of categorias){
+const b=document.createElement("button");
+b.textContent=c;
+b.type="button";
+b.onclick=()=>{
+filtro=c;
+renderizar();
+};
+$("filtros").appendChild(b);
+}
+}
+
+function escolherCategoria(c){
+filtro=c;
+$("busca").value="";
+criarFiltros();
+renderizar();
+fecharMenu();
+document.getElementById("catalogo").scrollIntoView();
+}
+
+document.querySelectorAll("[data-categoria]").forEach(el=>{
+el.addEventListener("click",e=>{
+e.preventDefault();
+escolherCategoria(el.dataset.categoria);
+});
+});
+
+/* TEXTO SEGURO */
+function texto(tag,valor,classe){
+const t=document.createElement(tag);
+t.textContent=valor;
+if(classe)t.className=classe;
+return t;
+}
+
+/* RENDERIZAÇÃO */
+function renderizar(){
+const busca=normal($("busca").value);
+
+const produtos=lista.filter(p=>
+(filtro==="Todas"||p.categoria===filtro)&&
+normal(p.nome+" "+p.codigo+" "+p.descricao).includes(busca)
+);
+
+$("produtos").replaceChildren();
+
+$("status").textContent=produtos.length+
+(produtos.length===1?" joia encontrada":" joias encontradas");
+
+for(const p of produtos){
+const card=document.createElement("article");
+card.className="produto";
+
+const img=document.createElement("img");
+imagem(img,p);
+img.loading="lazy";
+img.onclick=()=>abrirProduto(p);
+
+const info=document.createElement("div");
+info.className="info";
+
+const b=texto("button","Ver detalhes");
+b.className="btn";
+b.onclick=()=>abrirProduto(p);
+
+info.append(
+texto("h3",p.nome),
+texto("p","Código: "+p.codigo,"muted"),
+texto("p",moeda(p.preco),"preco"),
+texto(
+"p",
+minha(p)?"Reservada para você":disponivel(p)>0?"Disponível":"Sob consulta",
+disponivel(p)>0||minha(p)?"disponivel":"muted"
+),
+b
+);
+
+card.append(img,info);
+$("produtos").appendChild(card);
+}
+
+document.querySelectorAll("#filtros button").forEach(b=>{
+b.classList.toggle("ativo",b.textContent===filtro);
+});
+}
+
+$("busca").oninput=renderizar;
+
+/* DETALHES */
+function abrirProduto(p){
+atual=p;
+imagem($("fotoDetalhe"),p);
+
+$("nomeDetalhe").textContent=p.nome;
+$("codigoDetalhe").textContent="Código: "+p.codigo;
+$("precoDetalhe").textContent=moeda(p.preco);
+$("descricaoDetalhe").textContent=p.descricao||"Consulte a loja.";
+$("estoqueDetalhe").textContent=minha(p)?"Reservada para você":disponivel(p)>0?
+"Disponível em estoque":"Sob consulta";
+
+$("reservar").hidden=disponivel(p)<1&&!minha(p)&&!pendente(p);
+
+$("consultar").href=whats(
+"Olá, Silver Love! Gostaria de saber mais sobre "+
+p.nome+" - "+p.codigo
+);
+
+$("detalhes").hidden=false;
+document.body.style.overflow="hidden";
+}
+
+function fechar(){
+if(enviando)return;
+$("detalhes").hidden=true;
+$("reserva").hidden=true;
+document.body.style.overflow="";
+}
+
+function voltarDetalhes(){
+if(enviando)return;
+$("reserva").hidden=true;
+$("detalhes").hidden=false;
+}
+
+/* RESERVAS */
+function atualizarTotal(){
+if(atual){
+$("total").textContent="Subtotal: "+
+moeda(atual.preco*Number($("quantidade").value||0));
+}
+}
+
+$("quantidade").oninput=atualizarTotal;
+
+function abrirReserva(){
+if(!atual||(disponivel(atual)<1&&!minha(atual)&&!pendente(atual)))return;
+
+$("formReserva").reset();
+$("formReserva").hidden=false;
+$("confirmacao").hidden=true;
+$("erro").hidden=true;
+
+$("resumo").textContent=atual.nome+" - "+moeda(atual.preco);
+const r=minha(atual), salvo=pendente(atual);
+$("quantidade").max=Math.min(5,disponivel(atual)+(r?.quantidade||0));
+$("quantidade").value=r?.quantidade||1;
+if(salvo){$("cliente").value=salvo.nome;$("telefone").value=salvo.whatsapp;$("quantidade").max=salvo.itens[0].quantidade;$("quantidade").value=salvo.itens[0].quantidade;$("endereco").value=salvo.endereco;$("pagamento").value=salvo.pagamento;}
+$("quantidade").readOnly=!!salvo;$("cliente").readOnly=!!salvo;$("telefone").readOnly=!!salvo;
+atualizarPrazo();
+
+$("detalhes").hidden=true;
+$("reserva").hidden=false;
+atualizarTotal();
+}
+
+$("formReserva").onsubmit=async e=>{
+e.preventDefault();
+if(enviando||!atual)return;
+
+$("erro").hidden=true;
+
+const nome=$("cliente").value.trim();
+const telefone=$("telefone").value.replace(/\D/g,"");
+const qtd=Number($("quantidade").value);
+const endereco=$("endereco").value.trim();
+const pagamento=$("pagamento").value;
+
+enviando=true;
+$("enviar").disabled=true;
+$("enviar").textContent="Registrando...";
+
+try{
+if(nome.length<2)throw new Error("Informe seu nome.");
+if(!/^[0-9]{10,15}$/.test(telefone))
+throw new Error("Informe um WhatsApp válido.");
+if(!Number.isInteger(qtd)||qtd<1)
+throw new Error("Quantidade inválida.");
+if(!pagamento)
+throw new Error("Selecione o pagamento.");
+
+let pedido=pendente(atual);
+const p=atual;
+if(!pedido){
+ const r=minha(p);
+ if(!r||r.quantidade!==qtd){
+  const t=await captcha();
+  const j=await api("reservar",{produto_id:p.id,quantidade:qtd,token:t});
+  reservas=reservas.filter(x=>x.produto_id!==p.id);
+  reservas.push({produto_id:p.id,quantidade:qtd,expira_em:j.expira_em});
+ }
+ pedido={solicitacao_id:crypto.randomUUID(),nome,whatsapp:telefone,itens:[{produto_id:p.id,quantidade:qtd,preco:Number(p.preco)}],endereco,pagamento};
+ localStorage.setItem(chavePedido(p),JSON.stringify(pedido));
+}
+atualizarPrazo();
+const t=await captcha();
+const j=await api("finalizar",{...pedido,token:t});
+const ids=(j.pedidos||[]).map(x=>x.pedido_id).join(", ");
+if(!ids)throw new Error("Resposta incompleta. Repita a solicitação.");
+localStorage.removeItem(chavePedido(p));
+reservas=reservas.filter(x=>x.produto_id!==p.id);
+p.disponivel=0;
+renderizar();
+$("pedido").textContent=
+"Pedido: "+ids+" | "+p.nome+" | "+qtd+" unidade(s) | "+
+moeda(p.preco*qtd)+" | Pendente";
+
+$("whatsappPedido").href=whats(
+"Olá, Silver Love! 💎\n\n"+
+"Registrei uma solicitação de reserva no catálogo.\nPedido: "+ids+"\n\n"+
+"Joia: "+p.nome+"\n"+
+"Código: "+p.codigo+"\n"+
+"Quantidade: "+qtd+"\n"+
+"Subtotal: "+moeda(p.preco*qtd)+"\n"+
+"Nome: "+nome+"\n"+
+"WhatsApp: "+telefone+"\n"+
+"Entrega/retirada: "+(endereco||"A combinar")+"\n"+
+"Pagamento: "+pagamento+"\n\n"+
+"Aguardo confirmação da reserva."
+);
+
+$("formReserva").hidden=true;
+$("confirmacao").hidden=false;
+
+}catch(e){
+if(atual&&["O preço da joia foi atualizado.","A quantidade reservada foi alterada.","Reserva inexistente ou expirada."].includes(e.message)){localStorage.removeItem(chavePedido(atual));$("quantidade").readOnly=false;$("cliente").readOnly=false;$("telefone").readOnly=false;await carregar();const novo=lista.find(p=>p.id===atual.id);if(novo){atual=novo;$("resumo").textContent=novo.nome+" - "+moeda(novo.preco);atualizarTotal();}}
+$("erro").textContent="Erro: "+e.message;
+$("erro").hidden=false;
+$("erro").scrollIntoView({block:"center"});
+}finally{
+enviando=false;
+$("enviar").disabled=false;
+$("enviar").textContent="Confirmar solicitação";
+}
+};
+
+$("liberarReserva").onclick=async()=>{
+ if(enviando||!atual||pendente(atual))return;
+ enviando=true;$("enviar").disabled=true;$("liberarReserva").disabled=true;
+ try{await api("liberar",{produto_id:atual.id,token:await captcha()});reservas=reservas.filter(r=>r.produto_id!==atual.id);atualizarPrazo();}
+ catch(e){$("erro").textContent=e.message;$("erro").hidden=false;}
+ finally{enviando=false;$("enviar").disabled=false;$("liberarReserva").disabled=false;await carregar();}
+};
+/* WHATSAPP */
+$("contato").href=whats(
+"Olá! Gostaria de conhecer as joias da Silver Love."
+);
+
+/* INICIALIZAÇÃO */
+carregar();
+</script>
+</body>
+</html>
