@@ -1,10 +1,5 @@
 
 
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -1419,6 +1414,13 @@ html{scroll-behavior:auto}
 .priv-letter{position:relative;border:1px solid #b9914e;outline:1px solid #d9c29b;outline-offset:-6px;padding:24px 18px 20px;background:radial-gradient(ellipse at top,#fffef9,#f9f0df);box-shadow:0 6px 22px #53301912}
 .priv-letter small{font-size:9px;letter-spacing:2px;color:#87622d}.priv-letter h2{font-size:clamp(37px,9vw,52px);line-height:1.1;margin:12px 0}.priv-ruby{display:block;margin:0 auto 9px;width:48px;height:44px;filter:drop-shadow(0 3px 3px #750b2b44)}.priv-signature{font-family:var(--caligrafia);font-size:30px!important;color:#750b2b;margin:12px 0 0}.priv-time{display:inline-block;background:#310d1c;color:#f3d7a2;padding:10px 20px;border:1px solid #b9914e;letter-spacing:4px;font-size:25px}.priv-label{display:block;font-size:9px;letter-spacing:2px;color:#87622d;margin:12px 0 7px}.velvet{margin:8px auto 18px;width:240px}.velvet-lid,.velvet-base{background:repeating-linear-gradient(115deg,#ffffff05 0 1px,transparent 1px 4px),radial-gradient(ellipse at 30% 20%,#8b2547,#4b0a25 55%,#260716);border-color:#c9a568;box-shadow:inset 0 0 0 2px #4a0b23,inset 0 0 15px #160710,0 8px 16px #310d1c44}.velvet-lid{height:60px;animation:abrirCaixa 1.2s ease-in-out both}.velvet-base{padding:12px 22px 17px}.velvet-base img{height:120px;background:#f7eddb;border:1px solid #c9a568}.priv-card .btn{min-height:44px}.checkout{scroll-margin-top:16px}.checkout-heading{font-family:var(--editorial);color:var(--vinho);font-size:23px;margin:12px 0}.order-success{border:1px solid var(--ouro);background:#fffaf0;text-align:center;padding:24px 16px;margin:16px 0}.order-success h3{font-family:var(--caligrafia);font-size:39px;font-weight:400;color:var(--vinho);margin:8px 0}.order-success p{font-size:12px;line-height:1.8}.order-success svg{width:44px;height:40px;margin:auto;display:block}
 
+
+/* V3: abertura reiniciada explicitamente após exibir o modal */
+.velvet-lid{animation:none;transform:rotateX(-65deg)}
+.velvet.revelar .velvet-lid{animation:abrirCaixa 2.2s ease-in-out both}
+.velvet.revelar .velvet-base img{animation:revelarJoia 2.2s ease both}
+@keyframes revelarJoia{0%,35%{opacity:0}100%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.velvet.revelar .velvet-lid,.velvet.revelar .velvet-base img{animation:none!important}}
 </style>
 </head>
 
@@ -2069,6 +2071,7 @@ const SITE_KEY="0x4AAAAAAGTX5C_q-HgEuQIo";
 let tokenCliente=localStorage.getItem("silverlove_token_cliente");
 if(!tokenCliente){tokenCliente=crypto.randomUUID();localStorage.setItem("silverlove_token_cliente",tokenCliente);}
 let offset=0, widget=null, pronto=false, sincronizando=false, privId=null;
+let aberturaExibida=false;
 const pedidoKey="silverlove_index_pedido_"+tokenCliente;
 let pedido=null;try{pedido=JSON.parse(sessionStorage.getItem(pedidoKey)||"null")}catch{}
 async function api(acao,dados={}){const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json",apikey:KEY},body:JSON.stringify({acao,token_cliente:tokenCliente,...dados})});const j=await r.json();if(!r.ok||!j.sucesso)throw new Error(j.mensagem||"Falha na comunicação.");if(j.horario_servidor)offset=Date.parse(j.horario_servidor)-Date.now();return j;}
@@ -2076,7 +2079,7 @@ function fecharPriv(){if(widget!==null){window.turnstile.remove(widget);widget=n
 async function captcha(){ $('privOverlay').hidden=false;$('privSecurity').hidden=false;$('privLetter').hidden=true;bloquearRolagem();for(let i=0;i<50&&!window.turnstile;i++)await new Promise(r=>setTimeout(r,200));if(!window.turnstile){fecharPriv();throw new Error('Verificação indisponível.');}return new Promise((resolve,reject)=>{let timer;const done=(err,t)=>{clearTimeout(timer);$('privCancel').onclick=null;fecharPriv();err?reject(new Error(err)):resolve(t);};timer=setTimeout(()=>done('Verificação expirada.'),120000);$('privCancel').onclick=()=>done('Operação cancelada.');try{widget=turnstile.render('#privCaptcha',{sitekey:SITE_KEY,callback:t=>done(null,t),'error-callback':()=>done('Falha na verificação.'),'expired-callback':()=>done('Verificação expirada.')});}catch(e){done(e.message);}});}
 function prazo(exp){const n=Math.max(0,Math.ceil((Date.parse(exp)-Date.now()-offset)/1000));return [Math.floor(n/3600),Math.floor(n/60)%60,n%60].map(x=>String(x).padStart(2,'0')).join(':');}
 async function sincronizar(){if(sincronizando)return;sincronizando=true;try{const [v,c]=await Promise.all([api('vitrine'),api('consultar')]);sacola=(c.reservas||[]).map(r=>({id:r.produto_id,qtd:r.quantidade,expira:r.expira_em}));const mapa=new Map(v.produtos.map(r=>[r.produto_id,r.disponivel]));produtos.forEach(p=>{p.estoque=Number(mapa.get(p.id)||0)+(sacola.find(x=>x.id===p.id)?.qtd||0)});pronto=true;salvarLocal();renderizar();renderizarSacola();renderizarFavoritos();if(atual&&!$('detailOverlay').hidden){$('detailBuy').disabled=atual.estoque<1;$('detailStock').textContent=atual.estoque>0?'Disponível para você':'Sob consulta';}}catch(e){pronto=false;produtos.forEach(p=>p.estoque=0);renderizar();renderizarSacola();throw e;}finally{sincronizando=false;}}
-function mostrarCarta(p,primeira){privId=p.id;$('privName').textContent=p.nome;$('privBox').hidden=!primeira;definirImagem($('privPhoto'),p);$('privTime').textContent=prazo(sacola.find(x=>x.id===p.id)?.expira);$('privSecurity').hidden=true;$('privLetter').hidden=false;$('privOverlay').hidden=false;bloquearRolagem();}
+function mostrarCarta(p,primeira){privId=p.id;$('privName').textContent=p.nome;$('privBox').hidden=!primeira;definirImagem($('privPhoto'),p);$('privTime').textContent=prazo(sacola.find(x=>x.id===p.id)?.expira);$('privSecurity').hidden=true;$('privLetter').hidden=false;$('privOverlay').hidden=false;bloquearRolagem();if(primeira){aberturaExibida=true;const caixa=$('privBox');caixa.classList.remove('revelar');void caixa.offsetWidth;caixa.classList.add('revelar');$('privOverlay').querySelector('.modal').scrollTop=0;}}
 setInterval(()=>{document.querySelectorAll('[data-expira]').forEach(e=>e.textContent='Reserva: '+prazo(e.dataset.expira));const r=sacola.find(x=>x.id===privId);if(r)$('privTime').textContent=prazo(r.expira);if(!finalizando&&!sincronizando&&sacola.some(x=>Date.parse(x.expira)<=Date.now()+offset)){pronto=false;renderizarSacola();sincronizar().catch(()=>{});}},1000);
 setInterval(()=>{if(carregado&&!finalizando&&!document.hidden)sincronizar().catch(()=>{});},45000);
 function salvarLocal(){
@@ -3274,7 +3277,7 @@ $("favoriteItems").appendChild(item);
 
 /* SACOLA */
 
-async function mudarReserva(id,qtd,mostrar=false){if(finalizando||sincronizando||!pronto||pedido){notificar('Aguarde a sincronização ou conclua o pedido pendente.');return;}const p=encontrar(id);const primeira=!sacola.length;finalizando=true;try{const token=await captcha();if(qtd===0)await api('liberar',{produto_id:id,token});else await api('reservar',{produto_id:id,quantidade:qtd,token});await sincronizar();if(mostrar&&p&&sacola.some(x=>x.id===id))mostrarCarta(p,primeira);else notificar(qtd?'Reserva atualizada.':'Reserva liberada.');}catch(e){notificar(e.message);await sincronizar().catch(()=>{});}finally{finalizando=false;renderizarSacola();}}
+async function mudarReserva(id,qtd,mostrar=false){if(finalizando||sincronizando||!pronto||pedido){notificar('Aguarde a sincronização ou conclua o pedido pendente.');return;}const p=encontrar(id);const primeira=!aberturaExibida;finalizando=true;try{const token=await captcha();if(qtd===0)await api('liberar',{produto_id:id,token});else await api('reservar',{produto_id:id,quantidade:qtd,token});await sincronizar();if(mostrar&&p&&sacola.some(x=>x.id===id))mostrarCarta(p,primeira);else notificar(qtd?'Reserva atualizada.':'Reserva liberada.');}catch(e){notificar(e.message);await sincronizar().catch(()=>{});}finally{finalizando=false;renderizarSacola();}}
 function adicionarSacola(id){const p=encontrar(id),item=sacola.find(x=>x.id===id);const qtd=(item?.qtd||0)+1;if(!p||qtd>p.estoque||sacola.reduce((n,x)=>n+x.qtd,0)>=5){notificar('Quantidade indisponível ou limite de cinco joias atingido.');return;}mudarReserva(id,qtd,true);}
 function alterarQuantidade(id,delta){const item=sacola.find(x=>x.id===id);if(!item)return;if(delta>0){adicionarSacola(id);return;}mudarReserva(id,Math.max(0,item.qtd+delta));}
 function removerSacola(id){mudarReserva(id,0);}
